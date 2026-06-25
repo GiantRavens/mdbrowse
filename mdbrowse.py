@@ -647,14 +647,18 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
         favor_recall=True,
     )
     md = (md or "").strip()
-    traf_links = len(LINK_RE.findall(md))
+    # Count *real* links only — images (![](...)) must not inflate this, or an
+    # image-heavy page (e.g. a news front page) is misread as a link-rich article.
+    traf_links = len(REAL_LINK_RE.findall(md))
     good_prose = len(md) >= 200
     # An index/listing page: lots of anchors in the HTML, but the article
     # extractor found almost no inline links (it threw the navigation away).
     html_anchors = len(re.findall(r"<a[\s>]", html))
     index_like = html_anchors >= 30 and traf_links <= 5
 
-    if good_prose and not index_like and (traf_links >= 5 or not for_browse):
+    # Reading (non-browse) favors trafilatura's clean prose even when links are
+    # sparse; browsing favors the structured full page so navigation has links.
+    if good_prose and (traf_links >= 5 or not for_browse) and not (for_browse and index_like):
         return _clean_md(md)
 
     # Index page or thin extraction -> linearized whole-page (links included).
@@ -667,6 +671,8 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
 # ---------------------------------------------------------------------------
 IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((\S+?)\)")
 LINK_RE = re.compile(r"\[([^\]]+)\]\((\S+?)\)")
+# A *real* link: '[' not preceded by '!', so image syntax isn't miscounted.
+REAL_LINK_RE = re.compile(r"(?<!!)\[([^\]]+)\]\((\S+?)\)")
 
 
 LINK_START = "\x01"   # invisible markers delimiting an actual link's extent
@@ -690,7 +696,10 @@ def extract_and_number_links(md: str, base_url: str, mark: bool = False):
             return ""  # data:, junk -> drop
         images.append(abs_url)
         label = alt or "image"
-        return f"🖼 {label} [IMG{len(images)}]"  # no space: an unbreakable token
+        # Pad with spaces so the marker never glues to adjacent text (CNN emits
+        # <span>Analysis</span><img> -> 'Analysis![..]'). [IMGn] stays spaceless
+        # so textwrap can't split it.
+        return f" 🖼 {label} [IMG{len(images)}] "
 
     def link_repl(m):
         text, href = m.group(1), m.group(2)
@@ -1300,6 +1309,17 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                 scr.refresh()
 
                 c = scr.getch()
+
+                # --- terminal resized: recompute geometry & re-wrap, no re-fetch ---
+                if c == curses.KEY_RESIZE:
+                    h, w = scr.getmaxyx()
+                    content_w = min(w - 4, 88)
+                    pad = max(0, (w - content_w) // 2)
+                    view_h = max(1, h - 1 - top_pad)
+                    lines, styles, link_line, image_line = _layout(numbered, content_w)
+                    top = clamp_top(top)
+                    scr.clear()  # discard stale cells from the old size
+                    continue
 
                 # --- mouse: wheel scrolls; click follows a link or previews an image ---
                 if c == curses.KEY_MOUSE:
