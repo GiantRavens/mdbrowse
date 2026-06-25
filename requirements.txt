@@ -1,0 +1,8 @@
+httpx
+trafilatura
+rich
+markdownify
+beautifulsoup4
+markdown
+# optional, only for --js (JavaScript rendering):
+# playwright   (then run: playwright install chromium)
