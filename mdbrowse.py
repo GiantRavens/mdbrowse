@@ -310,9 +310,10 @@ def fetch_js(url: str, timeout: float = 30.0, private: bool = False) -> str:
 # HTML -> Markdown
 # ---------------------------------------------------------------------------
 def _clean_md(md: str) -> str:
-    md = re.sub(r"(?<=\S)[ \t]{2,}", " ", md)  # collapse runs of spaces
-    md = re.sub(r"[ \t]+\n", "\n", md)        # trailing whitespace
-    md = re.sub(r"\n{3,}", "\n\n", md)        # collapse blank runs
+    md = re.sub(r"(?<=\S)[ \t]{2,}", " ", md)   # collapse runs of spaces
+    md = re.sub(r"[ \t]+([.,;:!?])", r"\1", md)  # space before punctuation
+    md = re.sub(r"[ \t]+\n", "\n", md)          # trailing whitespace
+    md = re.sub(r"\n{3,}", "\n\n", md)          # collapse blank runs
     return md.strip()
 
 
@@ -421,15 +422,146 @@ def _reorder_for_reading(md: str) -> str:
     return "\n".join(out)
 
 
-def _full_markdown(html: str, base_url: str = "", reorder: bool = True) -> str:
-    """Convert the whole document to markdown, keeping all links."""
-    html = _strip_noise(html)
+# id/class substrings that mark cookie/consent banners, modals, and other
+# popup chrome we want gone entirely. Bounded word list — no catastrophic regex.
+_POPUP_PATTERNS = re.compile(
+    r"(cookie|consent|gdpr|ccpa|\bcmp\b|onetrust|didomi|truste|usercentrics|"
+    r"popup|pop-up|modal|overlay|backdrop|lightbox|interstitial|paywall|"
+    r"newsletter|subscribe|sign-?up|promo-?bar|notification-?bar|"
+    r"toast|snackbar|gdpr-?banner|cookie-?notice|consent-?banner)", re.I)
+
+
+def _souplify(html: str):
+    """Parse + drop non-content tags + remove popup/consent chrome. None if no bs4."""
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        return None
+    soup = BeautifulSoup(html, "html.parser")
+    # Keep <head> so <title> survives; strip its (and the body's) noise tags.
+    for t in soup(["script", "style", "noscript", "svg", "iframe",
+                   "template", "form", "input", "button", "select", "link", "meta"]):
+        t.decompose()
+    # explicit dialogs / hidden-from-AT chrome
+    for t in soup.find_all(attrs={"role": ["dialog", "alertdialog"]}):
+        t.decompose()
+    for t in soup.find_all(attrs={"aria-modal": "true"}):
+        t.decompose()
+    # id/class-signature popups — but never one that wraps the real article
+    for t in soup.find_all(True):
+        if getattr(t, "decomposed", False) or t.attrs is None:
+            continue  # already removed as a descendant of an earlier match
+        sig = " ".join(filter(None, [t.get("id", "") or "",
+                                     " ".join(t.get("class", []) or [])]))
+        if sig and _POPUP_PATTERNS.search(sig):
+            if not t.find(["main", "article"]) and t.name not in ("main", "article"):
+                t.decompose()
+    return soup
+
+
+def _links_md(nodes, base_url: str) -> str:
+    """Collapse a set of DOM regions (nav/aside/footer) to a deduped link list."""
+    seen, lines = set(), []
+    for node in nodes:
+        if node is None:
+            continue
+        for a in node.find_all("a"):
+            href = (a.get("href") or "").split(" ")[0].strip("<>")
+            if not href or href.startswith(("#", "javascript:", "mailto:", "tel:")):
+                continue
+            url = urljoin(base_url, href) if base_url else href
+            if not url.startswith(("http://", "https://")):
+                continue
+            text = a.get_text(" ", strip=True) or url
+            if url in seen:
+                continue
+            seen.add(url)
+            lines.append(f"- [{text}]({url})")
+    return "\n".join(lines)
+
+
+def _node_to_md(node, base_url: str) -> str:
+    """Convert one DOM subtree to markdown (tables linearized, links absolute)."""
+    if node is None:
+        return ""
+    # Intra-paragraph <br> -> space, so prose split by line breaks reads as a
+    # paragraph (your "concatenate </br> blocks" goal) instead of ragged lines.
+    html = re.sub(r"(?i)<br\s*/?>", " ", str(node))
     html = _linearize_tables(html)
     try:
         from markdownify import markdownify as mdify
-        md = mdify(html, heading_style="ATX", strip=["script", "style", "img"])
+        md = mdify(html, heading_style="ATX", strip=["script", "style"])
     except ImportError:
         md = re.sub(r"(?s)<[^>]+>", "", html)
+    return _clean_md(_absolutize(_strip_css(md), base_url))
+
+
+def _structured_markdown(soup, base_url: str) -> str:
+    """Title → main content → menu / sidebar / footer link arrays.
+
+    Chrome regions are *extracted* from the tree first; whatever remains is the
+    main content. This avoids guessing structure back out of flattened text.
+    """
+    title = ""
+    if soup.title and soup.title.string:
+        title = soup.title.string.strip()
+    if not title:
+        h1 = soup.find("h1")
+        if h1:
+            title = h1.get_text(" ", strip=True)
+
+    def pop(predicate):
+        found = [t for t in soup.find_all(True) if predicate(t)]
+        for t in found:
+            t.extract()
+        return found
+
+    footers = pop(lambda t: t.name == "footer" or t.get("role") == "contentinfo")
+    asides = pop(lambda t: t.name == "aside" or t.get("role") == "complementary")
+    navs = pop(lambda t: t.name in ("nav", "header") or t.get("role") == "navigation")
+
+    main = (soup.find("main") or soup.find(attrs={"role": "main"})
+            or soup.find("article") or soup.body or soup)
+    main_md = _node_to_md(main, base_url)
+
+    # Avoid a redundant title: if the body's first heading already says the same
+    # thing as <title> (e.g. example.com), keep only the content heading.
+    parts = []
+    norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
+    first_h = re.search(r"(?m)^#+\s+(.+)$", main_md)
+    dup = bool(title and first_h and (norm(title) == norm(first_h.group(1))
+               or norm(first_h.group(1)) in norm(title)))
+    if title and not dup:
+        parts.append(f"# {title}")
+    if main_md.strip():
+        parts.append(main_md)
+    for label, nodes in (("⋯ menu", navs), ("⋯ sidebar", asides),
+                         ("⋯ footer", footers)):
+        links = _links_md(nodes, base_url)
+        if links:
+            parts += ["---", f"## {label}", links]
+    return _clean_md("\n\n".join(parts))
+
+
+def _full_markdown(html: str, base_url: str = "", reorder: bool = True) -> str:
+    """Convert the whole document to markdown, keeping all links.
+
+    reorder=True  -> semantic layout (title, main, then menu/sidebar/footer).
+    reorder=False -> flat whole-page conversion (--full: show everything in order).
+    """
+    soup = _souplify(html)
+    if reorder and soup is not None:
+        structured = _structured_markdown(soup, base_url)
+        if structured.strip():
+            return structured
+    # Fallback path: flat conversion (no bs4, or --full, or empty structure).
+    cleaned = str(soup) if soup is not None else _strip_noise(html)
+    cleaned = _linearize_tables(cleaned)
+    try:
+        from markdownify import markdownify as mdify
+        md = mdify(cleaned, heading_style="ATX", strip=["script", "style", "img"])
+    except ImportError:
+        md = re.sub(r"(?s)<[^>]+>", "", cleaned)
     md = _clean_md(_absolutize(_strip_css(md), base_url))
     return _reorder_for_reading(md) if reorder else md
 
