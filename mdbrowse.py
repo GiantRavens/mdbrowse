@@ -251,11 +251,65 @@ def fetch_static(url: str, timeout: float = 20.0, private: bool = False) -> str:
         return r.text
 
 
-def fetch_js(url: str, timeout: float = 30.0, private: bool = False) -> str:
+def _settle_page(page, budget_ms: int, wait_selector: str = None) -> None:
+    """Wait for an SPA to actually *paint its content*, not merely finish the
+    network. Cheapest signal first, every step bounded by the time budget:
+
+      1. an explicit --wait selector, if given (the stubborn-site escape hatch);
+      2. else our extraction targets (<main>/<article>/[role=main]);
+      3. a scroll nudge to trip lazy / IntersectionObserver content;
+      4. a DOM-text-stability poll — return once innerText stops growing.
+
+    networkidle is deliberately avoided: with images/trackers blocked it fires
+    early (premature capture), and Playwright discourages it as a content cue.
+    """
+    import time as _time
+    deadline = _time.monotonic() + budget_ms / 1000.0
+    left_ms = lambda: max(0, int((deadline - _time.monotonic()) * 1000))
+
+    targets = [wait_selector] if wait_selector else ["main", "article", "[role=main]"]
+    per_sel_cap = 8000 if wait_selector else 3000
+    for sel in targets:
+        if left_ms() <= 0:
+            break
+        try:
+            page.wait_for_selector(sel, state="attached",
+                                   timeout=min(left_ms(), per_sel_cap))
+            break  # a target showed up; good enough to proceed
+        except Exception:
+            continue
+
+    try:  # nudge lazy content into existence (images are blocked, so this is cheap)
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        page.wait_for_timeout(250)
+        page.evaluate("window.scrollTo(0, 0)")
+    except Exception:
+        pass
+
+    # DOM-text stability: stop once innerText length holds steady twice in a row.
+    # Capped at 8s even on a large budget, so a live ticker can't eat the clock.
+    poll_end = _time.monotonic() + min(left_ms() / 1000.0, 8.0)
+    prev, stable = -1, 0
+    while stable < 2 and _time.monotonic() < poll_end:
+        try:
+            cur = page.evaluate("document.body ? document.body.innerText.length : 0")
+        except Exception:
+            break
+        if cur > 0 and cur == prev:
+            stable += 1
+        else:
+            stable, prev = 0, cur
+        page.wait_for_timeout(300)
+
+
+def fetch_js(url: str, timeout: float = 30.0, private: bool = False,
+             wait_selector: str = None) -> str:
     """Render with a real (headless) browser engine, blocking trackers.
 
     Default: seed the context with your Safari cookies (logged-in browsing).
     --private: a fresh, isolated context => no cookies/storage, anonymous.
+    wait_selector: a CSS selector to wait for before capturing (for SPAs that
+    paint late); otherwise a content-stability heuristic decides when it's done.
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -295,11 +349,9 @@ def fetch_js(url: str, timeout: float = 30.0, private: bool = False) -> str:
                 ),
             )
             page = context.new_page()
-            page.goto(url, wait_until="domcontentloaded", timeout=int(timeout * 1000))
-            try:
-                page.wait_for_load_state("networkidle", timeout=5000)
-            except Exception:
-                pass  # some pages never go idle; we have enough
+            budget_ms = int(timeout * 1000)
+            page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
+            _settle_page(page, budget_ms, wait_selector)
             html = page.content()
             return html
         finally:
@@ -917,12 +969,13 @@ def open_in_safari(url: str) -> bool:
 # Load one page end to end
 # ---------------------------------------------------------------------------
 def load(url: str, js: bool, full: bool, for_browse: bool = False,
-         private: bool = False):
+         private: bool = False, wait_selector: str = None):
     if url.startswith("safari:"):
         return safari_page(url)
     if url.startswith("file://"):
         return read_local(url[len("file://"):], full, for_browse)
-    html = fetch_js(url, private=private) if js else fetch_static(url, private=private)
+    html = (fetch_js(url, private=private, wait_selector=wait_selector)
+            if js else fetch_static(url, private=private))
     return to_markdown(html, url, full=full, for_browse=for_browse)
 
 
@@ -1397,6 +1450,9 @@ def main() -> None:
                          "(default is to browse as your logged-in Safari self)")
     ap.add_argument("--js", action="store_true",
                     help="render JS-heavy pages with a headless browser engine")
+    ap.add_argument("--wait", metavar="SELECTOR", default=None,
+                    help="with --js, wait for this CSS selector before capturing "
+                         "(for SPAs that paint late); implies --js")
     ap.add_argument("--raw", action="store_true",
                     help="print markdown source instead of rendering")
     ap.add_argument("--html", action="store_true",
@@ -1414,6 +1470,8 @@ def main() -> None:
     ap.add_argument("--no-pager", action="store_true",
                     help="don't pipe output through a pager")
     args = ap.parse_args()
+    if args.wait:
+        args.js = True  # waiting for a selector only makes sense with a JS engine
 
     # Resolve the target. No URL -> the Safari homepage; flags -> Safari views.
     if args.bookmarks:
@@ -1435,7 +1493,8 @@ def main() -> None:
         return
 
     try:
-        md = load(url, args.js, args.full, private=args.private)
+        md = load(url, args.js, args.full, private=args.private,
+                  wait_selector=args.wait)
     except Exception as e:
         err(f"could not load {url}: {e}")
         sys.exit(1)

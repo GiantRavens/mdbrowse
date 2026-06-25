@@ -133,6 +133,7 @@ authenticated` or `mode: private`).
 | `--save` | save a timestamped Markdown archive (to `~/mdbrowse-archive`, or `$MDBROWSE_ARCHIVE`) |
 | `--html` | render to styled HTML and open it in your browser |
 | `--js` | render with a headless browser engine (for SPAs); seeds your Safari cookies unless `--private`, trackers blocked |
+| `--wait SELECTOR` | with `--js`, wait until this CSS selector appears before capturing — for SPAs that paint late (implies `--js`) |
 | `--raw` | print the Markdown source instead of the pretty render |
 | `--browse` | interactive vim-style navigation / link following |
 | `--simple` | use the plain prompt instead of vim-style navigation |
@@ -163,3 +164,7 @@ authenticated` or `mode: private`).
 - Some big sites (e.g. Wikipedia) rate-limit datacenter IPs; from home that's a
   non-issue.
 - `--js` needs the one-time `playwright install chromium` step above.
+- `--js` waits for content, not the network: it looks for `<main>`/`<article>`,
+  nudges lazy content with a scroll, then waits until the page's text stops
+  growing (it does *not* use the flaky `networkidle`). If an SPA still captures
+  half-rendered, name its content container with `--wait '.article-body'`.
