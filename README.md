@@ -82,12 +82,13 @@ reader. Links are numbered inline (`text [12]`); the selected link is highlighte
 |-----|--------|
 | `j` / `k` | scroll down / up |
 | `Ctrl-d` / `Ctrl-u` | half-page down / up |
-| `Space` / `Ctrl-b` | page down / up |
+| `Ctrl-f` / `Ctrl-b` | page down / up (also `PgDn` / `PgUp`) |
 | `gg` / `G` | jump to top / bottom |
 | `Tab` | next link (highlights & scrolls to it) |
 | `Shift-Tab` | previous link |
-| `Enter` / `o` | follow the highlighted link |
+| `Enter` / `o` / click | follow the highlighted (or clicked) link |
 | `Space` | Quick Look the topmost on-screen image (else page down) |
+| click an image | Quick Look that `🖼 … [IMGn]` image |
 | `s` | save a timestamped Markdown archive of this page |
 | `p` | open a styled HTML reader preview in your browser |
 | `O` | open the live page in Safari (with your session) |
@@ -99,8 +100,11 @@ reader. Links are numbered inline (`text [12]`); the selected link is highlighte
 | `?` | show the key map |
 | `q` | quit |
 
+The mouse works too: the wheel scrolls, clicking a link follows it, and clicking
+an image (`🖼 … [IMGn]`) pops it in Quick Look.
+
 Piping input, or passing `--simple`, falls back to a plain numbered prompt
-(`number` to follow, `b` back, `u` new URL, `q` quit).
+(`number` to follow, `i<n>` to preview an image, `b` back, `u` new URL, `q` quit).
 
 ### Safari integration
 
