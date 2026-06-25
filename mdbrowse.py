@@ -833,6 +833,51 @@ def open_html_preview(md: str, title: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Reader actions: save a timestamped archive, open the live page in Safari.
+# ---------------------------------------------------------------------------
+ARCHIVE_DIR = os.path.expanduser(os.environ.get("MDBROWSE_ARCHIVE", "~/mdbrowse-archive"))
+
+
+def _slugify(s: str, maxlen: int = 60) -> str:
+    s = re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
+    return s[:maxlen].strip("-") or "page"
+
+
+def save_archive(md: str, url: str, private: bool = False) -> str:
+    """Write the rendered markdown to a timestamped file with YAML front-matter
+    (title/source/retrieved/mode) — the shape LLMs and parsers ingest cleanly."""
+    import datetime
+    import json
+    os.makedirs(ARCHIVE_DIR, exist_ok=True)
+    now = datetime.datetime.now()
+    host = urlparse(url).netloc or "local"
+    m_title = re.search(r"(?m)^#\s+(.+)$", md)
+    title = m_title.group(1).strip() if m_title else host
+    fname = f"{now.strftime('%Y%m%d-%H%M%S')}-{_slugify(host + '-' + title)}.md"
+    path = os.path.join(ARCHIVE_DIR, fname)
+    front = {
+        "title": title, "source": url,
+        "retrieved": now.isoformat(timespec="seconds"),
+        "mode": "private" if private else "authenticated",
+    }
+    fm = "---\n" + "".join(f"{k}: {json.dumps(v)}\n" for k, v in front.items()) + "---\n\n"
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(fm + md.rstrip() + "\n")
+    return path
+
+
+def open_in_safari(url: str) -> bool:
+    """Open the live URL in Safari (the real browser, with your session)."""
+    if not url.startswith(("http://", "https://")):
+        return False
+    try:
+        subprocess.run(["open", "-a", "Safari", url], check=False, timeout=5)
+        return True
+    except Exception:
+        return False
+
+
+# ---------------------------------------------------------------------------
 # Load one page end to end
 # ---------------------------------------------------------------------------
 def load(url: str, js: bool, full: bool, for_browse: bool = False,
@@ -1166,9 +1211,9 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     state["quit"] = True
                     return
                 if c == ord("?"):
-                    msg = ("j/k scroll  h/l (or Tab) link  Enter/click open  "
-                           "/ search  n/N next  gg/G top/bot  H back  : url  "
-                           "r reload  q quit")
+                    msg = ("j/k scroll  Tab/h/l link  Enter open  / search  "
+                           "n/N next  gg/G top/bot  H back  : url  r reload  "
+                           "s save  p preview  O Safari  q quit")
                     continue
                 if c in (ord("H"), curses.KEY_BACKSPACE, 127, 8, ord("[")):
                     if state["history"]:
@@ -1179,6 +1224,22 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     break
                 if c in (ord("r"),):
                     break  # reload current
+                if c == ord("s"):                    # save timestamped archive
+                    try:
+                        msg = f"saved → {save_archive(md, cur, private)}"
+                    except Exception as e:
+                        msg = f"save failed: {e}"
+                    continue
+                if c == ord("p"):                    # reader preview in browser
+                    try:
+                        msg = f"preview opened ({open_html_preview(md, cur)})"
+                    except Exception as e:
+                        msg = f"preview failed: {e}"
+                    continue
+                if c == ord("O"):                    # open live page in Safari
+                    msg = ("opened in Safari" if open_in_safari(cur)
+                           else "couldn't open Safari")
+                    continue
                 if c in (10, 13, curses.KEY_ENTER, ord("o")):
                     if 0 < cur_link <= len(links):
                         state["history"].append(cur)
@@ -1281,6 +1342,8 @@ def main() -> None:
                     help="print markdown source instead of rendering")
     ap.add_argument("--html", action="store_true",
                     help="render to styled HTML and open it in your browser")
+    ap.add_argument("--save", action="store_true",
+                    help=f"save a timestamped markdown archive (to {ARCHIVE_DIR})")
     ap.add_argument("--browse", action="store_true",
                     help="interactive mode: vim-style navigation, follow links")
     ap.add_argument("--simple", action="store_true",
@@ -1321,6 +1384,12 @@ def main() -> None:
     if not md or not md.strip():
         err("nothing readable extracted (try --full, or --js for SPA pages)")
         sys.exit(1)
+
+    if args.save:
+        path = save_archive(md, url, private=args.private)
+        print(f"mdbrowse: saved archive → {path}")
+        if not (args.html or args.raw):
+            return
 
     if args.html:
         path = open_html_preview(md, title=url)
