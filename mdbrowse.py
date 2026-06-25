@@ -559,7 +559,7 @@ def _full_markdown(html: str, base_url: str = "", reorder: bool = True) -> str:
     cleaned = _linearize_tables(cleaned)
     try:
         from markdownify import markdownify as mdify
-        md = mdify(cleaned, heading_style="ATX", strip=["script", "style", "img"])
+        md = mdify(cleaned, heading_style="ATX", strip=["script", "style"])
     except ImportError:
         md = re.sub(r"(?s)<[^>]+>", "", cleaned)
     md = _clean_md(_absolutize(_strip_css(md), base_url))
@@ -584,7 +584,7 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
         url=url,
         output_format="markdown",
         include_links=True,
-        include_images=False,
+        include_images=True,
         include_tables=True,
         favor_recall=True,
     )
@@ -607,6 +607,7 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
 # ---------------------------------------------------------------------------
 # Link handling for browse mode
 # ---------------------------------------------------------------------------
+IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((\S+?)\)")
 LINK_RE = re.compile(r"\[([^\]]+)\]\((\S+?)\)")
 
 
@@ -615,14 +616,25 @@ LINK_END = "\x02"
 
 
 def extract_and_number_links(md: str, base_url: str, mark: bool = False):
-    """Replace [text](url) with 'text [N]' and return (new_md, [urls]).
+    """Number images and links: ![alt](u) -> '🖼 alt [IMG N]', [t](u) -> 't [N]'.
 
-    With mark=True, wrap each link in invisible LINK_START/LINK_END sentinels so
-    the renderer can bold/select exactly the link text (used by the vim reader).
+    Returns (new_md, [link_urls], [image_urls]). Images are consumed *before*
+    links (image syntax contains link syntax). With mark=True, real links are
+    wrapped in invisible sentinels so the reader can bold/select just the text.
     """
-    links = []
+    images, links = [], []
 
-    def repl(m):
+    def img_repl(m):
+        alt, src = m.group(1).strip(), m.group(2)
+        src = src.split(" ")[0].strip("<>")
+        abs_url = urljoin(base_url, src)
+        if not abs_url.startswith(("http://", "https://")):
+            return ""  # data:, junk -> drop
+        images.append(abs_url)
+        label = alt or "image"
+        return f"🖼 {label} [IMG {len(images)}]"
+
+    def link_repl(m):
         text, href = m.group(1), m.group(2)
         href = href.split(" ")[0].strip("<>")
         abs_url = urljoin(base_url, href)
@@ -632,7 +644,9 @@ def extract_and_number_links(md: str, base_url: str, mark: bool = False):
         piece = f"{text} [{len(links)}]"
         return f"{LINK_START}{piece}{LINK_END}" if mark else piece
 
-    return LINK_RE.sub(repl, md), links
+    md = IMAGE_RE.sub(img_repl, md)
+    md = LINK_RE.sub(link_repl, md)
+    return md, links, images
 
 
 # ---------------------------------------------------------------------------
@@ -866,6 +880,28 @@ def save_archive(md: str, url: str, private: bool = False) -> str:
     return path
 
 
+def preview_image(url: str, private: bool = False) -> bool:
+    """Download an image (with your session) and pop it in macOS Quick Look —
+    the same engine behind QLMarkdown. Non-blocking so the reader stays live."""
+    import httpx
+    try:
+        cookies = None if private else httpx_cookie_jar(load_safari_cookies())
+        with httpx.Client(headers=build_headers(private), follow_redirects=True,
+                          timeout=20.0, cookies=cookies) as c:
+            r = c.get(url)
+            r.raise_for_status()
+            data = r.content
+        ext = os.path.splitext(urlparse(url).path)[1][:8] or ".img"
+        fd, path = tempfile.mkstemp(suffix=ext, prefix="mdbrowse_img_")
+        os.write(fd, data)
+        os.close(fd)
+        subprocess.Popen(["qlmanage", "-p", path],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return True
+    except Exception:
+        return False
+
+
 def open_in_safari(url: str) -> bool:
     """Open the live URL in Safari (the real browser, with your session)."""
     if not url.startswith(("http://", "https://")):
@@ -921,11 +957,12 @@ def browse_simple(url: str, js: bool, full: bool, width: int,
             current = history.pop()
             continue
 
-        numbered_md, links = extract_and_number_links(md, current)
+        numbered_md, links, images = extract_and_number_links(md, current)
         render(numbered_md, current, width, use_pager=False, links=links)
 
         print()
-        prompt = "→ number to follow · (b)ack · (u)rl · (q)uit: "
+        prompt = ("→ number to follow · i<n> preview image · "
+                  "(b)ack · (u)rl · (q)uit: ")
         try:
             choice = input(prompt).strip()
         except (EOFError, KeyboardInterrupt):
@@ -949,6 +986,14 @@ def browse_simple(url: str, js: bool, full: bool, width: int,
             if new:
                 history.append(current)
                 current = resolve_target(new)
+            continue
+        if choice.startswith("i") and choice[1:].isdigit():
+            idx = int(choice[1:]) - 1
+            if 0 <= idx < len(images):
+                if not preview_image(images[idx], private):
+                    err(f"couldn't load image {choice[1:]}")
+            else:
+                err(f"no image [{choice[1:]}]")
             continue
         if choice.isdigit():
             idx = int(choice) - 1
@@ -1036,11 +1081,15 @@ def _layout(md: str, width: int):
                                 break_on_hyphens=False) or [protected]
         for w in wrapped:
             lines.append(w.replace("\x00", " ")); styles.append(kind)
-    # map each link number to the first line that shows its [N] marker
+    # map each link number to the first line that shows its [N] marker,
+    # and each image number to the line with its [IMG N] marker
+    image_line = {}
     for ln, text in enumerate(lines):
-        for m in re.findall(r"\[(\d+)\]", text):
+        for m in re.findall(r"\[IMG (\d+)\]", text):
+            image_line.setdefault(int(m), ln)
+        for m in re.findall(r"(?<!IMG )\[(\d+)\]", text):
             link_line.setdefault(int(m), ln)
-    return lines, styles, link_line
+    return lines, styles, link_line, image_line
 
 
 def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> None:
@@ -1062,9 +1111,9 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
             cur = state["current"]
             try:
                 md = load(cur, js, full, for_browse=True, private=private)
-                numbered, links = extract_and_number_links(md, cur, mark=True)
+                numbered, links, images = extract_and_number_links(md, cur, mark=True)
             except Exception as e:
-                md, links = f"# Error\n\nCould not load {cur}:\n\n{e}", []
+                md, links, images = f"# Error\n\nCould not load {cur}:\n\n{e}", [], []
                 numbered = md
 
             h, w = scr.getmaxyx()
@@ -1072,7 +1121,7 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
             pad = max(0, (w - content_w) // 2)
             top_pad = 2                       # blank rows above content
             view_h = max(1, h - 1 - top_pad)  # visible content rows
-            lines, styles, link_line = _layout(numbered, content_w)
+            lines, styles, link_line, image_line = _layout(numbered, content_w)
             top = 0
             cur_link = 1 if links else 0
             pending_g = False
@@ -1211,9 +1260,9 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     state["quit"] = True
                     return
                 if c == ord("?"):
-                    msg = ("j/k scroll  Tab/h/l link  Enter open  / search  "
-                           "n/N next  gg/G top/bot  H back  : url  r reload  "
-                           "s save  p preview  O Safari  q quit")
+                    msg = ("j/k scroll  Tab/h/l link  Enter open  Space img  "
+                           "/ search  n/N next  gg/G top/bot  H back  : url  "
+                           "r reload  s save  p preview  O Safari  q quit")
                     continue
                 if c in (ord("H"), curses.KEY_BACKSPACE, 127, 8, ord("[")):
                     if state["history"]:
@@ -1272,8 +1321,18 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     top = clamp_top(top + 1)
                 elif c in (ord("k"), curses.KEY_UP):
                     top = clamp_top(top - 1)
-                elif c in (ord(" "), curses.KEY_NPAGE, 6):   # space / PgDn / C-f
+                elif c in (curses.KEY_NPAGE, 6):             # PgDn / C-f
                     top = clamp_top(top + view_h - 1)
+                elif c == ord(" "):  # space: preview a visible image, else page down
+                    vis = [n for n, ln in image_line.items()
+                           if top <= ln < top + view_h]
+                    if images and vis:
+                        n = min(vis, key=lambda k: image_line[k])
+                        msg = (f"🖼 preview [IMG {n}]"
+                               if preview_image(images[n - 1], private)
+                               else f"couldn't load image {n}")
+                    else:
+                        top = clamp_top(top + view_h - 1)
                 elif c in (curses.KEY_PPAGE, 2):             # PgUp / C-b
                     top = clamp_top(top - (view_h - 1))
                 elif c == 4:                                 # Ctrl-D
