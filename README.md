@@ -4,15 +4,23 @@ Fetches a web page, strips the cruft (ads, nav, chrome), converts what's left to
 clean Markdown, and renders it in your terminal. Also previews local `.md` files.
 The opposite of fighting with w3m.
 
+- **Browses as you.** By default it reads your Safari cookies, so logged-in and
+  paywalled-to-you pages render the same content you'd see in Safari. Great for
+  OSINT and research. Add `--private` (a.k.a. `--anonymous`) to send **no**
+  cookies and add `DNT` + `Sec-GPC` — a fresh, anonymous visit.
 - **Pretends to be an iPhone.** Mobile pages are smaller and simpler, so less junk.
-- **Carries no state.** No cookies sent, none stored. Sends `DNT` + `Sec-GPC`.
-  Every load is a fresh anonymous visit.
+- **Reorders for reading.** Pulls `<main>` to the top under the page title, then
+  demotes the nav, sidebar, and footer to compact link lists — and deletes
+  cookie/consent banners and modal popups outright.
 - **Blocks trackers.** In `--js` mode, known analytics/ad hosts are aborted
-  (and images/fonts/media skipped — you only wanted text).
+  (and images/fonts/media skipped during render — you only wanted text).
 - **Fast by default**, with a real browser engine on demand (`--js`) for SPAs.
 - **Browse mode** (`--browse`) gives w3m-style numbered link-following, usable.
+  Tab between links, Space to Quick Look an image, `s` to archive the page.
 - **Piggybacks on Safari** — no URL opens your homepage; `--start`/`--bookmarks`/
-  `--reading-list` open those.
+  `--reading-list` open those; `O` reopens the live page in Safari.
+- **Saves clean archives** — `--save` (or `s` in the reader) writes timestamped
+  Markdown with YAML front-matter, the shape LLMs and parsers love.
 - **Local previews** — point it at a `.md` file; add `--html` for a styled
   browser preview.
 
@@ -61,6 +69,8 @@ mdbrowse --reading-list             # browse your Safari reading list
 mdbrowse example.com --raw          # print the markdown source
 mdbrowse https://a-spa.dev --js     # render JS-heavy pages
 mdbrowse example.com --full         # convert the whole page, don't strip to "article"
+mdbrowse https://news.site --private  # anonymous: no cookies, DNT + Sec-GPC
+mdbrowse https://news.site --save     # archive to ~/mdbrowse-archive (timestamped .md)
 ```
 
 ### Browse mode — vim-style navigation
@@ -77,6 +87,10 @@ reader. Links are numbered inline (`text [12]`); the selected link is highlighte
 | `Tab` | next link (highlights & scrolls to it) |
 | `Shift-Tab` | previous link |
 | `Enter` / `o` | follow the highlighted link |
+| `Space` | Quick Look the topmost on-screen image (else page down) |
+| `s` | save a timestamped Markdown archive of this page |
+| `p` | open a styled HTML reader preview in your browser |
+| `O` | open the live page in Safari (with your session) |
 | `H` / `Backspace` | back |
 | `r` | reload |
 | `/` | search in page (jumps to first match, highlights all) |
@@ -97,6 +111,17 @@ modified. On recent macOS this data is protected: if you see "permission needed,
 grant your terminal **Full Disk Access** (System Settings → Privacy & Security →
 Full Disk Access), then reopen the terminal.
 
+### Cookies & privacy
+
+By default mdbrowse reads your Safari cookie jar
+(`~/Library/Containers/com.apple.Safari/Data/Library/Cookies/Cookies.binarycookies`,
+read-only) so you browse as your logged-in self — the same Full Disk Access
+grant as above applies. Cookies are scoped to the requesting host (and honor
+`Secure`), so a site only ever receives its own cookies, even across redirects.
+Use **`--private`** to send none and add `DNT` + `Sec-GPC` instead. Saved
+archives record which mode produced them in their front-matter (`mode:
+authenticated` or `mode: private`).
+
 ## Flags
 
 | flag | what it does |
@@ -104,8 +129,10 @@ Full Disk Access), then reopen the terminal.
 | `--start` | Safari start page (homepage + bookmarks + reading list) |
 | `--bookmarks` | browse your Safari bookmarks |
 | `--reading-list` | browse your Safari reading list |
+| `--private`, `--anonymous` | send no Safari cookies; add `DNT` + `Sec-GPC` (default is to browse as your logged-in self) |
+| `--save` | save a timestamped Markdown archive (to `~/mdbrowse-archive`, or `$MDBROWSE_ARCHIVE`) |
 | `--html` | render to styled HTML and open it in your browser |
-| `--js` | render with a headless browser engine (for SPAs); cookie-free, trackers blocked |
+| `--js` | render with a headless browser engine (for SPAs); seeds your Safari cookies unless `--private`, trackers blocked |
 | `--raw` | print the Markdown source instead of the pretty render |
 | `--browse` | interactive vim-style navigation / link following |
 | `--simple` | use the plain prompt instead of vim-style navigation |
@@ -115,14 +142,19 @@ Full Disk Access), then reopen the terminal.
 
 ## How it works
 
-1. **Fetch** — `httpx` GET with an iPhone User-Agent and no cookies (or, with
-   `--js`, headless Chromium via Playwright in a fresh isolated context with
-   trackers and images/fonts/media blocked). Local files are read directly.
-2. **Strip** — `trafilatura` pulls the main article and emits Markdown, keeping
-   inline links. Link-heavy index pages fall back to a full-page conversion so
-   navigation still works.
-3. **Render** — `rich` paints the Markdown in your terminal, or (`--html`) a
-   small template renders it as a styled web page.
+1. **Fetch** — `httpx` GET with an iPhone User-Agent, sending your Safari
+   cookies (read from `Cookies.binarycookies`, scoped per host so they survive
+   redirects) — unless `--private`. With `--js`, headless Chromium via Playwright
+   in a context seeded with the same cookies, trackers and images/fonts/media
+   blocked. Local files are read directly.
+2. **Strip & reorder** — `trafilatura` pulls the main article and emits Markdown
+   with inline links. Link-heavy / full pages go through a DOM partition that
+   extracts `<nav>`/`<aside>`/`<footer>` (demoted to link lists), removes
+   cookie/consent/modal chrome, and renders title → main → menu → sidebar →
+   footer.
+3. **Render** — `rich` paints the Markdown in your terminal, the vim-style reader
+   drives navigation, or (`--html` / `p`) a small template renders a styled web
+   page. Images become `🖼 … [IMG N]` markers you can Quick Look.
 
 ## Notes & limits
 
