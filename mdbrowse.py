@@ -51,13 +51,24 @@ IPHONE_UA = (
     "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) "
     "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1"
 )
-MOBILE_HEADERS = {
+_BASE_HEADERS = {
     "User-Agent": IPHONE_UA,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
+}
+# Privacy signals — sent only in --private mode. In default (authenticated)
+# mode we look like an ordinary logged-in Safari, which is the point.
+_PRIVACY_HEADERS = {
     "DNT": "1",
     "Sec-GPC": "1",  # Global Privacy Control: "do not sell/share"
 }
+
+
+def build_headers(private: bool) -> dict:
+    h = dict(_BASE_HEADERS)
+    if private:
+        h.update(_PRIVACY_HEADERS)
+    return h
 
 # Substrings that, if present in a request URL, get blocked in --js mode.
 TRACKER_HOSTS = (
@@ -78,7 +89,139 @@ TRACKER_HOSTS = (
 
 
 def err(msg: str) -> None:
-    print(f"mdread: {msg}", file=sys.stderr)
+    print(f"mdbrowse: {msg}", file=sys.stderr)
+
+
+# ---------------------------------------------------------------------------
+# Safari cookies — be *yourself* by default (OSINT / logged-in pages).
+# `--private` opts out: no cookies, plus DNT/Sec-GPC, the old anonymous mode.
+# ---------------------------------------------------------------------------
+import struct
+import time
+
+# Cookies live in the sandboxed container on modern macOS; the pre-Catalina
+# location is kept as a fallback.
+_COOKIE_PATHS = (
+    "~/Library/Containers/com.apple.Safari/Data/Library/Cookies/Cookies.binarycookies",
+    "~/Library/Cookies/Cookies.binarycookies",
+)
+_MAC_EPOCH_OFFSET = 978307200  # seconds between 1970-01-01 and 2001-01-01
+_cookie_cache = None           # parsed once per process
+
+
+def _safari_cookie_path():
+    for p in _COOKIE_PATHS:
+        full = os.path.expanduser(p)
+        if os.path.isfile(full):
+            return full
+    return None
+
+
+def _parse_binarycookies(path: str):
+    """Parse Safari's Cookies.binarycookies. Hybrid-endian: the page table is
+    big-endian, cookie records inside each page are little-endian."""
+    with open(path, "rb") as f:
+        data = f.read()
+    if data[:4] != b"cook":
+        return []
+    n_pages = struct.unpack(">I", data[4:8])[0]
+    page_sizes = struct.unpack(">" + "I" * n_pages, data[8:8 + 4 * n_pages])
+    pos = 8 + 4 * n_pages
+    out = []
+    for size in page_sizes:
+        page = data[pos:pos + size]
+        pos += size
+        try:
+            n_cookies = struct.unpack("<I", page[4:8])[0]
+            offsets = struct.unpack("<" + "I" * n_cookies, page[8:8 + 4 * n_cookies])
+        except struct.error:
+            continue
+        for off in offsets:
+            try:
+                c = page[off:]
+                csize = struct.unpack("<I", c[0:4])[0]
+                c = c[:csize]
+                flags = struct.unpack("<I", c[8:12])[0]
+                uo, no, po, vo = struct.unpack("<IIII", c[16:32])
+                expiry = struct.unpack("<d", c[40:48])[0] + _MAC_EPOCH_OFFSET
+
+                def _s(o):
+                    end = c.find(b"\x00", o)
+                    return c[o:(end if end != -1 else len(c))].decode("utf-8", "replace")
+
+                dom = _s(uo)
+                if not dom:
+                    continue
+                out.append({
+                    "domain": dom, "name": _s(no), "path": _s(po) or "/",
+                    "value": _s(vo), "secure": bool(flags & 1),
+                    "httponly": bool(flags & 4), "expires": expiry,
+                })
+            except (struct.error, IndexError):
+                continue
+    return out
+
+
+def load_safari_cookies():
+    """All non-expired Safari cookies, parsed once. [] if unreadable."""
+    global _cookie_cache
+    if _cookie_cache is not None:
+        return _cookie_cache
+    path = _safari_cookie_path()
+    if not path:
+        _cookie_cache = []
+        return _cookie_cache
+    try:
+        cookies = _parse_binarycookies(path)
+    except (PermissionError, OSError):
+        err("can't read Safari cookies (grant the terminal Full Disk Access, "
+            "or use --private). Continuing without cookies.")
+        cookies = []
+    now = time.time()
+    _cookie_cache = [c for c in cookies if not c["expires"] or c["expires"] > now]
+    return _cookie_cache
+
+
+def httpx_cookie_jar(cookies):
+    """Build an httpx.Cookies jar with proper domain/path scoping, so the right
+    cookies are sent per host even across redirects."""
+    import httpx
+    jar = httpx.Cookies()
+    for c in cookies:
+        try:
+            jar.jar.set_cookie(_to_cookielib(c))
+        except Exception:
+            pass
+    return jar
+
+
+def _to_cookielib(c):
+    """Convert a parsed cookie dict to a http.cookiejar.Cookie."""
+    from http.cookiejar import Cookie
+    dom = c["domain"]
+    domain_specified = dom.startswith(".")
+    return Cookie(
+        version=0, name=c["name"], value=c["value"],
+        port=None, port_specified=False,
+        domain=dom, domain_specified=domain_specified,
+        domain_initial_dot=domain_specified,
+        path=c["path"], path_specified=True,
+        secure=c["secure"], expires=int(c["expires"]) if c["expires"] else None,
+        discard=False, comment=None, comment_url=None,
+        rest={"HttpOnly": ""} if c["httponly"] else {},
+    )
+
+
+def playwright_cookies(cookies):
+    """Shape parsed cookies for Playwright's context.add_cookies()."""
+    out = []
+    for c in cookies:
+        out.append({
+            "name": c["name"], "value": c["value"], "domain": c["domain"],
+            "path": c["path"], "secure": c["secure"], "httpOnly": c["httponly"],
+            "expires": int(c["expires"]) if c["expires"] else -1,
+        })
+    return out
 
 
 def normalize_url(url: str) -> str:
@@ -92,25 +235,27 @@ def normalize_url(url: str) -> str:
 # ---------------------------------------------------------------------------
 # Fetching
 # ---------------------------------------------------------------------------
-def fetch_static(url: str, timeout: float = 20.0) -> str:
-    """Plain HTTP GET with a mobile identity and no cookies."""
+def fetch_static(url: str, timeout: float = 20.0, private: bool = False) -> str:
+    """Plain HTTP GET with a mobile identity. Sends Safari cookies unless private."""
     import httpx
 
+    cookies = None if private else httpx_cookie_jar(load_safari_cookies())
     with httpx.Client(
-        headers=MOBILE_HEADERS,
+        headers=build_headers(private),
         follow_redirects=True,
         timeout=timeout,
-        cookies=None,  # explicitly carry none
+        cookies=cookies,
     ) as client:
         r = client.get(url)
         r.raise_for_status()
         return r.text
 
 
-def fetch_js(url: str, timeout: float = 30.0) -> str:
+def fetch_js(url: str, timeout: float = 30.0, private: bool = False) -> str:
     """Render with a real (headless) browser engine, blocking trackers.
 
-    Fresh, isolated context every call => no persistent cookies/storage.
+    Default: seed the context with your Safari cookies (logged-in browsing).
+    --private: a fresh, isolated context => no cookies/storage, anonymous.
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -134,7 +279,13 @@ def fetch_js(url: str, timeout: float = 30.0) -> str:
                 user_agent=IPHONE_UA,
                 java_script_enabled=True,
                 locale="en-US",
+                extra_http_headers=_PRIVACY_HEADERS if private else {},
             )
+            if not private:
+                try:
+                    context.add_cookies(playwright_cookies(load_safari_cookies()))
+                except Exception as e:
+                    err(f"could not seed Safari cookies into the browser: {e}")
             context.route(
                 "**/*",
                 lambda route, request: (
@@ -552,37 +703,40 @@ def open_html_preview(md: str, title: str) -> str:
 # ---------------------------------------------------------------------------
 # Load one page end to end
 # ---------------------------------------------------------------------------
-def load(url: str, js: bool, full: bool, for_browse: bool = False):
+def load(url: str, js: bool, full: bool, for_browse: bool = False,
+         private: bool = False):
     if url.startswith("safari:"):
         return safari_page(url)
     if url.startswith("file://"):
         return read_local(url[len("file://"):], full, for_browse)
-    html = fetch_js(url) if js else fetch_static(url)
+    html = fetch_js(url, private=private) if js else fetch_static(url, private=private)
     return to_markdown(html, url, full=full, for_browse=for_browse)
 
 
 # ---------------------------------------------------------------------------
 # Browse dispatcher: vim-style curses reader when possible, prompt otherwise.
 # ---------------------------------------------------------------------------
-def browse(url: str, js: bool, full: bool, width: int, simple: bool = False) -> None:
+def browse(url: str, js: bool, full: bool, width: int, simple: bool = False,
+           private: bool = False) -> None:
     if not simple and sys.stdout.isatty() and sys.stdin.isatty():
         try:
             import curses  # noqa: F401
-            return vim_browse(url, js, full)
+            return vim_browse(url, js, full, private)
         except Exception as e:
             err(f"vim mode unavailable ({e}); falling back to simple mode")
-    browse_simple(url, js, full, width)
+    browse_simple(url, js, full, width, private)
 
 
 # ---------------------------------------------------------------------------
 # Simple prompt loop (fallback / --simple / piped input)
 # ---------------------------------------------------------------------------
-def browse_simple(url: str, js: bool, full: bool, width: int) -> None:
+def browse_simple(url: str, js: bool, full: bool, width: int,
+                  private: bool = False) -> None:
     history = []
     current = url
     while True:
         try:
-            md = load(current, js, full, for_browse=True)
+            md = load(current, js, full, for_browse=True, private=private)
         except Exception as e:
             err(f"could not load {current}: {e}")
             if not history:
@@ -712,7 +866,7 @@ def _layout(md: str, width: int):
     return lines, styles, link_line
 
 
-def vim_browse(start_url: str, js: bool, full: bool) -> None:
+def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> None:
     import curses
 
     state = {"current": start_url, "history": [], "quit": False}
@@ -730,7 +884,7 @@ def vim_browse(start_url: str, js: bool, full: bool) -> None:
         while not state["quit"]:
             cur = state["current"]
             try:
-                md = load(cur, js, full, for_browse=True)
+                md = load(cur, js, full, for_browse=True, private=private)
                 numbered, links = extract_and_number_links(md, cur, mark=True)
             except Exception as e:
                 md, links = f"# Error\n\nCould not load {cur}:\n\n{e}", []
@@ -986,6 +1140,9 @@ def main() -> None:
                     help="browse your Safari reading list")
     ap.add_argument("--start", action="store_true",
                     help="open the Safari start page (homepage + bookmarks + reading list)")
+    ap.add_argument("--private", "--anonymous", dest="private", action="store_true",
+                    help="anonymous mode: send NO Safari cookies, add DNT/Sec-GPC "
+                         "(default is to browse as your logged-in Safari self)")
     ap.add_argument("--js", action="store_true",
                     help="render JS-heavy pages with a headless browser engine")
     ap.add_argument("--raw", action="store_true",
@@ -1019,11 +1176,12 @@ def main() -> None:
         url, force_browse = resolve_target(args.url), False
 
     if args.browse or (force_browse and not args.raw and not args.html):
-        browse(url, args.js, args.full, args.width, simple=args.simple)
+        browse(url, args.js, args.full, args.width, simple=args.simple,
+               private=args.private)
         return
 
     try:
-        md = load(url, args.js, args.full)
+        md = load(url, args.js, args.full, private=args.private)
     except Exception as e:
         err(f"could not load {url}: {e}")
         sys.exit(1)
