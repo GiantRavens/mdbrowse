@@ -431,6 +431,12 @@ def _visible_len(line: str) -> int:
     return len(t.strip())
 
 
+def _dispw(s: str) -> int:
+    """Terminal display width. Our image marker (🖼) renders two cells wide;
+    everything else we emit is single-width. Keeps click maps aligned."""
+    return sum(2 if ch == "🖼" else 1 for ch in s)
+
+
 _FOOTER_WORDS = re.compile(
     r"\b(guidelines|faq|privacy|terms|legal|contact|copyright|©|rss|"
     r"about us|careers|cookie|sitemap|subscribe|advertise|imprint)\b", re.I)
@@ -684,7 +690,7 @@ def extract_and_number_links(md: str, base_url: str, mark: bool = False):
             return ""  # data:, junk -> drop
         images.append(abs_url)
         label = alt or "image"
-        return f"🖼 {label} [IMG {len(images)}]"
+        return f"🖼 {label} [IMG{len(images)}]"  # no space: an unbreakable token
 
     def link_repl(m):
         text, href = m.group(1), m.group(2)
@@ -1138,9 +1144,9 @@ def _layout(md: str, width: int):
     # and each image number to the line with its [IMG N] marker
     image_line = {}
     for ln, text in enumerate(lines):
-        for m in re.findall(r"\[IMG (\d+)\]", text):
+        for m in re.findall(r"\[IMG(\d+)\]", text):
             image_line.setdefault(int(m), ln)
-        for m in re.findall(r"(?<!IMG )\[(\d+)\]", text):
+        for m in re.findall(r"\[(\d+)\]", text):  # [IMG12] can't match \[\d+\]
             link_line.setdefault(int(m), ln)
     return lines, styles, link_line, image_line
 
@@ -1220,8 +1226,10 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     pass
 
             def render_spans(srow, text, clickmap):
-                """Draw a line: only actual link text is bold (the current link
-                is reverse-video). Records clickable regions into clickmap."""
+                """Draw a line: link text bold (current link reverse-video), and
+                record clickable regions — links (follow) and 🖼 images (preview)
+                — into clickmap as (row, col0, col1, num, kind). Columns are in
+                display cells so the wide image marker stays click-aligned."""
                 col = pad
                 i, n = 0, len(text)
                 while i < n:
@@ -1237,8 +1245,8 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                                 if num == cur_link else curses.A_BOLD)
                         put(srow, col, inner, attr)
                         if num > 0:
-                            clickmap.append((srow, col, col + len(inner), num))
-                        col += len(inner)
+                            clickmap.append((srow, col, col + _dispw(inner), num, "link"))
+                        col += _dispw(inner)
                         i = j + 1
                     elif ch == LINK_END:
                         i += 1  # stray
@@ -1246,8 +1254,14 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                         k = i
                         while k < n and text[k] not in (LINK_START, LINK_END):
                             k += 1
-                        put(srow, col, text[i:k], curses.A_NORMAL)
-                        col += k - i
+                        seg = text[i:k]
+                        put(srow, col, seg, curses.A_NORMAL)
+                        # each '[IMGN]' token is a clickable preview target
+                        for mi in re.finditer(r"\[IMG(\d+)\]", seg):
+                            c0 = col + _dispw(seg[:mi.start()])
+                            c1 = c0 + _dispw(mi.group(0))
+                            clickmap.append((srow, c0, c1, int(mi.group(1)), "image"))
+                        col += _dispw(seg)
                         i = k
 
             def strip_marks(t):
@@ -1287,7 +1301,7 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
 
                 c = scr.getch()
 
-                # --- mouse: wheel scrolls, click follows a link ---
+                # --- mouse: wheel scrolls; click follows a link or previews an image ---
                 if c == curses.KEY_MOUSE:
                     try:
                         _, mx, my, _, bstate = curses.getmouse()
@@ -1299,13 +1313,20 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                         top = clamp_top(top - 3); continue
                     if down and (bstate & down):
                         top = clamp_top(top + 3); continue
-                    hit = next((nm for (sr, c0, c1, nm) in clickmap
+                    hit = next(((nm, kind) for (sr, c0, c1, nm, kind) in clickmap
                                 if my == sr and c0 <= mx < c1), None)
                     if hit:
-                        cur_link = hit
-                        state["history"].append(cur)
-                        state["current"] = links[hit - 1]
-                        break
+                        num, kind = hit
+                        if kind == "image" and 0 < num <= len(images):
+                            msg = (f"🖼 preview [IMG{num}]"
+                                   if preview_image(images[num - 1], private)
+                                   else f"couldn't load image {num}")
+                            continue
+                        if kind == "link" and 0 < num <= len(links):
+                            cur_link = num
+                            state["history"].append(cur)
+                            state["current"] = links[num - 1]
+                            break
                     continue
 
                 # --- quit / navigation between pages ---
@@ -1313,9 +1334,9 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                     state["quit"] = True
                     return
                 if c == ord("?"):
-                    msg = ("j/k scroll  Tab/h/l link  Enter open  Space img  "
-                           "/ search  n/N next  gg/G top/bot  H back  : url  "
-                           "r reload  s save  p preview  O Safari  q quit")
+                    msg = ("j/k scroll  Tab/h/l link  Enter/click open  "
+                           "Space/click img  / search  n/N next  gg/G top/bot  "
+                           "H back  : url  r reload  s save  p preview  O Safari  q quit")
                     continue
                 if c in (ord("H"), curses.KEY_BACKSPACE, 127, 8, ord("[")):
                     if state["history"]:
@@ -1381,7 +1402,7 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                            if top <= ln < top + view_h]
                     if images and vis:
                         n = min(vis, key=lambda k: image_line[k])
-                        msg = (f"🖼 preview [IMG {n}]"
+                        msg = (f"🖼 preview [IMG{n}]"
                                if preview_image(images[n - 1], private)
                                else f"couldn't load image {n}")
                     else:
