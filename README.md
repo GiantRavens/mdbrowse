@@ -28,23 +28,23 @@ The opposite of fighting with w3m.
 
 Self-contained: a dedicated virtual environment lives inside the project folder,
 and a small wrapper makes `mdbrowse` a command. (Already set up on this machine at
-`~/Desktop/mdbrowse`.) To reproduce elsewhere:
+`~/Desktop/notebook/code/mdbrowse`.) To reproduce elsewhere:
 
 ```bash
-cd ~/Desktop/mdbrowse
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+cd ~/Desktop/notebook/code/mdbrowse
+uv venv                                  # or: python3 -m venv .venv
+uv pip install -r requirements.txt       # or: .venv/bin/pip install -r requirements.txt
 
 # make `mdbrowse` a command:
 mkdir -p ~/bin
 printf '#!/bin/zsh\nexec "%s/.venv/bin/python" "%s/mdbrowse.py" "$@"\n' \
-  ~/Desktop/mdbrowse ~/Desktop/mdbrowse > ~/bin/mdbrowse
+  "$PWD" "$PWD" > ~/bin/mdbrowse
 chmod +x ~/bin/mdbrowse
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 ```
 
-Everything is contained in `~/Desktop/mdbrowse/.venv` — nothing touches system
-Python, and `rm -rf .venv` fully uninstalls.
+Everything is contained in `.venv` — nothing touches system Python, and
+`rm -rf .venv` fully uninstalls. (The venv is host-local and never synced.)
 
 ### Optional: JavaScript rendering (`--js`)
 
@@ -52,8 +52,9 @@ Only for sites that render entirely in the browser (React/Vue SPAs). On macOS
 this is self-contained — no system packages, no `sudo`:
 
 ```bash
-~/Desktop/mdbrowse/.venv/bin/pip install playwright
-~/Desktop/mdbrowse/.venv/bin/playwright install chromium
+cd ~/Desktop/notebook/code/mdbrowse
+uv pip install playwright
+.venv/bin/playwright install chromium
 ```
 
 ## Usage
