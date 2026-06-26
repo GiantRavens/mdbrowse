@@ -1202,7 +1202,12 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
         # No explicit colors: links and headings are bold, the selected link and
         # status bar are reverse-video — the user's terminal theme supplies color.
         try:
-            curses.mousemask(curses.ALL_MOUSE_EVENTS | curses.REPORT_MOUSE_POSITION)
+            # Button events only — NOT REPORT_MOUSE_POSITION: that requests xterm
+            # mode 1003 (all-motion), which macOS Terminal.app doesn't support and
+            # may reject wholesale, killing mouse input entirely. mouseinterval(0)
+            # reports press/release promptly instead of waiting to coalesce clicks.
+            curses.mousemask(curses.ALL_MOUSE_EVENTS)
+            curses.mouseinterval(0)
         except Exception:
             pass
 
@@ -1364,6 +1369,13 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
                         top = clamp_top(top - 3); continue
                     if down and (bstate & down):
                         top = clamp_top(top + 3); continue
+                    # only act on a real left button event (press/release/click —
+                    # terminals report different ones); ignore bare motion.
+                    click = (getattr(curses, "BUTTON1_CLICKED", 0)
+                             | getattr(curses, "BUTTON1_PRESSED", 0)
+                             | getattr(curses, "BUTTON1_RELEASED", 0))
+                    if not (bstate & click):
+                        continue
                     hit = next(((nm, kind) for (sr, c0, c1, nm, kind) in clickmap
                                 if my == sr and c0 <= mx < c1), None)
                     if hit:
