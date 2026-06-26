@@ -546,6 +546,12 @@ def _node_to_md(node, base_url: str) -> str:
     # paragraph (your "concatenate </br> blocks" goal) instead of ragged lines.
     html = re.sub(r"(?i)<br\s*/?>", " ", str(node))
     html = _linearize_tables(html)
+    # Separate adjacent elements with a space. markdownify drops whitespace-only
+    # text nodes AND joins truly-adjacent inline elements (CNN's
+    # <span>Analysis</span><span>by Aaron</span> -> 'Analysisby'). Inserting a
+    # space at every tag boundary fixes both; word-splits across adjacent spans
+    # are vanishingly rare in practice.
+    html = re.sub(r">\s*<", "> <", html)
     try:
         from markdownify import markdownify as mdify
         md = mdify(html, heading_style="ATX", strip=["script", "style"])
@@ -669,8 +675,15 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
 # ---------------------------------------------------------------------------
 # Link handling for browse mode
 # ---------------------------------------------------------------------------
-IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((\S+?)\)")
-LINK_RE = re.compile(r"\[([^\]]+)\]\((\S+?)\)")
+# One pass over all three media shapes, in document order, so link/image numbers
+# follow visual position (Tab walks top-to-bottom). Alternatives, in priority:
+#   linked image (groups 1-5): [pre ![alt](imgsrc) post](linkhref) — thumbnail card
+#   image       (groups 6-7): ![alt](src)
+#   link        (groups 8-9): [text](href)   ('[' not after '!')
+COMBINED_MEDIA_RE = re.compile(
+    r"\[([^\[\]]*)!\[([^\]]*)\]\((\S+?)\)([^\[\]]*)\]\((\S+?)\)"
+    r"|!\[([^\]]*)\]\((\S+?)\)"
+    r"|(?<!!)\[([^\]]+)\]\((\S+?)\)")
 # A *real* link: '[' not preceded by '!', so image syntax isn't miscounted.
 REAL_LINK_RE = re.compile(r"(?<!!)\[([^\]]+)\]\((\S+?)\)")
 
@@ -680,39 +693,57 @@ LINK_END = "\x02"
 
 
 def extract_and_number_links(md: str, base_url: str, mark: bool = False):
-    """Number images and links: ![alt](u) -> '🖼 alt [IMG N]', [t](u) -> 't [N]'.
+    """Number images and links in one document-order pass:
+    ![alt](u) -> '🖼 alt [IMGn]', [t](u) -> 't [n]', and clickable thumbnails
+    [pre ![alt](img) post](href) -> '🖼 [IMGn] caption [n]' (preview + follow).
 
-    Returns (new_md, [link_urls], [image_urls]). Images are consumed *before*
-    links (image syntax contains link syntax). With mark=True, real links are
+    Returns (new_md, [link_urls], [image_urls]). With mark=True, real links are
     wrapped in invisible sentinels so the reader can bold/select just the text.
     """
     images, links = [], []
+    abs_ok = lambda u: u.startswith(("http://", "https://"))
 
-    def img_repl(m):
-        alt, src = m.group(1).strip(), m.group(2)
-        src = src.split(" ")[0].strip("<>")
-        abs_url = urljoin(base_url, src)
-        if not abs_url.startswith(("http://", "https://")):
-            return ""  # data:, junk -> drop
-        images.append(abs_url)
-        label = alt or "image"
-        # Pad with spaces so the marker never glues to adjacent text (CNN emits
-        # <span>Analysis</span><img> -> 'Analysis![..]'). [IMGn] stays spaceless
-        # so textwrap can't split it.
-        return f" 🖼 {label} [IMG{len(images)}] "
+    def link_token(text):
+        links.append(text[1])  # text is (label, url)
+        tok = f"{text[0]} [{len(links)}]"
+        return f"{LINK_START}{tok}{LINK_END}" if mark else tok
 
-    def link_repl(m):
-        text, href = m.group(1), m.group(2)
-        href = href.split(" ")[0].strip("<>")
+    def repl(m):
+        if m.group(5) is not None:            # --- linked image (thumbnail card) ---
+            pre, alt, src, post, href = m.group(1, 2, 3, 4, 5)
+            src = src.split(" ")[0].strip("<>")
+            href = href.split(" ")[0].strip("<>")
+            img_abs, link_abs = urljoin(base_url, src), urljoin(base_url, href)
+            out = []
+            if abs_ok(img_abs):
+                images.append(img_abs)
+                out.append(f"🖼 [IMG{len(images)}]")
+            label = " ".join(f"{pre} {post}".split()) or alt.strip() or "link"
+            out.append(link_token((label, link_abs)) if abs_ok(link_abs) else label)
+            return " " + " ".join(out) + " "
+        if m.group(7) is not None:            # --- plain image ---
+            alt = (m.group(6) or "").strip()
+            src = m.group(7).split(" ")[0].strip("<>")
+            abs_url = urljoin(base_url, src)
+            if not abs_ok(abs_url):
+                return ""  # data:, junk -> drop
+            images.append(abs_url)
+            # Padded so the marker never glues to adjacent text; [IMGn] is
+            # spaceless so textwrap keeps it atomic.
+            return f" 🖼 {alt or 'image'} [IMG{len(images)}] "
+        # --- plain link ---
+        text, href = m.group(8), m.group(9).split(" ")[0].strip("<>")
         abs_url = urljoin(base_url, href)
-        if not abs_url.startswith(("http://", "https://")):
+        if not abs_ok(abs_url):
             return text  # mailto:, javascript:, anchors -> just text
-        links.append(abs_url)
-        piece = f"{text} [{len(links)}]"
-        return f"{LINK_START}{piece}{LINK_END}" if mark else piece
+        return link_token((text, abs_url))
 
-    md = IMAGE_RE.sub(img_repl, md)
-    md = LINK_RE.sub(link_repl, md)
+    md = COMBINED_MEDIA_RE.sub(repl, md)
+    # Janitor: nested links (text containing a [n] marker) defeat the link
+    # alternative and leave a dangling '](url)' tail + an orphan '['. Sweep both —
+    # the inner link was already captured, so only redundant syntax is removed.
+    md = re.sub(r"\]\(https?://[^\s)]+\)", "", md)  # dangling url tail
+    md = re.sub(r"\[(?=\s*[\x01\[])", "", md)        # orphan '[' wrapping a link
     return md, links, images
 
 
