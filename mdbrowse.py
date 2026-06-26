@@ -42,7 +42,7 @@ import subprocess
 import sys
 import tempfile
 import webbrowser
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 # ---------------------------------------------------------------------------
 # Identity: look like a mobile Safari user, carry no state.
@@ -235,20 +235,41 @@ def normalize_url(url: str) -> str:
 # ---------------------------------------------------------------------------
 # Fetching
 # ---------------------------------------------------------------------------
+def _www_variant(url: str):
+    """Prepend 'www.' to the host (or None if it already has it). Many sites only
+    serve on www, leaving the apex as a flaky-DNS redirect (e.g. quantum.com)."""
+    p = urlparse(url)
+    host = p.hostname or ""
+    if not host or host.startswith("www.") or "." not in host:
+        return None
+    return urlunparse(p._replace(netloc="www." + p.netloc))
+
+
 def fetch_static(url: str, timeout: float = 20.0, private: bool = False) -> str:
-    """Plain HTTP GET with a mobile identity. Sends Safari cookies unless private."""
+    """Plain HTTP GET with a mobile identity. Sends Safari cookies unless private.
+
+    If the host can't be reached (the apex domain's DNS often fails where only
+    www resolves), retry once with 'www.' prepended."""
     import httpx
 
     cookies = None if private else httpx_cookie_jar(load_safari_cookies())
-    with httpx.Client(
-        headers=build_headers(private),
-        follow_redirects=True,
-        timeout=timeout,
-        cookies=cookies,
-    ) as client:
-        r = client.get(url)
-        r.raise_for_status()
-        return r.text
+    # Bound the connect phase so a dead apex fails fast and the www retry is quick.
+    t = httpx.Timeout(timeout, connect=8.0)
+
+    def _get(u):
+        with httpx.Client(headers=build_headers(private), follow_redirects=True,
+                          timeout=t, cookies=cookies) as client:
+            r = client.get(u)
+            r.raise_for_status()
+            return r.text
+
+    try:
+        return _get(url)
+    except (httpx.ConnectError, httpx.ConnectTimeout):
+        alt = _www_variant(url)
+        if not alt:
+            raise
+        return _get(alt)  # silent (stderr would corrupt the curses reader)
 
 
 def _settle_page(page, budget_ms: int, wait_selector: str = None) -> None:
@@ -350,7 +371,13 @@ def fetch_js(url: str, timeout: float = 30.0, private: bool = False,
             )
             page = context.new_page()
             budget_ms = int(timeout * 1000)
-            page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
+            except Exception:
+                alt = _www_variant(url)  # apex DNS often dead; www usually works
+                if not alt:
+                    raise
+                page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
             _settle_page(page, budget_ms, wait_selector)
             html = page.content()
             return html

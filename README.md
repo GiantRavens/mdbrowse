@@ -169,6 +169,9 @@ authenticated` or `mode: private`).
   `--browse` or `--full` handle those better than the default reading view.
 - Some big sites (e.g. Wikipedia) rate-limit datacenter IPs; from home that's a
   non-issue.
+- If a bare domain won't resolve (some sites leave the apex as a flaky-DNS
+  redirect and only serve `www.`, e.g. `quantum.com`), mdbrowse retries once with
+  `www.` prepended automatically.
 - `--js` needs the one-time `playwright install chromium` step above.
 - Image preview uses macOS Quick Look (`qlmanage`) and pulls the panel to the
   front via System Events. The first time, macOS asks to let your terminal
