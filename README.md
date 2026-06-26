@@ -170,6 +170,10 @@ authenticated` or `mode: private`).
 - Some big sites (e.g. Wikipedia) rate-limit datacenter IPs; from home that's a
   non-issue.
 - `--js` needs the one-time `playwright install chromium` step above.
+- Image preview uses macOS Quick Look (`qlmanage`) and pulls the panel to the
+  front via System Events. The first time, macOS asks to let your terminal
+  "control System Events" — allow it (System Settings → Privacy & Security →
+  Automation). If denied, previews still open, just behind the terminal.
 - `--js` waits for content, not the network: it looks for `<main>`/`<article>`,
   nudges lazy content with a scroll, then waits until the page's text stops
   growing (it does *not* use the flaky `networkidle`). If an SPA still captures

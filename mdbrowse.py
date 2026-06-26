@@ -995,9 +995,33 @@ def preview_image(url: str, private: bool = False) -> bool:
         os.close(fd)
         subprocess.Popen(["qlmanage", "-p", path],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        _raise_quicklook_front()
         return True
     except Exception:
         return False
+
+
+def _raise_quicklook_front() -> None:
+    """qlmanage draws its preview *behind* the focused terminal (it never asks
+    the window server for focus). Nudge it forward via System Events. Polls
+    because the process isn't up the instant we spawn it. Best-effort: if
+    Automation permission is denied the preview still opens, just behind."""
+    script = (
+        'tell application "System Events"\n'
+        '  repeat 30 times\n'
+        '    if exists (process "qlmanage") then\n'
+        '      set frontmost of process "qlmanage" to true\n'
+        '      exit repeat\n'
+        '    end if\n'
+        '    delay 0.05\n'
+        '  end repeat\n'
+        'end tell'
+    )
+    try:
+        subprocess.Popen(["osascript", "-e", script],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception:
+        pass
 
 
 def open_in_safari(url: str) -> bool:
