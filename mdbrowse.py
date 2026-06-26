@@ -541,6 +541,23 @@ def _souplify(html: str):
         if sig and _POPUP_PATTERNS.search(sig):
             if not t.find(["main", "article"]) and t.name not in ("main", "article"):
                 t.decompose()
+    # Resolve lazy-loaded images: a data: placeholder in src with the real URL
+    # parked in data-src / data-lazy-src / srcset (common on WordPress sites).
+    for img in soup.find_all("img"):
+        if getattr(img, "decomposed", False) or img.attrs is None:
+            continue
+        src = img.get("src", "") or ""
+        if src and not src.startswith("data:"):
+            continue
+        real = (img.get("data-src") or img.get("data-lazy-src")
+                or img.get("data-original") or "")
+        if not real:
+            for key in ("srcset", "data-srcset", "data-lazy-srcset"):
+                if img.get(key):
+                    real = img[key].split(",")[0].strip().split(" ")[0]
+                    break
+        if real:
+            img["src"] = real
     return soup
 
 
@@ -611,8 +628,12 @@ def _structured_markdown(soup, base_url: str) -> str:
     asides = pop(lambda t: t.name == "aside" or t.get("role") == "complementary")
     navs = pop(lambda t: t.name in ("nav", "header") or t.get("role") == "navigation")
 
-    main = (soup.find("main") or soup.find(attrs={"role": "main"})
-            or soup.find("article") or soup.body or soup)
+    main = soup.find("main") or soup.find(attrs={"role": "main"})
+    if main is None:
+        # No <main>: one <article> is a story page; many is a listing grid
+        # (each card is its own <article>) — use the whole body so all survive.
+        articles = soup.find_all("article")
+        main = articles[0] if len(articles) == 1 else (soup.body or soup)
     main_md = _node_to_md(main, base_url)
 
     # Avoid a redundant title: if the body's first heading already says the same
