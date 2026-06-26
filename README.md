@@ -101,7 +101,9 @@ reader. Links are numbered inline (`text [12]`); the selected link is highlighte
 | `q` | quit |
 
 The mouse works too: the wheel scrolls, clicking a link follows it, and clicking
-an image (`🖼 … [IMGn]`) pops it in Quick Look.
+an image (`🖼 … [IMGn]`) pops it in Quick Look. **Inside tmux**, the mouse only
+reaches the reader if tmux mouse mode is on — add `set -g mouse on` to
+`~/.tmux.conf` (then hold Option/Shift while dragging to select text normally).
 
 Piping input, or passing `--simple`, falls back to a plain numbered prompt
 (`number` to follow, `i<n>` to preview an image, `b` back, `u` new URL, `q` quit).
