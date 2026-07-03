@@ -1,0 +1,49 @@
+next_id: 10
+id_width: 3
+ls_state_order:
+    - TODO
+    - BEGUN
+    - FOLLOWUP
+    - DEFER
+    - NOTDO
+    - DONE
+states:
+    - name: TODO
+      aliases:
+        - todo
+      tui_hotkey: t
+    - name: BEGUN
+      aliases:
+        - begun
+        - STARTED
+        - started
+        - INPROGRESS
+        - inprogress
+      tui_hotkey: b
+    - name: FOLLOWUP
+      aliases:
+        - followup
+        - CONFIRM
+        - confirm
+      tui_hotkey: f
+    - name: DEFER
+      aliases:
+        - defer
+      tui_hotkey: l
+    - name: NOTDO
+      aliases:
+        - notdo
+      tui_hotkey: x
+    - name: DONE
+      aliases:
+        - done
+        - COMPLETE
+        - complete
+        - COMPLETED
+        - completed
+      tui_hotkey: d
+edit_start_insert: true
+edit_goyo: false
+browse_margin: 12
+title_max_len: 80
+ls_title_max_len: 80

@@ -1,0 +1,92 @@
+<!-- shape: feed -->
+# Breaking News, Latest News and Videos | CNN
+
+![Attendees line up to enter air conditioned areas at the Great American State Fair in Washington, DC, on Friday, July 3, 2026.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg)
+
+- [Deadly East Coast heat wave shatters records and cancels holiday events](https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate)
+- [DC breaks heat record, 20,000 customers without power in NYC area](https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate)
+- [Analysis](https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis)
+- [Trump brands DC July Fourth celebration as his own personal rally](https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis)
+- [US heat forecast: See where Americans are at the most risk for extreme heat](https://www.cnn.com/weather/extreme-heat-risk-tracker-dg)
+- [Why we have so many ways to measure hot weather](https://www.cnn.com/2026/07/03/weather/heat-wave-measurements-climate)
+
+Taylor Swift
+
+- Live Updates Ready for it? Guests are arriving at MSG for Taylor Swift and Travis Kelce’s big party
+- The scene at MSG as Swift-Kelce wedding festivities kick off 0:29
+- Streaming Now A look back at the most unforgettable celebrity weddings
+
+War with Iran
+
+- ![thumbnail fred iran funeral 1 vrtc.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) 1:32 CNN reporter observes preparations for funeral in Tehran
+- Iran sends Trump defiant message with huge funeral for Khamenei
+- Live Updates Khamenei’s casket on display ahead of funeral processions
+- Indirect talks between US and Iran set to continue after the funeral
+- US officials attempted to warn Iran of fears that Israel would assassinate mediators
+
+July 4
+
+- ![New York City Mayor Zohran Mamdani delivers a speech to mark the 250th anniversary of the United States of America at City Hall on July 3, 2026 in New York City.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Mamdani marks July 4 with a pro-immigration speech, ripping Trump’s policies without using his name
+- Quiz America at 250: A quarter millennium quiz
+- What we know about Trump’s July Fourth fireworks event
+- Trump’s Freedom 250 gives the founders an AI glow-up
+
+STREAMING NOW
+
+- The summer of peptides and celebrity weddings
+
+Across Our Coverage
+
+- ![Tigers-Nest-Bhutan.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers She set off traveling alone aged 13 and now she’s visited nearly every country
+- ![Copy of LiangBua\_2-10001.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Science Hobbit-like humans may have scavenged Komodo dragons’ leftovers to survive
+- ![swift\_view\_02\_comp.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Space Daring rescue mission launches to save a 3,200-pound NASA observatory from an untimely end
+- Travel 25 of America’s most beautiful places
+
+## [Streaming now on All Access](https://www.cnn.com/watch)
+
+- ![lp\_title\_texted\_homepage\_feature\_card\_1440x810\_cnn\_appxx\_720.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill) Inside the glamour and spectacle of celebrity weddings
+- ![LP\_TaylorSwift\_Texted\_Homepage\_Feature\_Card\_1440x810.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill) Insight into the case against Taylor Swift
+- ![TT\_KA\_16x9\_EPISODIC\_R.png](https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill) How Taylor Swift and Travis Kelce’s engagement became an economic engine
+- Live Watch CNN
+
+CNN Underscored
+
+- ![Birkenstock Boston Eva Clog](https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill) Summer clothing deals are heating up in Nordstrom Rack’s Clear the Rack sale
+- Strength training for seniors is crucial for aging comfortably. This is the equipment you need to start your journey
+- Heat waves don’t stand a chance against these 49 cooling products
+- The 39 best products we tried in June, from comfortable walking shoes to cooling sheets
+- Our deals editors shopped 111 sales to find the 54 best 4th of July discounts
+- [Bleacher Report](https://bleacherreport.com/?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
+- ![Caitlin Clark makes statement on flagrant foul](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Caitlin Clark makes statement on flagrant foul
+- LeBron’s agent reveals best fits for James
+- NBA exec rips analytics debate around trade
+- Angel Reese upset with All-Star snubs
+- Lakers make another offseason trade
+
+In Case You Missed It
+
+- ![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals
+- ![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025
+- ![An aerial view shows cooling vent fans on the roof next to generators on the lower level of a Digital Realty data center in Ashburn, Virginia on November 12, 2025. Data centers are the physical infrastructure that make our digital lives possible, yet most people have never seen one up close or understand how they operate. Roughly 12,000 data centers are in operation in the world, with about half in the US, according to Cloudscene, a data center directory. (Photo by ANDREW CABALLERO-REYNOLDS / AFP via Getty Images)](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill) Energy Dept. directs data centers to use backup generators during heat wave, freeing up power for AC
+
+---
+
+## ⋯ menu
+
+- [Terms of Use](https://www.cnn.com/terms)
+- [Privacy Policy](https://www.cnn.com/privacy)
+- [Ad Choices](https://www.cnn.com/ad-choices)
+- [Accessibility & CC](https://www.cnn.com/accessibility)
+- [About](https://www.cnn.com/about)
+- [Subscribe](https://www.cnn.com/subscription?source=sub_web_footerlink-link)
+- [Newsletters](https://www.cnn.com/newsletters)
+- [Transcripts](https://www.cnn.com/transcripts)
+- [Help Center](https://help.cnn.com/)
+- [Sitemap](https://www.cnn.com/sitemap)
+
+---
+
+## ⋯ footer
+
+- [Listen](https://www.cnn.com/audio)
+- [Watch](https://www.cnn.com/watch)

@@ -1,0 +1,1678 @@
+{
+ "doc": {
+  "anchors": 444,
+  "blocks": [
+   {
+    "alt": "Attendees line up to enter air conditioned areas at the Great American State Fair in Washington, DC, on Friday, July 3, 2026.",
+    "bbox": [
+     0,
+     106,
+     390,
+     585
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "img",
+    "landmark": "main",
+    "links": [],
+    "md": "",
+    "src": "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+   },
+   {
+    "bbox": [
+     20,
+     567,
+     350,
+     48
+    ],
+    "bold": true,
+    "fontSize": 18,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate",
+      "text": "Deadly East Coast heat wave shatters records and cancels holiday events"
+     }
+    ],
+    "md": "[Deadly East Coast heat wave shatters records and cancels holiday events](https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate)"
+   },
+   {
+    "bbox": [
+     20,
+     619,
+     350,
+     40
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate",
+      "text": "DC breaks heat record, 20,000 customers without power in NYC area"
+     }
+    ],
+    "md": "[DC breaks heat record, 20,000 customers without power in NYC area](https://www.cnn.com/2026/07/03/weather/heat-wave-nyc-dc-forecast-climate)"
+   },
+   {
+    "bbox": [
+     16,
+     716,
+     358,
+     24
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis",
+      "text": "Analysis"
+     }
+    ],
+    "md": "[Analysis](https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis)"
+   },
+   {
+    "bbox": [
+     16,
+     740,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis",
+      "text": "Trump brands DC July Fourth celebration as his own personal rally"
+     }
+    ],
+    "md": "[Trump brands DC July Fourth celebration as his own personal rally](https://www.cnn.com/2026/07/03/politics/america-250-july-4-national-mall-trump-analysis)"
+   },
+   {
+    "bbox": [
+     16,
+     809,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/weather/extreme-heat-risk-tracker-dg",
+      "text": "US heat forecast: See where Americans are at the most risk for extreme heat"
+     }
+    ],
+    "md": "[US heat forecast: See where Americans are at the most risk for extreme heat](https://www.cnn.com/weather/extreme-heat-risk-tracker-dg)"
+   },
+   {
+    "bbox": [
+     16,
+     878,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/weather/heat-wave-measurements-climate",
+      "text": "Why we have so many ways to measure hot weather"
+     }
+    ],
+    "md": "[Why we have so many ways to measure hot weather](https://www.cnn.com/2026/07/03/weather/heat-wave-measurements-climate)"
+   },
+   {
+    "bbox": [
+     16,
+     980,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Taylor Swift"
+   },
+   {
+    "bbox": [
+     16,
+     1018,
+     358,
+     294
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Live Updates Ready for it? Guests are arriving at MSG for Taylor Swift and Travis Kelce’s big party",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     1324,
+     358,
+     81
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "The scene at MSG as Swift-Kelce wedding festivities kick off 0:29",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     1417,
+     358,
+     68
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Streaming Now A look back at the most unforgettable celebrity weddings",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     1543,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "War with Iran"
+   },
+   {
+    "bbox": [
+     16,
+     1581,
+     358,
+     286
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![thumbnail fred iran funeral 1 vrtc.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) 1:32 CNN reporter observes preparations for funeral in Tehran",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     1879,
+     358,
+     57
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Iran sends Trump defiant message with huge funeral for Khamenei",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     1948,
+     358,
+     81
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Live Updates Khamenei’s casket on display ahead of funeral processions",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2041,
+     358,
+     57
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Indirect talks between US and Iran set to continue after the funeral",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2110,
+     358,
+     44
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "US officials attempted to warn Iran of fears that Israel would assassinate mediators",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2212,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "July 4"
+   },
+   {
+    "bbox": [
+     16,
+     2250,
+     358,
+     312
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![New York City Mayor Zohran Mamdani delivers a speech to mark the 250th anniversary of the United States of America at City Hall on July 3, 2026 in New York City.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Mamdani marks July 4 with a pro-immigration speech, ripping Trump’s policies without using his name",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2575,
+     358,
+     59
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Quiz America at 250: A quarter millennium quiz",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2646,
+     358,
+     57
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "What we know about Trump’s July Fourth fireworks event",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2715,
+     358,
+     44
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Trump’s Freedom 250 gives the founders an AI glow-up",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     2817,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "STREAMING NOW"
+   },
+   {
+    "bbox": [
+     16,
+     2855,
+     358,
+     222
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "The summer of peptides and celebrity weddings",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     3135,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Across Our Coverage"
+   },
+   {
+    "bbox": [
+     16,
+     3173,
+     358,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![Tigers-Nest-Bhutan.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers She set off traveling alone aged 13 and now she’s visited nearly every country",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     3293,
+     358,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![Copy of LiangBua\\_2-10001.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Science Hobbit-like humans may have scavenged Komodo dragons’ leftovers to survive",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     3413,
+     358,
+     121
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![swift\\_view\\_02\\_comp.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Space Daring rescue mission launches to save a 3,200-pound NASA observatory from an untimely end",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     3546,
+     358,
+     103
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Travel 25 of America’s most beautiful places",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     3721,
+     358,
+     30
+    ],
+    "bold": true,
+    "fontSize": 24,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 2,
+    "links": [
+     {
+      "href": "https://www.cnn.com/watch",
+      "text": "Streaming now on All Access"
+     }
+    ],
+    "md": "[Streaming now on All Access](https://www.cnn.com/watch)"
+   },
+   {
+    "bbox": [
+     16,
+     3767,
+     358,
+     249
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![lp\\_title\\_texted\\_homepage\\_feature\\_card\\_1440x810\\_cnn\\_appxx\\_720.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill) Inside the glamour and spectacle of celebrity weddings",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     4077,
+     307,
+     277
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![LP\\_TaylorSwift\\_Texted\\_Homepage\\_Feature\\_Card\\_1440x810.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill) Insight into the case against Taylor Swift",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     339,
+     4077,
+     307,
+     277
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![TT\\_KA\\_16x9\\_EPISODIC\\_R.png](https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill) How Taylor Swift and Travis Kelce’s engagement became an economic engine",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     661,
+     4077,
+     307,
+     277
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Live Watch CNN",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     4834,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "CNN Underscored"
+   },
+   {
+    "bbox": [
+     16,
+     4872,
+     358,
+     311
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![Birkenstock Boston Eva Clog](https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill) Summer clothing deals are heating up in Nordstrom Rack’s Clear the Rack sale",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     5184,
+     358,
+     91
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Strength training for seniors is crucial for aging comfortably. This is the equipment you need to start your journey",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     5275,
+     358,
+     69
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Heat waves don’t stand a chance against these 49 cooling products",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     5344,
+     358,
+     69
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "The 39 best products we tried in June, from comfortable walking shoes to cooling sheets",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     5413,
+     358,
+     57
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Our deals editors shopped 111 sales to find the 54 best 4th of July discounts",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14216,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "Bleacher Report"
+     }
+    ],
+    "md": "[Bleacher Report](https://bleacherreport.com/?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)"
+   },
+   {
+    "bbox": [
+     16,
+     14254,
+     358,
+     286
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![Caitlin Clark makes statement on flagrant foul](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Caitlin Clark makes statement on flagrant foul",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14552,
+     358,
+     35
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "LeBron’s agent reveals best fits for James",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14599,
+     358,
+     35
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "NBA exec rips analytics debate around trade",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14646,
+     358,
+     35
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Angel Reese upset with All-Star snubs",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14693,
+     358,
+     22
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Lakers make another offseason trade",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     15537,
+     358,
+     38
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "In Case You Missed It"
+   },
+   {
+    "bbox": [
+     16,
+     15575,
+     358,
+     282
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     15869,
+     358,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     15989,
+     358,
+     95
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill"
+    ],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "![An aerial view shows cooling vent fans on the roof next to generators on the lower level of a Digital Realty data center in Ashburn, Virginia on November 12, 2025. Data centers are the physical infrastructure that make our digital lives possible, yet most people have never seen one up close or understand how they operate. Roughly 12,000 data centers are in operation in the world, with about half in the US, according to Cloudscene, a data center directory. (Photo by ANDREW CABALLERO-REYNOLDS / AFP via Getty Images)](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill) Energy Dept. directs data centers to use backup generators during heat wave, freeing up power for AC",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16288,
+     350,
+     30
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [],
+    "md": "Subscribe"
+   },
+   {
+    "bbox": [
+     20,
+     16330,
+     350,
+     32
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [],
+    "md": "Sign in"
+   },
+   {
+    "bbox": [
+     20,
+     16386,
+     350,
+     1
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "hr",
+    "landmark": "footer",
+    "links": [],
+    "md": ""
+   },
+   {
+    "bbox": [
+     20,
+     16411,
+     350,
+     26
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.cnn.com/audio",
+      "text": "Listen"
+     }
+    ],
+    "md": "[Listen](https://www.cnn.com/audio)"
+   },
+   {
+    "bbox": [
+     20,
+     16449,
+     350,
+     26
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.cnn.com/watch",
+      "text": "Watch"
+     }
+    ],
+    "md": "[Watch](https://www.cnn.com/watch)"
+   },
+   {
+    "bbox": [
+     20,
+     16499,
+     350,
+     1
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "hr",
+    "landmark": "footer",
+    "links": [],
+    "md": ""
+   },
+   {
+    "bbox": [
+     20,
+     16524,
+     22,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "US",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16560,
+     41,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "World",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16596,
+     52,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Politics",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16632,
+     65,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Business",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16668,
+     58,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Markets",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16704,
+     46,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Health",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16740,
+     132,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "CNN Underscored",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16776,
+     100,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Entertainment",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16812,
+     34,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Tech",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16848,
+     36,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Style",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16884,
+     42,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Travel",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16920,
+     47,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Sports",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16956,
+     57,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Science",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     16992,
+     55,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Climate",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17028,
+     59,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Weather",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17064,
+     116,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "World Cup 2026",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17100,
+     142,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Ukraine-Russia War",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17136,
+     127,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Israel-Hamas War",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17172,
+     45,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Watch",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17208,
+     43,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Listen",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17244,
+     51,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "Games",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17280,
+     82,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "nav",
+    "links": [],
+    "md": "About CNN",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     17340,
+     350,
+     1
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "hr",
+    "landmark": "footer",
+    "links": [],
+    "md": ""
+   },
+   {
+    "bbox": [
+     63,
+     17437,
+     264,
+     58
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [],
+    "md": "Follow CNN"
+   },
+   {
+    "bbox": [
+     20,
+     17534,
+     350,
+     60
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [],
+    "md": "Download the CNN app"
+   },
+   {
+    "bbox": [
+     20,
+     17618,
+     350,
+     1
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "hr",
+    "landmark": "footer",
+    "links": [],
+    "md": ""
+   },
+   {
+    "bbox": [
+     106,
+     17643,
+     70,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/terms",
+      "text": "Terms of Use"
+     }
+    ],
+    "md": "[Terms of Use](https://www.cnn.com/terms)"
+   },
+   {
+    "bbox": [
+     193,
+     17643,
+     75,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/privacy",
+      "text": "Privacy Policy"
+     }
+    ],
+    "md": "[Privacy Policy](https://www.cnn.com/privacy)"
+   },
+   {
+    "bbox": [
+     25,
+     17667,
+     246,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [],
+    "md": "Do Not Sell Or Share My Personal Information"
+   },
+   {
+    "bbox": [
+     287,
+     17667,
+     62,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/ad-choices",
+      "text": "Ad Choices"
+     }
+    ],
+    "md": "[Ad Choices](https://www.cnn.com/ad-choices)"
+   },
+   {
+    "bbox": [
+     39,
+     17691,
+     98,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/accessibility",
+      "text": "Accessibility & CC"
+     }
+    ],
+    "md": "[Accessibility & CC](https://www.cnn.com/accessibility)"
+   },
+   {
+    "bbox": [
+     153,
+     17691,
+     32,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/about",
+      "text": "About"
+     }
+    ],
+    "md": "[About](https://www.cnn.com/about)"
+   },
+   {
+    "bbox": [
+     201,
+     17691,
+     54,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/subscription?source=sub_web_footerlink-link",
+      "text": "Subscribe"
+     }
+    ],
+    "md": "[Subscribe](https://www.cnn.com/subscription?source=sub_web_footerlink-link)"
+   },
+   {
+    "bbox": [
+     272,
+     17691,
+     63,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/newsletters",
+      "text": "Newsletters"
+     }
+    ],
+    "md": "[Newsletters](https://www.cnn.com/newsletters)"
+   },
+   {
+    "bbox": [
+     87,
+     17715,
+     59,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/transcripts",
+      "text": "Transcripts"
+     }
+    ],
+    "md": "[Transcripts](https://www.cnn.com/transcripts)"
+   },
+   {
+    "bbox": [
+     162,
+     17715,
+     64,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://help.cnn.com/",
+      "text": "Help Center"
+     }
+    ],
+    "md": "[Help Center](https://help.cnn.com/)"
+   },
+   {
+    "bbox": [
+     242,
+     17715,
+     44,
+     20
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.cnn.com/sitemap",
+      "text": "Sitemap"
+     }
+    ],
+    "md": "[Sitemap](https://www.cnn.com/sitemap)"
+   },
+   {
+    "bbox": [
+     20,
+     17763,
+     350,
+     60
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [],
+    "md": "© 2026 Cable News Network. A Warner Bros. Discovery Company. All Rights Reserved. CNN Sans ™ & © 2016 Cable News Network."
+   }
+  ],
+  "description": "View the latest news and breaking news today for U.S., world, weather, entertainment, politics and health at CNN.com.",
+  "docHeight": 664,
+  "interactive": 56,
+  "lang": "en",
+  "title": "Breaking News, Latest News and Videos | CNN",
+  "url": "https://www.cnn.com/",
+  "viewport": [
+   390,
+   664
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 1600,
+  "extractor": "2.0.0a1",
+  "fetched_at": "2026-07-03T15:53:08-05:00",
+  "mode": "authenticated",
+  "requested_url": "https://www.cnn.com",
+  "url": "https://www.cnn.com/"
+ }
+}

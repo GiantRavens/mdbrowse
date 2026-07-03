@@ -1,0 +1,76 @@
+{
+ "doc": {
+  "anchors": 1,
+  "blocks": [
+   {
+    "bbox": [
+     78,
+     100,
+     234,
+     28
+    ],
+    "bold": true,
+    "fontSize": 24,
+    "images": [],
+    "kind": "heading",
+    "landmark": "body",
+    "level": 1,
+    "links": [],
+    "md": "Example Domain"
+   },
+   {
+    "bbox": [
+     78,
+     144,
+     234,
+     72
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "This domain is for use in documentation examples without needing permission. Avoid use in operations."
+   },
+   {
+    "bbox": [
+     78,
+     232,
+     234,
+     18
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://iana.org/domains/example",
+      "text": "Learn more"
+     }
+    ],
+    "md": "[Learn more](https://iana.org/domains/example)"
+   }
+  ],
+  "description": "",
+  "docHeight": 664,
+  "interactive": 0,
+  "lang": "en",
+  "title": "Example Domain",
+  "url": "https://example.com/",
+  "viewport": [
+   390,
+   664
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 3245,
+  "extractor": "2.0.0a1",
+  "fetched_at": "2026-07-03T15:53:00-05:00",
+  "mode": "authenticated",
+  "requested_url": "https://example.com",
+  "url": "https://example.com/"
+ }
+}
