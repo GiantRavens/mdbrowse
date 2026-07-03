@@ -2,6 +2,94 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-06-27 — Markdown lint pass: guaranteed well-formed output
+
+### Added
+- **`_lint_md()` — a single normalization pass every rendered page leaves
+  through**, regardless of which extraction path (trafilatura prose or
+  whole-page) produced it. Guarantees: ATX headings with a space after the
+  hashes and blank lines around them; one consistent `- ` bullet marker; spaces
+  around inline links so words don't fuse to them (`sources](url)to` →
+  `sources](url) to`); and stripping of leaked `<svg>`/`<script>`/stray HTML
+  tags and inline CSS declaration blocks. Fenced code blocks are split out and
+  passed through untouched, so a code sample's contents are never rewritten.
+
+## 2026-06-27 — Fix x.com showing only the "JS disabled" wall
+
+`mdbrowse https://x.com` rendered just the noscript wall + footer (7 lines),
+no timeline. Three compounding causes, all fixed:
+
+### Fixed
+- **Premature capture.** The observe-first settle classified x.com's ~170-char
+  app shell as "done" and captured before the timeline's XHR returned. Tweets
+  are `<article>` elements that arrive a beat after the shell — so the settle
+  now reserves the fast path for genuinely content-rich pages (≥800 chars at
+  load) and, for smaller/ambiguous pages, waits for an `<article>` to attach.
+  (networkidle is useless here — X holds long-poll sockets open, so it never
+  fires; confirmed empirically.)
+- **`<noscript>` wall extracted as the article.** `page.content()` serializes
+  the `<noscript>` block even though JS rendered real content; trafilatura with
+  `favor_recall=True` then picked the "enable JavaScript" text as the article.
+  Now stripped before extraction.
+- **Feed under-extraction.** trafilatura extracts ONE article, so on a timeline
+  of many `<article>` posts it grabbed a single tweet and dropped the rest.
+  Pages with ≥3 `<article>` elements now route to the whole-page converter,
+  which keeps every post and its headings. x.com went from a 7-line wall to the
+  full timeline with `#` headings and per-tweet links.
+
+## 2026-06-27 — Speed: browser reuse and observe-first settle
+
+The JS-by-default render was "super duper slow" (~4s/page, every page paying a
+cold Chromium launch). Two fixes, profiled against the actual cost.
+
+### Changed
+- **Observe-first settle heuristic.** `_settle_page` now measures `innerText`
+  immediately after load and classifies the page: if content is already
+  present (server-rendered), it skips the landmark wait entirely and does a
+  quick stability check; only near-empty SPA shells pay the
+  `wait_for_selector` cost. Previously a server-rendered page with no
+  `<main>`/`<article>` burned the full selector cap waiting for an element that
+  would never appear. Server-rendered pages dropped **2.7s → 0.87s** each; SPAs
+  (x.com) still settle correctly (~2.2s).
+- **Warm browser reuse.** New `BrowserSession` holds the engine + context
+  (cookies, stealth shim, tracker routing) open across page loads; browse-mode
+  link-following reuses it instead of cold-launching Chromium per hop.
+  `fetch_js` is now a one-shot wrapper over it. A 5-page browse session went
+  from ~13.5s to ~3.9s end to end.
+
+## 2026-06-27 — JavaScript by default; defeat "JS is disabled" walls
+
+Heavy SPAs (x.com, instagram, …) served a "JavaScript is not available" wall.
+Two root causes: the JS path was broken, and it wasn't the default, so the
+static fetcher — which can't run JS — got walled.
+
+### Changed
+- **JavaScript rendering is now the default.** Every page renders through the
+  headless browser engine so SPAs and lazy-loaded content come through. New
+  `--static` (a.k.a. `--no-js`) opts into the fast no-engine path. `--js` still
+  works (now a no-op default) and `--wait` still forces the engine.
+- **Graceful degradation:** if Playwright isn't installed, the default silently
+  falls back to the static fetcher (with a one-line hint); only an *explicit*
+  `--js`/`--wait` hard-fails with install instructions.
+
+### Added
+- **Auto-escalation sensor.** Even on the `--static` fast path, if the fetched
+  HTML matches a "JavaScript required" wall signature, mdbrowse transparently
+  retries with the JS engine (and emits a telemetry line saying so) instead of
+  rendering the wall.
+
+### Fixed
+- **The JS path was completely broken**: `new_context()` received `user_agent`
+  both from the iPhone device descriptor and explicitly, raising a
+  duplicate-keyword `TypeError` on every run. Context options are now merged
+  through a dict so `IPHONE_UA` cleanly overrides the descriptor's UA.
+- **Anti-bot "JS disabled" walls defeated.** A stealth init script runs before
+  page scripts and aligns the headless-Chromium identity with the mobile-Safari
+  UA we present: `navigator.webdriver` → undefined (the automation flag),
+  `navigator.vendor` → `Apple Computer, Inc.` (Chromium reports `Google Inc.`,
+  contradicting the Safari UA), and `maxTouchPoints` → 5. No second browser
+  engine required — Chromium stays the only install dependency.
+
 ## 2026-06-25 — Authenticated browsing, semantic layout, reader UX, real-world fixes
 
 A full pass turning mdbrowse from a clean anonymous reader into an

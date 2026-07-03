@@ -63,6 +63,25 @@ _PRIVACY_HEADERS = {
     "Sec-GPC": "1",  # Global Privacy Control: "do not sell/share"
 }
 
+# Stealth shim for --js mode, injected before any page script runs.
+#
+# We drive headless Chromium but wear a mobile-Safari User-Agent (IPHONE_UA).
+# Anti-bot scripts on heavy SPAs (x.com, instagram, etc.) fingerprint that
+# masquerade and, when they smell automation, fall back to a "JavaScript is
+# disabled" interstitial — even though JS is genuinely running. Two tells do it:
+#   * navigator.webdriver === true  -> Playwright sets this; the classic flag.
+#   * navigator.vendor === "Google Inc."  -> Chromium's value, but a real Safari
+#     reports "Apple Computer, Inc.", so the UA and the engine contradict.
+# We also nudge maxTouchPoints to an iPhone-like 5 (Chromium reports 1).
+# Patching these three keeps the projected identity internally consistent
+# without shipping a second browser engine. Each guard is defensive so a
+# locked-down property can't abort the whole shim.
+_STEALTH_INIT_JS = """
+try { Object.defineProperty(navigator, 'webdriver', {get: () => undefined}); } catch (e) {}
+try { Object.defineProperty(navigator, 'vendor', {get: () => 'Apple Computer, Inc.'}); } catch (e) {}
+try { Object.defineProperty(navigator, 'maxTouchPoints', {get: () => 5}); } catch (e) {}
+"""
+
 
 def build_headers(private: bool) -> dict:
     h = dict(_BASE_HEADERS)
@@ -287,90 +306,135 @@ def _settle_page(page, budget_ms: int, wait_selector: str = None) -> None:
     import time as _time
     deadline = _time.monotonic() + budget_ms / 1000.0
     left_ms = lambda: max(0, int((deadline - _time.monotonic()) * 1000))
+    text_len = lambda: page.evaluate(
+        "document.body ? document.body.innerText.length : 0")
 
-    targets = [wait_selector] if wait_selector else ["main", "article", "[role=main]"]
-    per_sel_cap = 8000 if wait_selector else 3000
-    for sel in targets:
-        if left_ms() <= 0:
-            break
+    # Observe before acting: a blocking wait_for_selector on a selector that
+    # never matches burns its FULL cap — disastrous on a server-rendered page
+    # that has no <main>/<article> but was already complete at domcontentloaded.
+    # So classify first. If content is already present, this isn't an empty SPA
+    # shell; skip the landmark wait and go straight to a quick stability check.
+    if wait_selector:
+        # Explicit caller signal — wait for exactly what they named.
         try:
-            page.wait_for_selector(sel, state="attached",
-                                   timeout=min(left_ms(), per_sel_cap))
-            break  # a target showed up; good enough to proceed
+            page.wait_for_selector(wait_selector, state="attached",
+                                   timeout=min(left_ms(), 6000))
         except Exception:
-            continue
+            pass
+    else:
+        try:
+            initial = text_len()
+        except Exception:
+            initial = 0
+        # A page with lots of text at domcontentloaded is server-rendered and
+        # done -> skip straight to a quick stability confirm. Anything smaller
+        # is ambiguous: a genuinely tiny static page (example.com ~170 chars) or
+        # an unhydrated SPA shell whose real content arrives a beat later via
+        # XHR (x.com's timeline ~170 char shell -> 1200+ once tweets load). The
+        # shell's text length looks identical to a small static page, so length
+        # can't tell them apart -- but the *content units* can: wait for an
+        # <article> to attach. networkidle is useless here (X holds long-poll
+        # sockets open, so it never fires).
+        if initial < 800:
+            try:
+                page.wait_for_selector("article, [role=article]",
+                                       state="attached",
+                                       timeout=min(left_ms(), 2500))
+            except Exception:
+                pass  # no article content; the stability poll below carries us
 
     try:  # nudge lazy content into existence (images are blocked, so this is cheap)
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        page.wait_for_timeout(250)
+        page.wait_for_timeout(120)
         page.evaluate("window.scrollTo(0, 0)")
     except Exception:
         pass
 
-    # DOM-text stability: stop once innerText length holds steady twice in a row.
-    # Capped at 8s even on a large budget, so a live ticker can't eat the clock.
-    poll_end = _time.monotonic() + min(left_ms() / 1000.0, 8.0)
+    # DOM-text stability: stop once innerText length holds steady twice in a
+    # row. The cur>0 guard means an empty shell never counts as "stable", so we
+    # don't capture before React paints. Capped at 4s on a large budget.
+    poll_end = _time.monotonic() + min(left_ms() / 1000.0, 4.0)
     prev, stable = -1, 0
     while stable < 2 and _time.monotonic() < poll_end:
         try:
-            cur = page.evaluate("document.body ? document.body.innerText.length : 0")
+            cur = text_len()
         except Exception:
             break
         if cur > 0 and cur == prev:
             stable += 1
         else:
             stable, prev = 0, cur
-        page.wait_for_timeout(300)
+        page.wait_for_timeout(150)
 
 
-def fetch_js(url: str, timeout: float = 30.0, private: bool = False,
-             wait_selector: str = None) -> str:
-    """Render with a real (headless) browser engine, blocking trackers.
+def _should_block_request(req_url: str, resource_type: str) -> bool:
+    if resource_type in ("image", "media", "font"):
+        return True  # we only want text -> faster, lighter
+    return any(h in req_url.lower() for h in TRACKER_HOSTS)
 
-    Default: seed the context with your Safari cookies (logged-in browsing).
-    --private: a fresh, isolated context => no cookies/storage, anonymous.
-    wait_selector: a CSS selector to wait for before capturing (for SPAs that
-    paint late); otherwise a content-stability heuristic decides when it's done.
+
+class BrowserSession:
+    """A warm browser engine reused across page loads.
+
+    Cold-launching Chromium costs ~1-2s; the old code paid it for *every* page,
+    so following links in browse mode multiplied that by the number of hops.
+    Here the engine, context, cookies, stealth shim, and tracker-blocking route
+    are set up once; each render() serves a URL from a fresh page on the shared
+    context. First page pays the launch; every link after is ~sub-second.
+
+    Used two ways: as a context manager around a browse loop (reused for the
+    whole session), or one-shot via fetch_js() for a single page load.
     """
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        err("--js needs Playwright. Install it:")
-        err("    pip install playwright && playwright install chromium")
-        sys.exit(2)
 
-    def should_block(req_url: str, resource_type: str) -> bool:
-        if resource_type in ("image", "media", "font"):
-            return True  # we only want text -> faster, lighter
-        low = req_url.lower()
-        return any(h in low for h in TRACKER_HOSTS)
+    def __init__(self, private: bool = False, timeout: float = 30.0):
+        self._private = private
+        self._timeout = timeout
+        self._pw = self._browser = self._context = None
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+    def _ensure(self) -> None:
+        if self._context is not None:
+            return
         try:
-            device = p.devices.get("iPhone 13", {})
-            context = browser.new_context(
-                **device,
-                user_agent=IPHONE_UA,
-                java_script_enabled=True,
-                locale="en-US",
-                extra_http_headers=_PRIVACY_HEADERS if private else {},
-            )
-            if not private:
-                try:
-                    context.add_cookies(playwright_cookies(load_safari_cookies()))
-                except Exception as e:
-                    err(f"could not seed Safari cookies into the browser: {e}")
-            context.route(
-                "**/*",
-                lambda route, request: (
-                    route.abort()
-                    if should_block(request.url, request.resource_type)
-                    else route.continue_()
-                ),
-            )
-            page = context.new_page()
-            budget_ms = int(timeout * 1000)
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            err("--js needs Playwright. Install it:")
+            err("    pip install playwright && playwright install chromium")
+            sys.exit(2)
+        self._pw = sync_playwright().start()
+        self._browser = self._pw.chromium.launch(headless=True)
+        # The device descriptor already carries its own user_agent; merge via a
+        # dict so IPHONE_UA overrides it instead of colliding as a duplicate kwarg.
+        ctx_opts = {
+            **self._pw.devices.get("iPhone 13", {}),
+            "user_agent": IPHONE_UA,
+            "java_script_enabled": True,
+            "locale": "en-US",
+            "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
+        }
+        self._context = self._browser.new_context(**ctx_opts)
+        # Defeat anti-bot "JS is disabled" interstitials: hide the automation
+        # flag and align navigator with the Safari UA we present.
+        self._context.add_init_script(_STEALTH_INIT_JS)
+        if not self._private:
+            try:
+                self._context.add_cookies(playwright_cookies(load_safari_cookies()))
+            except Exception as e:
+                err(f"could not seed Safari cookies into the browser: {e}")
+        self._context.route(
+            "**/*",
+            lambda route, request: (
+                route.abort()
+                if _should_block_request(request.url, request.resource_type)
+                else route.continue_()
+            ),
+        )
+
+    def render(self, url: str, wait_selector: str = None) -> str:
+        """Render one URL on the shared context and return its post-JS HTML."""
+        self._ensure()
+        page = self._context.new_page()
+        budget_ms = int(self._timeout * 1000)
+        try:
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
             except Exception:
@@ -379,10 +443,41 @@ def fetch_js(url: str, timeout: float = 30.0, private: bool = False,
                     raise
                 page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
             _settle_page(page, budget_ms, wait_selector)
-            html = page.content()
-            return html
+            return page.content()
         finally:
-            browser.close()
+            page.close()  # pages are per-URL; the context/browser persist
+
+    def close(self) -> None:
+        for obj, meth in ((self._context, "close"), (self._browser, "close"),
+                          (self._pw, "stop")):
+            if obj is not None:
+                try:
+                    getattr(obj, meth)()
+                except Exception:
+                    pass
+        self._pw = self._browser = self._context = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.close()
+
+
+def fetch_js(url: str, timeout: float = 30.0, private: bool = False,
+             wait_selector: str = None) -> str:
+    """Render a single page with a real (headless) browser engine.
+
+    Default: seed the context with your Safari cookies (logged-in browsing).
+    --private: a fresh, isolated context => no cookies/storage, anonymous.
+    wait_selector: a CSS selector to wait for before capturing (for SPAs that
+    paint late); otherwise a content-stability heuristic decides when it's done.
+
+    One-shot wrapper over BrowserSession; browse loops hold a session open
+    instead of calling this per page, so the engine launches only once.
+    """
+    with BrowserSession(private=private, timeout=timeout) as sess:
+        return sess.render(url, wait_selector=wait_selector)
 
 
 # ---------------------------------------------------------------------------
@@ -394,6 +489,55 @@ def _clean_md(md: str) -> str:
     md = re.sub(r"[ \t]+\n", "\n", md)          # trailing whitespace
     md = re.sub(r"\n{3,}", "\n\n", md)          # collapse blank runs
     return md.strip()
+
+
+def _lint_segment(s: str) -> str:
+    """The actual normalization rules — applied only OUTSIDE fenced code, so a
+    code sample's contents are never rewritten. All patterns are linear and
+    bounded (no nested quantifiers) to stay safe on large pages."""
+    # 1. Drop anything that's still raw HTML the converters missed: <svg> trees
+    #    (icon noise), then any stray single tag. Bounded so it can't backtrack.
+    s = re.sub(r"(?is)<svg\b[^>]*>.*?</svg>", "", s)
+    s = re.sub(r"(?is)<(script|style)\b[^>]*>.*?</\1>", "", s)
+    s = re.sub(r"</?[a-zA-Z][^>\n]{0,200}>", "", s)
+    s = _strip_css(s)  # leaked '.css-x{…}' / ':host{…}' declaration blocks
+
+    # 2. Spaces around inline links so words don't fuse to them. The dominant
+    #    bug is text glued AFTER a link: "...sources](url)to[next" -> add a space
+    #    after the closing ')' when a word/[/( follows (never before punctuation).
+    s = re.sub(r"(\]\([^)\s]*\))(?=[A-Za-z0-9(\[])", r"\1 ", s)
+    #    …and a word glued directly BEFORE a link: "usedfor[blogging](url)".
+    s = re.sub(r"(?<=[A-Za-z0-9])(\[[^\]\n]+\]\()", r" \1", s)
+
+    # 3. ATX headings: exactly one space after the hashes ("##Title" -> "## Title").
+    s = re.sub(r"(?m)^(#{1,6})(?=[^#\s])", r"\1 ", s)
+
+    # 4. Bullets: one consistent marker. '*'/'+' -> '-', and a space after it
+    #    ("-item" -> "- item"). Ordered lists keep their "N." form.
+    s = re.sub(r"(?m)^(\s*)[*+]\s+", r"\1- ", s)
+    s = re.sub(r"(?m)^(\s*)-(?=\S)", r"\1- ", s)
+
+    # 5. Blank line BEFORE and AFTER a heading, so every renderer treats it as a
+    #    heading and not as body text. _clean_md later collapses any 3+ run.
+    s = re.sub(r"(?<=\S)\n(#{1,6} )", r"\n\n\1", s)
+    s = re.sub(r"(?m)^(#{1,6} .+)\n(?=[^\n])", r"\1\n\n", s)
+    return s
+
+
+def _lint_md(md: str) -> str:
+    """Normalize converter output into well-formed, consistently-styled
+    Markdown — the single guarantee that runs on EVERY rendered page regardless
+    of which extraction path produced it (trafilatura prose or whole-page).
+
+    Fenced code blocks are split out and passed through untouched so their
+    contents are never rewritten by the prose rules.
+    """
+    if not md:
+        return md
+    parts = re.split(r"(```.*?```)", md, flags=re.S)  # odd indices = code fences
+    for i in range(0, len(parts), 2):
+        parts[i] = _lint_segment(parts[i])
+    return _clean_md("".join(parts))
 
 
 def _strip_css(s: str) -> str:
@@ -687,7 +831,13 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
     whole-page conversion so navigation still works.
     """
     if full:
-        return _full_markdown(html, url, reorder=False)
+        return _lint_md(_full_markdown(html, url, reorder=False))
+
+    # Strip <noscript> first. When JS is enabled the browser never renders it,
+    # but page.content() still serializes its markup — and trafilatura with
+    # favor_recall=True will happily extract a site's "you need JavaScript" wall
+    # as the article, burying the real (JS-rendered) content beneath it.
+    html = re.sub(r"(?is)<noscript\b.*?</noscript>", "", html)
 
     import trafilatura
 
@@ -709,15 +859,25 @@ def to_markdown(html: str, url: str, full: bool = False, for_browse: bool = Fals
     # extractor found almost no inline links (it threw the navigation away).
     html_anchors = len(re.findall(r"<a[\s>]", html))
     index_like = html_anchors >= 30 and traf_links <= 5
+    # A feed/timeline (x.com, Mastodon, a blog index): many <article> elements,
+    # each a post. trafilatura is built to extract ONE article, so on a feed it
+    # latches onto a single post and discards the rest. The whole-page converter
+    # keeps every item (and its headings), so prefer it here.
+    feed_like = len(re.findall(r"<article[\s>]", html)) >= 3
 
     # Reading (non-browse) favors trafilatura's clean prose even when links are
     # sparse; browsing favors the structured full page so navigation has links.
-    if good_prose and (traf_links >= 5 or not for_browse) and not (for_browse and index_like):
-        return _clean_md(md)
+    if (good_prose and not feed_like
+            and (traf_links >= 5 or not for_browse)
+            and not (for_browse and index_like)):
+        result = md
+    else:
+        # Index page, feed, or thin extraction -> linearized whole-page.
+        full_md = _full_markdown(html, url)
+        result = full_md if full_md.strip() else md
 
-    # Index page or thin extraction -> linearized whole-page (links included).
-    full_md = _full_markdown(html, url)
-    return full_md if full_md.strip() else _clean_md(md)
+    # Single guarantee point: every path leaves through the linter.
+    return _lint_md(result)
 
 
 # ---------------------------------------------------------------------------
@@ -1086,14 +1246,57 @@ def open_in_safari(url: str) -> bool:
 # ---------------------------------------------------------------------------
 # Load one page end to end
 # ---------------------------------------------------------------------------
+
+# Signatures of the "you need JavaScript" wall that SPAs (x.com, instagram, …)
+# serve to a non-JS client. Specific enough that a false positive just means we
+# re-render the same page with the JS engine — slower, never wrong.
+_JS_WALL_SIGNATURES = (
+    "javascript is disabled",
+    "javascript is not available",
+    "please enable javascript",
+    "enable javascript to",
+    "switch to a supported browser",
+)
+
+
+def _looks_like_js_wall(html: str) -> bool:
+    low = html.lower()
+    return any(sig in low for sig in _JS_WALL_SIGNATURES)
+
+
+def _playwright_available() -> bool:
+    import importlib.util
+    return importlib.util.find_spec("playwright") is not None
+
+
 def load(url: str, js: bool, full: bool, for_browse: bool = False,
-         private: bool = False, wait_selector: str = None):
+         private: bool = False, wait_selector: str = None,
+         session: "BrowserSession" = None):
+    # session: a warm BrowserSession to render through (browse loops pass one so
+    # the engine launches once); None falls back to a one-shot fetch_js.
+    def _render_js():
+        return (session.render(url, wait_selector=wait_selector) if session
+                else fetch_js(url, private=private, wait_selector=wait_selector))
+
     if url.startswith("safari:"):
         return safari_page(url)
     if url.startswith("file://"):
         return read_local(url[len("file://"):], full, for_browse)
-    html = (fetch_js(url, private=private, wait_selector=wait_selector)
-            if js else fetch_static(url, private=private))
+    if js:
+        html = _render_js()
+    else:
+        html = fetch_static(url, private=private)
+        # Static fetch can't run JS; if the site served a "JavaScript required"
+        # wall, transparently escalate to the browser engine we already have
+        # rather than make the user know to pass --js.
+        if _looks_like_js_wall(html):
+            if session or _playwright_available():
+                err("static fetch hit a 'JavaScript required' wall — "
+                    "retrying with the JS engine…")
+                html = _render_js()
+            else:
+                err("this page requires JavaScript. Install the engine, then "
+                    "use --js:  pip install playwright && playwright install chromium")
     return to_markdown(html, url, full=full, for_browse=for_browse)
 
 
@@ -1117,10 +1320,23 @@ def browse(url: str, js: bool, full: bool, width: int, simple: bool = False,
 def browse_simple(url: str, js: bool, full: bool, width: int,
                   private: bool = False) -> None:
     history = []
+    # One warm browser for the whole link-following session, so only the first
+    # page pays the engine launch. Skipped if JS isn't in play.
+    session = (BrowserSession(private=private)
+               if js and _playwright_available() else None)
+    try:
+        _browse_simple_loop(url, js, full, width, private, history, session)
+    finally:
+        if session:
+            session.close()
+
+
+def _browse_simple_loop(url, js, full, width, private, history, session) -> None:
     current = url
     while True:
         try:
-            md = load(current, js, full, for_browse=True, private=private)
+            md = load(current, js, full, for_browse=True, private=private,
+                      session=session)
         except Exception as e:
             err(f"could not load {current}: {e}")
             if not history:
@@ -1267,6 +1483,10 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
     import curses
 
     state = {"current": start_url, "history": [], "quit": False}
+    # One warm browser for the whole reader session: only the first page pays
+    # the engine launch, every followed link reuses it.
+    session = (BrowserSession(private=private)
+               if js and _playwright_available() else None)
 
     def run(scr):
         curses.curs_set(0)
@@ -1286,7 +1506,8 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
         while not state["quit"]:
             cur = state["current"]
             try:
-                md = load(cur, js, full, for_browse=True, private=private)
+                md = load(cur, js, full, for_browse=True, private=private,
+                          session=session)
                 numbered, links, images = extract_and_number_links(md, cur, mark=True)
             except Exception as e:
                 md, links, images = f"# Error\n\nCould not load {cur}:\n\n{e}", [], []
@@ -1583,7 +1804,11 @@ def vim_browse(start_url: str, js: bool, full: bool, private: bool = False) -> N
             curses.noecho(); curses.curs_set(0)
         return s.decode("utf-8", "replace") if s else ""
 
-    curses.wrapper(run)
+    try:
+        curses.wrapper(run)
+    finally:
+        if session:
+            session.close()
 
 
 # ---------------------------------------------------------------------------
@@ -1605,10 +1830,15 @@ def main() -> None:
                     help="anonymous mode: send NO Safari cookies, add DNT/Sec-GPC "
                          "(default is to browse as your logged-in Safari self)")
     ap.add_argument("--js", action="store_true",
-                    help="render JS-heavy pages with a headless browser engine")
+                    help="(default) render with the headless browser engine, "
+                         "so SPAs and lazy-loaded content come through")
+    ap.add_argument("--static", "--no-js", dest="static", action="store_true",
+                    help="fast path: fetch HTML directly, no browser engine. "
+                         "Auto-escalates to JS if the page serves a "
+                         "'JavaScript required' wall.")
     ap.add_argument("--wait", metavar="SELECTOR", default=None,
-                    help="with --js, wait for this CSS selector before capturing "
-                         "(for SPAs that paint late); implies --js")
+                    help="wait for this CSS selector before capturing "
+                         "(for SPAs that paint late); forces the JS engine")
     ap.add_argument("--raw", action="store_true",
                     help="print markdown source instead of rendering")
     ap.add_argument("--html", action="store_true",
@@ -1626,8 +1856,18 @@ def main() -> None:
     ap.add_argument("--no-pager", action="store_true",
                     help="don't pipe output through a pager")
     args = ap.parse_args()
-    if args.wait:
-        args.js = True  # waiting for a selector only makes sense with a JS engine
+
+    # JS engine is the default; --static (a.k.a. --no-js) opts out. --js and
+    # --wait force it on even if --static was also given. If the engine isn't
+    # installed we silently fall back to static for the default/implicit case,
+    # and only hard-fail when the user explicitly asked for JS.
+    js_explicit = args.js or bool(args.wait)
+    want_js = js_explicit or not args.static
+    if want_js and not js_explicit and not _playwright_available():
+        err("JS engine not installed — using the fast static fetch. For full "
+            "SPA rendering: pip install playwright && playwright install chromium")
+        want_js = False
+    args.js = want_js
 
     # Resolve the target. No URL -> the Safari homepage; flags -> Safari views.
     if args.bookmarks:
@@ -1656,7 +1896,7 @@ def main() -> None:
         sys.exit(1)
 
     if not md or not md.strip():
-        err("nothing readable extracted (try --full, or --js for SPA pages)")
+        err("nothing readable extracted (try --full to keep the whole page)")
         sys.exit(1)
 
     if args.save:

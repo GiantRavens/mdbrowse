@@ -12,9 +12,13 @@ The opposite of fighting with w3m.
 - **Reorders for reading.** Pulls `<main>` to the top under the page title, then
   demotes the nav, sidebar, and footer to compact link lists — and deletes
   cookie/consent banners and modal popups outright.
-- **Blocks trackers.** In `--js` mode, known analytics/ad hosts are aborted
+- **Blocks trackers.** In JS mode, known analytics/ad hosts are aborted
   (and images/fonts/media skipped during render — you only wanted text).
-- **Fast by default**, with a real browser engine on demand (`--js`) for SPAs.
+- **Renders JavaScript by default**, so SPAs (x.com, Instagram, …) and
+  lazy-loaded content come through. A built-in stealth shim aligns the engine
+  with the mobile-Safari identity it presents, so sites don't bounce it with a
+  "JavaScript is disabled" wall. Want raw speed? `--static` skips the browser
+  engine — and still auto-escalates to JS if a page serves that wall anyway.
 - **Browse mode** (`--browse`) gives w3m-style numbered link-following, usable.
   Tab between links, Space to Quick Look an image, `s` to archive the page.
 - **Piggybacks on Safari** — no URL opens your homepage; `--start`/`--bookmarks`/
@@ -46,16 +50,20 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 Everything is contained in `.venv` — nothing touches system Python, and
 `rm -rf .venv` fully uninstalls. (The venv is host-local and never synced.)
 
-### Optional: JavaScript rendering (`--js`)
+### JavaScript rendering (the default engine)
 
-Only for sites that render entirely in the browser (React/Vue SPAs). On macOS
-this is self-contained — no system packages, no `sudo`:
+mdbrowse renders JavaScript by default, which needs Playwright + Chromium. On
+macOS this is self-contained — no system packages, no `sudo`:
 
 ```bash
 cd ~/Desktop/notebook/code/mdbrowse
 uv pip install playwright
 .venv/bin/playwright install chromium
 ```
+
+Without it, mdbrowse falls back to the fast static fetcher automatically (the
+same path as `--static`); you just won't get full SPA rendering until it's
+installed.
 
 ## Usage
 
@@ -68,7 +76,7 @@ mdbrowse --start                    # Safari start page: home + bookmarks + read
 mdbrowse --bookmarks                # browse your Safari bookmarks
 mdbrowse --reading-list             # browse your Safari reading list
 mdbrowse example.com --raw          # print the markdown source
-mdbrowse https://a-spa.dev --js     # render JS-heavy pages
+mdbrowse https://fast-static.site --static  # skip the browser engine for speed
 mdbrowse example.com --full         # convert the whole page, don't strip to "article"
 mdbrowse https://news.site --private  # anonymous: no cookies, DNT + Sec-GPC
 mdbrowse https://news.site --save     # archive to ~/mdbrowse-archive (timestamped .md)
@@ -139,8 +147,9 @@ authenticated` or `mode: private`).
 | `--private`, `--anonymous` | send no Safari cookies; add `DNT` + `Sec-GPC` (default is to browse as your logged-in self) |
 | `--save` | save a timestamped Markdown archive (to `~/mdbrowse-archive`, or `$MDBROWSE_ARCHIVE`) |
 | `--html` | render to styled HTML and open it in your browser |
-| `--js` | render with a headless browser engine (for SPAs); seeds your Safari cookies unless `--private`, trackers blocked |
-| `--wait SELECTOR` | with `--js`, wait until this CSS selector appears before capturing — for SPAs that paint late (implies `--js`) |
+| `--js` | (default) render with a headless browser engine; seeds your Safari cookies unless `--private`, trackers blocked |
+| `--static`, `--no-js` | skip the browser engine for speed; auto-escalates to JS if the page serves a "JavaScript required" wall |
+| `--wait SELECTOR` | wait until this CSS selector appears before capturing — for SPAs that paint late (forces the JS engine) |
 | `--raw` | print the Markdown source instead of the pretty render |
 | `--browse` | interactive vim-style navigation / link following |
 | `--simple` | use the plain prompt instead of vim-style navigation |
@@ -150,11 +159,14 @@ authenticated` or `mode: private`).
 
 ## How it works
 
-1. **Fetch** — `httpx` GET with an iPhone User-Agent, sending your Safari
-   cookies (read from `Cookies.binarycookies`, scoped per host so they survive
-   redirects) — unless `--private`. With `--js`, headless Chromium via Playwright
-   in a context seeded with the same cookies, trackers and images/fonts/media
-   blocked. Local files are read directly.
+1. **Fetch** — by default, headless Chromium via Playwright in a context seeded
+   with your Safari cookies (read from `Cookies.binarycookies`, scoped per host
+   so they survive redirects) — unless `--private` — with trackers and
+   images/fonts/media blocked, and a stealth shim that hides the automation flag
+   and matches the engine to the mobile-Safari UA so SPAs don't show a
+   "JavaScript disabled" wall. `--static` uses a plain `httpx` GET instead (and
+   auto-escalates to the engine if it hits that wall). Local files are read
+   directly.
 2. **Strip & reorder** — `trafilatura` pulls the main article and emits Markdown
    with inline links. Link-heavy / full pages go through a DOM partition that
    extracts `<nav>`/`<aside>`/`<footer>` (demoted to link lists), removes
@@ -173,12 +185,13 @@ authenticated` or `mode: private`).
 - If a bare domain won't resolve (some sites leave the apex as a flaky-DNS
   redirect and only serve `www.`, e.g. `quantum.com`), mdbrowse retries once with
   `www.` prepended automatically.
-- `--js` needs the one-time `playwright install chromium` step above.
+- The default JS engine needs the one-time `playwright install chromium` step
+  above; without it, mdbrowse falls back to the static fetcher automatically.
 - Image preview uses macOS Quick Look (`qlmanage`) and pulls the panel to the
   front via System Events. The first time, macOS asks to let your terminal
   "control System Events" — allow it (System Settings → Privacy & Security →
   Automation). If denied, previews still open, just behind the terminal.
-- `--js` waits for content, not the network: it looks for `<main>`/`<article>`,
+- The JS engine waits for content, not the network: it looks for `<main>`/`<article>`,
   nudges lazy content with a scroll, then waits until the page's text stops
   growing (it does *not* use the flaky `networkidle`). If an SPA still captures
   half-rendered, name its content container with `--wait '.article-body'`.
