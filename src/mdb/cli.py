@@ -92,7 +92,14 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         prog="mdb",
         description="Web -> deterministic markdown compiler (mdbrowse v2).")
-    ap.add_argument("url", nargs="?", help="page to compile")
+    ap.add_argument("url", nargs="?",
+                    help="page to compile (omit for the Safari start page)")
+    ap.add_argument("--start", action="store_true",
+                    help="Safari start page (homepage + reading list + bookmarks)")
+    ap.add_argument("--bookmarks", action="store_true",
+                    help="browse your Safari bookmarks")
+    ap.add_argument("--reading-list", dest="reading_list", action="store_true",
+                    help="browse your Safari reading list")
     ap.add_argument("--browse", action="store_true",
                     help="force the interactive reader (already the default "
                          "in a terminal)")
@@ -128,14 +135,38 @@ def main() -> None:
     if args.selftest:
         sys.exit(selftest(update=args.update_goldens))
 
-    if not args.url:
-        ap.error("a URL is required (or --selftest)")
+    interactive = sys.stdout.isatty() and sys.stdin.isatty()
 
-    url = _normalize_url(args.url)
+    # Resolve the target. Safari flags -> pseudo-pages; no URL at all ->
+    # the Safari start page (mdb with no arguments is your front door).
+    if args.bookmarks:
+        url = "safari:bookmarks"
+    elif args.reading_list:
+        url = "safari:reading"
+    elif args.start or not args.url:
+        url = "safari:start"
+    elif args.url.startswith("safari:"):
+        url = args.url
+    else:
+        url = _normalize_url(args.url)
+
+    # Safari pseudo-pages need no engine: emit directly for non-browse paths.
+    if url.startswith("safari:"):
+        from .safari import page_markdown
+        if args.raw or args.dump == "body" or args.plain or not interactive:
+            md = page_markdown(url.split(":", 1)[1] or "start")
+            if args.raw or args.dump == "body" or not interactive:
+                print(md)
+            else:
+                render(md, url, width=args.width,
+                       use_pager=not args.no_pager, center=args.center)
+            return
+        from .reader import browse
+        browse(url, private=args.private, width=args.width)
+        return
 
     # In a terminal, mdb IS a browser: the interactive reader is the default.
     # Piped output, --plain, and the non-view verbs use the render pipeline.
-    interactive = sys.stdout.isatty() and sys.stdin.isatty()
     want_browse = args.browse or (
         interactive and not (args.plain or args.raw or args.dump
                              or args.save or args.fixture))

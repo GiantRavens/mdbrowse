@@ -53,7 +53,8 @@ HELP_LINES = (
     "  r                reload page",
     "  s                save markdown archive",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
-    "  :                go to URL",
+    "  B                add page to Safari Reading List",
+    "  :                go to URL (also safari:start / bookmarks / reading)",
     "  q                quit",
     "",
     "  mouse: wheel scrolls, click follows a link, click 🖼 previews",
@@ -411,10 +412,15 @@ class Reader:
 
     # -- pipeline --
     def load(self, url: str) -> Page:
-        b = self.engine.capture(url)
-        m = classify(b)
-        body = emit_body(b, m)
-        page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
+        if url.startswith("safari:"):
+            from . import safari
+            body = safari.page_markdown(url.split(":", 1)[1] or "start")
+            page = Page(url=url, bundle=None, manifest=None, body=body)
+        else:
+            b = self.engine.capture(url)
+            m = classify(b)
+            body = emit_body(b, m)
+            page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
         page.llines, page.focusables = parse_body(body)
         return page
 
@@ -740,6 +746,18 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c == ord("B"):                # add to Safari Reading List
+                from . import safari
+                title = (page.bundle["doc"].get("title")
+                         if page.bundle else None)
+                if page.url.startswith(("http://", "https://")):
+                    ok = safari.add_reading_list(page.url, title)
+                    self.msg = ("added to Safari Reading List" if ok
+                                else "couldn't add (check Automation "
+                                     "permission: Terminal → Safari)")
+                else:
+                    self.msg = "not a web page"
+                continue
 
             # --- search ---
             if c == ord("/"):
@@ -757,7 +775,8 @@ class Reader:
                 u = self._prompt(scr, h, w, ":")
                 if u.strip():
                     url = u.strip()
-                    if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
+                    if not url.startswith("safari:") and not re.match(
+                            r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
                         url = "https://" + url
                     return ("go", url)
                 continue
