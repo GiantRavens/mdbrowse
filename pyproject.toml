@@ -7,10 +7,12 @@ dependencies = [
     "httpx",
     "rich",
     "playwright",
+    "mcp",
 ]
 
 [project.scripts]
 mdb = "mdb.cli:main"
+mdb-mcp = "mdb.mcp:main"
 
 [build-system]
 requires = ["hatchling"]
