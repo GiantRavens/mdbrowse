@@ -1,197 +1,130 @@
-# mdbrowse — a private markdown web browser for your terminal
+# mdbrowse — browse the web as faithful, deterministic markdown
 
-Fetches a web page, strips the cruft (ads, nav, chrome), converts what's left to
-clean Markdown, and renders it in your terminal. Also previews local `.md` files.
-The opposite of fighting with w3m.
+`mdb` is a web → markdown **compiler** with a terminal browser on top.
+It renders pages in headless Chromium, extracts structured truth from
+inside the engine (geometry, landmarks, computed styles — never
+re-parsed HTML strings), classifies each page's *shape*, and emits
+clean, hierarchically correct markdown — the same page state producing
+the same bytes, every time. Everything else is a frontend over that
+compiler: a vim-style reader, an archive store, change-watching
+sensors, an MCP server for agents, speech output, and a
+screenshot-based fidelity oracle.
 
-- **Browses as you.** By default it reads your Safari cookies, so logged-in and
-  paywalled-to-you pages render the same content you'd see in Safari. Great for
-  OSINT and research. Add `--private` (a.k.a. `--anonymous`) to send **no**
-  cookies and add `DNT` + `Sec-GPC` — a fresh, anonymous visit.
-- **Pretends to be an iPhone.** Mobile pages are smaller and simpler, so less junk.
-- **Reorders for reading.** Pulls `<main>` to the top under the page title, then
-  demotes the nav, sidebar, and footer to compact link lists — and deletes
-  cookie/consent banners and modal popups outright.
-- **Blocks trackers.** In JS mode, known analytics/ad hosts are aborted
-  (and images/fonts/media skipped during render — you only wanted text).
-- **Renders JavaScript by default**, so SPAs (x.com, Instagram, …) and
-  lazy-loaded content come through. A built-in stealth shim aligns the engine
-  with the mobile-Safari identity it presents, so sites don't bounce it with a
-  "JavaScript is disabled" wall. Want raw speed? `--static` skips the browser
-  engine — and still auto-escalates to JS if a page serves that wall anyway.
-- **Browse mode** (`--browse`) gives w3m-style numbered link-following, usable.
-  Tab between links, Space to Quick Look an image, `s` to archive the page.
-- **Piggybacks on Safari** — no URL opens your homepage; `--start`/`--bookmarks`/
-  `--reading-list` open those; `O` reopens the live page in Safari.
-- **Saves clean archives** — `--save` (or `s` in the reader) writes timestamped
-  Markdown with YAML front-matter, the shape LLMs and parsers love.
-- **Local previews** — point it at a `.md` file; add `--html` for a styled
-  browser preview.
+- **Browses as you.** Reads your Safari cookies by default — logged-in
+  and paywalled-to-you pages render as you'd see them. `--private`
+  sends none.
+- **Shape-aware.** Articles come out as clean prose; feeds (HN, news
+  fronts) as one linked line per story; index cards merge their
+  fragments; app-shaped pages get a classified refusal instead of soup.
+- **Deterministic and diffable.** Front-matter carries provenance
+  (source, retrieved, mode, shape+confidence, extractor version) and a
+  body content-hash. Same page state → identical body. Pages become
+  versionable.
 
 ## Install
 
-Self-contained: a dedicated virtual environment lives inside the project folder,
-and a small wrapper makes `mdbrowse` a command. (Already set up on this machine at
-`~/Desktop/notebook/code/mdbrowse`.) To reproduce elsewhere:
-
 ```bash
 cd ~/Desktop/notebook/code/mdbrowse
-uv venv                                  # or: python3 -m venv .venv
-uv pip install -r requirements.txt       # or: .venv/bin/pip install -r requirements.txt
-
-# make `mdbrowse` a command:
-mkdir -p ~/bin
-printf '#!/bin/zsh\nexec "%s/.venv/bin/python" "%s/mdbrowse.py" "$@"\n' \
-  "$PWD" "$PWD" > ~/bin/mdbrowse
-chmod +x ~/bin/mdbrowse
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-```
-
-Everything is contained in `.venv` — nothing touches system Python, and
-`rm -rf .venv` fully uninstalls. (The venv is host-local and never synced.)
-
-### JavaScript rendering (the default engine)
-
-mdbrowse renders JavaScript by default, which needs Playwright + Chromium. On
-macOS this is self-contained — no system packages, no `sudo`:
-
-```bash
-cd ~/Desktop/notebook/code/mdbrowse
-uv pip install playwright
+uv venv && uv pip install -e .
 .venv/bin/playwright install chromium
+./mdb --version         # repo-root launcher; ~/bin/mdb points here
 ```
 
-Without it, mdbrowse falls back to the fast static fetcher automatically (the
-same path as `--static`); you just won't get full SPA rendering until it's
-installed.
+The venv is host-local (never synced); `./mdb` prints this recipe on a
+machine that lacks one.
 
-## Usage
+## Use
 
 ```bash
-mdbrowse                            # open your Safari homepage
-mdbrowse https://news.ycombinator.com --browse
-mdbrowse README.md                  # preview a local markdown file in the terminal
-mdbrowse README.md --html           # ...as a styled HTML page in your browser
-mdbrowse --start                    # Safari start page: home + bookmarks + reading list
-mdbrowse --bookmarks                # browse your Safari bookmarks
-mdbrowse --reading-list             # browse your Safari reading list
-mdbrowse example.com --raw          # print the markdown source
-mdbrowse https://fast-static.site --static  # skip the browser engine for speed
-mdbrowse example.com --full         # convert the whole page, don't strip to "article"
-mdbrowse https://news.site --private  # anonymous: no cookies, DNT + Sec-GPC
-mdbrowse https://news.site --save     # archive to ~/mdbrowse-archive (timestamped .md)
+mdb                                  # Safari start page (bookmarks, reading list)
+mdb news.ycombinator.com             # interactive reader (default in a terminal)
+mdb <url> --plain                    # non-interactive render (centered; --no-center)
+mdb <url> --raw                      # markdown document with front-matter
+mdb <url> --save                     # archive to ~/mdbrowse-archive
+mdb <url> --speak                    # the page talks (macOS say; --voice, MDBROWSE_VOICE)
+mdb <url> --speak-out article.aiff   # page as an audio file
+mdb search rust atomics              # web search (Mojeek; MDBROWSE_SEARCH_URL overrides)
+mdb feed https://xkcd.com/atom.xml   # RSS/Atom as a feed page
+mdb get <file-url>                   # authenticated download (~/Downloads)
+mdb oracle <url>                     # judge markdown fidelity against a screenshot
+mdb <url> --dump bundle|manifest|body  # inspect any compiler stage
+mdb --selftest                       # re-emit the fixture corpus, diff vs goldens
 ```
 
-### Browse mode — vim-style navigation
+### Watch sensors — versioned pages that fire on real change
 
-In a real terminal, `--browse` (and your homepage) open a full-screen vim-style
-reader. Links are numbered inline (`text [12]`); the selected link is highlighted.
+```bash
+mdb watch add https://example.com/pricing --name pricing
+mdb watch scan          # check all; commits changes to a git store
+mdb watch diff pricing  # last change as a patch
+mdb watch digest        # Claude narrates the week's changes (briefing material)
+```
 
-| key | action |
-|-----|--------|
-| `j` / `k` | scroll down / up |
-| `Ctrl-d` / `Ctrl-u` | half-page down / up |
-| `Ctrl-f` / `Ctrl-b` | page down / up (also `PgDn` / `PgUp`) |
-| `gg` / `G` | jump to top / bottom |
-| `Tab` | next link (highlights & scrolls to it) |
-| `Shift-Tab` | previous link |
-| `Enter` / `o` / click | follow the highlighted (or clicked) link |
-| `Space` | Quick Look the topmost on-screen image (else page down) |
-| click an image | Quick Look that `🖼 … [IMGn]` image |
-| `s` | save a timestamped Markdown archive of this page |
-| `p` | open a styled HTML reader preview in your browser |
-| `O` | open the live page in Safari (with your session) |
-| `H` / `Backspace` | back |
-| `r` | reload |
-| `/` | search in page (jumps to first match, highlights all) |
-| `n` / `N` | next / previous search match |
-| `:` | type a URL or local path to go to |
-| `?` | show the key map |
-| `q` | quit |
+Store: `~/mdbrowse-watch` (git; `git log -p <name>.md` is the page's
+history). The trigger hashes **visible text only** — rotating URL
+tokens never false-fire.
 
-The mouse works too: the wheel scrolls, clicking a link follows it, and clicking
-an image (`🖼 … [IMGn]`) pops it in Quick Look. **Inside tmux**, the mouse only
-reaches the reader if tmux mouse mode is on — add `set -g mouse on` to
-`~/.tmux.conf` (then hold Option/Shift while dragging to select text normally).
+### The reader
 
-Piping input, or passing `--simple`, falls back to a plain numbered prompt
-(`number` to follow, `i<n>` to preview an image, `b` back, `u` new URL, `q` quit).
+Vim-style, with a single **focus ring** over links *and* images
+(browser-like Tab). Two verbs: **Enter = go, Space = peek** (Quick Look
+the focused image; page-down otherwise). Every keystroke's effect is
+predictable from what is visibly highlighted.
 
-### Safari integration
+| keys | |
+|---|---|
+| `Tab` / `S-Tab` | next / previous focusable — full-extent highlight, even wrapped |
+| `Enter` / `o` · `Space` | go · peek |
+| `y` / `Y` · `d` | yank focused / page URL · download focused target |
+| `(` `)` · `{` `}` | heading / block motions |
+| `j k` `C-d C-u` `C-f C-b` `gg G` `zt zz zb` | scrolling and placement |
+| `/` `n` `N` | search |
+| `H` / `L` · `r` | history back / forward · reload |
+| `f` | fill the page's search form (GET), submit as navigation |
+| `F` | open the page's advertised RSS feed |
+| `S` / `a` | summarize / ask this page (Claude); answers are pages, `H` returns |
+| `v` | speak from the focused element (`v` again stops; `--announce` speaks on focus) |
+| `s` · `B` · `O` | archive · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) |
+| `:` | URL, `ddg terms`, `s terms`, `safari:start`, `feed:URL` |
+| `?` · `q` | help overlay · quit |
 
-No URL → your configured Safari homepage. `--start` shows a menu page built from
-your homepage + Reading List + bookmarks (folders preserved), every entry a
-followable link. Reads `~/Library/Safari/Bookmarks.plist`, read-only — nothing is
-modified. On recent macOS this data is protected: if you see "permission needed,"
-grant your terminal **Full Disk Access** (System Settings → Privacy & Security →
-Full Disk Access), then reopen the terminal.
+Mouse: wheel scrolls, click follows, click 🖼 previews. (tmux: `set -g mouse on`.)
 
-### Cookies & privacy
+### Agents and speed
 
-By default mdbrowse reads your Safari cookie jar
-(`~/Library/Containers/com.apple.Safari/Data/Library/Cookies/Cookies.binarycookies`,
-read-only) so you browse as your logged-in self — the same Full Disk Access
-grant as above applies. Cookies are scoped to the requesting host (and honor
-`Secure`), so a site only ever receives its own cookies, even across redirects.
-Use **`--private`** to send none and add `DNT` + `Sec-GPC` instead. Saved
-archives record which mode produced them in their front-matter (`mode:
-authenticated` or `mode: private`).
-
-## Flags
-
-| flag | what it does |
-|------|--------------|
-| `--start` | Safari start page (homepage + bookmarks + reading list) |
-| `--bookmarks` | browse your Safari bookmarks |
-| `--reading-list` | browse your Safari reading list |
-| `--private`, `--anonymous` | send no Safari cookies; add `DNT` + `Sec-GPC` (default is to browse as your logged-in self) |
-| `--save` | save a timestamped Markdown archive (to `~/mdbrowse-archive`, or `$MDBROWSE_ARCHIVE`) |
-| `--html` | render to styled HTML and open it in your browser |
-| `--js` | (default) render with a headless browser engine; seeds your Safari cookies unless `--private`, trackers blocked |
-| `--static`, `--no-js` | skip the browser engine for speed; auto-escalates to JS if the page serves a "JavaScript required" wall |
-| `--wait SELECTOR` | wait until this CSS selector appears before capturing — for SPAs that paint late (forces the JS engine) |
-| `--raw` | print the Markdown source instead of the pretty render |
-| `--browse` | interactive vim-style navigation / link following |
-| `--simple` | use the plain prompt instead of vim-style navigation |
-| `--full` | convert the whole page instead of extracting the main article |
-| `--width N` | wrap to N columns (default: terminal width) |
-| `--no-pager` | print straight to stdout instead of piping through a pager |
+- **MCP server** (`mdb-mcp`, registered as `mdbrowse`): `fetch_page`
+  (markdown + provenance), `page_links`, `archive_page` (returns the
+  body hash — compare to detect change).
+- **Engine daemon**: warm Chromium behind `~/.mdb/engine.sock`,
+  auto-spawned on first CLI capture, idle-exit after 30 min. Warm
+  fetches run ~0.7–1.0s. `mdb daemon start|stop|status|run`;
+  `MDBROWSE_DAEMON=off` disables.
 
 ## How it works
 
-1. **Fetch** — by default, headless Chromium via Playwright in a context seeded
-   with your Safari cookies (read from `Cookies.binarycookies`, scoped per host
-   so they survive redirects) — unless `--private` — with trackers and
-   images/fonts/media blocked, and a stealth shim that hides the automation flag
-   and matches the engine to the mobile-Safari UA so SPAs don't show a
-   "JavaScript disabled" wall. `--static` uses a plain `httpx` GET instead (and
-   auto-escalates to the engine if it hits that wall). Local files are read
-   directly.
-2. **Strip & reorder** — `trafilatura` pulls the main article and emits Markdown
-   with inline links. Link-heavy / full pages go through a DOM partition that
-   extracts `<nav>`/`<aside>`/`<footer>` (demoted to link lists), removes
-   cookie/consent/modal chrome, and renders title → main → menu → sidebar →
-   footer.
-3. **Render** — `rich` paints the Markdown in your terminal, the vim-style reader
-   drives navigation, or (`--html` / `p`) a small template renders a styled web
-   page. Images become `🖼 … [IMG N]` markers you can Quick Look.
+1. **Capture** — headless Chromium (Playwright), Safari cookies unless
+   `--private`, stealth shim, tracker/image blocking, content-stability
+   settle, 3s DNS preflight (black-holed names fail fast *with the
+   why*). `walker.js` runs inside the page and emits leaf blocks with
+   landmark, kind, inline-markdown, links, and geometry. `page.content()`
+   is never taken.
+2. **Classify** — a cheap shape manifest (`article | feed | page | app`
+   with confidence) from bundle signals, before any emission.
+3. **Emit** — per-shape assembly: repeated-unit detection collapses
+   card fragments to one line per item (shared link target + signature
+   periodicity); headings remap to a strict hierarchy; nav/aside/footer
+   demote to link lists; forms stay out of documents (they're
+   affordances — the reader's `f` uses them from the bundle).
 
-## Notes & limits
+Every stage is inspectable (`--dump`), every change is measured: the
+fixture corpus (`tests/fixtures/`, 8 real sites) re-emits offline in
+`--selftest`, and `mdb oracle` judges output against full-page
+screenshots — pixels as judge, never as extractor.
 
-- Best on article/content pages. Front pages and dashboards are inherently messy;
-  `--browse` or `--full` handle those better than the default reading view.
-- Some big sites (e.g. Wikipedia) rate-limit datacenter IPs; from home that's a
-  non-issue.
-- If a bare domain won't resolve (some sites leave the apex as a flaky-DNS
-  redirect and only serve `www.`, e.g. `quantum.com`), mdbrowse retries once with
-  `www.` prepended automatically.
-- The default JS engine needs the one-time `playwright install chromium` step
-  above; without it, mdbrowse falls back to the static fetcher automatically.
-- Image preview uses macOS Quick Look (`qlmanage`) and pulls the panel to the
-  front via System Events. The first time, macOS asks to let your terminal
-  "control System Events" — allow it (System Settings → Privacy & Security →
-  Automation). If denied, previews still open, just behind the terminal.
-- The JS engine waits for content, not the network: it looks for `<main>`/`<article>`,
-  nudges lazy content with a scroll, then waits until the page's text stops
-  growing (it does *not* use the flaky `networkidle`). If an SPA still captures
-  half-rendered, name its content container with `--wait '.article-body'`.
+## History
+
+v1 (a single-file `mdbrowse.py`: fetch → strip → convert → repair) was
+retired on 2026-07-04 after the v2 compiler exceeded it on every axis —
+see `CHANGELOG.md` and git history. Its best parts (settle heuristic,
+binarycookies parser, Safari integration, tracker lists) live on inside
+v2.

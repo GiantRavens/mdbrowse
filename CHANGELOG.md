@@ -2,6 +2,18 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-04 — v1 retired; v2 (`mdb`) is mdbrowse
+
+The single-file v1 (`mdbrowse.py`, fetch → strip → convert → repair) is
+retired per doctrine: its replacement passed its scans first. Evidence:
+8-fixture corpus green (`mdb --selftest`), fidelity oracle scores 9-10/10
+(article/HN), and v2 exceeds v1 on every capability axis — plus watch
+sensors, MCP server, speech, search, forms, RSS, downloads, LLM assist,
+and an engine daemon v1 never had. v1 remains in git history; its best
+parts (settle heuristic, binarycookies parser, Safari integration,
+tracker lists) live on inside v2. See README.md for the v2 story.
+
+
 ## 2026-06-27 — Markdown lint pass: guaranteed well-formed output
 
 ### Added
