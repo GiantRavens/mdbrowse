@@ -134,11 +134,12 @@ def emit_body(bundle: dict, manifest) -> str:
         if md == state["prev_md"]:   # mobile templates love duplicating blocks
             return
         state["prev_md"] = md
-        # Feed items render as bullets; treat them as list items so they pack
-        # tight instead of double-spacing.
+        # Feed bullets are "item" parts: loose-list spacing (blank line
+        # between items), because feed lines are long and wrap — packed
+        # tight they read as a wall of text. Article lists stay tight.
         kind = b.get("kind")
-        if shape == "feed" and kind == "p" and md.startswith("- "):
-            kind = "li"
+        if shape == "feed" and md.startswith("- "):
+            kind = "item"
         parts.append((kind, md))
 
     if shape == "feed":
@@ -160,7 +161,7 @@ def emit_body(bundle: dict, manifest) -> str:
                 line = units.unit_markdown(unit)
                 if line and line != state["prev_md"]:
                     state["prev_md"] = line
-                    parts.append(("li", line))
+                    parts.append(("item", line))
     else:
         for b in body_blocks:
             add_block(b)
