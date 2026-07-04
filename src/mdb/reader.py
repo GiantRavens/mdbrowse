@@ -752,7 +752,9 @@ class Reader:
                 if hit is not None:
                     focus = hit
                     f = focusables[hit]
-                    if f.kind == IMAGE:
+                    # Clicking a picture previews it — cards included; the
+                    # 🖼 is what you clicked. Enter still follows the link.
+                    if f.kind in (IMAGE, CARD) and f.src:
                         peek(f)
                     else:
                         nav = go(f)
@@ -1046,6 +1048,7 @@ class Reader:
         X10 encoding it requests breaks click coordinates past column 223.
         SGR-1006 gives wheel both ways, full-width coordinates, and events
         we can synthesize in tests."""
+        seq_ok = False
         scr.nodelay(True)
         try:
             if scr.getch() != ord("["):
