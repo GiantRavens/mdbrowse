@@ -499,6 +499,17 @@ class Reader:
             b = self.engine.capture(url)
             m = classify(b)
             body = emit_body(b, m)
+            if m.shape == "app":
+                # The classified refusal must not be a dead end: the reader
+                # itself has the exits. (Frontend hint only — the emitted
+                # document, archives, and hashes stay untouched.)
+                body += (
+                    "\n\n---\n\n"
+                    "**From here you can:**\n\n"
+                    "- press `O` — open this page in your browser\n"
+                    "- press `:` then `s your terms` — search the web\n"
+                    "- press `H` — go back"
+                )
             page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
         page.llines, page.focusables = parse_body(body)
         return page
