@@ -97,13 +97,15 @@ def _tokenize(line: str, focusables: list):
             f = Focusable(len(focusables), CARD, _clean(label),
                           href=m.group("chref"), src=m.group("csrc"))
             focusables.append(f)
-            segs.append(("🖼 " + f.label, f.fid))
+            # Two spaces after the icon: emoji glyphs overdraw their cell in
+            # some terminals, visually fusing with the first letter.
+            segs.append(("🖼  " + f.label, f.fid))
         elif m.group("src") is not None:           # plain image
             alt = (m.group("alt") or "").strip() or "image"
             f = Focusable(len(focusables), IMAGE, _clean(alt),
                           src=m.group("src"))
             focusables.append(f)
-            segs.append(("🖼 " + f.label, f.fid))
+            segs.append(("🖼  " + f.label, f.fid))
         else:                                      # plain link
             f = Focusable(len(focusables), LINK, _clean(m.group("text")),
                           href=m.group("href"))
@@ -234,26 +236,89 @@ def layout(llines, width):
 # ---------------------------------------------------------------------------
 # Actions
 # ---------------------------------------------------------------------------
-def preview_image(url: str, private: bool = False) -> bool:
-    """Download (with your session) and pop macOS Quick Look. Non-blocking."""
+_MIME_EXT = {
+    "image/jpeg": ".jpg", "image/png": ".png", "image/gif": ".gif",
+    "image/webp": ".webp", "image/avif": ".avif", "image/svg+xml": ".svg",
+    "image/tiff": ".tiff", "image/bmp": ".bmp", "image/heic": ".heic",
+}
+_KNOWN_EXTS = set(_MIME_EXT.values()) | {".jpeg", ".tif"}
+
+
+def _image_ext(url: str, content_type: str, data: bytes) -> str:
+    """Pick a Quick Look-safe suffix: Content-Type first, then the URL
+    path, then magic bytes. NEVER '.img' — extension-less URLs (NASA CDN)
+    used to fall back to it, and macOS treats .img as a DISK image, so a
+    headshot previewed as a mountable volume."""
+    ct = (content_type or "").split(";")[0].strip().lower()
+    if ct in _MIME_EXT:
+        return _MIME_EXT[ct]
+    ext = os.path.splitext(urlparse(url).path)[1].lower()
+    if ext in _KNOWN_EXTS:
+        return ext
+    if data[:3] == b"\xff\xd8\xff":
+        return ".jpg"
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return ".png"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return ".gif"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    if b"ftypavif" in data[:32]:
+        return ".avif"
+    if b"ftypheic" in data[:32] or b"ftypheix" in data[:32]:
+        return ".heic"
+    if data.lstrip()[:5].lower() in (b"<svg", b"<?xml"):
+        return ".svg"
+    return ".jpg"
+
+
+def _fetch_image(url: str, private: bool = False, referer: str = None):
+    """Download an image the way a real browser would (session cookies,
+    Safari UA, image Accept, Referer) and validate that what came back IS
+    an image. Returns (path|None, note) — the note goes to the status bar,
+    so a refused or placeholder image is a reading, not a blank window."""
     import httpx
+    from .capture import IPHONE_UA
+    headers = {
+        "User-Agent": IPHONE_UA,
+        "Accept": "image/avif,image/webp,image/png,image/jpeg,"
+                  "image/*;q=0.8,*/*;q=0.5",
+    }
+    if referer:
+        headers["Referer"] = referer
     try:
         cookies = None if private else safari_cookies.for_httpx()
         with httpx.Client(follow_redirects=True, timeout=20.0,
-                          cookies=cookies) as c:
+                          headers=headers, cookies=cookies) as c:
             r = c.get(url)
             r.raise_for_status()
             data = r.content
-        ext = os.path.splitext(urlparse(url).path)[1][:8] or ".img"
+        ct = (r.headers.get("content-type", "") or "").split(";")[0].strip().lower()
+        looks_html = (data.lstrip()[:1] == b"<"
+                      and b"<svg" not in data[:256].lower())
+        if ct.startswith("text/") or ct == "application/json" or (
+                not ct.startswith("image/") and looks_html):
+            return None, f"site sent {ct or 'HTML'}, not the image (hotlink protection?)"
+        if len(data) < 128:
+            return None, f"only {len(data)} bytes — a lazy-load placeholder, not the real asset"
+        ext = _image_ext(url, ct, data)
         fd, path = tempfile.mkstemp(suffix=ext, prefix="mdb_img_")
         os.write(fd, data)
         os.close(fd)
-        subprocess.Popen(["qlmanage", "-p", path],
-                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        _raise_quicklook()
-        return True
-    except Exception:
-        return False
+        return path, f"{ct or ext.lstrip('.')} · {max(1, len(data) // 1024)} KB"
+    except Exception as e:
+        return None, f"{type(e).__name__}: {str(e)[:80]}"
+
+
+def preview_image(url: str, private: bool = False, referer: str = None):
+    """Fetch + validate + pop macOS Quick Look. Returns (ok, note)."""
+    path, note = _fetch_image(url, private=private, referer=referer)
+    if not path:
+        return False, note
+    subprocess.Popen(["qlmanage", "-p", path],
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    _raise_quicklook()
+    return True, note
 
 
 def _raise_quicklook() -> None:
@@ -426,18 +491,20 @@ class Reader:
                 base = curses.A_UNDERLINE
             return (base | curses.A_REVERSE) if focused else base
 
+        def show_preview(f):
+            ok, note = preview_image(f.src, self.private, referer=page.url)
+            self.msg = f"🖼  {note}" if ok else f"preview failed: {note}"
+
         def go(f):
             if f.kind in (LINK, CARD) and f.href:
                 return ("go", f.href)
             if f.kind == IMAGE and f.src:
-                self.msg = ("🖼 preview" if preview_image(f.src, self.private)
-                            else "couldn't load image")
+                show_preview(f)
             return None
 
         def peek(f):
             if f and f.kind in (IMAGE, CARD) and f.src:
-                self.msg = ("🖼 preview" if preview_image(f.src, self.private)
-                            else "couldn't load image")
+                show_preview(f)
                 return True
             return False
 
