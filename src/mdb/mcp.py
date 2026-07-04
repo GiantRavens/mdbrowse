@@ -13,56 +13,23 @@ A short-TTL bundle cache lets fetch_page / page_links / archive_page on the
 same URL share one capture instead of re-rendering.
 """
 
-import queue
 import threading
 import time
-from concurrent.futures import Future
 
 from mcp.server.fastmcp import FastMCP
 
 from . import EXTRACTOR_VERSION
 from .archive import save_archive
 from .bundle import content_hash
-from .capture import Engine
+from .capture import EngineWorker
 from .classify import classify
 from .emit import emit, emit_body
 
 mcp = FastMCP("mdbrowse")
 
 _CACHE_TTL = 60.0          # seconds; just long enough to share one capture
-_CAPTURE_TIMEOUT = 120.0   # worst-case: cold engine + slow SPA
 
-
-class _EngineWorker:
-    """One thread owns all Playwright state; jobs arrive via a queue."""
-
-    def __init__(self):
-        self._q = queue.Queue()
-        self._engines = {}
-        self._thread = threading.Thread(target=self._loop, daemon=True)
-        self._thread.start()
-
-    def _loop(self):
-        while True:
-            job = self._q.get()
-            if job is None:
-                break
-            url, private, wait, fut = job
-            try:
-                eng = self._engines.get(private)
-                if eng is None:
-                    eng = self._engines[private] = Engine(private=private)
-                fut.set_result(eng.capture(url, wait_selector=wait))
-            except Exception as e:
-                fut.set_exception(e)
-
-    def capture(self, url: str, private: bool, wait: str | None) -> dict:
-        fut = Future()
-        self._q.put((url, private, wait, fut))
-        return fut.result(timeout=_CAPTURE_TIMEOUT)
-
-
-_worker = _EngineWorker()
+_worker = EngineWorker()   # shared thread-owns-Playwright pattern (capture.py)
 _cache = {}          # (url, private) -> (timestamp, bundle)
 _cache_lock = threading.Lock()
 

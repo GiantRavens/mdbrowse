@@ -126,12 +126,19 @@ def _settle(page, budget_ms: int, wait_selector: str = None) -> None:
         except Exception:
             initial = 0
         if initial < 800:
+            # A scriptless page cannot hydrate — the SPA-shell wait would be
+            # 2.5s of provably pointless patience (example.com class).
             try:
-                page.wait_for_selector("article, [role=article]",
-                                       state="attached",
-                                       timeout=min(left_ms(), 2500))
+                has_scripts = page.evaluate("document.scripts.length > 0")
             except Exception:
-                pass
+                has_scripts = True
+            if has_scripts:
+                try:
+                    page.wait_for_selector("article, [role=article]",
+                                           state="attached",
+                                           timeout=min(left_ms(), 2500))
+                except Exception:
+                    pass
 
     try:
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
@@ -275,8 +282,57 @@ class Engine:
         self.close()
 
 
+class EngineWorker:
+    """One thread owns all Playwright state; jobs arrive via a queue.
+
+    Playwright's sync API is thread-bound, so callers that live in other
+    threads (MCP tool pool, daemon accept loop) must not touch Engine
+    objects directly. Holds one warm engine per privacy mode."""
+
+    def __init__(self):
+        import queue
+        import threading
+        self._q = queue.Queue()
+        self._engines = {}
+        self._thread = threading.Thread(target=self._loop, daemon=True)
+        self._thread.start()
+
+    def _loop(self):
+        while True:
+            job = self._q.get()
+            if job is None:
+                for eng in self._engines.values():
+                    eng.close()
+                break
+            url, private, wait, fut = job
+            try:
+                eng = self._engines.get(private)
+                if eng is None:
+                    eng = self._engines[private] = Engine(private=private)
+                fut.set_result(eng.capture(url, wait_selector=wait))
+            except Exception as e:
+                fut.set_exception(e)
+
+    def capture(self, url: str, private: bool = False,
+                wait: str = None, timeout: float = 150.0) -> dict:
+        from concurrent.futures import Future
+        fut = Future()
+        self._q.put((url, private, wait, fut))
+        return fut.result(timeout=timeout)
+
+    def close(self):
+        self._q.put(None)
+        self._thread.join(timeout=10)
+
+
 def capture(url: str, private: bool = False, timeout: float = 30.0,
             wait_selector: str = None) -> dict:
-    """One-shot capture (own engine). Loops should hold an Engine instead."""
+    """One-shot capture. Tries the engine daemon first (warm Chromium,
+    sub-second; auto-spawned on first use) and falls back to a local
+    engine when the daemon path is unavailable or disabled."""
+    from . import daemon
+    bundle = daemon.capture_via_daemon(url, private, wait_selector)
+    if bundle is not None:
+        return bundle
     with Engine(private=private, timeout=timeout) as eng:
         return eng.capture(url, wait_selector=wait_selector)
