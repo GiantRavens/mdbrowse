@@ -254,7 +254,17 @@
       return;
     }
     if (tag === "PRE") {
-      const t = el.innerText.replace(/\s+$/, "");
+      let t = el.innerText.replace(/\s+$/, "");
+      // Syntax highlighters wrap each code line in a block element, so
+      // innerText doubles every newline (layout newline + source newline).
+      // When half or more of the interior lines are blank, that's layout
+      // doubling, not code style — drop the blank lines. (Oracle finding.)
+      const lines = t.split("\n");
+      const blanks = lines.filter((l) => !l.trim()).length;
+      // Perfect alternation yields n-1 blanks in 2n-1 lines — strictly
+      // UNDER half — so the threshold must be (len-1)/2, not len/2.
+      if (lines.length > 3 && 2 * blanks >= lines.length - 1)
+        t = lines.filter((l) => l.trim()).join("\n");
       if (t) push(el, st, r, { kind: "code", text: t, md: "", links: [], images: [] });
       return;
     }

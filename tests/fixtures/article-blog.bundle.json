@@ -248,7 +248,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "#define\tPQ_NONE\t\t255\n\n#define\tPQ_INACTIVE\t0\n\n#define\tPQ_ACTIVE\t1\n\n#define\tPQ_LAUNDRY\t2\n\n#define\tPQ_UNSWAPPABLE\t3\n\n#define\tPQ_COUNT\t4"
+    "text": "#define\tPQ_NONE\t\t255\n#define\tPQ_INACTIVE\t0\n#define\tPQ_ACTIVE\t1\n#define\tPQ_LAUNDRY\t2\n#define\tPQ_UNSWAPPABLE\t3\n#define\tPQ_COUNT\t4"
    },
    {
     "bbox": [
@@ -526,7 +526,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "sysctl -n kstat.zfs.misc.arcstats.size\n\nsysctl -n kstat.zfs.misc.arcstats.c_min\n\nsysctl -n kstat.zfs.misc.arcstats.c_max"
+    "text": "sysctl -n kstat.zfs.misc.arcstats.size\nsysctl -n kstat.zfs.misc.arcstats.c_min\nsysctl -n kstat.zfs.misc.arcstats.c_max"
    },
    {
     "bbox": [
@@ -749,7 +749,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "available memory = total memory - active - wired\n\nfree memory = free\n\nused memory = active + wired"
+    "text": "available memory = total memory - active - wired\nfree memory = free\nused memory = active + wired"
    },
    {
     "bbox": [
@@ -999,7 +999,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "int mib[4];\n\nu_int memActive, memWire, cachedMem, freeMem;\n\nsize_t len;\n\n\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_active_count\", mib, &len);\n\nlen = sizeof(memActive);\n\nsysctl(mib, 4, &(memActive), &len, nullptr, 0);\n\nmemActive *= Shared::pageSize;\n\n\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_wire_count\", mib, &len);\n\nlen = sizeof(memWire);\n\nsysctl(mib, 4, &(memWire), &len, nullptr, 0);\n\nmemWire *= Shared::pageSize;\n\n\n\nmem.stats.at(\"used\") = memWire + memActive;\n\nmem.stats.at(\"available\") = Shared::totalMem - memActive - memWire;\n\n\n\nlen = sizeof(cachedMem);\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_cache_count\", mib, &len);\n\nsysctl(mib, 4, &(cachedMem), &len, nullptr, 0);\n\ncachedMem *= Shared::pageSize;\n\nmem.stats.at(\"cached\") = cachedMem;\n\n\n\nlen = sizeof(freeMem);\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_free_count\", mib, &len);\n\nsysctl(mib, 4, &(freeMem), &len, nullptr, 0);\n\nfreeMem *= Shared::pageSize;\n\nmem.stats.at(\"free\") = freeMem;"
+    "text": "int mib[4];\nu_int memActive, memWire, cachedMem, freeMem;\nsize_t len;\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_active_count\", mib, &len);\nlen = sizeof(memActive);\nsysctl(mib, 4, &(memActive), &len, nullptr, 0);\nmemActive *= Shared::pageSize;\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_wire_count\", mib, &len);\nlen = sizeof(memWire);\nsysctl(mib, 4, &(memWire), &len, nullptr, 0);\nmemWire *= Shared::pageSize;\nmem.stats.at(\"used\") = memWire + memActive;\nmem.stats.at(\"available\") = Shared::totalMem - memActive - memWire;\nlen = sizeof(cachedMem);\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_cache_count\", mib, &len);\nsysctl(mib, 4, &(cachedMem), &len, nullptr, 0);\ncachedMem *= Shared::pageSize;\nmem.stats.at(\"cached\") = cachedMem;\nlen = sizeof(freeMem);\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_free_count\", mib, &len);\nsysctl(mib, 4, &(freeMem), &len, nullptr, 0);\nfreeMem *= Shared::pageSize;\nmem.stats.at(\"free\") = freeMem;"
    },
    {
     "bbox": [
@@ -1228,7 +1228,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "len = sizeof(cachedMem);\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_cache_count\", mib, &len);\n\nsysctl(mib, 4, &(cachedMem), &len, nullptr, 0);\n\ncachedMem *= Shared::pageSize;\n\nmem.stats.at(\"cached\") = cachedMem;"
+    "text": "len = sizeof(cachedMem);\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_cache_count\", mib, &len);\nsysctl(mib, 4, &(cachedMem), &len, nullptr, 0);\ncachedMem *= Shared::pageSize;\nmem.stats.at(\"cached\") = cachedMem;"
    },
    {
     "bbox": [
@@ -1326,7 +1326,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "#ifdef COMPAT_FREEBSD11\n\n/*\n\n * Provide compatibility sysctls for the benefit of old utilities which exit\n\n * with an error if they cannot be found.\n\n */\n\nSYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_cache_count, CTLFLAG_RD,\n\n    SYSCTL_NULL_UINT_PTR, 0, \"Dummy for compatibility\");\n\nSYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_tcached, CTLFLAG_RD,\n\n    SYSCTL_NULL_UINT_PTR, 0, \"Dummy for compatibility\");\n\n#endif"
+    "text": "#ifdef COMPAT_FREEBSD11\n/*\n * Provide compatibility sysctls for the benefit of old utilities which exit\n * with an error if they cannot be found.\n */\nSYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_cache_count, CTLFLAG_RD,\n    SYSCTL_NULL_UINT_PTR, 0, \"Dummy for compatibility\");\nSYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_tcached, CTLFLAG_RD,\n    SYSCTL_NULL_UINT_PTR, 0, \"Dummy for compatibility\");\n#endif"
    },
    {
     "bbox": [
@@ -1444,7 +1444,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "   // comment by Pierre-Marie Baty <pm@pmbaty.com>\n\n   //\n\n   // FreeBSD has the following memory classes:\n\n   //    active:   userland pages currently mapped to physical memory (i.e. in use)\n\n   //    wired:    kernel pages currently mapped to physical memory, cannot be paged out nor swapped\n\n   //       buffers: subcategory of 'wired' corresponding to the filesystem caches\n\n   //    free:     pages that haven't been allocated yet, or have been released\n\n   //\n\n   // With ZFS, the ARC area is NOT counted in the 'buffers' class, but is still counted in the 'wired'\n\n   // class. The ARC total must thus be subtracted from the 'wired' class AND added to the 'buffer' class,\n\n   // so that the result (ARC being shown in buffersMem) is consistent with what ZFS users would expect.\n\n   // This adjustment is done in Platform_setMemoryValues() in freebsd/Platform.c."
+    "text": "   // comment by Pierre-Marie Baty <pm@pmbaty.com>\n   //\n   // FreeBSD has the following memory classes:\n   //    active:   userland pages currently mapped to physical memory (i.e. in use)\n   //    wired:    kernel pages currently mapped to physical memory, cannot be paged out nor swapped\n   //       buffers: subcategory of 'wired' corresponding to the filesystem caches\n   //    free:     pages that haven't been allocated yet, or have been released\n   //\n   // With ZFS, the ARC area is NOT counted in the 'buffers' class, but is still counted in the 'wired'\n   // class. The ARC total must thus be subtracted from the 'wired' class AND added to the 'buffer' class,\n   // so that the result (ARC being shown in buffersMem) is consistent with what ZFS users would expect.\n   // This adjustment is done in Platform_setMemoryValues() in freebsd/Platform.c."
    },
    {
     "bbox": [
@@ -1549,7 +1549,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "// cached\n\nlen = 2;\n\nif (sysctlnametomib(\"vfs.bufspace\", mib, &len) == 0) {\n\n    uint64_t bufSpace = 0;\n\n    len = sizeof(bufSpace);\n\n    if (sysctl(mib, 2, &bufSpace, &len, nullptr, 0) == 0) {\n\n        cachedBytes += bufSpace;\n\n    }\n\n}\n\n\n\nlen = 5;\n\nif (sysctlnametomib(\"kstat.zfs.misc.arcstats.size\", mib, &len) == 0) {\n\n    uint64_t arcSize = 0;\n\n    len = sizeof(arcSize);\n\n    if (sysctl(mib, 5, &arcSize, &len, nullptr, 0) == 0) {\n\n        uint64_t arcMin = 0;\n\n        len = 5;\n\n        if (sysctlnametomib(\"kstat.zfs.misc.arcstats.c_min\", mib, &len) == 0) {\n\n            len = sizeof(arcMin);\n\n            sysctl(mib, 5, &arcMin, &len, nullptr, 0);\n\n        }\n\n        cachedBytes += (arcSize > arcMin) ? (arcSize - arcMin) : 0;\n\n    }\n\n}\n\n\n\n// free\n\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_free_count\", mib, &len);\n\nlen = sizeof(freeMem);\n\nsysctl(mib, 4, &(freeMem), &len, nullptr, 0);\n\n\n\nuint64_t activeBytes = (uint64_t)memActive * Shared::pageSize;\n\nuint64_t wireBytes   = (uint64_t)memWire   * Shared::pageSize;\n\nuint64_t freeBytes   = (uint64_t)freeMem   * Shared::pageSize;\n\nuint64_t rawUsed     = activeBytes + wireBytes;\n\nuint64_t usedBytes   = (cachedBytes < rawUsed) ? rawUsed - cachedBytes : 0;\n\n\n\nmem.stats.at(\"used\") = usedBytes;\n\nmem.stats.at(\"available\") = Shared::totalMem - usedBytes;\n\nmem.stats.at(\"cached\") = cachedBytes;\n\nmem.stats.at(\"free\") = freeBytes;"
+    "text": "// cached\nlen = 2;\nif (sysctlnametomib(\"vfs.bufspace\", mib, &len) == 0) {\n    uint64_t bufSpace = 0;\n    len = sizeof(bufSpace);\n    if (sysctl(mib, 2, &bufSpace, &len, nullptr, 0) == 0) {\n        cachedBytes += bufSpace;\n    }\n}\nlen = 5;\nif (sysctlnametomib(\"kstat.zfs.misc.arcstats.size\", mib, &len) == 0) {\n    uint64_t arcSize = 0;\n    len = sizeof(arcSize);\n    if (sysctl(mib, 5, &arcSize, &len, nullptr, 0) == 0) {\n        uint64_t arcMin = 0;\n        len = 5;\n        if (sysctlnametomib(\"kstat.zfs.misc.arcstats.c_min\", mib, &len) == 0) {\n            len = sizeof(arcMin);\n            sysctl(mib, 5, &arcMin, &len, nullptr, 0);\n        }\n        cachedBytes += (arcSize > arcMin) ? (arcSize - arcMin) : 0;\n    }\n}\n// free\nlen = 4; sysctlnametomib(\"vm.stats.vm.v_free_count\", mib, &len);\nlen = sizeof(freeMem);\nsysctl(mib, 4, &(freeMem), &len, nullptr, 0);\nuint64_t activeBytes = (uint64_t)memActive * Shared::pageSize;\nuint64_t wireBytes   = (uint64_t)memWire   * Shared::pageSize;\nuint64_t freeBytes   = (uint64_t)freeMem   * Shared::pageSize;\nuint64_t rawUsed     = activeBytes + wireBytes;\nuint64_t usedBytes   = (cachedBytes < rawUsed) ? rawUsed - cachedBytes : 0;\nmem.stats.at(\"used\") = usedBytes;\nmem.stats.at(\"available\") = Shared::totalMem - usedBytes;\nmem.stats.at(\"cached\") = cachedBytes;\nmem.stats.at(\"free\") = freeBytes;"
    },
    {
     "bbox": [
@@ -1642,7 +1642,7 @@
     "landmark": "main",
     "links": [],
     "md": "",
-    "text": "#include <stdlib.h>\n\n#include <string.h>\n\n#include <stdio.h>\n\n#include <unistd.h>\n\n\n\nint main() {\n\n    size_t gb_to_allocate = 4; \n\n    size_t bytes = gb_to_allocate * 1024 * 1024 * 1024;\n\n    void *mem = malloc(bytes);\n\n\n\n    if (mem == NULL) {\n\n        printf(\"Failed to allocate memory.\\n\");\n\n        return 1;\n\n    }\n\n\n\n    memset(mem, rand(), bytes); \n\n\n\n    sleep(30);\n\n\n\n    free(mem);\n\n    return 0;\n\n}"
+    "text": "#include <stdlib.h>\n#include <string.h>\n#include <stdio.h>\n#include <unistd.h>\nint main() {\n    size_t gb_to_allocate = 4; \n    size_t bytes = gb_to_allocate * 1024 * 1024 * 1024;\n    void *mem = malloc(bytes);\n    if (mem == NULL) {\n        printf(\"Failed to allocate memory.\\n\");\n        return 1;\n    }\n    memset(mem, rand(), bytes); \n    sleep(30);\n    free(mem);\n    return 0;\n}"
    },
    {
     "bbox": [
@@ -2080,7 +2080,7 @@
    {
     "bbox": [
      85,
-     17055,
+     17000,
      219,
      45
     ],
@@ -2103,7 +2103,7 @@
    }
   ],
   "description": "I spent a whole month researching FreeBSD's kernel's virtual memory system to understand why tools like htop, btop and fastfetch report different information about RAM usage. I ended up submitting patches to all of these projects.",
-  "docHeight": 17136,
+  "docHeight": 17081,
   "feeds": [
    {
     "href": "https://crocidb.com/index.xml",
@@ -2121,9 +2121,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1874,
+  "elapsed_ms": 1701,
   "extractor": "2.0.0a4",
-  "fetched_at": "2026-07-04T14:25:32-05:00",
+  "fetched_at": "2026-07-04T15:07:36-05:00",
   "mode": "authenticated",
   "requested_url": "https://crocidb.com/post/freebsd-ate-my-ram/",
   "url": "https://crocidb.com/post/freebsd-ate-my-ram/"

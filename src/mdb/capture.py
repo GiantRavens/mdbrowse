@@ -233,8 +233,11 @@ class Engine:
 
         self._context.route("**/*", _route)
 
-    def capture(self, url: str, wait_selector: str = None) -> dict:
-        """Load one URL, settle, run the walker. Returns a capture bundle."""
+    def capture(self, url: str, wait_selector: str = None,
+                screenshot_path: str = None) -> dict:
+        """Load one URL, settle, run the walker. Returns a capture bundle.
+        screenshot_path additionally saves a full-page PNG — the fidelity
+        oracle's evidence (pixels as judge, never as extractor)."""
         self._ensure()
         url = self._resolve_target(url)
         page = self._context.new_page()
@@ -250,6 +253,11 @@ class Engine:
                 page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
             _settle(page, budget_ms, wait_selector)
             doc = page.evaluate(_walker_source())
+            if screenshot_path:
+                try:
+                    page.screenshot(path=screenshot_path, full_page=True)
+                except Exception:
+                    page.screenshot(path=screenshot_path)
             return {
                 "meta": {
                     "requested_url": url,

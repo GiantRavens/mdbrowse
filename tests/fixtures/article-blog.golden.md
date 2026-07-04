@@ -19,15 +19,10 @@ Every OS has a different set of pages and rules for how to manage them. On FreeB
 
 ```
 #define	PQ_NONE		255
-
 #define	PQ_INACTIVE	0
-
 #define	PQ_ACTIVE	1
-
 #define	PQ_LAUNDRY	2
-
 #define	PQ_UNSWAPPABLE	3
-
 #define	PQ_COUNT	4
 ```
 
@@ -61,9 +56,7 @@ This will show literally all the parameters available, but now just these are im
 
 ```
 sysctl -n kstat.zfs.misc.arcstats.size
-
 sysctl -n kstat.zfs.misc.arcstats.c_min
-
 sysctl -n kstat.zfs.misc.arcstats.c_max
 ```
 
@@ -103,9 +96,7 @@ In my old ThinkPad X230, running FreeBSD 15.0-RELEASE, that looks like:
 
 ```
 available memory = total memory - active - wired
-
 free memory = free
-
 used memory = active + wired
 ```
 
@@ -141,49 +132,27 @@ On their source-code, looking specifically on [src/freebsd/btop\_collect.cpp](ht
 
 ```
 int mib[4];
-
 u_int memActive, memWire, cachedMem, freeMem;
-
 size_t len;
-
 len = 4; sysctlnametomib("vm.stats.vm.v_active_count", mib, &len);
-
 len = sizeof(memActive);
-
 sysctl(mib, 4, &(memActive), &len, nullptr, 0);
-
 memActive *= Shared::pageSize;
-
 len = 4; sysctlnametomib("vm.stats.vm.v_wire_count", mib, &len);
-
 len = sizeof(memWire);
-
 sysctl(mib, 4, &(memWire), &len, nullptr, 0);
-
 memWire *= Shared::pageSize;
-
 mem.stats.at("used") = memWire + memActive;
-
 mem.stats.at("available") = Shared::totalMem - memActive - memWire;
-
 len = sizeof(cachedMem);
-
 len = 4; sysctlnametomib("vm.stats.vm.v_cache_count", mib, &len);
-
 sysctl(mib, 4, &(cachedMem), &len, nullptr, 0);
-
 cachedMem *= Shared::pageSize;
-
 mem.stats.at("cached") = cachedMem;
-
 len = sizeof(freeMem);
-
 len = 4; sysctlnametomib("vm.stats.vm.v_free_count", mib, &len);
-
 sysctl(mib, 4, &(freeMem), &len, nullptr, 0);
-
 freeMem *= Shared::pageSize;
-
 mem.stats.at("free") = freeMem;
 ```
 
@@ -215,13 +184,9 @@ In the detection code, it’s fetching information from `vm.stats.vm.v_cache_cou
 
 ```
 len = sizeof(cachedMem);
-
 len = 4; sysctlnametomib("vm.stats.vm.v_cache_count", mib, &len);
-
 sysctl(mib, 4, &(cachedMem), &len, nullptr, 0);
-
 cachedMem *= Shared::pageSize;
-
 mem.stats.at("cached") = cachedMem;
 ```
 
@@ -245,23 +210,14 @@ Yep, it returns 0 because it’s some legacy code. In fact, FreeBSD reports “D
 
 ```
 #ifdef COMPAT_FREEBSD11
-
 /*
-
  * Provide compatibility sysctls for the benefit of old utilities which exit
-
  * with an error if they cannot be found.
-
  */
-
 SYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_cache_count, CTLFLAG_RD,
-
     SYSCTL_NULL_UINT_PTR, 0, "Dummy for compatibility");
-
 SYSCTL_UINT(_vm_stats_vm, OID_AUTO, v_tcached, CTLFLAG_RD,
-
     SYSCTL_NULL_UINT_PTR, 0, "Dummy for compatibility");
-
 #endif
 ```
 
@@ -281,27 +237,16 @@ Then I started working on a fix. First of all, I doubled the precision of the va
 
 ```
    // comment by Pierre-Marie Baty <pm@pmbaty.com>
-
    //
-
    // FreeBSD has the following memory classes:
-
    //    active:   userland pages currently mapped to physical memory (i.e. in use)
-
    //    wired:    kernel pages currently mapped to physical memory, cannot be paged out nor swapped
-
    //       buffers: subcategory of 'wired' corresponding to the filesystem caches
-
    //    free:     pages that haven't been allocated yet, or have been released
-
    //
-
    // With ZFS, the ARC area is NOT counted in the 'buffers' class, but is still counted in the 'wired'
-
    // class. The ARC total must thus be subtracted from the 'wired' class AND added to the 'buffer' class,
-
    // so that the result (ARC being shown in buffersMem) is consistent with what ZFS users would expect.
-
    // This adjustment is done in Platform_setMemoryValues() in freebsd/Platform.c.
 ```
 
@@ -317,75 +262,40 @@ Here’s the code in `src/freebsd/btop_collect.cpp` that deals with the cache, t
 
 ```
 // cached
-
 len = 2;
-
 if (sysctlnametomib("vfs.bufspace", mib, &len) == 0) {
-
     uint64_t bufSpace = 0;
-
     len = sizeof(bufSpace);
-
     if (sysctl(mib, 2, &bufSpace, &len, nullptr, 0) == 0) {
-
         cachedBytes += bufSpace;
-
     }
-
 }
-
 len = 5;
-
 if (sysctlnametomib("kstat.zfs.misc.arcstats.size", mib, &len) == 0) {
-
     uint64_t arcSize = 0;
-
     len = sizeof(arcSize);
-
     if (sysctl(mib, 5, &arcSize, &len, nullptr, 0) == 0) {
-
         uint64_t arcMin = 0;
-
         len = 5;
-
         if (sysctlnametomib("kstat.zfs.misc.arcstats.c_min", mib, &len) == 0) {
-
             len = sizeof(arcMin);
-
             sysctl(mib, 5, &arcMin, &len, nullptr, 0);
-
         }
-
         cachedBytes += (arcSize > arcMin) ? (arcSize - arcMin) : 0;
-
     }
-
 }
-
 // free
-
 len = 4; sysctlnametomib("vm.stats.vm.v_free_count", mib, &len);
-
 len = sizeof(freeMem);
-
 sysctl(mib, 4, &(freeMem), &len, nullptr, 0);
-
 uint64_t activeBytes = (uint64_t)memActive * Shared::pageSize;
-
 uint64_t wireBytes   = (uint64_t)memWire   * Shared::pageSize;
-
 uint64_t freeBytes   = (uint64_t)freeMem   * Shared::pageSize;
-
 uint64_t rawUsed     = activeBytes + wireBytes;
-
 uint64_t usedBytes   = (cachedBytes < rawUsed) ? rawUsed - cachedBytes : 0;
-
 mem.stats.at("used") = usedBytes;
-
 mem.stats.at("available") = Shared::totalMem - usedBytes;
-
 mem.stats.at("cached") = cachedBytes;
-
 mem.stats.at("free") = freeBytes;
 ```
 
@@ -407,37 +317,21 @@ And I could see the cache growing vigorously. Then I wrote a quick C program to 
 
 ```
 #include <stdlib.h>
-
 #include <string.h>
-
 #include <stdio.h>
-
 #include <unistd.h>
-
 int main() {
-
     size_t gb_to_allocate = 4; 
-
     size_t bytes = gb_to_allocate * 1024 * 1024 * 1024;
-
     void *mem = malloc(bytes);
-
     if (mem == NULL) {
-
         printf("Failed to allocate memory.\n");
-
         return 1;
-
     }
-
     memset(mem, rand(), bytes); 
-
     sleep(30);
-
     free(mem);
-
     return 0;
-
 }
 ```
 
