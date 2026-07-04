@@ -525,6 +525,7 @@ class Reader:
         try:
             curses.wrapper(self._run)
         finally:
+            os.write(1, b"\x1b[?1000;1006l")   # mouse reporting off
             self._speech_stop()
             self.engine.close()
 
@@ -540,11 +541,10 @@ class Reader:
     def _run(self, scr):
         curses.curs_set(0)
         scr.keypad(True)
-        try:
-            curses.mousemask(curses.ALL_MOUSE_EVENTS)
-            curses.mouseinterval(0)
-        except Exception:
-            pass
+        # SGR-1006 mouse, spoken directly (see _read_sgr_mouse for why the
+        # curses mouse layer is bypassed). 1000h = button events only —
+        # never 1003 motion tracking, which Terminal.app rejects wholesale.
+        os.write(1, b"\x1b[?1000;1006h")
 
         current = self.start_url
         while True:
@@ -735,23 +735,17 @@ class Reader:
                 scr.clear()
                 continue
 
-            if c == curses.KEY_MOUSE:
-                try:
-                    _, mx, my, _, bstate = curses.getmouse()
-                except curses.error:
+            if c == 27:                      # ESC: SGR mouse (or stray escape)
+                ev = self._read_sgr_mouse(scr)
+                if ev is None:
                     continue
-                up = getattr(curses, "BUTTON4_PRESSED", 0)
-                down = getattr(curses, "BUTTON5_PRESSED", 0)
-                if up and (bstate & up):
-                    top = clamp(top - 3)
+                btn, mx, my, released = ev
+                if btn & 64:                 # wheel: 64 up, 65 down (+mods)
+                    top = clamp(top + (3 if btn & 1 else -3))
                     continue
-                if down and (bstate & down):
-                    top = clamp(top + 3)
+                if btn & 32 or released:     # drag/motion or button-up: ignore
                     continue
-                click = (getattr(curses, "BUTTON1_CLICKED", 0)
-                         | getattr(curses, "BUTTON1_PRESSED", 0)
-                         | getattr(curses, "BUTTON1_RELEASED", 0))
-                if not (bstate & click):
+                if (btn & 3) != 0:           # not the left button
                     continue
                 hit = next((fid for (sr, c0, c1, fid) in visible_focus
                             if my == sr and c0 <= mx < c1), None)
@@ -1026,6 +1020,10 @@ class Reader:
                 top = clamp(top + view_h // 2)
             elif c == 21:                                # C-u
                 top = clamp(top - view_h // 2)
+            elif c in (curses.KEY_HOME,):
+                top = 0
+            elif c in (curses.KEY_END,):
+                top = clamp(len(rows))
             elif c == ord("G"):
                 top = clamp(len(rows))
             elif c == ord("g"):
@@ -1036,6 +1034,40 @@ class Reader:
                     pending = "g"
                     continue
             pending = None
+
+    @staticmethod
+    def _read_sgr_mouse(scr):
+        """Parse an SGR-1006 mouse report after a lone ESC: ESC [ < b;x;y M|m.
+        Returns (button, col, row, is_release) zero-based, or None.
+
+        We speak the mouse protocol ourselves because this Python links
+        Apple's ncurses 6.0 (mouse ABI v1): BUTTON5_PRESSED is 0x0 — wheel-
+        DOWN literally does not exist as a curses event — and the legacy
+        X10 encoding it requests breaks click coordinates past column 223.
+        SGR-1006 gives wheel both ways, full-width coordinates, and events
+        we can synthesize in tests."""
+        scr.nodelay(True)
+        try:
+            if scr.getch() != ord("["):
+                return None
+            if scr.getch() != ord("<"):
+                return None
+            buf = ""
+            for _ in range(24):
+                ch = scr.getch()
+                if ch == -1:
+                    return None
+                c = chr(ch)
+                if c in "Mm":
+                    try:
+                        b, x, y = (int(v) for v in buf.split(";"))
+                    except ValueError:
+                        return None
+                    return (b, x - 1, y - 1, c == "m")
+                buf += c
+            return None
+        finally:
+            scr.nodelay(False)
 
     @staticmethod
     def _help_overlay(scr, h, w):
