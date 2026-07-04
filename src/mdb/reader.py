@@ -34,9 +34,32 @@ from .emit import emit, emit_body
 
 LINK, IMAGE, CARD = "link", "image", "card"
 
-HELP = ("Tab focus  Enter go  Space peek/pgdn  y/Y yank url  d download  "
-        "(/) headings  {/} blocks  zz center  j/k C-d/C-u gg/G scroll  "
-        "/ n/N search  H back  L fwd  r reload  s save  O Safari  : url  q quit")
+HELP_LINES = (
+    "mdb reader — keys",
+    "",
+    "  Tab / S-Tab      next / previous focusable (links and images)",
+    "  Enter / o        go — follow the focused link or card",
+    "  Space            peek — Quick Look focused image, else page down",
+    "  y / Y            yank focused URL / page URL to clipboard",
+    "  d                download the focused target",
+    "  ( / )            previous / next heading",
+    "  { / }            previous / next block",
+    "  j k  C-d C-u     scroll line / half page",
+    "  C-f C-b  PgDn/Up scroll full page",
+    "  gg / G           top / bottom of page",
+    "  zt / zz / zb     focused element to top / center / bottom",
+    "  /  n  N          search, next match, previous match",
+    "  H / L            history back / forward",
+    "  r                reload page",
+    "  s                save markdown archive",
+    "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
+    "  :                go to URL",
+    "  q                quit",
+    "",
+    "  mouse: wheel scrolls, click follows a link, click 🖼 previews",
+    "",
+    "  (any key to close)",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -342,14 +365,24 @@ def _raise_quicklook() -> None:
         pass
 
 
-def open_in_safari(url: str) -> bool:
+def open_in_browser(url: str) -> str:
+    """Open the live URL in the user's browser of choice.
+
+    MDBROWSE_BROWSER names the app ('Google Chrome', 'Firefox', ...);
+    default is Safari, whose session mdb already rides. Returns the app
+    name used, '' on failure."""
     if not url.startswith(("http://", "https://")):
-        return False
+        return ""
+    app = os.environ.get("MDBROWSE_BROWSER", "Safari")
     try:
-        subprocess.run(["open", "-a", "Safari", url], check=False, timeout=5)
-        return True
+        r = subprocess.run(["open", "-a", app, url], check=False, timeout=5,
+                           capture_output=True)
+        if r.returncode != 0:       # unknown app name -> system default
+            subprocess.run(["open", url], check=False, timeout=5)
+            return "default browser"
+        return app
     except Exception:
-        return False
+        return ""
 
 
 # ---------------------------------------------------------------------------
@@ -623,7 +656,8 @@ class Reader:
             if c == ord("q"):
                 return None
             if c == ord("?"):
-                self.msg = HELP
+                self._help_overlay(scr, h, w)
+                scr.clear()          # full repaint after the overlay
                 continue
 
             # --- focus ring ---
@@ -702,8 +736,9 @@ class Reader:
                         self.msg = f"save failed: {e}"
                 continue
             if c == ord("O"):
-                self.msg = ("opened in Safari" if open_in_safari(page.url)
-                            else "couldn't open Safari")
+                app = open_in_browser(page.url)
+                self.msg = (f"opened in {app}" if app
+                            else "couldn't open a browser")
                 continue
 
             # --- search ---
@@ -759,15 +794,19 @@ class Reader:
                 else:
                     self.msg = "no previous heading"
                 continue
-            if c == ord("z"):                 # zz: center the focused element
-                if pending == "z":
-                    r = focus_row(focus)
-                    if r is not None:
+            if pending == "z":                # z-chord: zt / zz / zb
+                pending = None
+                r = focus_row(focus)
+                if r is not None:
+                    if c == ord("t"):
+                        top = clamp(r)
+                    elif c == ord("z"):
                         top = clamp(r - view_h // 2)
-                    pending = None
-                else:
-                    pending = "z"
-                    continue
+                    elif c == ord("b"):
+                        top = clamp(r - view_h + 1)
+                continue
+            if c == ord("z"):
+                pending = "z"
                 continue
 
             # --- scrolling ---
@@ -793,6 +832,26 @@ class Reader:
                     pending = "g"
                     continue
             pending = None
+
+    @staticmethod
+    def _help_overlay(scr, h, w):
+        """Full help as a centered overlay, wrapped to <= 80 columns —
+        the one-line status cram ran off narrow terminals. Any key closes."""
+        width = min(80, max(40, w - 4))
+        lines = [l[:width] for l in HELP_LINES][:max(3, h - 2)]
+        left = max(0, (w - width) // 2)
+        first = max(0, (h - 1 - len(lines)) // 2)
+        scr.erase()
+        for i, line in enumerate(lines):
+            attr = curses.A_BOLD if i == 0 else curses.A_NORMAL
+            if line.strip() == "(any key to close)":
+                attr = curses.A_DIM
+            try:
+                scr.addstr(first + i, left, line, attr)
+            except curses.error:
+                pass
+        scr.refresh()
+        scr.getch()
 
     @staticmethod
     def _prompt(scr, h, w, prefix):
