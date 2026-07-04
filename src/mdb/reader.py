@@ -58,8 +58,8 @@ HELP_LINES = (
     "  f                fill the page's search form and go (GET forms)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
-    "  :                go to URL · 'ddg terms' searches DuckDuckGo ·",
-    "                   's terms' uses MDBROWSE_SEARCH_URL · safari:start",
+    "  :                omnibox — URLs navigate, anything else searches",
+    "                   (MDBROWSE_SEARCH_URL; also 'ddg t', safari:start, feed:)",
     "  q                quit",
     "",
     "  mouse: wheel scrolls, click follows a link, click 🖼 previews",
@@ -507,7 +507,7 @@ class Reader:
                     "\n\n---\n\n"
                     "**From here you can:**\n\n"
                     "- press `O` — open this page in your browser\n"
-                    "- press `:` then `s your terms` — search the web\n"
+                    "- press `:` and type search terms — search the web\n"
                     "- press `H` — go back"
                 )
             page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
@@ -962,15 +962,8 @@ class Reader:
             if c == ord(":"):
                 u = self._prompt(scr, h, w, ":")
                 if u.strip():
-                    from .search import resolve_prompt
-                    hit = resolve_prompt(u)
-                    if hit:
-                        return ("go", hit)
-                    url = u.strip()
-                    if not url.startswith(("safari:", "feed:")) and not re.match(
-                            r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
-                        url = "https://" + url
-                    return ("go", url)
+                    from .search import omnibox
+                    return ("go", omnibox(u))
                 continue
 
             # --- block and heading motions ---

@@ -135,8 +135,10 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         prog="mdb",
         description="Web -> deterministic markdown compiler (mdbrowse v2).")
-    ap.add_argument("url", nargs="?",
-                    help="page to compile (omit for the Safari start page)")
+    ap.add_argument("url", nargs="*",
+                    help="URL to compile, or search terms (omnibox: URLs "
+                         "navigate, anything else searches; omit for the "
+                         "Safari start page)")
     ap.add_argument("--start", action="store_true",
                     help="Safari start page (homepage + reading list + bookmarks)")
     ap.add_argument("--bookmarks", action="store_true",
@@ -182,6 +184,7 @@ def main() -> None:
     ap.add_argument("--version", action="version",
                     version=f"mdb {EXTRACTOR_VERSION}")
     args = ap.parse_args()
+    args.url = " ".join(args.url).strip() if args.url else None
 
     if args.selftest:
         sys.exit(selftest(update=args.update_goldens))
@@ -196,10 +199,9 @@ def main() -> None:
         url = "safari:reading"
     elif args.start or not args.url:
         url = "safari:start"
-    elif args.url.startswith(("safari:", "feed:")):
-        url = args.url
     else:
-        url = _normalize_url(args.url)
+        from .search import omnibox
+        url = omnibox(args.url)
 
     # Engine-less pseudo-pages (safari:, feed:) emit directly when not browsing.
     if url.startswith(("safari:", "feed:")):
