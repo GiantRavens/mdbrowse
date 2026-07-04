@@ -60,7 +60,7 @@
     "bbox": [
      20,
      143,
-     205,
+     204,
      14
     ],
     "bold": false,
@@ -69,7 +69,7 @@
     "kind": "p",
     "landmark": "body",
     "links": [],
-    "md": "Results 1 to 10 from 913 in 0.08s"
+    "md": "Results 1 to 10 from 913 in 0.11s"
    },
    {
     "bbox": [
@@ -500,6 +500,7 @@
     "md": "[Submit feedback](https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram)"
    },
    {
+    "action": "https://www.mojeek.com/search",
     "bbox": [
      21,
      2383,
@@ -508,6 +509,24 @@
     ],
     "bold": false,
     "fontSize": 16,
+    "hidden": {},
+    "images": [],
+    "kind": "form",
+    "label": "Search The Web using Mojeek...",
+    "landmark": "body",
+    "links": [],
+    "md": "",
+    "param": "q"
+   },
+   {
+    "bbox": [
+     299,
+     2387,
+     25,
+     24
+    ],
+    "bold": false,
+    "fontSize": 22,
     "images": [],
     "kind": "p",
     "landmark": "body",
@@ -625,6 +644,7 @@
   ],
   "description": "",
   "docHeight": 2548,
+  "feeds": [],
   "interactive": 30,
   "lang": "en",
   "title": "freebsd ate my ram - Mojeek Search",
@@ -635,9 +655,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 2390,
-  "extractor": "2.0.0a3",
-  "fetched_at": "2026-07-04T12:06:25-05:00",
+  "elapsed_ms": 2173,
+  "extractor": "2.0.0a4",
+  "fetched_at": "2026-07-04T14:25:41-05:00",
   "mode": "authenticated",
   "requested_url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram",
   "url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram"

@@ -2080,7 +2080,7 @@
    {
     "bbox": [
      85,
-     17000,
+     17055,
      219,
      45
     ],
@@ -2103,7 +2103,14 @@
    }
   ],
   "description": "I spent a whole month researching FreeBSD's kernel's virtual memory system to understand why tools like htop, btop and fastfetch report different information about RAM usage. I ended up submitting patches to all of these projects.",
-  "docHeight": 17081,
+  "docHeight": 17136,
+  "feeds": [
+   {
+    "href": "https://crocidb.com/index.xml",
+    "title": "CrociDBlog RSS Feed",
+    "type": "application/rss+xml"
+   }
+  ],
   "interactive": 0,
   "lang": "",
   "title": "FreeBSD ate my ram! - Bruno Croci",
@@ -2114,9 +2121,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 2565,
-  "extractor": "2.0.0a3",
-  "fetched_at": "2026-07-04T11:45:35-05:00",
+  "elapsed_ms": 1874,
+  "extractor": "2.0.0a4",
+  "fetched_at": "2026-07-04T14:25:32-05:00",
   "mode": "authenticated",
   "requested_url": "https://crocidb.com/post/freebsd-ate-my-ram/",
   "url": "https://crocidb.com/post/freebsd-ate-my-ram/"

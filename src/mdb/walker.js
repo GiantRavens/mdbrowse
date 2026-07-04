@@ -314,6 +314,32 @@
       return;
     }
     if (tag === "HR") { push(el, st, r, { kind: "hr", md: "", links: [], images: [] }); return; }
+    if (tag === "FORM") {
+      // GET forms with a text input are actionable without a browser:
+      // submitting IS navigation. Captured as bundle data (kind "form"),
+      // never emitted into the document — forms are affordances, not
+      // content. Password forms are skipped: logging in is Safari's job.
+      const method = (el.getAttribute("method") || "get").toLowerCase();
+      if (method === "get" && !el.querySelector('input[type="password"]')) {
+        const inp = el.querySelector(
+          'input[type="search"], input[type="text"], input:not([type])');
+        if (inp && inp.name) {
+          const hidden = {};
+          for (const h of el.querySelectorAll('input[type="hidden"]'))
+            if (h.name) hidden[h.name] = h.value || "";
+          push(el, st, r, {
+            kind: "form", md: "", links: [], images: [],
+            action: absURL(el.getAttribute("action") || location.href),
+            param: inp.name,
+            label: (inp.getAttribute("placeholder")
+                    || inp.getAttribute("aria-label") || inp.name).trim(),
+            hidden: hidden,
+          });
+        }
+      }
+      for (const c of el.children) visit(c);
+      return;
+    }
 
     if (!hasBlockChild(el)) {
       const s = serialize(el);

@@ -56,6 +56,7 @@
   ],
   "description": "",
   "docHeight": 664,
+  "feeds": [],
   "interactive": 0,
   "lang": "en",
   "title": "Example Domain",
@@ -66,9 +67,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 3289,
-  "extractor": "2.0.0a3",
-  "fetched_at": "2026-07-04T11:45:31-05:00",
+  "elapsed_ms": 3219,
+  "extractor": "2.0.0a4",
+  "fetched_at": "2026-07-04T14:25:27-05:00",
   "mode": "authenticated",
   "requested_url": "https://example.com",
   "url": "https://example.com/"

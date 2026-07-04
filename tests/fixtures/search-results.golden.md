@@ -5,7 +5,7 @@
 
 [Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram) [Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary) [Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images) [News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)
 
-Results 1 to 10 from 913 in 0.08s
+Results 1 to 10 from 913 in 0.11s
 
 - https://news.tuxmachines.org › n › ... › 07 › 03 › BSD\_EuroBSDCon\_and\_FreeBSD... [Tux Machines — BSD: EuroBSDCon and FreeBSD Leftovers](https://news.tuxmachines.org/n/2026/07/03/BSD_EuroBSDCon_and_FreeBSD_Leftovers.shtml) Bruno Croci ☛ **FreeBSD** **ate** **my** **ram** ! ... Another user shared Linux **ate** **my** **RAM** , which provide a quick explanation for the same effect on Linux.
 

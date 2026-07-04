@@ -3,17 +3,17 @@
 
 - Live Updates ![The French Air Force acrobatic squad Patrouille de France perform a flyover during the International Aerial Review, Saturday, July 4, 2026, in New York.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) America celebrates its 250th birthday
 
-- [For Subscribers A 48-star US flag, the size of a single bedroom apartment, has draped a Minnesota community in red, white and blue mystery](https://www.cnn.com/2026/07/04/us/minnesota-flag-mystery)
+- [Analysis for Subscribers The World Cup reshapes how Americans — and the world — see the US](https://www.cnn.com/2026/07/04/politics/world-cup-america-250-july-4-analysis)
 
-- [Smerconish discusses America at 250 with Pennsylvania Senators John Fetterman and Dave McCormick 16:09](https://www.cnn.com/2026/07/04/us/video/smerconish-discusses-america-at-250-with-pennsylvania-senators-john-fetterman-and-dave-mccormick)
+- [Hot dog eating legend Joey Chestnut wins 18th Fourth of July contest](https://www.cnn.com/2026/07/04/us/live-news/july-4-trump-speech-america-250?post-id=cmr6mpkji00003b6623savfm4)
 
-- [New Theodore Roosevelt Presidential Library opens in North Dakota 3:36](https://www.cnn.com/2026/07/03/us/video/theodore-roosevelt-library-opening-presidential-vrtc-digvid)
+- [CNN on board ‘America’s Tall Ship’ 1:10](https://www.cnn.com/2026/07/04/us/video/us-coast-guard-cutter-eagle-tall-ship-parade-nyc-vrtc)
 
 - [Gallery In pictures: America celebrates its 250th birthday](https://www.cnn.com/2026/07/04/us/gallery/july-4-america-250-photos)
 
 ### Heat Wave
 
-- [Getty Images/Reuters Extreme heat wave in its final stretch and could fuel storms during July 4 celebrations](https://www.cnn.com/2026/07/04/weather/heat-wave-dc-philadelphia-forecast-climate)
+- [Extreme heat wave in its final stretch and could fuel storms during July 4 celebrations](https://www.cnn.com/2026/07/04/weather/heat-wave-dc-philadelphia-forecast-climate)
 
 - [How a hot July 4th celebration in 1850 contributed to the death of President Zachary Taylor 0:59](https://www.cnn.com/2026/07/03/us/video/death-of-president-zachary-taylor-america-250-hot-fourth-of-july-1850-the-lead)
 
@@ -21,7 +21,9 @@
 
 ### Taylor Swift and Travis Kelce
 
-- [AP/CNN/Getty Images/Reuters Taylor Swift and Travis Kelce’s wedding was the spectacle you expected](https://www.cnn.com/2026/07/04/entertainment/travis-kelce-taylor-swift-wedding)
+- [Taylor Swift and Travis Kelce’s wedding was the spectacle you expected](https://www.cnn.com/2026/07/04/entertainment/travis-kelce-taylor-swift-wedding)
+
+- [Swifties freak out over box of pastries from van near MSG 0:55](https://www.cnn.com/2026/07/04/entertainment/video/22777433-swiftie-pastries-vrtc)
 
 - [Adam Sandler officiated and other details from the ceremony 2:31](https://www.cnn.com/2026/07/03/entertainment/video/taylor-swift-travis-kelce-married-digvid)
 
@@ -29,7 +31,7 @@
 
 ### War with Iran
 
-- [Live Updates Telegram/IRNA Huge crowds gather in Iran for dayslong funeral and public mourning for slain supreme leader](https://www.cnn.com/2026/07/04/world/live-news/iran-khamenei-funeral-war-trump)
+- [Live Updates Huge crowds gather in Iran for dayslong funeral and public mourning for slain supreme leader](https://www.cnn.com/2026/07/04/world/live-news/iran-khamenei-funeral-war-trump)
 
 - [CNN reports from the scene on the ground in Tehran 1:43](https://www.cnn.com/2026/07/04/world/video/tehran-iran-funeral-khamenei)
 
@@ -37,13 +39,13 @@
 
 ### STREAMING NOW
 
-- [Reinaldo Martin The cockpit recording that survived 30 years](https://www.cnn.com/videos/title-2600357?iid=related-embed_streaming-now)
+- [The cockpit recording that survived 30 years](https://www.cnn.com/videos/title-2600357?iid=related-embed_streaming-now)
 
 ### Across Our Coverage
 
-- [![US singer-songwriter Beyonce arrives for the 2026 Met Gala celebrating "Costume Art" at the Metropolitan Museum of Art, in New York, on May 4, 2026.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Entertainment Beyoncé drops new music, now the July 4 celebrations can really begin](https://www.cnn.com/2026/07/04/entertainment/beyonce-new-music-morning-dew)
+- [![A bajan clubbing event in Mumbai, on February 8, 2026.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers The unexpected nightlife trend captivating India’s Gen Z](https://www.cnn.com/2026/07/03/india/india-gen-z-trend-spiritual-bhajan-clubbing-intl-hnk)
 
-- [![Dr. Miller exits SOVAH Health hospital, where he leads the cardiology department. SOVAH is one of several Southside hospitals at risk of closures.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers Why America has fallen for a grandpa in high-waisted pants who wants to build sidewalks](https://www.cnn.com/2026/07/03/business/sidewalks-infrastructure-social-media)
+- [![A large American flag is seen inside the Waseca County Historical Society.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers A 48-star US flag, the size of a single bedroom apartment, has draped a Minnesota community in red, white and blue mystery](https://www.cnn.com/2026/07/04/us/minnesota-flag-mystery)
 
 - [![A tourist uses a fan to cool off as they wait in line to enter the U.S. Capitol Building on July 02, 2026 in Washington, DC. Temperatures in the nation's capital are expected to top 100 degrees as a heat wave stretching from the Midwest to the East Coast impacts up to 90 million Americans. (Photo by Kevin Dietsch/Getty Images)](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Health Skip a trip to the ER while celebrating the Fourth of July](https://www.cnn.com/2026/07/04/health/fireworks-safety-america-250th-anniversary-wellness)
 
@@ -51,19 +53,19 @@
 
 ## [Streaming now on All Access](https://www.cnn.com/watch)
 
-- [![028\_AOP\_HomepageFeature\_1440x810\_16x9\_Texted\_KA\_AM\_FN.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Comedian Craig Ferguson explores America’s freedoms and quirks](https://www.cnn.com/videos/title-2585388)
-
-- [![this-land-ep5.png](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) The Alaska Purchase: a cornerstone of America’s economy with hidden costs](https://www.cnn.com/videos/title-2555444?episode=2555457&source=subwall:vod:episode-2555457)
-
 - [![Eighties Reagan Revolution STP.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Revisit the landmark achievements and political setbacks of the Reagan Administration](https://www.cnn.com/videos/title-2054888?episode=2070615&source=subwall:vod:episode-2070615)
 
 - [![lp\_title\_texted\_homepage\_feature\_card\_1440x810\_cnn\_appxx\_720.png](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Inside the glamour and spectacle of celebrity weddings](https://www.cnn.com/videos/title-2600452?iid=related-embed_streaming-now)
 
 - [Live Watch CNN](https://www.cnn.com/watch?source=sub_web_wa)
 
+- [![028\_AOP\_HomepageFeature\_1440x810\_16x9\_Texted\_KA\_AM\_FN.jpg](https://media.cnn.com/api/v1/images/stellar/prod/028-aop-homepagefeature-1440x810-16x9-texted-ka-am-fn-20260505202719971.jpg?c=16x9&q=h_438,w_780,c_fill) Comedian Craig Ferguson explores America’s freedoms and quirks](https://www.cnn.com/videos/title-2585388)
+
+- [![this-land-ep5.png](https://media.cnn.com/api/v1/images/stellar/prod/this-land-ep5.png?c=16x9&q=h_438,w_780,c_fill) The Alaska Purchase: a cornerstone of America’s economy with hidden costs](https://www.cnn.com/videos/title-2555444?episode=2555457&source=subwall:vod:episode-2555457)
+
 ### CNN Underscored
 
-- [![white two-blade fan in bedroom](https://media.cnn.com/api/v1/images/stellar/prod/stephanie-griffin-shark-turboblade-cnnu.jpg?c=16x9&q=h_720,w_1280,c_fill) Stephanie Griffin/CNN Underscored This is the AC unit you should get based on your home’s size, according to experts](https://www.cnn.com/cnn-underscored/home/how-to-cool-down-a-room)
+- [![white two-blade fan in bedroom](https://media.cnn.com/api/v1/images/stellar/prod/stephanie-griffin-shark-turboblade-cnnu.jpg?c=16x9&q=h_720,w_1280,c_fill) This is the AC unit you should get based on your home’s size, according to experts](https://www.cnn.com/cnn-underscored/home/how-to-cool-down-a-room)
 
 - [Amazon’s annual 4th of July sale is here. I found the 30 best deals](https://www.cnn.com/cnn-underscored/deals/amazon-4th-of-july-sale-2026-06-29)
 
@@ -75,19 +77,19 @@
 
 - [Bleacher Report](https://bleacherreport.com/?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
 
-- [![Williams Sisters withdraw from Wimbledon doubles](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283652400-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Williams Sisters withdraw from Wimbledon doubles](https://bleacherreport.com/articles/25451006-serena-williams-withdraws-wimbledon-doubles-sister-venus-heartbroken-over-injury?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
+- [![Joey Chestnut wins 18th Nathan's hot dog eating contest](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2243229372-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Joey Chestnut wins 18th Nathan’s hot dog eating contest](https://bleacherreport.com/articles/25451022-joey-chestnut-eats-66-hot-dogs-18th-title-nathans-hot-dog-eating-contest-2026?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
+
+- [Joey Chestnut’s caloric intake in hot dog eating content](https://bleacherreport.com/articles/25451026-how-many-calories-joey-chestnut-ate-more-nutrition-facts-2026-nathans-hot-dog-contest?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
+
+- [Williams Sisters withdraw from Wimbledon doubles](https://bleacherreport.com/articles/25451006-serena-williams-withdraws-wimbledon-doubles-sister-venus-heartbroken-over-injury?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
 
 - [Watch: World Cup celebration breaks out in Brooklyn bodega](https://bleacherreport.com/articles/25451002-watch-fans-celebrate-cape-verdes-game-tying-world-cup-goal-trending-bodega-video?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
 
-- [Nathan’s hot dog eating contest preview](https://bleacherreport.com/articles/25450780-nathans-hot-dog-eating-contest-2026-tv-schedule-live-stream-weather-replay-info?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
-
 - [Caitlin Clark makes statement on flagrant foul](https://bleacherreport.com/articles/25450755-caitlin-clark-defends-alyssa-thomas-video-after-fan-backlash-wnba-suspension-foul?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
-
-- [Timberwolves ramping up push for LeBron](https://bleacherreport.com/articles/25450947-new-lebron-james-rumors-reveal-wolves-free-agent-pitch-nba-icon-amid-ramped-contract-pursuit?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)
 
 ### In Case You Missed It
 
-- [![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Britta Jaschinski Award-winning photographs highlight the forensic hunt for wildlife criminals](https://www.cnn.com/science/earth-photo-2026-britta-jaschinsk-wildlife-trafficking-c2e-spc)
+- [![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals](https://www.cnn.com/science/earth-photo-2026-britta-jaschinsk-wildlife-trafficking-c2e-spc)
 
 - [![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025](https://www.cnn.com/2026/07/02/health/us-death-rate-record-low-cdc-report-longevity)
 

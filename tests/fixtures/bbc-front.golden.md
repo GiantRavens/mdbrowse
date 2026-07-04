@@ -9,31 +9,31 @@
 
 ---
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![A composite with a file photo of Taylor Swift and Travis Kelce next to a photo of a pink Madison Square Garden screen saying "JuT&T married!"](https://ichef.bbci.co.uk/news/480/cpsprodpb/9c6f/live/aa7b3860-77a4-11f1-a627-714adb4eed6e.jpg.webp) Dior dress, Adam Sandler and a man of honour: What we know about Taylor and Travis's wedding 21 mins ago Culture](https://www.bbc.com/news/articles/cvg5zn58nj2o)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![A composite with a file photo of Taylor Swift and Travis Kelce next to a photo of a pink Madison Square Garden screen saying "JuT&T married!"](https://ichef.bbci.co.uk/news/480/cpsprodpb/9c6f/live/aa7b3860-77a4-11f1-a627-714adb4eed6e.jpg.webp) Dior dress, Adam Sandler and a man of honour: What we know about Taylor and Travis's wedding 2 hrs ago Culture](https://www.bbc.com/news/articles/cvg5zn58nj2o)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Gigi Hadid and Bradley Cooper leaving, photographed through a car window](https://ichef.bbci.co.uk/news/480/cpsprodpb/010f/live/2953a370-778c-11f1-a146-99f41269c606.jpg.webp) In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding 9 hrs ago US & Canada](https://www.bbc.com/news/articles/c7vyqgy4r5lo)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Gigi Hadid and Bradley Cooper leaving, photographed through a car window](https://ichef.bbci.co.uk/news/480/cpsprodpb/010f/live/2953a370-778c-11f1-a146-99f41269c606.jpg.webp) In pictures: Stars and fans celebrate Taylor Swift and Travis Kelce's wedding 11 hrs ago US & Canada](https://www.bbc.com/news/articles/c7vyqgy4r5lo)
 
-- [Brutal heat cancels Fourth of July events, from DC to Philadelphia More than 165 million people are enduring dangerous heat and humidity, with temperatures expected to stay at 38C (100F) for several days. 14 hrs ago US & Canada](https://www.bbc.com/news/articles/cevlkzer7vdo)
+- [Ukraine hits major oil terminal in Russia's St Petersburg Ukrainian President Volodymyr Zelensky says the target is key infrastructure "that generates revenue for Russia's war". 43 mins ago Europe](https://www.bbc.com/news/articles/c8j2vmzxezro)
 
-- [Ukraine hits major oil terminal in Russia's St Petersburg Ukrainian President Volodymyr Zelensky says the target is key infrastructure "that generates revenue for Russia's war". 3 hrs ago Europe](https://www.bbc.com/news/articles/c8j2vmzxezro)
+- [Brutal heat cancels Fourth of July events, from DC to Philadelphia More than 165 million people are enduring dangerous heat and humidity, with temperatures expected to stay at 38C (100F) for several days. 16 hrs ago US & Canada](https://www.bbc.com/news/articles/cevlkzer7vdo)
 
-- ['Hotter and hotter and hotter': Europe's new climate in seven charts Temperature records were smashed in June - and scientists warn this is a sign of things to come. 16 hrs ago Europe](https://www.bbc.com/news/articles/c8e2j0j87reo)
+- ['Hotter and hotter and hotter': Europe's new climate in seven charts Temperature records were smashed in June - and scientists warn this is a sign of things to come. 18 hrs ago Europe](https://www.bbc.com/news/articles/c8e2j0j87reo)
 
-- [Prince Harry will not be joined by Meghan and children on London trip The plans changed after it was confirmed they would not have taxpayer funded security, it is understood. 2 hrs ago UK](https://www.bbc.com/news/articles/cr5jpzn2814o)
+- [Large crowds gather in Tehran on first day of Ayatollah Khamenei's funeral Ali Khamenei's body will lie in state in Tehran's Grand Mosalla until Monday, before travelling across Iran and Iraq. 10 hrs ago Middle East](https://www.bbc.com/news/articles/c0ky2zen1kgo)
 
 ---
 
 - [World Cup](https://www.bbc.com/sport/football/world-cup)
 
-- [LIVE Co-hosts Canada face Morocco for place in World Cup quarter-final Canada and Morocco meet for a spot in the World Cup quarter-finals - follow coverage and get analysis, predictions, fan reaction, score updates and match stats.](https://www.bbc.com/sport/football/live/cx2jw3e9gq0t) — ![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Canada](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/20f0/live/077c93e0-77ca-11f1-b133-1117329a5958.jpg.webp)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Morocco celebrate](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/bed8/live/249291f0-77d9-11f1-80e6-f3a3d781efb8.jpg.webp)](https://www.bbc.com/sport/football/live/cx2jw3e9gq0t) — LIVE Morocco reach World Cup quarter-finals as co-hosts Canada knocked out Azzedine Ounahi scores twice as Morocco become the first team to reach the World Cup quarter-finals, with co-hosts Canada exiting the competition.
+
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![England fans celebrate in a pub garden. A crowd of men and women, in the foreground are two women and two men with their arms up wearing football t-shirts.](https://ichef.bbci.co.uk/news/480/cpsprodpb/f355/live/2bc17ce0-7791-11f1-a57a-7bede9cb391f.jpg.webp) Pubs and police brace for England-Mexico 1am kick-off after Fifa U-turn](https://www.bbc.com/news/articles/cy9r2x4pz1wo)
 
 - [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Vozinha holding Cape Verde flag](https://ichef.bbci.co.uk/news/480/cpsprodpb/d7b4/live/b7fee070-774c-11f1-8e4e-2dc6898b0152.jpg.webp) Farewell Cape Verde - the underdogs the World Cup will never forget](https://www.bbc.com/sport/football/articles/cqj1pd8lqw9o)
 
 - [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Lionel Messi raises his fist to the air](https://ichef.bbci.co.uk/news/480/cpsprodpb/00f5/live/caa8a4b0-7768-11f1-b976-0b9c15b0ccfc.jpg.webp) Murals, flags and beef dishes - Messi mania takes hold in Miami](https://www.bbc.com/sport/football/articles/cm2jpkkdld4o)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![A Colombia fan kisses a fake World Cup trophy](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/59b4/live/d1ed71b0-7759-11f1-95db-c35170cc1bc0.jpg.webp) Colombia beat Ghana to secure final last-16 spot](https://www.bbc.com/sport/football/live/cnv9g087mzyt)
-
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Mexico's Julian Quinones](https://ichef.bbci.co.uk/news/480/cpsprodpb/3f33/live/0f1ebf40-765f-11f1-b953-0b29fdbd957b.jpg.webp) Mexico's unlikely hero who England could fear most](https://www.bbc.com/sport/football/articles/cqx1l3n9dj5o)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Four football players all express disappointment in defeat: a goalkeeper holds his head in his gloved hands, another presses his palm into his eye, an outfield player kneels with a look of disconsolation on his face, and the fourth rubs his head with a puzzled expression.](https://ichef.bbci.co.uk/news/480/cpsprodpb/a501/live/0d6a3de0-7561-11f1-9510-1546718f668b.png.webp) Eight of the 10 most populous countries are not in the World Cup](https://www.bbc.com/news/articles/c621je3we82o)
 
 ---
 
@@ -95,59 +95,29 @@
 
 - [More news](https://www.bbc.com/news)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![A man holds up his hands and wails in the crowd at the Grand Mosalla](https://ichef.bbci.co.uk/news/480/cpsprodpb/7c6f/live/071927b0-7789-11f1-a146-99f41269c606.jpg.webp)](https://www.bbc.com/news/articles/c0ky2zen1kgo) — Large crowds gather in Tehran on first day of Ayatollah Khamenei's funeral Ali Khamenei's body will lie in state in Tehran's Grand Mosalla until Monday, before travelling across Iran and Iraq. 7 hrs ago Middle East
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Arthur Fery](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/74b7/live/47382b90-77dc-11f1-a627-714adb4eed6e.jpg.webp)](https://www.bbc.com/sport/tennis/live/crr1zlzx4qxt) — LIVE Wimbledon day six - follow live updates Follow text updates from matches on day six of Wimbledon 2026, including Arthur Fery v Zizou Bergs, and Alexandra Eala v Iga Swiatek.
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Arthur Fery](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/df74/live/32da9140-77ca-11f1-b133-1117329a5958.jpg.webp) LIVE Wimbledon day six - follow live updates](https://www.bbc.com/sport/tennis/live/crr1zlzx4qxt) [China's internet got so mad about a celebrity's 'bad' singing, her concert was cancelled Celebrities have become outlets for young people's social and economic frustrations. 18 hrs ago Asia](https://www.bbc.com/news/articles/cdx7d254lrjo) [Row after Indian state drops eggs from school lunch menu West Bengal's move to replace eggs in some school meals has sparked a wider debate over nutrition and choice. 16 hrs ago Asia](https://www.bbc.com/news/articles/c33yldyd62po)
-
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Mercedes' Kimi Antonelli smiles and clenches his fist in celebration after taking pole position for the British Grand Prix](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/9fcd/live/1ec47ee0-77c6-11f1-94e2-871a7fcffef3.jpg.webp) LIVE Antonelli takes British GP pole with Hamilton third - reaction](https://www.bbc.com/sport/formula1/live/czre33d1l5nt)
-
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![King Charles looking at Donald Trump, both wearing suits and smiling.](https://ichef.bbci.co.uk/news/480/cpsprodpb/7aff/live/8408ca30-779f-11f1-90c7-73fde41eb72e.jpg.webp) King hails 'truly historic milestone' on 250th anniversary of US independence 4 hrs ago UK](https://www.bbc.com/news/articles/cy9r2pnj4j7o)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![King Charles looking at Donald Trump, both wearing suits and smiling.](https://ichef.bbci.co.uk/news/480/cpsprodpb/7aff/live/8408ca30-779f-11f1-90c7-73fde41eb72e.jpg.webp) King hails 'truly historic milestone' on 250th anniversary of US independence 6 hrs ago UK](https://www.bbc.com/news/articles/cy9r2pnj4j7o) [China's internet got so mad about a celebrity's 'bad' singing, her concert was cancelled Celebrities have become outlets for young people's social and economic frustrations. 21 hrs ago Asia](https://www.bbc.com/news/articles/cdx7d254lrjo) [Row after Indian state drops eggs from school lunch menu West Bengal's move to replace eggs in some school meals has sparked a wider debate over nutrition and choice. 18 hrs ago Asia](https://www.bbc.com/news/articles/c33yldyd62po)
 
 - [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![A copy of the US Declaration of Independence. The word "declaration" can be seen in capital letters on the document, which has various folds and creases.](https://ichef.bbci.co.uk/news/480/cpsprodpb/3cc4/live/dfff7be0-76a5-11f1-a627-714adb4eed6e.jpg.webp) Rare copy of US Declaration of Independence found by volunteer in UK archives 2 days ago London](https://www.bbc.com/news/articles/cgrkl104ly5o)
+
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Prince Harry, Duke of Sussex, and his wife Meghan, the Duchess of Sussex walking hand in hand, wearing blue shirts and sunglasses.](https://ichef.bbci.co.uk/news/480/cpsprodpb/476f/live/8c060860-77a9-11f1-90c7-73fde41eb72e.jpg.webp) Prince Harry will not be joined by Meghan and children on London trip 4 hrs ago UK](https://www.bbc.com/news/articles/cr5jpzn2814o)
+
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Mercedes' Kimi Antonelli smiles and clenches his fist in celebration after taking pole position for the British Grand Prix](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/9fcd/live/1ec47ee0-77c6-11f1-94e2-871a7fcffef3.jpg.webp) Recap and reaction as Antonelli takes British Grand Prix pole](https://www.bbc.com/sport/formula1/live/czre33d1l5nt)
 
 ---
 
 ## Inside the story
 
-### How meal times affect your health
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Melissa](https://ichef.bbci.co.uk/images/ic/480x270/p0nwjzv9.jpg.webp) How meal times affect your health The time of day you have a meal and even how much you chew it can affect how many calories you get from it. Health](https://www.bbc.com/reel/video/p0nwjthh/watch)
 
-### 0:00
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Thomas](https://ichef.bbci.co.uk/images/ic/480x270/p0nwjzqm.jpg.webp) Am I an AI deepfake? AI fakery has been used to scam people out of large sums of money and even attempt to sway elections. Technology](https://www.bbc.com/reel/video/p0nwjtft/watch)
 
-![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Beach](https://ichef.bbci.co.uk/images/ic/480x270/p0nwjzz3.jpg.webp) Come for Carnival, stay for the world-class steak Uruguay is one of South America's smallest nations, but don't let its size fool you. Travel](https://www.bbc.com/reel/video/p0nwjtdz/watch)
 
-![Melissa](https://ichef.bbci.co.uk/images/ic/480xn/p0nwjzv9.jpg.webp)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Football and tech](https://ichef.bbci.co.uk/images/ic/480x270/p0nwjzp6.jpg.webp) Is tech ruining the World Cup? Is World Cup tech taking the human magic out of football? Technology](https://www.bbc.com/reel/video/p0nwjthm/watch)
 
-### Come for Carnival, stay for the world-class steak
-
-### 0:00
-
-![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
-
-![Beach](https://ichef.bbci.co.uk/images/ic/480xn/p0nwjzz3.jpg.webp)
-
-### Am I an AI deepfake?
-
-### 0:00
-
-![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
-
-![Thomas](https://ichef.bbci.co.uk/images/ic/480xn/p0nwjzqm.jpg.webp)
-
-### Is there an AI stock market bubble?
-
-### 0:00
-
-![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
-
-![Samira](https://ichef.bbci.co.uk/images/ic/480xn/p0nwjz6f.png.webp)
-
-### Is tech ruining the World Cup?
-
-### 0:00
-
-![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
-
-![Football and tech](https://ichef.bbci.co.uk/images/ic/480xn/p0nwjzp6.jpg.webp)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Samira](https://ichef.bbci.co.uk/images/ic/480x270/p0nwjz6f.png.webp) Is there an AI stock market bubble? Despite the Iran war and rising inflation, US stock markets have continued to hit all-time highs this year. Business](https://www.bbc.com/reel/video/p0nwjtgb/watch)
 
 ---
 
@@ -163,21 +133,21 @@
 
 ---
 
-- [Culture](https://www.bbc.com/culture)
+- [Health](https://www.bbc.com/health)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Still of the family from the original Little House on the Prairie posing together (Image Credit: Getty Images)](https://ichef.bbci.co.uk/images/ic/480x270/p0nw5p3n.jpg.webp)](https://www.bbc.com/culture/article/20260701-the-original-tv-little-house-on-the-prairie-was-a-true-american-horror-story) — The original TV Little House on the Prairie was a true American horror story A Netflix spin on the classic children's books is about to launch. It remains to be seen how it compares to the 1970s adaptation – which is much darker and grimmer than most remember.
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Ally Hirschlag pictured looking off camera with beams of sunlight from the sunset behind her in Cape Cod (Credit: Mark Stetson)](https://ichef.bbci.co.uk/images/ic/480x270/p0nvb7gf.jpg.webp)](https://www.bbc.com/future/article/20260625-watching-the-sunset-the-free-daily-activity-that-gives-us-a-health-fix) — What sunset-watching really does for your health Humans appear to see sunrises and sunsets "almost like bookends". Here's what a dose of golden hour does for our memory, sleep and mood.
 
 ---
 
 - [US & Canada News](https://www.bbc.com/news/us-canada)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Travis Kelce and Taylor Swift in 2024.](https://ichef.bbci.co.uk/news/480/cpsprodpb/5bc4/live/028631e0-7764-11f1-a3d8-7ddc16337a2d.jpg.webp) Taylor Swift and Travis Kelce wed in NYC - here's how the day unfolded](https://www.bbc.com/news/videos/cewqpdgqj0ko)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Roger Lieb and Bonnie Taff posing together on the left, aged 82, and on the right on their wedding day in 1976.](https://ichef.bbci.co.uk/news/480/cpsprodpb/524e/live/c1577750-7642-11f1-a627-714adb4eed6e.jpg.webp)'America's 250th birthday is our 50th anniversary'](https://www.bbc.com/news/videos/czx59k8wjpko)
+
+- [Taylor Swift and Travis Kelce wed in NYC - here's how the day unfolded](https://www.bbc.com/news/videos/cewqpdgqj0ko)
 
 - [Taylor Swift marries Travis Kelce in NYC ceremony officiated by Adam Sandler](https://www.bbc.com/news/articles/c982ry2pen3o)
 
 - [Police, fans and celebrities: What it's like outside the Swift wedding](https://www.bbc.com/news/videos/cly9pddzp1po)
-
-- ['It's so hot': Dangerous hot weather grips parts of the US](https://www.bbc.com/news/videos/cd0mpgvzzy5o)
 
 ---
 
@@ -187,7 +157,7 @@
 
 - [Former chess champion Kramnik banned over cheating remarks](https://www.bbc.com/news/articles/cd6epx607dqo)
 
-- [Pope urges Europe to do more for migrants while visiting gateway island](https://www.bbc.com/news/articles/c5yz83n7q5no)
+- [Pope urges Europe to do more for migrants as he visits gateway island](https://www.bbc.com/news/articles/c5yz83n7q5no)
 
 - [Cape Verde fans 'proud' despite 3-2 defeat to Argentina](https://www.bbc.com/news/videos/ckg0pee102lo)
 
@@ -239,13 +209,13 @@
 
 - [Sport](https://www.bbc.com/sport)
 
-- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![England batter Jacob Bethell plays a shot](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/478d/live/3c0db860-77c9-11f1-b133-1117329a5958.jpg.webp) LIVE Brilliant Bethell has England needing 10 off 12 balls to beat India](https://www.bbc.com/sport/cricket/live/ce9mvgg1gppt)
+- [![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)![Alan Shearer's BBC Sport column](https://ichef.bbci.co.uk/news/480/cpsprodpb/10d3/live/a37c2e80-77d5-11f1-9510-1546718f668b.jpg.webp) Why England won't fear Mexico or the Azteca - Shearer](https://www.bbc.com/sport/football/articles/c4gy0l7x25wo)
 
-- [LIVE Nations Championship: South Africa extend lead over England to 15 points - radio & text](https://www.bbc.com/sport/rugby-union/live/ckgpn0vzyk0t)
+- [LIVE Nations Championship: Argentina strike first against Scotland](https://www.bbc.com/sport/rugby-union/live/cd9pwkxndz0t)
 
-- [Lightning, hotel security and spying - issues England face in Mexico](https://www.bbc.com/sport/football/articles/cx2x1gwwjego)
+- [England outclassed by seven-try South Africa in Nations Championship](https://www.bbc.com/sport/rugby-union/articles/cvglz11w29xo)
 
-- [Antonelli beats Leclerc & Hamilton to Silverstone pole](https://www.bbc.com/sport/formula1/articles/cj3g73x2ggeo)
+- [Sooryavanshi, 15, debuts in India loss to England](https://www.bbc.com/sport/cricket/articles/cq61pz1e1nno)
 
 ---
 
@@ -257,7 +227,7 @@
 
 - [Scotland was 'murder capital of Europe', then it treated violence like a disease](https://www.bbc.com/future/article/20260626-how-scotland-changed-the-way-it-tackled-violence)
 
-- [What sunset-watching really does for your health](https://www.bbc.com/future/article/20260625-watching-the-sunset-the-free-daily-activity-that-gives-us-a-health-fix)
+- [How to exercise safely in hot weather](https://www.bbc.com/future/article/20260618-how-keep-exercising-when-its-really-hot)
 
 ---
 

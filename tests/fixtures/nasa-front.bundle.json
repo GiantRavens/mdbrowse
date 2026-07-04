@@ -2838,6 +2838,13 @@
   ],
   "description": "NASA.gov brings you the latest news, images and videos from America's space agency, pioneering the future in space exploration, scientific discovery and aeronautics research.",
   "docHeight": 14691,
+  "feeds": [
+   {
+    "href": "https://www.nasa.gov/feed/",
+    "title": "NASA » Feed",
+    "type": "application/rss+xml"
+   }
+  ],
   "interactive": 34,
   "lang": "en-US",
   "title": "NASA",
@@ -2848,9 +2855,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1923,
-  "extractor": "2.0.0a3",
-  "fetched_at": "2026-07-04T12:06:22-05:00",
+  "elapsed_ms": 935,
+  "extractor": "2.0.0a4",
+  "fetched_at": "2026-07-04T14:25:38-05:00",
   "mode": "authenticated",
   "requested_url": "https://www.nasa.gov",
   "url": "https://www.nasa.gov/"

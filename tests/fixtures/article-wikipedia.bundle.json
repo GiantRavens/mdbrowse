@@ -25,6 +25,27 @@
     "md": "[![Wikipedia](https://en.wikipedia.org/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg)](https://en.wikipedia.org/wiki/Main_Page)"
    },
    {
+    "action": "https://en.wikipedia.org/w/index.php",
+    "bbox": [
+     124,
+     5,
+     218,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "hidden": {
+     "title": "Special:Search"
+    },
+    "images": [],
+    "kind": "form",
+    "label": "Search Wikipedia",
+    "landmark": "nav",
+    "links": [],
+    "md": "",
+    "param": "search"
+   },
+   {
     "bbox": [
      320,
      27,
@@ -3757,6 +3778,7 @@
   ],
   "description": "",
   "docHeight": 2829,
+  "feeds": [],
   "interactive": 32,
   "lang": "en",
   "title": "Markdown - Wikipedia",
@@ -3767,9 +3789,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 900,
-  "extractor": "2.0.0a3",
-  "fetched_at": "2026-07-04T11:45:37-05:00",
+  "elapsed_ms": 833,
+  "extractor": "2.0.0a4",
+  "fetched_at": "2026-07-04T14:25:33-05:00",
   "mode": "authenticated",
   "requested_url": "https://en.wikipedia.org/wiki/Markdown",
   "url": "https://en.wikipedia.org/wiki/Markdown"

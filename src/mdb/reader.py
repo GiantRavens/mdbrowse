@@ -55,6 +55,7 @@ HELP_LINES = (
     "  v                speak page from focused element (v again stops)",
     "  S / a            summarize / ask this page (Claude); H returns",
     "  F                open the page's RSS feed (when advertised)",
+    "  f                fill the page's search form and go (GET forms)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
     "  :                go to URL · 'ddg terms' searches DuckDuckGo ·",
@@ -540,9 +541,15 @@ class Reader:
             try:
                 self.page = self.load(current)
                 current = self.page.url
-                if (self.page.bundle
-                        and self.page.bundle["doc"].get("feeds")):
-                    self.msg = "RSS available — press F"
+                hints = []
+                if self.page.bundle:
+                    if self.page.bundle["doc"].get("feeds"):
+                        hints.append("RSS: F")
+                    if any(b.get("kind") == "form"
+                           for b in self.page.bundle["doc"].get("blocks", [])):
+                        hints.append("search form: f")
+                if hints:
+                    self.msg = " · ".join(hints)
             except Exception as e:
                 self.page = self.error_page(current, e)
             nav = self._view(scr)
@@ -835,6 +842,26 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c == ord("f"):                # fill the page's GET form
+                forms = [b for b in (page.bundle["doc"].get("blocks", [])
+                                     if page.bundle else [])
+                         if b.get("kind") == "form"]
+                if not forms:
+                    self.msg = "no fillable form on this page"
+                    continue
+                # prefer the search-shaped one
+                best = next((b for b in forms
+                             if b.get("param") in ("q", "s", "search", "query")),
+                            forms[0])
+                q = self._prompt(scr, h, w, f"{best.get('label') or 'search'}: ")
+                if not q.strip():
+                    continue
+                from urllib.parse import urlencode
+                params = dict(best.get("hidden") or {})
+                params[best["param"]] = q.strip()
+                sep = "&" if "?" in best["action"] else "?"
+                return ("go", best["action"] + sep + urlencode(params))
+
             if c == ord("F"):                # open the page's advertised feed
                 feeds = (page.bundle["doc"].get("feeds")
                          if page.bundle else None) or []
