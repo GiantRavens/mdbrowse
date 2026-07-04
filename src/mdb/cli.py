@@ -10,7 +10,6 @@ measured, never vibes.
 """
 
 import argparse
-import datetime
 import difflib
 import glob
 import json
@@ -20,12 +19,12 @@ import sys
 
 from . import EXTRACTOR_VERSION
 from . import bundle as bundle_io
+from .archive import ARCHIVE_DIR, save_archive
 from .capture import capture
 from .classify import classify
 from .emit import emit, emit_body
 from .render import render
 
-ARCHIVE_DIR = os.path.expanduser(os.environ.get("MDBROWSE_ARCHIVE", "~/mdbrowse-archive"))
 FIXTURE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))), "tests", "fixtures")
 
@@ -38,23 +37,6 @@ def _normalize_url(url: str) -> str:
     if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
         url = "https://" + url
     return url
-
-
-def _slugify(s: str, maxlen: int = 60) -> str:
-    s = re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
-    return s[:maxlen].strip("-") or "page"
-
-
-def _save_archive(doc_md: str, title: str, url: str) -> str:
-    from urllib.parse import urlparse
-    os.makedirs(ARCHIVE_DIR, exist_ok=True)
-    now = datetime.datetime.now()
-    host = urlparse(url).netloc or "local"
-    fname = f"{now.strftime('%Y%m%d-%H%M%S')}-{_slugify(host + '-' + title)}.md"
-    path = os.path.join(ARCHIVE_DIR, fname)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(doc_md)
-    return path
 
 
 def _strip_front_matter(doc_md: str) -> str:
@@ -103,6 +85,9 @@ def main() -> None:
         prog="mdb",
         description="Web -> deterministic markdown compiler (mdbrowse v2).")
     ap.add_argument("url", nargs="?", help="page to compile")
+    ap.add_argument("--browse", action="store_true",
+                    help="interactive vim-style reader (Tab focus ring, "
+                         "Enter=go, Space=peek)")
     ap.add_argument("--private", "--anonymous", dest="private",
                     action="store_true",
                     help="send no Safari cookies; add DNT/Sec-GPC")
@@ -133,6 +118,12 @@ def main() -> None:
         ap.error("a URL is required (or --selftest)")
 
     url = _normalize_url(args.url)
+
+    if args.browse:
+        from .reader import browse
+        browse(url, private=args.private)
+        return
+
     try:
         b = capture(url, private=args.private, wait_selector=args.wait)
     except Exception as e:
@@ -172,7 +163,7 @@ def main() -> None:
         return
 
     if args.save:
-        path = _save_archive(doc_md, b["doc"].get("title") or url, url)
+        path = save_archive(doc_md, b["doc"].get("title") or url, url)
         print(f"mdb: saved archive -> {path}")
         if not args.raw:
             return

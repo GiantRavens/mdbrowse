@@ -88,6 +88,32 @@ def load():
     return _cache
 
 
+def for_httpx(cookies=None):
+    """Build an httpx.Cookies jar with proper domain/path scoping, so the
+    right cookies go to the right host even across redirects (used for
+    authenticated image downloads in the reader)."""
+    import httpx
+    from http.cookiejar import Cookie
+    jar = httpx.Cookies()
+    for c in (cookies if cookies is not None else load()):
+        dom = c["domain"]
+        dot = dom.startswith(".")
+        try:
+            jar.jar.set_cookie(Cookie(
+                version=0, name=c["name"], value=c["value"],
+                port=None, port_specified=False,
+                domain=dom, domain_specified=dot, domain_initial_dot=dot,
+                path=c["path"], path_specified=True,
+                secure=c["secure"],
+                expires=int(c["expires"]) if c["expires"] else None,
+                discard=False, comment=None, comment_url=None,
+                rest={"HttpOnly": ""} if c["httponly"] else {},
+            ))
+        except Exception:
+            pass
+    return jar
+
+
 def for_playwright(cookies=None):
     """Shape parsed cookies for Playwright's context.add_cookies()."""
     out = []
