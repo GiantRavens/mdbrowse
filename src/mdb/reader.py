@@ -110,9 +110,28 @@ def _clean(s: str) -> str:
     return re.sub(r"\\([\\`*_\[\]])", r"\1", s)
 
 
+_OPENERS = " ([{'\"“‘/-–—"
+_CLOSERS = " ,.;:!?)]}'\"”’/-–—%"
+
+
 def _tokenize(line: str, focusables: list):
-    """One logical line -> [(text, fid|None)], appending new focusables."""
+    """One logical line -> [(text, fid|None)], appending new focusables.
+
+    Focusables get breathing room: a space is inserted when a link butts
+    directly against preceding text or the following text/link (Wikipedia
+    citation clusters, adjacent nav links). Display-only — the markdown
+    document is untouched, so hashes and diffs stay stable."""
     segs, pos = [], 0
+
+    def pad_before():
+        if segs and segs[-1][0] and segs[-1][0][-1] not in _OPENERS:
+            segs.append((" ", None))
+
+    def pad_after(end):
+        nxt = line[end:end + 1]
+        if nxt and nxt not in _CLOSERS and nxt != "\\":
+            segs.append((" ", None))
+
     for m in _TOKEN_RE.finditer(line):
         if m.start() > pos:
             segs.append((_clean(line[pos:m.start()]), None))
@@ -122,6 +141,7 @@ def _tokenize(line: str, focusables: list):
             f = Focusable(len(focusables), CARD, _clean(label),
                           href=m.group("chref"), src=m.group("csrc"))
             focusables.append(f)
+            pad_before()
             # Two spaces after the icon: emoji glyphs overdraw their cell in
             # some terminals, visually fusing with the first letter.
             segs.append(("🖼  " + f.label, f.fid))
@@ -130,17 +150,50 @@ def _tokenize(line: str, focusables: list):
             f = Focusable(len(focusables), IMAGE, _clean(alt),
                           src=m.group("src"))
             focusables.append(f)
+            pad_before()
             segs.append(("🖼  " + f.label, f.fid))
         else:                                      # plain link
             f = Focusable(len(focusables), LINK, _clean(m.group("text")),
                           href=m.group("href"))
             focusables.append(f)
+            pad_before()
             segs.append((f.label, f.fid))
+        pad_after(m.end())
         pos = m.end()
     if pos < len(line):
         segs.append((_clean(line[pos:]), None))
     return [(t, fid) for t, fid in segs if t]
 
+
+def _explode_images(segs, focusables):
+    """Split a line's segments so each image/card lands on its OWN display
+    line — inline thumbnails break text flow. A bare list marker before
+    the image stays attached (feed bullets keep their dash)."""
+    groups, buf = [], []
+
+    def buf_is_marker_only():
+        joined = "".join(t for t, _ in buf)
+        return bool(re.fullmatch(r"\s*(?:[-*]|\d+\.)?\s*", joined))
+
+    for seg in segs:
+        _text, fid = seg
+        kind = focusables[fid].kind if fid is not None else None
+        if kind in (IMAGE, CARD):
+            if buf and buf_is_marker_only():
+                buf.append(seg)
+                groups.append(buf)
+                buf = []
+            else:
+                if buf:
+                    groups.append(buf)
+                    buf = []
+                groups.append([seg])
+        else:
+            buf.append(seg)
+    if buf:
+        groups.append(buf)
+    return [g for g in groups
+            if any(t.strip() for t, _ in g)]
 
 
 # ---------------------------------------------------------------------------
@@ -180,7 +233,9 @@ def parse_body(body: str):
             m = re.match(r"^(\s*)(?:[-*]|\d+\.)\s+", s)
             if m:
                 indent = len(m.group(0))
-        llines.append(LLine(_tokenize(s, focusables), style, indent))
+        segs = _tokenize(s, focusables)
+        for group in _explode_images(segs, focusables):
+            llines.append(LLine(group, style, indent))
     return llines, focusables
 
 
