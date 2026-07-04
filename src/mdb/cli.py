@@ -110,6 +110,8 @@ def main() -> None:
     if len(sys.argv) > 1 and sys.argv[1] == "get":
         from .download import get_cli
         sys.exit(get_cli(sys.argv[2:]))
+    if len(sys.argv) > 2 and sys.argv[1] == "feed":
+        sys.argv = [sys.argv[0], "feed:" + sys.argv[2]] + sys.argv[3:]
     if len(sys.argv) > 1 and sys.argv[1] in ("ddg", "search"):
         # `mdb ddg rust atomics` -> rewrite argv to the results URL and fall
         # through to the normal pipeline, so every flag still applies.
@@ -188,19 +190,25 @@ def main() -> None:
         url = "safari:reading"
     elif args.start or not args.url:
         url = "safari:start"
-    elif args.url.startswith("safari:"):
+    elif args.url.startswith(("safari:", "feed:")):
         url = args.url
     else:
         url = _normalize_url(args.url)
 
-    # Safari pseudo-pages need no engine: emit directly for non-browse paths.
-    if url.startswith("safari:"):
-        from .safari import page_markdown
+    # Engine-less pseudo-pages (safari:, feed:) emit directly when not browsing.
+    if url.startswith(("safari:", "feed:")):
+        if url.startswith("feed:"):
+            from .rss import page_markdown as _feed_md
+            def page_markdown(_kind=None):
+                return _feed_md(url[len("feed:"):], args.private)[1]
+        else:
+            from .safari import page_markdown as _saf_md
+            def page_markdown(_kind=None):
+                return _saf_md(url.split(":", 1)[1] or "start")
         if args.speak or args.speak_out:
-            sys.exit(_speak_body(page_markdown(url.split(":", 1)[1] or "start"),
-                                 args.voice, args.speak_out))
+            sys.exit(_speak_body(page_markdown(), args.voice, args.speak_out))
         if args.raw or args.dump == "body" or args.plain or not interactive:
-            md = page_markdown(url.split(":", 1)[1] or "start")
+            md = page_markdown()
             if args.raw or args.dump == "body" or not interactive:
                 print(md)
             else:

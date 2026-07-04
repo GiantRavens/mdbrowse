@@ -54,6 +54,7 @@ HELP_LINES = (
     "  s                save markdown archive",
     "  v                speak page from focused element (v again stops)",
     "  S / a            summarize / ask this page (Claude); H returns",
+    "  F                open the page's RSS feed (when advertised)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
     "  :                go to URL · 'ddg terms' searches DuckDuckGo ·",
@@ -483,6 +484,12 @@ class Reader:
     def load(self, url: str) -> Page:
         if url == "assist:last" and self._assist is not None:
             return self._assist
+        if url.startswith("feed:"):
+            from . import rss
+            title, body = rss.page_markdown(url[len("feed:"):], self.private)
+            page = Page(url=url, bundle=None, manifest=None, body=body)
+            page.llines, page.focusables = parse_body(body)
+            return page
         if url.startswith("safari:"):
             from . import safari
             body = safari.page_markdown(url.split(":", 1)[1] or "start")
@@ -533,6 +540,9 @@ class Reader:
             try:
                 self.page = self.load(current)
                 current = self.page.url
+                if (self.page.bundle
+                        and self.page.bundle["doc"].get("feeds")):
+                    self.msg = "RSS available — press F"
             except Exception as e:
                 self.page = self.error_page(current, e)
             nav = self._view(scr)
@@ -825,6 +835,14 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c == ord("F"):                # open the page's advertised feed
+                feeds = (page.bundle["doc"].get("feeds")
+                         if page.bundle else None) or []
+                if feeds:
+                    return ("go", "feed:" + feeds[0]["href"])
+                self.msg = "no feed advertised on this page"
+                continue
+
             if c in (ord("S"), ord("a")):    # LLM: summarize / ask this page
                 from . import assist
                 if not assist.available():
@@ -911,7 +929,7 @@ class Reader:
                     if hit:
                         return ("go", hit)
                     url = u.strip()
-                    if not url.startswith("safari:") and not re.match(
+                    if not url.startswith(("safari:", "feed:")) and not re.match(
                             r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
                         url = "https://" + url
                     return ("go", url)

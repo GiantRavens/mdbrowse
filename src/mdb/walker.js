@@ -333,10 +333,20 @@
   const interactive = document.querySelectorAll(
     "button,input,select,textarea,[role=button],[contenteditable=true]").length;
 
+  const feeds = [];
+  for (const l of document.querySelectorAll(
+      'link[rel="alternate"][type*="rss"], link[rel="alternate"][type*="atom"]')) {
+    const href = absURL(l.getAttribute("href") || "");
+    if (href && feeds.length < 5)
+      feeds.push({ title: (l.getAttribute("title") || "").trim(),
+                   href: href, type: l.getAttribute("type") || "" });
+  }
+
   return {
     url: location.href,
     title: (document.title || "").trim(),
     lang: document.documentElement.lang || "",
+    feeds: feeds,
     description: (document.querySelector('meta[name="description"]') || {}).content || "",
     viewport: [VPW, VPH],
     docHeight: Math.round(document.documentElement.scrollHeight),
