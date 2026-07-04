@@ -62,6 +62,38 @@ def _www_variant(url: str):
     return urlunparse(p._replace(netloc="www." + p.netloc))
 
 
+def _dns_preflight(host: str, timeout: float = 3.0) -> str:
+    """'ok' | 'hang' | 'fail' — a threaded getaddrinfo with a hard cap.
+
+    Chromium sits on the same system resolver, so a black-holed name would
+    otherwise burn the full navigation budget in silence. A 'hang' means
+    the resolver swallowed the query — the classic cause is a split-DNS
+    rule (corporate VPN, e.g. GlobalProtect) claiming the domain for
+    nameservers that are only reachable on-tunnel. Direct DNS (dig) still
+    answers in that state, which is what makes it look so mysterious.
+    """
+    import socket
+    import threading
+    result = {}
+
+    def work():
+        try:
+            socket.getaddrinfo(host, 443)
+            result["v"] = "ok"
+        except socket.gaierror:
+            result["v"] = "fail"
+        except Exception:
+            result["v"] = "fail"
+
+    # A daemon thread, NOT a ThreadPoolExecutor: pool threads are non-daemon
+    # and a hung getaddrinfo would block interpreter exit for its full ~30s
+    # — exactly the silence this preflight exists to eliminate.
+    t = threading.Thread(target=work, daemon=True)
+    t.start()
+    t.join(timeout)
+    return result.get("v", "hang")
+
+
 def _should_block(req_url: str, resource_type: str) -> bool:
     if resource_type in ("media", "font"):
         return True
@@ -131,6 +163,37 @@ class Engine:
         self._timeout = timeout
         self._block_images = block_images
         self._pw = self._browser = self._context = None
+        self._dns_verdicts = {}     # host -> ok|hang|fail, per session
+
+    def _resolve_target(self, url: str) -> str:
+        """Observe before navigating: a 3s resolver preflight instead of a
+        silent 30s goto on a black-holed name. On a dead apex, jump straight
+        to www. (no first-30s burn); on a resolver hang, fail immediately
+        and say WHY."""
+        host = urlparse(url).hostname or ""
+        if not host or "." not in host:
+            return url
+        verdict = self._dns_verdicts.get(host)
+        if verdict is None:
+            verdict = self._dns_verdicts[host] = _dns_preflight(host)
+        if verdict == "ok":
+            return url
+        alt = _www_variant(url)
+        if alt:
+            alt_host = urlparse(alt).hostname or ""
+            alt_verdict = self._dns_verdicts.get(alt_host)
+            if alt_verdict is None:
+                alt_verdict = self._dns_verdicts[alt_host] = _dns_preflight(alt_host)
+            if alt_verdict == "ok":
+                return alt
+        if verdict == "hang":
+            raise RuntimeError(
+                f"system resolver black-holes '{host}' (lookup hangs, so the "
+                f"browser would wait {int(self._timeout)}s in silence). "
+                "Likely a split-DNS rule claiming this domain — e.g. a "
+                "corporate VPN (GlobalProtect) that isn't connected. Check: "
+                f"scutil --dns | grep -A4 {host}")
+        raise RuntimeError(f"'{host}' does not resolve (and no www. variant does)")
 
     def _ensure(self) -> None:
         if self._context is not None:
@@ -166,6 +229,7 @@ class Engine:
     def capture(self, url: str, wait_selector: str = None) -> dict:
         """Load one URL, settle, run the walker. Returns a capture bundle."""
         self._ensure()
+        url = self._resolve_target(url)
         page = self._context.new_page()
         budget_ms = int(self._timeout * 1000)
         t0 = time.monotonic()
@@ -173,7 +237,7 @@ class Engine:
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
             except Exception:
-                alt = _www_variant(url)  # apex DNS often dead; www usually works
+                alt = _www_variant(url)  # backstop; preflight usually caught it
                 if not alt:
                     raise
                 page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
