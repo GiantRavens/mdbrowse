@@ -34,9 +34,9 @@ from .emit import emit, emit_body
 
 LINK, IMAGE, CARD = "link", "image", "card"
 
-HELP = ("Tab/S-Tab focus  Enter go  Space peek/pgdn  j/k scroll  "
-        "C-d/C-u half  gg/G top/bot  / search  n/N  H back  r reload  "
-        "s save  O Safari  : url  q quit")
+HELP = ("Tab focus  Enter go  Space peek/pgdn  y/Y yank url  d download  "
+        "(/) headings  {/} blocks  zz center  j/k C-d/C-u gg/G scroll  "
+        "/ n/N search  H back  L fwd  r reload  s save  O Safari  : url  q quit")
 
 
 # ---------------------------------------------------------------------------
@@ -371,7 +371,8 @@ class Reader:
         self.private = private
         self.width = width          # goyo column override (0 = default 88)
         self.engine = Engine(private=private)
-        self.history = []
+        self.history = []           # back stack
+        self.forward = []           # forward stack (L); cleared on new go
         self.page = None
         self.msg = ""
 
@@ -429,9 +430,14 @@ class Reader:
             action, target = nav
             if action == "go":
                 self.history.append(current)
+                self.forward.clear()
                 current = target
             elif action == "back":
+                self.forward.append(current)
                 current = self.history.pop()
+            elif action == "forward":
+                self.history.append(current)
+                current = self.forward.pop()
             # "reload": fall through with same URL
 
     def _view(self, scr):
@@ -457,7 +463,7 @@ class Reader:
         focus = 0 if focusables else -1
         top = 0
         search, matches, match_i = "", [], -1
-        pending_g = False
+        pending = None            # chord prefix: 'g' or 'z'
 
         def clamp(t):
             return max(0, min(t, max(0, len(rows) - view_h)))
@@ -643,11 +649,46 @@ class Reader:
                     top = clamp(top + view_h - 1)            # else page down
                 continue
 
+            # --- yank / download on the focused element ---
+            if c in (ord("y"), ord("Y"), ord("d")):
+                f = focusables[focus] if 0 <= focus < len(focusables) else None
+                if c == ord("Y"):
+                    target = page.url
+                elif f is None:
+                    self.msg = "nothing focused"
+                    continue
+                elif c == ord("d"):
+                    target = f.src if f.kind in (IMAGE, CARD) else f.href
+                else:
+                    target = f.href or f.src
+                if c == ord("d"):
+                    try:
+                        from .download import download
+                        self.msg = "downloading…"
+                        path, size = download(target, self.private,
+                                              referer=page.url)
+                        self.msg = f"saved → {path} ({max(1, size // 1024)} KB)"
+                    except Exception as e:
+                        self.msg = f"download failed: {str(e)[:80]}"
+                else:
+                    try:
+                        subprocess.run(["pbcopy"], input=target.encode(),
+                                       check=True)
+                        self.msg = f"yanked: {target[:90]}"
+                    except Exception as e:
+                        self.msg = f"yank failed: {e}"
+                continue
+
             # --- page navigation ---
             if c in (ord("H"), curses.KEY_BACKSPACE, 127, 8):
                 if self.history:
                     return ("back", None)
                 self.msg = "no history"
+                continue
+            if c == ord("L"):
+                if self.forward:
+                    return ("forward", None)
+                self.msg = "no forward history"
                 continue
             if c == ord("r"):
                 return ("reload", None)
@@ -686,6 +727,49 @@ class Reader:
                     return ("go", url)
                 continue
 
+            # --- block and heading motions ---
+            if c == ord("}"):                 # next block (skip to after blank)
+                r = top + 1
+                while r < len(rows) and rows[r]:
+                    r += 1
+                while r < len(rows) and not rows[r]:
+                    r += 1
+                top = clamp(r)
+                continue
+            if c == ord("{"):                 # previous block start
+                r = top - 1
+                while r > 0 and not rows[r]:
+                    r -= 1
+                while r > 0 and rows[r - 1]:
+                    r -= 1
+                top = clamp(r)
+                continue
+            if c == ord(")"):                 # next heading
+                nxt = next((r for r, s in enumerate(styles)
+                            if s == "h" and r > top), None)
+                if nxt is not None:
+                    top = clamp(nxt)
+                else:
+                    self.msg = "no next heading"
+                continue
+            if c == ord("("):                 # previous heading
+                prev = [r for r, s in enumerate(styles) if s == "h" and r < top]
+                if prev:
+                    top = clamp(prev[-1])
+                else:
+                    self.msg = "no previous heading"
+                continue
+            if c == ord("z"):                 # zz: center the focused element
+                if pending == "z":
+                    r = focus_row(focus)
+                    if r is not None:
+                        top = clamp(r - view_h // 2)
+                    pending = None
+                else:
+                    pending = "z"
+                    continue
+                continue
+
             # --- scrolling ---
             if c in (ord("j"), curses.KEY_DOWN):
                 top = clamp(top + 1)
@@ -702,13 +786,13 @@ class Reader:
             elif c == ord("G"):
                 top = clamp(len(rows))
             elif c == ord("g"):
-                if pending_g:
+                if pending == "g":
                     top = 0
-                    pending_g = False
+                    pending = None
                 else:
-                    pending_g = True
+                    pending = "g"
                     continue
-            pending_g = False
+            pending = None
 
     @staticmethod
     def _prompt(scr, h, w, prefix):
