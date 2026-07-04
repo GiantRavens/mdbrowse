@@ -479,11 +479,11 @@ Tags: [freebsd](https://crocidb.com//tags/freebsd), [operating-systems](https://
 
 ### Related posts
 
-- This blog ran on Ubuntu 16.04 for 10 years. I migrated it to FreeBSD
-- Investigating a touch screen issue on the Steam Deck
-- Demystifying the #! (shebang): Kernel Adventures
-- My journey trying to get rid of Caps Lock
-- Lisp Adventures #2 - One, Two, Three... Infinity
+- [This blog ran on Ubuntu 16.04 for 10 years. I migrated it to FreeBSD](https://crocidb.com/post/this-blog-ran-on-ubuntu-16-04-for-10-years-i-migrated-it-to-freebsd/)
+- [Investigating a touch screen issue on the Steam Deck](https://crocidb.com/post/investigating-touchscreen-issue-steam-deck/)
+- [Demystifying the #! (shebang): Kernel Adventures](https://crocidb.com/post/kernel-adventures/demystifying-the-shebang/)
+- [My journey trying to get rid of Caps Lock](https://crocidb.com/post/my-journey-trying-to-get-rid-of-caps-lock/)
+- [Lisp Adventures #2 - One, Two, Three... Infinity](https://crocidb.com/post/lisp-adventures/one-two-three-infinity/)
 
 ---
 

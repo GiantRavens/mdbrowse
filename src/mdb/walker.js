@@ -157,22 +157,39 @@
       fontSize: st ? parseFloat(st.fontSize) || 0 : 0,
       bold: st ? (parseInt(st.fontWeight, 10) || 400) >= 600 : false,
     }, extra);
-    // Block-level anchors (news cards wrapping divs in <a>): the walker
-    // recurses *through* the anchor, so leaf blocks inherit its href here.
+    // Anchor inheritance for blocks that carry text but no links. Two card
+    // patterns produce them: (1) a block-level <a> wrapping divs — the walker
+    // recurses *through* it, so look up via closest(); (2) the stretched-link
+    // card (CNN) — an *empty* overlay <a> beside the text, invisible to
+    // inline serialization, so look down via containment. Containment only
+    // inherits when exactly one distinct target exists; ambiguity keeps text.
     if (b.md && (!b.links || b.links.length === 0)) {
+      let href = "";
       const a = el.closest("a[href]");
       if (a) {
-        const raw = a.getAttribute("href") || "";
-        const href = (raw.startsWith("#") || raw.startsWith("javascript:"))
-                     ? "" : absURL(raw);
-        if (href && href.startsWith("http")) {
-          const label = b.md;
-          b.md = `[${label}](${href})`;
-          b.links = [{ text: label, href: href }];
+        href = cardHref(a.getAttribute("href"));
+      } else {
+        const targets = new Set();
+        for (const d of el.querySelectorAll("a[href]")) {
+          const h = cardHref(d.getAttribute("href"));
+          if (h) targets.add(h);
+          if (targets.size > 1) break;
         }
+        if (targets.size === 1) href = targets.values().next().value;
+      }
+      if (href) {
+        const label = b.md;
+        b.md = `[${label}](${href})`;
+        b.links = [{ text: label, href: href }];
       }
     }
     blocks.push(b);
+  }
+
+  function cardHref(raw) {
+    if (!raw || raw.startsWith("#") || raw.startsWith("javascript:")) return "";
+    const href = absURL(raw);
+    return href.startsWith("http") ? href : "";
   }
 
   function hasBlockChild(el) {

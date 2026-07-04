@@ -1980,8 +1980,13 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "This blog ran on Ubuntu 16.04 for 10 years. I migrated it to FreeBSD",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/this-blog-ran-on-ubuntu-16-04-for-10-years-i-migrated-it-to-freebsd/",
+      "text": "This blog ran on Ubuntu 16.04 for 10 years. I migrated it to FreeBSD"
+     }
+    ],
+    "md": "[This blog ran on Ubuntu 16.04 for 10 years. I migrated it to FreeBSD](https://crocidb.com/post/this-blog-ran-on-ubuntu-16-04-for-10-years-i-migrated-it-to-freebsd/)",
     "ordered": false
    },
    {
@@ -1997,8 +2002,13 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Investigating a touch screen issue on the Steam Deck",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/investigating-touchscreen-issue-steam-deck/",
+      "text": "Investigating a touch screen issue on the Steam Deck"
+     }
+    ],
+    "md": "[Investigating a touch screen issue on the Steam Deck](https://crocidb.com/post/investigating-touchscreen-issue-steam-deck/)",
     "ordered": false
    },
    {
@@ -2014,8 +2024,13 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Demystifying the #! (shebang): Kernel Adventures",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/kernel-adventures/demystifying-the-shebang/",
+      "text": "Demystifying the #! (shebang): Kernel Adventures"
+     }
+    ],
+    "md": "[Demystifying the #! (shebang): Kernel Adventures](https://crocidb.com/post/kernel-adventures/demystifying-the-shebang/)",
     "ordered": false
    },
    {
@@ -2031,8 +2046,13 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "My journey trying to get rid of Caps Lock",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/my-journey-trying-to-get-rid-of-caps-lock/",
+      "text": "My journey trying to get rid of Caps Lock"
+     }
+    ],
+    "md": "[My journey trying to get rid of Caps Lock](https://crocidb.com/post/my-journey-trying-to-get-rid-of-caps-lock/)",
     "ordered": false
    },
    {
@@ -2048,14 +2068,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Lisp Adventures #2 - One, Two, Three... Infinity",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/lisp-adventures/one-two-three-infinity/",
+      "text": "Lisp Adventures #2 - One, Two, Three... Infinity"
+     }
+    ],
+    "md": "[Lisp Adventures #2 - One, Two, Three... Infinity](https://crocidb.com/post/lisp-adventures/one-two-three-infinity/)",
     "ordered": false
    },
    {
     "bbox": [
      85,
-     17055,
+     17059,
      219,
      45
     ],
@@ -2078,7 +2103,7 @@
    }
   ],
   "description": "I spent a whole month researching FreeBSD's kernel's virtual memory system to understand why tools like htop, btop and fastfetch report different information about RAM usage. I ended up submitting patches to all of these projects.",
-  "docHeight": 17136,
+  "docHeight": 17140,
   "interactive": 0,
   "lang": "",
   "title": "FreeBSD ate my ram! - Bruno Croci",
@@ -2089,9 +2114,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 2513,
+  "elapsed_ms": 2037,
   "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T15:53:04-05:00",
+  "fetched_at": "2026-07-03T16:43:23-05:00",
   "mode": "authenticated",
   "requested_url": "https://crocidb.com/post/freebsd-ate-my-ram/",
   "url": "https://crocidb.com/post/freebsd-ate-my-ram/"

@@ -161,7 +161,7 @@
      16,
      1018,
      358,
-     294
+     268
     ],
     "bold": false,
     "depth": 0,
@@ -169,14 +169,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Live Updates Ready for it? Guests are arriving at MSG for Taylor Swift and Travis Kelce’s big party",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/entertainment/live-news/taylor-swift-travis-kelce-wedding",
+      "text": "Live Updates Ready for it? Stars arriving for Taylor Swift and Travis Kelce’s big party"
+     }
+    ],
+    "md": "[Live Updates Ready for it? Stars arriving for Taylor Swift and Travis Kelce’s big party](https://www.cnn.com/2026/07/03/entertainment/live-news/taylor-swift-travis-kelce-wedding)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     1324,
+     1298,
      358,
      81
     ],
@@ -186,14 +191,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "The scene at MSG as Swift-Kelce wedding festivities kick off 0:29",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/entertainment/video/scene-at-msg-swift-kelce-wedding-nyc-vrtc",
+      "text": "The scene at MSG as Swift-Kelce wedding festivities kick off 0:29"
+     }
+    ],
+    "md": "[The scene at MSG as Swift-Kelce wedding festivities kick off 0:29](https://www.cnn.com/2026/07/03/entertainment/video/scene-at-msg-swift-kelce-wedding-nyc-vrtc)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     1417,
+     1391,
      358,
      68
     ],
@@ -203,14 +213,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Streaming Now A look back at the most unforgettable celebrity weddings",
+    "links": [
+     {
+      "href": "https://www.cnn.com/videos/title-2600452",
+      "text": "Streaming Now A look back at the most unforgettable celebrity weddings"
+     }
+    ],
+    "md": "[Streaming Now A look back at the most unforgettable celebrity weddings](https://www.cnn.com/videos/title-2600452)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     1543,
+     1517,
      358,
      38
     ],
@@ -225,7 +240,7 @@
    {
     "bbox": [
      16,
-     1581,
+     1555,
      358,
      286
     ],
@@ -237,14 +252,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![thumbnail fred iran funeral 1 vrtc.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) 1:32 CNN reporter observes preparations for funeral in Tehran",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/world/video/tehran-supreme-leader-ali-khamenei-funeral-iran-pleitgen-vrtc",
+      "text": "![thumbnail fred iran funeral 1 vrtc.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) 1:32 CNN reporter observes preparations for funeral in Tehran"
+     }
+    ],
+    "md": "[![thumbnail fred iran funeral 1 vrtc.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) 1:32 CNN reporter observes preparations for funeral in Tehran](https://www.cnn.com/2026/07/03/world/video/tehran-supreme-leader-ali-khamenei-funeral-iran-pleitgen-vrtc)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     1879,
+     1853,
      358,
      57
     ],
@@ -254,14 +274,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Iran sends Trump defiant message with huge funeral for Khamenei",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/middleeast/iran-leader-funeral-trump-intl",
+      "text": "Iran sends Trump defiant message with huge funeral for Khamenei"
+     }
+    ],
+    "md": "[Iran sends Trump defiant message with huge funeral for Khamenei](https://www.cnn.com/2026/07/03/middleeast/iran-leader-funeral-trump-intl)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     1948,
+     1922,
      358,
      81
     ],
@@ -271,14 +296,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Live Updates Khamenei’s casket on display ahead of funeral processions",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/world/live-news/iran-funeral-war-trump",
+      "text": "Live Updates Khamenei’s casket on display ahead of funeral processions"
+     }
+    ],
+    "md": "[Live Updates Khamenei’s casket on display ahead of funeral processions](https://www.cnn.com/2026/07/03/world/live-news/iran-funeral-war-trump)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2041,
+     2015,
      358,
      57
     ],
@@ -288,14 +318,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Indirect talks between US and Iran set to continue after the funeral",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/world/live-news/iran-funeral-war-trump?post-id=cmr3xt621002629qg14as94lc",
+      "text": "Indirect talks between US and Iran set to continue after the funeral"
+     }
+    ],
+    "md": "[Indirect talks between US and Iran set to continue after the funeral](https://www.cnn.com/2026/07/03/world/live-news/iran-funeral-war-trump?post-id=cmr3xt621002629qg14as94lc)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2110,
+     2084,
      358,
      44
     ],
@@ -305,14 +340,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "US officials attempted to warn Iran of fears that Israel would assassinate mediators",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/politics/assassination-warning-us-israel-iran",
+      "text": "US officials attempted to warn Iran of fears that Israel would assassinate mediators"
+     }
+    ],
+    "md": "[US officials attempted to warn Iran of fears that Israel would assassinate mediators](https://www.cnn.com/2026/07/03/politics/assassination-warning-us-israel-iran)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2212,
+     2186,
      358,
      38
     ],
@@ -327,7 +367,7 @@
    {
     "bbox": [
      16,
-     2250,
+     2224,
      358,
      312
     ],
@@ -339,14 +379,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![New York City Mayor Zohran Mamdani delivers a speech to mark the 250th anniversary of the United States of America at City Hall on July 3, 2026 in New York City.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Mamdani marks July 4 with a pro-immigration speech, ripping Trump’s policies without using his name",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/politics/mamdani-july-4-immigration-speech",
+      "text": "![New York City Mayor Zohran Mamdani delivers a speech to mark the 250th anniversary of the United States of America at City Hall on July 3, 2026 in New York City.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Mamdani marks July 4 with a pro-immigration speech, ripping Trump’s policies without using his name"
+     }
+    ],
+    "md": "[![New York City Mayor Zohran Mamdani delivers a speech to mark the 250th anniversary of the United States of America at City Hall on July 3, 2026 in New York City.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Mamdani marks July 4 with a pro-immigration speech, ripping Trump’s policies without using his name](https://www.cnn.com/2026/07/03/politics/mamdani-july-4-immigration-speech)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2575,
+     2549,
      358,
      59
     ],
@@ -356,14 +401,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Quiz America at 250: A quarter millennium quiz",
+    "links": [
+     {
+      "href": "https://www.cnn.com/interactive/2026/07/us/cnn-5-things-america-at-250-sec/",
+      "text": "Quiz America at 250: A quarter millennium quiz"
+     }
+    ],
+    "md": "[Quiz America at 250: A quarter millennium quiz](https://www.cnn.com/interactive/2026/07/us/cnn-5-things-america-at-250-sec/)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2646,
+     2620,
      358,
      57
     ],
@@ -373,14 +423,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "What we know about Trump’s July Fourth fireworks event",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/politics/july-fourth-fireworks-trump-what-we-know",
+      "text": "What we know about Trump’s July Fourth fireworks event"
+     }
+    ],
+    "md": "[What we know about Trump’s July Fourth fireworks event](https://www.cnn.com/2026/07/03/politics/july-fourth-fireworks-trump-what-we-know)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2715,
+     2689,
      358,
      44
     ],
@@ -390,14 +445,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Trump’s Freedom 250 gives the founders an AI glow-up",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/us/freedom-250-ai-founding-fathers-portraits-cec",
+      "text": "Trump’s Freedom 250 gives the founders an AI glow-up"
+     }
+    ],
+    "md": "[Trump’s Freedom 250 gives the founders an AI glow-up](https://www.cnn.com/2026/07/03/us/freedom-250-ai-founding-fathers-portraits-cec)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2817,
+     2791,
      358,
      38
     ],
@@ -412,7 +472,7 @@
    {
     "bbox": [
      16,
-     2855,
+     2829,
      358,
      222
     ],
@@ -422,14 +482,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "The summer of peptides and celebrity weddings",
+    "links": [
+     {
+      "href": "https://www.cnn.com/videos/title-2599594?episode=2599596&source=subwall:vod:episode",
+      "text": "The summer of peptides and celebrity weddings"
+     }
+    ],
+    "md": "[The summer of peptides and celebrity weddings](https://www.cnn.com/videos/title-2599594?episode=2599596&source=subwall:vod:episode)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     3135,
+     3109,
      358,
      38
     ],
@@ -444,7 +509,7 @@
    {
     "bbox": [
      16,
-     3173,
+     3147,
      358,
      108
     ],
@@ -456,14 +521,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![Tigers-Nest-Bhutan.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers She set off traveling alone aged 13 and now she’s visited nearly every country",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/sport/round-of-32-world-cup-friday",
+      "text": "![Egypt's Emam Ashour celebrates scoring the opening goal during a World Cup round of 32 soccer match between Australia and Egypt.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) World Cup Egypt makes history with first World Cup knockout round win, defeating Australia on penalties"
+     }
+    ],
+    "md": "[![Egypt's Emam Ashour celebrates scoring the opening goal during a World Cup round of 32 soccer match between Australia and Egypt.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) World Cup Egypt makes history with first World Cup knockout round win, defeating Australia on penalties](https://www.cnn.com/2026/07/03/sport/round-of-32-world-cup-friday)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     3293,
+     3267,
      358,
      108
     ],
@@ -475,16 +545,21 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![Copy of LiangBua\\_2-10001.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Science Hobbit-like humans may have scavenged Komodo dragons’ leftovers to survive",
+    "links": [
+     {
+      "href": "https://www.cnn.com/travel/sophia-lee-visit-every-country-record",
+      "text": "![Tigers-Nest-Bhutan.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers She set off traveling alone aged 13 and now she’s visited nearly every country"
+     }
+    ],
+    "md": "[![Tigers-Nest-Bhutan.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) For Subscribers She set off traveling alone aged 13 and now she’s visited nearly every country](https://www.cnn.com/travel/sophia-lee-visit-every-country-record)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     3413,
+     3387,
      358,
-     121
+     108
     ],
     "bold": false,
     "depth": 0,
@@ -494,14 +569,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![swift\\_view\\_02\\_comp.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Space Daring rescue mission launches to save a 3,200-pound NASA observatory from an untimely end",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/03/science/homo-floresiensis-scavenged-food",
+      "text": "![Copy of LiangBua\\_2-10001.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Science Hobbit-like humans may have scavenged Komodo dragons’ leftovers to survive"
+     }
+    ],
+    "md": "[![Copy of LiangBua\\_2-10001.jpg](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) Science Hobbit-like humans may have scavenged Komodo dragons’ leftovers to survive](https://www.cnn.com/2026/07/03/science/homo-floresiensis-scavenged-food)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     3546,
+     3507,
      358,
      103
     ],
@@ -511,14 +591,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Travel 25 of America’s most beautiful places",
+    "links": [
+     {
+      "href": "https://www.cnn.com/travel/americas-most-beautiful-places",
+      "text": "Travel 25 of America’s most beautiful places"
+     }
+    ],
+    "md": "[Travel 25 of America’s most beautiful places](https://www.cnn.com/travel/americas-most-beautiful-places)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     3721,
+     3682,
      358,
      30
     ],
@@ -539,7 +624,7 @@
    {
     "bbox": [
      16,
-     3767,
+     3728,
      358,
      249
     ],
@@ -551,14 +636,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![lp\\_title\\_texted\\_homepage\\_feature\\_card\\_1440x810\\_cnn\\_appxx\\_720.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill) Inside the glamour and spectacle of celebrity weddings",
+    "links": [
+     {
+      "href": "https://www.cnn.com/videos/title-2600452?iid=related-embed_streaming-now",
+      "text": "![lp\\_title\\_texted\\_homepage\\_feature\\_card\\_1440x810\\_cnn\\_appxx\\_720.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill) Inside the glamour and spectacle of celebrity weddings"
+     }
+    ],
+    "md": "[![lp\\_title\\_texted\\_homepage\\_feature\\_card\\_1440x810\\_cnn\\_appxx\\_720.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-title-texted-homepage-feature-card-1440x810-cnn-appxx-720.png?c=16x9&q=h_270,w_480,c_fill) Inside the glamour and spectacle of celebrity weddings](https://www.cnn.com/videos/title-2600452?iid=related-embed_streaming-now)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     4077,
+     4038,
      307,
      277
     ],
@@ -570,14 +660,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![LP\\_TaylorSwift\\_Texted\\_Homepage\\_Feature\\_Card\\_1440x810.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill) Insight into the case against Taylor Swift",
+    "links": [
+     {
+      "href": "https://cnn.com/videos/title-2420858",
+      "text": "![LP\\_TaylorSwift\\_Texted\\_Homepage\\_Feature\\_Card\\_1440x810.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill) Insight into the case against Taylor Swift"
+     }
+    ],
+    "md": "[![LP\\_TaylorSwift\\_Texted\\_Homepage\\_Feature\\_Card\\_1440x810.png](https://media.cnn.com/api/v1/images/stellar/prod/lp-taylorswift-texted-homepage-feature-card-1440x810-20251022202512765.png?c=16x9&q=h_270,w_480,c_fill) Insight into the case against Taylor Swift](https://cnn.com/videos/title-2420858)",
     "ordered": false
    },
    {
     "bbox": [
      339,
-     4077,
+     4038,
      307,
      277
     ],
@@ -589,14 +684,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![TT\\_KA\\_16x9\\_EPISODIC\\_R.png](https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill) How Taylor Swift and Travis Kelce’s engagement became an economic engine",
+    "links": [
+     {
+      "href": "https://www.cnn.com/videos/title-2574239?iid=related-embed_streaming-now",
+      "text": "![TT\\_KA\\_16x9\\_EPISODIC\\_R.png](https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill) How Taylor Swift and Travis Kelce’s engagement became an economic engine"
+     }
+    ],
+    "md": "[![TT\\_KA\\_16x9\\_EPISODIC\\_R.png](https://media.cnn.com/api/v1/images/stellar/prod/tt-ka-16x9-episodic-r.png?c=16x9&q=h_270,w_480,c_fill) How Taylor Swift and Travis Kelce’s engagement became an economic engine](https://www.cnn.com/videos/title-2574239?iid=related-embed_streaming-now)",
     "ordered": false
    },
    {
     "bbox": [
      661,
-     4077,
+     4038,
      307,
      277
     ],
@@ -606,14 +706,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Live Watch CNN",
+    "links": [
+     {
+      "href": "https://www.cnn.com/watch?source=sub_web_wa",
+      "text": "Live Watch CNN"
+     }
+    ],
+    "md": "[Live Watch CNN](https://www.cnn.com/watch?source=sub_web_wa)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     4834,
+     4795,
      358,
      38
     ],
@@ -628,7 +733,7 @@
    {
     "bbox": [
      16,
-     4872,
+     4833,
      358,
      311
     ],
@@ -640,14 +745,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![Birkenstock Boston Eva Clog](https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill) Summer clothing deals are heating up in Nordstrom Rack’s Clear the Rack sale",
+    "links": [
+     {
+      "href": "https://www.cnn.com/cnn-underscored/deals/nordstrom-rack-clear-the-rack-sale-2026-07-03",
+      "text": "![Birkenstock Boston Eva Clog](https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill) Summer clothing deals are heating up in Nordstrom Rack’s Clear the Rack sale"
+     }
+    ],
+    "md": "[![Birkenstock Boston Eva Clog](https://media.cnn.com/api/v1/images/stellar/prod/spring-birkenstocks-cnnu-06.jpg?c=16x9&q=h_720,w_1280,c_fill) Summer clothing deals are heating up in Nordstrom Rack’s Clear the Rack sale](https://www.cnn.com/cnn-underscored/deals/nordstrom-rack-clear-the-rack-sale-2026-07-03)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     5184,
+     5145,
      358,
      91
     ],
@@ -657,14 +767,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Strength training for seniors is crucial for aging comfortably. This is the equipment you need to start your journey",
+    "links": [
+     {
+      "href": "https://www.cnn.com/cnn-underscored/health-fitness/strength-training-products-seniors",
+      "text": "Strength training for seniors is crucial for aging comfortably. This is the equipment you need to start your journey"
+     }
+    ],
+    "md": "[Strength training for seniors is crucial for aging comfortably. This is the equipment you need to start your journey](https://www.cnn.com/cnn-underscored/health-fitness/strength-training-products-seniors)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     5275,
+     5236,
      358,
      69
     ],
@@ -674,14 +789,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Heat waves don’t stand a chance against these 49 cooling products",
+    "links": [
+     {
+      "href": "https://www.cnn.com/cnn-underscored/home/products-to-stay-cool",
+      "text": "Heat waves don’t stand a chance against these 49 cooling products"
+     }
+    ],
+    "md": "[Heat waves don’t stand a chance against these 49 cooling products](https://www.cnn.com/cnn-underscored/home/products-to-stay-cool)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     5344,
+     5305,
      358,
      69
     ],
@@ -691,14 +811,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "The 39 best products we tried in June, from comfortable walking shoes to cooling sheets",
+    "links": [
+     {
+      "href": "https://www.cnn.com/cnn-underscored/home/editor-favorite-products-june-2026",
+      "text": "The 39 best products we tried in June, from comfortable walking shoes to cooling sheets"
+     }
+    ],
+    "md": "[The 39 best products we tried in June, from comfortable walking shoes to cooling sheets](https://www.cnn.com/cnn-underscored/home/editor-favorite-products-june-2026)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     5413,
+     5374,
      358,
      57
     ],
@@ -708,14 +833,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Our deals editors shopped 111 sales to find the 54 best 4th of July discounts",
+    "links": [
+     {
+      "href": "https://www.cnn.com/cnn-underscored/deals/best-4th-of-july-sales-2026-07-03",
+      "text": "Our deals editors shopped 111 sales to find the 54 best 4th of July discounts"
+     }
+    ],
+    "md": "[Our deals editors shopped 111 sales to find the 54 best 4th of July discounts](https://www.cnn.com/cnn-underscored/deals/best-4th-of-july-sales-2026-07-03)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     14216,
+     14593,
      358,
      38
     ],
@@ -735,7 +865,7 @@
    {
     "bbox": [
      16,
-     14254,
+     14631,
      358,
      286
     ],
@@ -747,14 +877,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![Caitlin Clark makes statement on flagrant foul](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Caitlin Clark makes statement on flagrant foul",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/articles/25450755-caitlin-clark-defends-alyssa-thomas-video-after-fan-backlash-wnba-suspension-foul?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "![Caitlin Clark makes statement on flagrant foul](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Caitlin Clark makes statement on flagrant foul"
+     }
+    ],
+    "md": "[![Caitlin Clark makes statement on flagrant foul](https://media.cnn.com/api/v1/images/stellar/bleacherreport/2283204051-0-large-cropped.jpg?c=16x9&q=h_438,w_780,c_fill) Caitlin Clark makes statement on flagrant foul](https://bleacherreport.com/articles/25450755-caitlin-clark-defends-alyssa-thomas-video-after-fan-backlash-wnba-suspension-foul?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     14552,
+     14929,
      358,
      35
     ],
@@ -764,14 +899,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "LeBron’s agent reveals best fits for James",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/articles/25450720-lebron-james-top-nba-landing-spots-revealed-rich-paul-trending-photo-amid-rumors?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "LeBron’s agent reveals best fits for James"
+     }
+    ],
+    "md": "[LeBron’s agent reveals best fits for James](https://bleacherreport.com/articles/25450720-lebron-james-top-nba-landing-spots-revealed-rich-paul-trending-photo-amid-rumors?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     14599,
+     14976,
      358,
      35
     ],
@@ -781,16 +921,21 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "NBA exec rips analytics debate around trade",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/articles/25450760-jaylen-brown-analytics-debate-ripped-exec-says-nba-could-become-baseball-if-were-not-careful?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "NBA exec rips analytics debate around trade"
+     }
+    ],
+    "md": "[NBA exec rips analytics debate around trade](https://bleacherreport.com/articles/25450760-jaylen-brown-analytics-debate-ripped-exec-says-nba-could-become-baseball-if-were-not-careful?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     14646,
+     15023,
      358,
-     35
+     57
     ],
     "bold": false,
     "depth": 0,
@@ -798,14 +943,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Angel Reese upset with All-Star snubs",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/articles/25450832-jayson-tatum-reacts-jaylen-brown-76ers-trade-ig-photo-reminisces-celtics-tenure?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "Celtics star posts on social media for former teammate"
+     }
+    ],
+    "md": "[Celtics star posts on social media for former teammate](https://bleacherreport.com/articles/25450832-jayson-tatum-reacts-jaylen-brown-76ers-trade-ig-photo-reminisces-celtics-tenure?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     14693,
+     15092,
      358,
      22
     ],
@@ -815,14 +965,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Lakers make another offseason trade",
+    "links": [
+     {
+      "href": "https://bleacherreport.com/articles/25450029-angel-reese-calls-all-star-snub-slap-face-no-dream-players-named-starters?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+      "text": "Angel Reese upset with All-Star snubs"
+     }
+    ],
+    "md": "[Angel Reese upset with All-Star snubs](https://bleacherreport.com/articles/25450029-angel-reese-calls-all-star-snub-slap-face-no-dream-players-named-starters?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     15537,
+     15936,
      358,
      38
     ],
@@ -837,7 +992,7 @@
    {
     "bbox": [
      16,
-     15575,
+     15974,
      358,
      282
     ],
@@ -849,14 +1004,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals",
+    "links": [
+     {
+      "href": "https://www.cnn.com/science/earth-photo-2026-britta-jaschinsk-wildlife-trafficking-c2e-spc",
+      "text": "![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals"
+     }
+    ],
+    "md": "[![A dead green sea turtle baring a human handprint, revealed by fluorescent powder. Photographer Britta Jaschinski won the Earth Photo 2026 Award for her series documenting the illegal wildlife trade and the forensic experts fighting back. <strong><em>Scroll through to learn more</em></strong><em>.</em>](https://media.cnn.com/api/v1/images/stellar/prod/britta-jaschinski-every-crime-leaves-a-trace-114931.jpg?c=16x9&q=h_438,w_780,c_fill) Award-winning photographs highlight the forensic hunt for wildlife criminals](https://www.cnn.com/science/earth-photo-2026-britta-jaschinsk-wildlife-trafficking-c2e-spc)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     15869,
+     16268,
      358,
      108
     ],
@@ -868,14 +1028,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/02/health/us-death-rate-record-low-cdc-report-longevity",
+      "text": "![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025"
+     }
+    ],
+    "md": "[![People are silhouetted against the sunset reflected off of Shawnee Mission Lake at the end of an unseasonably warm day Thursday, March 19, 2026, in Lenexa, Kansas.](https://media.cnn.com/api/v1/images/stellar/prod/c-ap26079107095098.jpg?c=16x9&q=h_144,w_256,c_fill) US life expectancy on track to reach record high as death rate falls to record low in 2025](https://www.cnn.com/2026/07/02/health/us-death-rate-record-low-cdc-report-longevity)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     15989,
+     16388,
      358,
      95
     ],
@@ -887,14 +1052,19 @@
     ],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "![An aerial view shows cooling vent fans on the roof next to generators on the lower level of a Digital Realty data center in Ashburn, Virginia on November 12, 2025. Data centers are the physical infrastructure that make our digital lives possible, yet most people have never seen one up close or understand how they operate. Roughly 12,000 data centers are in operation in the world, with about half in the US, according to Cloudscene, a data center directory. (Photo by ANDREW CABALLERO-REYNOLDS / AFP via Getty Images)](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill) Energy Dept. directs data centers to use backup generators during heat wave, freeing up power for AC",
+    "links": [
+     {
+      "href": "https://www.cnn.com/2026/07/02/weather/heat-data-centers-electricity-generators",
+      "text": "![An aerial view shows cooling vent fans on the roof next to generators on the lower level of a Digital Realty data center in Ashburn, Virginia on November 12, 2025. Data centers are the physical infrastructure that make our digital lives possible, yet most people have never seen one up close or understand how they operate. Roughly 12,000 data centers are in operation in the world, with about half in the US, according to Cloudscene, a data center directory. (Photo by ANDREW CABALLERO-REYNOLDS / AFP via Getty Images)](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill) Energy Dept. directs data centers to use backup generators during heat wave, freeing up power for AC"
+     }
+    ],
+    "md": "[![An aerial view shows cooling vent fans on the roof next to generators on the lower level of a Digital Realty data center in Ashburn, Virginia on November 12, 2025. Data centers are the physical infrastructure that make our digital lives possible, yet most people have never seen one up close or understand how they operate. Roughly 12,000 data centers are in operation in the world, with about half in the US, according to Cloudscene, a data center directory. (Photo by ANDREW CABALLERO-REYNOLDS / AFP via Getty Images)](https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2250204873.jpg?c=16x9&q=h_144,w_256,c_fill) Energy Dept. directs data centers to use backup generators during heat wave, freeing up power for AC](https://www.cnn.com/2026/07/02/weather/heat-data-centers-electricity-generators)",
     "ordered": false
    },
    {
     "bbox": [
      20,
-     16288,
+     16687,
      350,
      30
     ],
@@ -909,7 +1079,7 @@
    {
     "bbox": [
      20,
-     16330,
+     16729,
      350,
      32
     ],
@@ -924,7 +1094,7 @@
    {
     "bbox": [
      20,
-     16386,
+     16785,
      350,
      1
     ],
@@ -939,7 +1109,7 @@
    {
     "bbox": [
      20,
-     16411,
+     16810,
      350,
      26
     ],
@@ -959,7 +1129,7 @@
    {
     "bbox": [
      20,
-     16449,
+     16848,
      350,
      26
     ],
@@ -979,7 +1149,7 @@
    {
     "bbox": [
      20,
-     16499,
+     16898,
      350,
      1
     ],
@@ -994,7 +1164,7 @@
    {
     "bbox": [
      20,
-     16524,
+     16923,
      22,
      24
     ],
@@ -1011,7 +1181,7 @@
    {
     "bbox": [
      20,
-     16560,
+     16959,
      41,
      24
     ],
@@ -1028,7 +1198,7 @@
    {
     "bbox": [
      20,
-     16596,
+     16995,
      52,
      24
     ],
@@ -1045,7 +1215,7 @@
    {
     "bbox": [
      20,
-     16632,
+     17031,
      65,
      24
     ],
@@ -1062,7 +1232,7 @@
    {
     "bbox": [
      20,
-     16668,
+     17067,
      58,
      24
     ],
@@ -1079,7 +1249,7 @@
    {
     "bbox": [
      20,
-     16704,
+     17103,
      46,
      24
     ],
@@ -1096,7 +1266,7 @@
    {
     "bbox": [
      20,
-     16740,
+     17139,
      132,
      24
     ],
@@ -1113,7 +1283,7 @@
    {
     "bbox": [
      20,
-     16776,
+     17175,
      100,
      24
     ],
@@ -1130,7 +1300,7 @@
    {
     "bbox": [
      20,
-     16812,
+     17211,
      34,
      24
     ],
@@ -1147,7 +1317,7 @@
    {
     "bbox": [
      20,
-     16848,
+     17247,
      36,
      24
     ],
@@ -1164,7 +1334,7 @@
    {
     "bbox": [
      20,
-     16884,
+     17283,
      42,
      24
     ],
@@ -1181,7 +1351,7 @@
    {
     "bbox": [
      20,
-     16920,
+     17319,
      47,
      24
     ],
@@ -1198,7 +1368,7 @@
    {
     "bbox": [
      20,
-     16956,
+     17355,
      57,
      24
     ],
@@ -1215,7 +1385,7 @@
    {
     "bbox": [
      20,
-     16992,
+     17391,
      55,
      24
     ],
@@ -1232,7 +1402,7 @@
    {
     "bbox": [
      20,
-     17028,
+     17427,
      59,
      24
     ],
@@ -1249,7 +1419,7 @@
    {
     "bbox": [
      20,
-     17064,
+     17463,
      116,
      24
     ],
@@ -1259,14 +1429,19 @@
     "images": [],
     "kind": "li",
     "landmark": "nav",
-    "links": [],
-    "md": "World Cup 2026",
+    "links": [
+     {
+      "href": "https://www.cnn.com/sport/fifa-world-cup",
+      "text": "World Cup 2026"
+     }
+    ],
+    "md": "[World Cup 2026](https://www.cnn.com/sport/fifa-world-cup)",
     "ordered": false
    },
    {
     "bbox": [
      20,
-     17100,
+     17499,
      142,
      24
     ],
@@ -1276,14 +1451,19 @@
     "images": [],
     "kind": "li",
     "landmark": "nav",
-    "links": [],
-    "md": "Ukraine-Russia War",
+    "links": [
+     {
+      "href": "https://www.cnn.com/world/europe/ukraine",
+      "text": "Ukraine-Russia War"
+     }
+    ],
+    "md": "[Ukraine-Russia War](https://www.cnn.com/world/europe/ukraine)",
     "ordered": false
    },
    {
     "bbox": [
      20,
-     17136,
+     17535,
      127,
      24
     ],
@@ -1293,14 +1473,19 @@
     "images": [],
     "kind": "li",
     "landmark": "nav",
-    "links": [],
-    "md": "Israel-Hamas War",
+    "links": [
+     {
+      "href": "https://www.cnn.com/world/middleeast/israel",
+      "text": "Israel-Hamas War"
+     }
+    ],
+    "md": "[Israel-Hamas War](https://www.cnn.com/world/middleeast/israel)",
     "ordered": false
    },
    {
     "bbox": [
      20,
-     17172,
+     17571,
      45,
      24
     ],
@@ -1317,7 +1502,7 @@
    {
     "bbox": [
      20,
-     17208,
+     17607,
      43,
      24
     ],
@@ -1334,7 +1519,7 @@
    {
     "bbox": [
      20,
-     17244,
+     17643,
      51,
      24
     ],
@@ -1351,7 +1536,7 @@
    {
     "bbox": [
      20,
-     17280,
+     17679,
      82,
      24
     ],
@@ -1368,7 +1553,7 @@
    {
     "bbox": [
      20,
-     17340,
+     17739,
      350,
      1
     ],
@@ -1383,7 +1568,7 @@
    {
     "bbox": [
      63,
-     17437,
+     17836,
      264,
      58
     ],
@@ -1398,7 +1583,7 @@
    {
     "bbox": [
      20,
-     17534,
+     17933,
      350,
      60
     ],
@@ -1413,7 +1598,7 @@
    {
     "bbox": [
      20,
-     17618,
+     18017,
      350,
      1
     ],
@@ -1428,7 +1613,7 @@
    {
     "bbox": [
      106,
-     17643,
+     18042,
      70,
      20
     ],
@@ -1448,7 +1633,7 @@
    {
     "bbox": [
      193,
-     17643,
+     18042,
      75,
      20
     ],
@@ -1468,7 +1653,7 @@
    {
     "bbox": [
      25,
-     17667,
+     18066,
      246,
      20
     ],
@@ -1483,7 +1668,7 @@
    {
     "bbox": [
      287,
-     17667,
+     18066,
      62,
      20
     ],
@@ -1503,7 +1688,7 @@
    {
     "bbox": [
      39,
-     17691,
+     18090,
      98,
      20
     ],
@@ -1523,7 +1708,7 @@
    {
     "bbox": [
      153,
-     17691,
+     18090,
      32,
      20
     ],
@@ -1543,7 +1728,7 @@
    {
     "bbox": [
      201,
-     17691,
+     18090,
      54,
      20
     ],
@@ -1563,7 +1748,7 @@
    {
     "bbox": [
      272,
-     17691,
+     18090,
      63,
      20
     ],
@@ -1583,7 +1768,7 @@
    {
     "bbox": [
      87,
-     17715,
+     18114,
      59,
      20
     ],
@@ -1603,7 +1788,7 @@
    {
     "bbox": [
      162,
-     17715,
+     18114,
      64,
      20
     ],
@@ -1623,7 +1808,7 @@
    {
     "bbox": [
      242,
-     17715,
+     18114,
      44,
      20
     ],
@@ -1643,7 +1828,7 @@
    {
     "bbox": [
      20,
-     17763,
+     18162,
      350,
      60
     ],
@@ -1668,9 +1853,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1600,
+  "elapsed_ms": 1324,
   "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T15:53:08-05:00",
+  "fetched_at": "2026-07-03T16:43:27-05:00",
   "mode": "authenticated",
   "requested_url": "https://www.cnn.com",
   "url": "https://www.cnn.com/"

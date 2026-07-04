@@ -10,6 +10,7 @@ import json
 import re
 
 from . import EXTRACTOR_VERSION
+from . import units
 from .bundle import content_hash
 from .classify import is_link_led as _link_led
 
@@ -120,25 +121,49 @@ def emit_body(bundle: dict, manifest) -> str:
 
     parts = []
     # Skip a body heading that just repeats the title.
-    skipped_dup_title = False
-    prev_md = None
-    for b in body_blocks:
+    state = {"skipped_dup_title": False, "prev_md": None}
+
+    def add_block(b):
         md = _block_md(b, level_map, shape)
         if not md.strip():
-            continue
-        if (not skipped_dup_title and b.get("kind") == "heading" and title
+            return
+        if (not state["skipped_dup_title"] and b.get("kind") == "heading" and title
                 and (_norm(b["md"]) == _norm(title) or _norm(b["md"]) in _norm(title))):
-            skipped_dup_title = True
-            continue
-        if md == prev_md:        # mobile templates love duplicating blocks
-            continue
-        prev_md = md
+            state["skipped_dup_title"] = True
+            return
+        if md == state["prev_md"]:   # mobile templates love duplicating blocks
+            return
+        state["prev_md"] = md
         # Feed items render as bullets; treat them as list items so they pack
         # tight instead of double-spacing.
         kind = b.get("kind")
         if shape == "feed" and kind == "p" and md.startswith("- "):
             kind = "li"
         parts.append((kind, md))
+
+    if shape == "feed":
+        # Repeated-unit detection: fragment runs collapse to one line per
+        # item; section labels become pseudo-headings; everything else
+        # (headings, prose) passes through the normal block path.
+        for seg_kind, payload in units.segment(body_blocks):
+            if seg_kind == "block":
+                if units.is_boundary(payload):
+                    parts.append(("heading", "### " + payload["md"]))
+                else:
+                    add_block(payload)
+                continue
+            if len(payload) < units.MIN_RUN:
+                for b in payload:
+                    add_block(b)
+                continue
+            for unit in units.detect_units(payload):
+                line = units.unit_markdown(unit)
+                if line and line != state["prev_md"]:
+                    state["prev_md"] = line
+                    parts.append(("li", line))
+    else:
+        for b in body_blocks:
+            add_block(b)
 
     out = []
     if title:

@@ -1,6 +1,6 @@
 {
  "doc": {
-  "anchors": 487,
+  "anchors": 518,
   "blocks": [
    {
     "bbox": [
@@ -109,8 +109,13 @@
     "images": [],
     "kind": "li",
     "landmark": "nav",
-    "links": [],
-    "md": "Watch",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/w/index.php?title=Special%3AUserLogin&returnto=Markdown&experiments=we-1-8-account-creation-form-v2%3Aunsampled",
+      "text": "Watch"
+     }
+    ],
+    "md": "[Watch](https://en.wikipedia.org/w/index.php?title=Special%3AUserLogin&returnto=Markdown&experiments=we-1-8-account-creation-form-v2%3Aunsampled)",
     "ordered": false
    },
    {
@@ -126,14 +131,547 @@
     "images": [],
     "kind": "li",
     "landmark": "nav",
-    "links": [],
-    "md": "Edit",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/w/index.php?title=Markdown&action=edit&section=0",
+      "text": "Edit"
+     }
+    ],
+    "md": "[Edit](https://en.wikipedia.org/w/index.php?title=Markdown&action=edit&section=0)",
     "ordered": false
    },
    {
     "bbox": [
+     -1,
+     203,
+     1,
+     1
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 1,
+    "links": [],
+    "md": "Fundraising banner"
+   },
+   {
+    "bbox": [
+     15,
+     203,
+     1,
+     1
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "heading",
+    "landmark": "aside",
+    "level": 2,
+    "links": [],
+    "md": "Fundraising banner navigation"
+   },
+   {
+    "bbox": [
+     17,
+     207,
+     119,
+     35
+    ],
+    "bold": true,
+    "fontSize": 13,
+    "images": [],
+    "kind": "p",
+    "landmark": "aside",
+    "links": [],
+    "md": "Maybe later"
+   },
+   {
+    "bbox": [
+     136,
+     201,
+     119,
+     48
+    ],
+    "bold": true,
+    "fontSize": 13,
+    "images": [],
+    "kind": "p",
+    "landmark": "aside",
+    "links": [],
+    "md": "I already donated"
+   },
+   {
+    "bbox": [
+     254,
+     206,
+     119,
+     37
+    ],
+    "bold": true,
+    "fontSize": 13,
+    "images": [],
+    "kind": "p",
+    "landmark": "aside",
+    "links": [],
+    "md": "Close"
+   },
+   {
+    "bbox": [
+     15,
+     245,
+     1,
+     1
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 2,
+    "links": [],
+    "md": "Fundraising banner message"
+   },
+   {
+    "bbox": [
+     34,
+     264,
+     322,
+     133
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://upload.wikimedia.org/wikipedia/donate/b/b2/Frb-Lisa_Seitz-Gruwell.jpg"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "![Lisa Seitz-Gruwell](https://upload.wikimedia.org/wikipedia/donate/b/b2/Frb-Lisa_Seitz-Gruwell.jpg)"
+   },
+   {
+    "bbox": [
+     34,
+     440,
+     322,
+     43
+    ],
+    "bold": true,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "July 3: An important update for readers in the United States."
+   },
+   {
+    "bbox": [
+     34,
+     499,
+     322,
+     240
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "You deserve an explanation, so please don't skip this 1-minute read. It's Friday, July 3, and you only had a small chance of seeing my message. This year, Wikipedia has had fewer visitors and fewer new supporters, so your visit today means a lot. I hope that Wikipedia's given you at least $2.75 of knowledge recently. If everyone who found Wikipedia useful gave $2.75, we'd hit our goal in a few hours."
+   },
+   {
+    "bbox": [
+     34,
+     755,
+     322,
+     144
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "After nearly 25 years, Wikipedia is still the internet we were promised—created by people, not by machines. It's not perfect, but it's not here to push a point of view. It's run by a nonprofit, not a giant technology company or a billionaire."
+   },
+   {
+    "bbox": [
+     34,
+     915,
+     322,
+     120
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Less than 2% of our readers donate. The rare few who give do so because Wikipedia provides them with useful knowledge. If that sounds like you, please donate $2.75. Any contribution you make today helps."
+   },
+   {
+    "bbox": [
+     34,
+     1051,
+     322,
+     48
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Lisa Seitz Gruwell, Chief Advancement Officer, Wikimedia Foundation"
+   },
+   {
+    "bbox": [
+     15,
+     1136,
+     1,
+     1
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 2,
+    "links": [],
+    "md": "Fundraising payment form"
+   },
+   {
+    "bbox": [
      16,
-     204,
+     1143,
+     358,
+     188
+    ],
+    "bold": true,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Please select an amount (USD). The average donation in the United States is around $13. Many first-time donors give $2.75. If you've never given, all that matters is that you're choosing to stand up for free, open information. For that, you have our gratitude."
+   },
+   {
+    "bbox": [
+     34,
+     1343,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$2.75"
+   },
+   {
+    "bbox": [
+     144,
+     1343,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$15"
+   },
+   {
+    "bbox": [
+     254,
+     1343,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$25"
+   },
+   {
+    "bbox": [
+     34,
+     1405,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$50"
+   },
+   {
+    "bbox": [
+     144,
+     1405,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$100"
+   },
+   {
+    "bbox": [
+     254,
+     1405,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$250"
+   },
+   {
+    "bbox": [
+     34,
+     1467,
+     102,
+     54
+    ],
+    "bold": true,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "$500"
+   },
+   {
+    "bbox": [
+     249,
+     1494,
+     1,
+     1
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Other"
+   },
+   {
+    "bbox": [
+     214,
+     1474,
+     72,
+     16
+    ],
+    "bold": true,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Other ($)"
+   },
+   {
+    "bbox": [
+     16,
+     1549,
+     358,
+     68
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "I ask you, sincerely: don't skip this. Be one of the rare readers who gives."
+   },
+   {
+    "bbox": [
+     16,
+     1637,
+     358,
+     13
+    ],
+    "bold": false,
+    "fontSize": 13,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Top-rated and trustworthy"
+   },
+   {
+    "bbox": [
+     88,
+     1660,
+     100,
+     51
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [
+     "https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.charitynavigator.org/ein/200049703",
+      "text": "![Charity Navigator Four Star](https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png)"
+     }
+    ],
+    "md": "[![Charity Navigator Four Star](https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png)](https://www.charitynavigator.org/ein/200049703)"
+   },
+   {
+    "bbox": [
+     188,
+     1660,
+     113,
+     68
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [
+     "https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://app.candid.org/profile/6971754/wikimedia-foundation-inc-20-0049703",
+      "text": "![Platinum Transparency 2025 - Candid](https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg)"
+     }
+    ],
+    "md": "[![Platinum Transparency 2025 - Candid](https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg)](https://app.candid.org/profile/6971754/wikimedia-foundation-inc-20-0049703)"
+   },
+   {
+    "bbox": [
+     137,
+     1753,
+     115,
+     50
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Maybe later"
+   },
+   {
+    "bbox": [
+     26,
+     1823,
+     100,
+     26
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Wikimedia Foundation"
+   },
+   {
+    "bbox": [
+     136,
+     1823,
+     228,
+     26
+    ],
+    "bold": false,
+    "fontSize": 13,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Proud host of Wikipedia and other free knowledge projects"
+   },
+   {
+    "bbox": [
+     16,
+     1865,
+     358,
+     48
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/#problems-donating",
+      "text": "Problems donating?"
+     },
+     {
+      "href": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/",
+      "text": "Frequently asked questions"
+     },
+     {
+      "href": "https://wikimediafoundation.org/give/#ways-to-give",
+      "text": "Other ways to give"
+     }
+    ],
+    "md": "[Problems donating?](https://wikimediafoundation.org/give/donor-frequently-asked-questions/#problems-donating) | [Frequently asked questions](https://wikimediafoundation.org/give/donor-frequently-asked-questions/) | Where your donation goes | [Other ways to give](https://wikimediafoundation.org/give/#ways-to-give)"
+   },
+   {
+    "bbox": [
+     35,
+     706,
+     321,
+     45
+    ],
+    "bold": true,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Sorry to interrupt, but only a fraction of readers will see this."
+   },
+   {
+    "bbox": [
+     86,
+     766,
+     218,
+     44
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Give $2.75 Maybe later"
+   },
+   {
+    "bbox": [
+     16,
+     1937,
      358,
      31
     ],
@@ -153,7 +691,7 @@
    {
     "bbox": [
      28,
-     239,
+     1973,
      343,
      59
     ],
@@ -177,7 +715,7 @@
    {
     "bbox": [
      16,
-     309,
+     2043,
      358,
      238
     ],
@@ -241,7 +779,7 @@
    {
     "bbox": [
      17,
-     556,
+     2290,
      356,
      34
     ],
@@ -256,7 +794,7 @@
    {
     "bbox": [
      17,
-     590,
+     2324,
      356,
      64
     ],
@@ -278,7 +816,7 @@
    {
     "bbox": [
      17,
-     654,
+     2388,
      356,
      56
     ],
@@ -298,7 +836,7 @@
    {
     "bbox": [
      17,
-     710,
+     2444,
      356,
      35
     ],
@@ -318,7 +856,7 @@
    {
     "bbox": [
      17,
-     746,
+     2479,
      356,
      50
     ],
@@ -338,7 +876,7 @@
    {
     "bbox": [
      17,
-     795,
+     2529,
      356,
      35
     ],
@@ -353,7 +891,7 @@
    {
     "bbox": [
      17,
-     831,
+     2564,
      356,
      34
     ],
@@ -373,7 +911,7 @@
    {
     "bbox": [
      17,
-     865,
+     2599,
      356,
      34
     ],
@@ -393,7 +931,7 @@
    {
     "bbox": [
      17,
-     900,
+     2633,
      356,
      54
     ],
@@ -408,7 +946,7 @@
    {
     "bbox": [
      17,
-     953,
+     2687,
      356,
      71
     ],
@@ -428,7 +966,7 @@
    {
     "bbox": [
      17,
-     1024,
+     2758,
      356,
      34
     ],
@@ -448,7 +986,7 @@
    {
     "bbox": [
      17,
-     1058,
+     2792,
      356,
      112
     ],
@@ -480,7 +1018,7 @@
    {
     "bbox": [
      17,
-     1171,
+     2904,
      356,
      53
     ],
@@ -500,7 +1038,7 @@
    {
     "bbox": [
      16,
-     1253,
+     2987,
      358,
      211
     ],
@@ -520,7 +1058,7 @@
    {
     "bbox": [
      38,
-     1492,
+     3226,
      304,
      33
     ],
@@ -536,7 +1074,7 @@
    {
     "bbox": [
      16,
-     1546,
+     3280,
      358,
      132
     ],
@@ -580,7 +1118,7 @@
    {
     "bbox": [
      16,
-     1694,
+     3428,
      358,
      211
     ],
@@ -612,7 +1150,7 @@
    {
     "bbox": [
      16,
-     1921,
+     3655,
      358,
      238
     ],
@@ -644,7 +1182,7 @@
    {
     "bbox": [
      16,
-     2175,
+     3909,
      358,
      213
     ],
@@ -684,7 +1222,7 @@
    {
     "bbox": [
      38,
-     1550,
+     3284,
      304,
      33
     ],
@@ -700,7 +1238,7 @@
    {
     "bbox": [
      16,
-     1604,
+     3338,
      358,
      132
     ],
@@ -732,7 +1270,7 @@
    {
     "bbox": [
      16,
-     1752,
+     3486,
      358,
      132
     ],
@@ -760,7 +1298,7 @@
    {
     "bbox": [
      16,
-     1900,
+     3634,
      358,
      290
     ],
@@ -780,7 +1318,7 @@
    {
     "bbox": [
      16,
-     2207,
+     3940,
      358,
      79
     ],
@@ -795,7 +1333,7 @@
    {
     "bbox": [
      38,
-     1608,
+     3342,
      304,
      33
     ],
@@ -811,7 +1349,7 @@
    {
     "bbox": [
      17,
-     1670,
+     3403,
      356,
      34
     ],
@@ -826,7 +1364,7 @@
    {
     "bbox": [
      17,
-     1704,
+     3437,
      356,
      35
     ],
@@ -846,7 +1384,7 @@
    {
     "bbox": [
      17,
-     1739,
+     3473,
      356,
      56
     ],
@@ -866,7 +1404,7 @@
    {
     "bbox": [
      17,
-     1795,
+     3529,
      356,
      50
     ],
@@ -886,7 +1424,7 @@
    {
     "bbox": [
      17,
-     1845,
+     3578,
      356,
      34
     ],
@@ -901,7 +1439,7 @@
    {
     "bbox": [
      17,
-     1879,
+     3613,
      356,
      54
     ],
@@ -921,7 +1459,7 @@
    {
     "bbox": [
      17,
-     1933,
+     3667,
      356,
      54
     ],
@@ -936,7 +1474,7 @@
    {
     "bbox": [
      17,
-     1987,
+     3720,
      356,
      71
     ],
@@ -956,7 +1494,7 @@
    {
     "bbox": [
      17,
-     2057,
+     3791,
      356,
      34
     ],
@@ -976,7 +1514,7 @@
    {
     "bbox": [
      17,
-     2092,
+     3825,
      356,
      34
     ],
@@ -991,7 +1529,7 @@
    {
     "bbox": [
      17,
-     2126,
+     3860,
      356,
      54
     ],
@@ -1006,7 +1544,7 @@
    {
     "bbox": [
      17,
-     2180,
+     3914,
      356,
      72
     ],
@@ -1030,7 +1568,7 @@
    {
     "bbox": [
      16,
-     2282,
+     4016,
      358,
      26
     ],
@@ -1045,7 +1583,7 @@
    {
     "bbox": [
      16,
-     2317,
+     4050,
      358,
      79
     ],
@@ -1069,7 +1607,7 @@
    {
     "bbox": [
      16,
-     2412,
+     4145,
      358,
      132
     ],
@@ -1084,7 +1622,7 @@
    {
     "bbox": [
      16,
-     2552,
+     4285,
      358,
      26
     ],
@@ -1099,7 +1637,7 @@
    {
     "bbox": [
      16,
-     2586,
+     4320,
      358,
      264
     ],
@@ -1114,7 +1652,7 @@
    {
     "bbox": [
      16,
-     2858,
+     4592,
      358,
      26
     ],
@@ -1129,7 +1667,7 @@
    {
     "bbox": [
      16,
-     2892,
+     4626,
      358,
      106
     ],
@@ -1181,7 +1719,7 @@
    {
     "bbox": [
      16,
-     3014,
+     4748,
      358,
      53
     ],
@@ -1201,7 +1739,7 @@
    {
     "bbox": [
      32,
-     3075,
+     4808,
      342,
      79
     ],
@@ -1223,7 +1761,7 @@
    {
     "bbox": [
      32,
-     3164,
+     4898,
      342,
      185
     ],
@@ -1249,7 +1787,7 @@
    {
     "bbox": [
      38,
-     1666,
+     3400,
      304,
      33
     ],
@@ -1265,7 +1803,7 @@
    {
     "bbox": [
      16,
-     1720,
+     3454,
      358,
      132
     ],
@@ -1309,7 +1847,7 @@
    {
     "bbox": [
      16,
-     1868,
+     3602,
      358,
      53
     ],
@@ -1329,7 +1867,7 @@
    {
     "bbox": [
      16,
-     1937,
+     3671,
      358,
      81
     ],
@@ -1344,7 +1882,7 @@
    {
     "bbox": [
      16,
-     2034,
+     3768,
      358,
      211
     ],
@@ -1359,7 +1897,7 @@
    {
     "bbox": [
      16,
-     2261,
+     3995,
      326,
      26
     ],
@@ -1375,7 +1913,7 @@
    {
     "bbox": [
      342,
-     2253,
+     3986,
      44,
      44
     ],
@@ -1395,7 +1933,7 @@
    {
     "bbox": [
      16,
-     2296,
+     4029,
      358,
      185
     ],
@@ -1419,7 +1957,7 @@
    {
     "bbox": [
      16,
-     2497,
+     4230,
      358,
      158
     ],
@@ -1455,7 +1993,7 @@
    {
     "bbox": [
      16,
-     2671,
+     4405,
      358,
      158
     ],
@@ -1475,7 +2013,7 @@
    {
     "bbox": [
      16,
-     2845,
+     4579,
      326,
      26
     ],
@@ -1491,7 +2029,7 @@
    {
     "bbox": [
      342,
-     2836,
+     4570,
      44,
      44
     ],
@@ -1511,7 +2049,7 @@
    {
     "bbox": [
      16,
-     2880,
+     4613,
      358,
      132
     ],
@@ -1543,7 +2081,7 @@
    {
     "bbox": [
      32,
-     3020,
+     4753,
      342,
      26
     ],
@@ -1553,14 +2091,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Markdown markup inside HTML blocks",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/HTML",
+      "text": "Markdown markup inside HTML blocks"
+     }
+    ],
+    "md": "[Markdown markup inside HTML blocks](https://en.wikipedia.org/wiki/HTML)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     3056,
+     4790,
      342,
      26
     ],
@@ -1577,7 +2120,7 @@
    {
     "bbox": [
      32,
-     3092,
+     4826,
      342,
      53
     ],
@@ -1594,7 +2137,7 @@
    {
     "bbox": [
      32,
-     3155,
+     4889,
      342,
      26
     ],
@@ -1611,7 +2154,7 @@
    {
     "bbox": [
      32,
-     3192,
+     4925,
      342,
      26
     ],
@@ -1628,7 +2171,7 @@
    {
     "bbox": [
      32,
-     3228,
+     4962,
      342,
      26
     ],
@@ -1645,7 +2188,7 @@
    {
     "bbox": [
      32,
-     3264,
+     4998,
      342,
      26
     ],
@@ -1662,7 +2205,7 @@
    {
     "bbox": [
      16,
-     3299,
+     5032,
      358,
      79
     ],
@@ -1698,7 +2241,7 @@
    {
     "bbox": [
      38,
-     1724,
+     3458,
      304,
      33
     ],
@@ -1714,7 +2257,7 @@
    {
     "bbox": [
      17,
-     1787,
+     3521,
      786,
      60
     ],
@@ -1729,7 +2272,7 @@
    {
     "bbox": [
      17,
-     1847,
+     3581,
      786,
      521
     ],
@@ -1744,7 +2287,7 @@
    {
     "bbox": [
      17,
-     2368,
+     4102,
      786,
      213
     ],
@@ -1759,7 +2302,7 @@
    {
     "bbox": [
      17,
-     2582,
+     4315,
      786,
      333
     ],
@@ -1774,7 +2317,7 @@
    {
     "bbox": [
      17,
-     2915,
+     4649,
      786,
      517
     ],
@@ -1796,7 +2339,7 @@
    {
     "bbox": [
      38,
-     1782,
+     3516,
      304,
      33
     ],
@@ -1812,7 +2355,7 @@
    {
     "bbox": [
      16,
-     1836,
+     3570,
      358,
      158
     ],
@@ -1848,7 +2391,7 @@
    {
     "bbox": [
      16,
-     2011,
+     3744,
      358,
      264
     ],
@@ -1880,7 +2423,7 @@
    {
     "bbox": [
      38,
-     1840,
+     3574,
      304,
      33
     ],
@@ -1896,7 +2439,7 @@
    {
     "bbox": [
      32,
-     1886,
+     3620,
      342,
      26
     ],
@@ -1906,14 +2449,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Comparison of document markup languages",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/Comparison_of_document_markup_languages",
+      "text": "Comparison of document markup languages"
+     }
+    ],
+    "md": "[Comparison of document markup languages](https://en.wikipedia.org/wiki/Comparison_of_document_markup_languages)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     1923,
+     3656,
      342,
      26
     ],
@@ -1923,14 +2471,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Comparison of documentation generators",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/Comparison_of_documentation_generators",
+      "text": "Comparison of documentation generators"
+     }
+    ],
+    "md": "[Comparison of documentation generators](https://en.wikipedia.org/wiki/Comparison_of_documentation_generators)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     1959,
+     3693,
      342,
      26
     ],
@@ -1940,14 +2493,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Comparison of wiki software",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/Comparison_of_wiki_software",
+      "text": "Comparison of wiki software"
+     }
+    ],
+    "md": "[Comparison of wiki software](https://en.wikipedia.org/wiki/Comparison_of_wiki_software)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     1996,
+     3729,
      342,
      26
     ],
@@ -1957,14 +2515,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Lightweight markup language",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/Lightweight_markup_language",
+      "text": "Lightweight markup language"
+     }
+    ],
+    "md": "[Lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     2032,
+     3766,
      342,
      26
     ],
@@ -1974,14 +2537,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "List of markup languages",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/List_of_markup_languages",
+      "text": "List of markup languages"
+     }
+    ],
+    "md": "[List of markup languages](https://en.wikipedia.org/wiki/List_of_markup_languages)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     2068,
+     3802,
      342,
      26
     ],
@@ -1991,14 +2559,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "List of text editors",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/List_of_text_editors",
+      "text": "List of text editors"
+     }
+    ],
+    "md": "[List of text editors](https://en.wikipedia.org/wiki/List_of_text_editors)",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     2105,
+     3838,
      342,
      26
     ],
@@ -2008,14 +2581,19 @@
     "images": [],
     "kind": "li",
     "landmark": "main",
-    "links": [],
-    "md": "Wiki markup",
+    "links": [
+     {
+      "href": "https://en.wikipedia.org/wiki/Wiki_markup",
+      "text": "Wiki markup"
+     }
+    ],
+    "md": "[Wiki markup](https://en.wikipedia.org/wiki/Wiki_markup)",
     "ordered": false
    },
    {
     "bbox": [
      38,
-     1898,
+     3632,
      304,
      33
     ],
@@ -2031,7 +2609,7 @@
    {
     "bbox": [
      52,
-     1944,
+     3678,
      322,
      26
     ],
@@ -2048,7 +2626,7 @@
    {
     "bbox": [
      38,
-     1956,
+     3690,
      304,
      33
     ],
@@ -2064,7 +2642,7 @@
    {
     "bbox": [
      52,
-     2007,
+     3741,
      322,
      369
     ],
@@ -2090,7 +2668,7 @@
    {
     "bbox": [
      52,
-     2387,
+     4120,
      322,
      132
     ],
@@ -2140,7 +2718,7 @@
    {
     "bbox": [
      52,
-     2529,
+     4262,
      322,
      106
     ],
@@ -2170,7 +2748,7 @@
    {
     "bbox": [
      52,
-     2644,
+     4378,
      322,
      79
     ],
@@ -2204,7 +2782,7 @@
    {
     "bbox": [
      52,
-     2733,
+     4467,
      322,
      106
     ],
@@ -2230,7 +2808,7 @@
    {
     "bbox": [
      52,
-     2849,
+     4583,
      322,
      79
     ],
@@ -2256,7 +2834,7 @@
    {
     "bbox": [
      52,
-     2938,
+     4672,
      322,
      158
     ],
@@ -2306,7 +2884,7 @@
    {
     "bbox": [
      52,
-     3106,
+     4840,
      322,
      79
     ],
@@ -2332,7 +2910,7 @@
    {
     "bbox": [
      52,
-     3196,
+     4929,
      322,
      369
     ],
@@ -2354,7 +2932,7 @@
    {
     "bbox": [
      52,
-     3575,
+     5309,
      322,
      132
     ],
@@ -2376,7 +2954,7 @@
    {
     "bbox": [
      52,
-     3717,
+     5451,
      322,
      106
     ],
@@ -2402,7 +2980,7 @@
    {
     "bbox": [
      52,
-     3833,
+     5566,
      322,
      106
     ],
@@ -2428,7 +3006,7 @@
    {
     "bbox": [
      52,
-     3948,
+     5682,
      322,
      211
     ],
@@ -2462,7 +3040,7 @@
    {
     "bbox": [
      52,
-     4169,
+     5903,
      322,
      106
     ],
@@ -2492,7 +3070,7 @@
    {
     "bbox": [
      52,
-     4285,
+     6018,
      322,
      106
     ],
@@ -2518,7 +3096,7 @@
    {
     "bbox": [
      52,
-     4400,
+     6134,
      322,
      53
     ],
@@ -2540,7 +3118,7 @@
    {
     "bbox": [
      52,
-     4463,
+     6197,
      322,
      79
     ],
@@ -2566,7 +3144,7 @@
    {
     "bbox": [
      52,
-     4552,
+     6286,
      322,
      106
     ],
@@ -2592,7 +3170,7 @@
    {
     "bbox": [
      52,
-     4668,
+     6402,
      322,
      106
     ],
@@ -2618,7 +3196,7 @@
    {
     "bbox": [
      52,
-     4783,
+     6517,
      322,
      106
     ],
@@ -2644,7 +3222,7 @@
    {
     "bbox": [
      52,
-     4899,
+     6633,
      322,
      106
     ],
@@ -2670,7 +3248,7 @@
    {
     "bbox": [
      52,
-     5015,
+     6748,
      322,
      158
     ],
@@ -2704,7 +3282,7 @@
    {
     "bbox": [
      52,
-     5183,
+     6917,
      322,
      369
     ],
@@ -2730,7 +3308,7 @@
    {
     "bbox": [
      52,
-     5562,
+     7296,
      322,
      106
     ],
@@ -2756,7 +3334,7 @@
    {
     "bbox": [
      52,
-     5678,
+     7412,
      322,
      79
     ],
@@ -2782,7 +3360,7 @@
    {
     "bbox": [
      52,
-     5767,
+     7501,
      322,
      79
     ],
@@ -2808,7 +3386,7 @@
    {
     "bbox": [
      52,
-     5856,
+     7590,
      322,
      106
     ],
@@ -2834,7 +3412,7 @@
    {
     "bbox": [
      52,
-     5972,
+     7706,
      322,
      106
     ],
@@ -2860,7 +3438,7 @@
    {
     "bbox": [
      52,
-     6087,
+     7821,
      322,
      211
     ],
@@ -2886,7 +3464,7 @@
    {
     "bbox": [
      52,
-     6309,
+     8042,
      322,
      132
     ],
@@ -2912,7 +3490,7 @@
    {
     "bbox": [
      52,
-     6450,
+     8184,
      322,
      79
     ],
@@ -2942,7 +3520,7 @@
    {
     "bbox": [
      52,
-     6540,
+     8273,
      322,
      79
     ],
@@ -2964,7 +3542,7 @@
    {
     "bbox": [
      52,
-     6629,
+     8363,
      322,
      79
     ],
@@ -2990,7 +3568,7 @@
    {
     "bbox": [
      52,
-     6718,
+     8452,
      322,
      132
     ],
@@ -3016,7 +3594,7 @@
    {
     "bbox": [
      52,
-     6860,
+     8594,
      322,
      106
     ],
@@ -3046,7 +3624,7 @@
    {
     "bbox": [
      52,
-     6976,
+     8709,
      322,
      106
     ],
@@ -3072,7 +3650,7 @@
    {
     "bbox": [
      52,
-     7091,
+     8825,
      322,
      106
     ],
@@ -3098,7 +3676,7 @@
    {
     "bbox": [
      52,
-     7207,
+     8940,
      322,
      211
     ],
@@ -3124,7 +3702,7 @@
    {
     "bbox": [
      52,
-     7428,
+     9161,
      322,
      53
     ],
@@ -3146,7 +3724,7 @@
    {
     "bbox": [
      52,
-     7491,
+     9224,
      322,
      79
     ],
@@ -3168,7 +3746,7 @@
    {
     "bbox": [
      52,
-     7580,
+     9313,
      322,
      132
     ],
@@ -3190,7 +3768,7 @@
    {
     "bbox": [
      52,
-     7722,
+     9455,
      322,
      79
     ],
@@ -3212,7 +3790,7 @@
    {
     "bbox": [
      52,
-     7811,
+     9545,
      322,
      79
     ],
@@ -3238,7 +3816,7 @@
    {
     "bbox": [
      52,
-     7900,
+     9634,
      322,
      79
     ],
@@ -3260,7 +3838,7 @@
    {
     "bbox": [
      52,
-     7989,
+     9723,
      322,
      53
     ],
@@ -3282,7 +3860,7 @@
    {
     "bbox": [
      52,
-     8052,
+     9786,
      322,
      79
     ],
@@ -3304,7 +3882,7 @@
    {
     "bbox": [
      52,
-     8141,
+     9875,
      322,
      106
     ],
@@ -3334,7 +3912,7 @@
    {
     "bbox": [
      52,
-     8257,
+     9990,
      322,
      106
     ],
@@ -3360,7 +3938,7 @@
    {
     "bbox": [
      52,
-     8372,
+     10106,
      322,
      106
     ],
@@ -3386,7 +3964,7 @@
    {
     "bbox": [
      52,
-     8488,
+     10222,
      322,
      106
     ],
@@ -3412,7 +3990,7 @@
    {
     "bbox": [
      52,
-     8603,
+     10337,
      322,
      53
     ],
@@ -3434,7 +4012,7 @@
    {
     "bbox": [
      52,
-     8666,
+     10400,
      322,
      132
     ],
@@ -3460,7 +4038,7 @@
    {
     "bbox": [
      52,
-     8808,
+     10542,
      322,
      106
     ],
@@ -3486,7 +4064,7 @@
    {
     "bbox": [
      38,
-     2014,
+     3748,
      304,
      33
     ],
@@ -3502,7 +4080,7 @@
    {
     "bbox": [
      32,
-     2060,
+     3794,
      342,
      53
     ],
@@ -3524,7 +4102,7 @@
    {
     "bbox": [
      36,
-     2105,
+     3839,
      322,
      23
     ],
@@ -3545,7 +4123,7 @@
     "alt": "Wikipedia",
     "bbox": [
      16,
-     2556,
+     4290,
      140,
      22
     ],
@@ -3563,7 +4141,7 @@
    {
     "bbox": [
      260,
-     2545,
+     4279,
      49,
      44
     ],
@@ -3575,14 +4153,19 @@
     ],
     "kind": "li",
     "landmark": "footer",
-    "links": [],
-    "md": "![Wikimedia Foundation](https://en.wikipedia.org/static/images/footer/wikimedia.svg)",
+    "links": [
+     {
+      "href": "https://www.wikimedia.org/",
+      "text": "![Wikimedia Foundation](https://en.wikipedia.org/static/images/footer/wikimedia.svg)"
+     }
+    ],
+    "md": "[![Wikimedia Foundation](https://en.wikipedia.org/static/images/footer/wikimedia.svg)](https://www.wikimedia.org/)",
     "ordered": false
    },
    {
     "bbox": [
      325,
-     2545,
+     4279,
      49,
      44
     ],
@@ -3594,14 +4177,19 @@
     ],
     "kind": "li",
     "landmark": "footer",
-    "links": [],
-    "md": "![Powered by MediaWiki](https://en.wikipedia.org/w/resources/assets/mediawiki_compact.svg)",
+    "links": [
+     {
+      "href": "https://www.mediawiki.org/",
+      "text": "![Powered by MediaWiki](https://en.wikipedia.org/w/resources/assets/mediawiki_compact.svg)"
+     }
+    ],
+    "md": "[![Powered by MediaWiki](https://en.wikipedia.org/w/resources/assets/mediawiki_compact.svg)](https://www.mediawiki.org/)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2609,
+     4343,
      225,
      28
     ],
@@ -3611,14 +4199,19 @@
     "images": [],
     "kind": "li",
     "landmark": "footer",
-    "links": [],
-    "md": "Page was rendered with Parsoid .",
+    "links": [
+     {
+      "href": "https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid",
+      "text": "Page was rendered with Parsoid ."
+     }
+    ],
+    "md": "[Page was rendered with Parsoid .](https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2637,
+     4371,
      350,
      56
     ],
@@ -3628,14 +4221,19 @@
     "images": [],
     "kind": "li",
     "landmark": "footer",
-    "links": [],
-    "md": "Content is available under CC BY-SA 4.0 unless otherwise noted.",
+    "links": [
+     {
+      "href": "https://creativecommons.org/licenses/by-sa/4.0/deed.en",
+      "text": "Content is available under CC BY-SA 4.0 unless otherwise noted."
+     }
+    ],
+    "md": "[Content is available under CC BY-SA 4.0 unless otherwise noted.](https://creativecommons.org/licenses/by-sa/4.0/deed.en)",
     "ordered": false
    },
    {
     "bbox": [
      16,
-     2702,
+     4436,
      358,
      112
     ],
@@ -3686,8 +4284,8 @@
    }
   ],
   "description": "",
-  "docHeight": 2829,
-  "interactive": 32,
+  "docHeight": 4703,
+  "interactive": 103,
   "lang": "en",
   "title": "Markdown - Wikipedia",
   "url": "https://en.wikipedia.org/wiki/Markdown",
@@ -3697,9 +4295,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1339,
+  "elapsed_ms": 1526,
   "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T15:53:06-05:00",
+  "fetched_at": "2026-07-03T16:43:25-05:00",
   "mode": "authenticated",
   "requested_url": "https://en.wikipedia.org/wiki/Markdown",
   "url": "https://en.wikipedia.org/wiki/Markdown"

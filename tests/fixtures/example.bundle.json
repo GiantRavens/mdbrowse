@@ -66,9 +66,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 3245,
+  "elapsed_ms": 3544,
   "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T15:53:00-05:00",
+  "fetched_at": "2026-07-03T16:43:19-05:00",
   "mode": "authenticated",
   "requested_url": "https://example.com",
   "url": "https://example.com/"

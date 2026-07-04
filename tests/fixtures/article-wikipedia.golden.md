@@ -3,6 +3,64 @@
 
 [Article](https://en.wikipedia.org/wiki/Markdown) [Talk](https://en.wikipedia.org/wiki/Talk:Markdown)
 
+## Fundraising banner
+
+### Fundraising banner message
+
+![Lisa Seitz-Gruwell](https://upload.wikimedia.org/wikipedia/donate/b/b2/Frb-Lisa_Seitz-Gruwell.jpg)
+
+July 3: An important update for readers in the United States.
+
+You deserve an explanation, so please don't skip this 1-minute read. It's Friday, July 3, and you only had a small chance of seeing my message. This year, Wikipedia has had fewer visitors and fewer new supporters, so your visit today means a lot. I hope that Wikipedia's given you at least $2.75 of knowledge recently. If everyone who found Wikipedia useful gave $2.75, we'd hit our goal in a few hours.
+
+After nearly 25 years, Wikipedia is still the internet we were promised—created by people, not by machines. It's not perfect, but it's not here to push a point of view. It's run by a nonprofit, not a giant technology company or a billionaire.
+
+Less than 2% of our readers donate. The rare few who give do so because Wikipedia provides them with useful knowledge. If that sounds like you, please donate $2.75. Any contribution you make today helps.
+
+Lisa Seitz Gruwell, Chief Advancement Officer, Wikimedia Foundation
+
+### Fundraising payment form
+
+Please select an amount (USD). The average donation in the United States is around $13. Many first-time donors give $2.75. If you've never given, all that matters is that you're choosing to stand up for free, open information. For that, you have our gratitude.
+
+$2.75
+
+$15
+
+$25
+
+$50
+
+$100
+
+$250
+
+$500
+
+Other
+
+Other ($)
+
+I ask you, sincerely: don't skip this. Be one of the rare readers who gives.
+
+Top-rated and trustworthy
+
+[![Charity Navigator Four Star](https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png)](https://www.charitynavigator.org/ein/200049703)
+
+[![Platinum Transparency 2025 - Candid](https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg)](https://app.candid.org/profile/6971754/wikimedia-foundation-inc-20-0049703)
+
+Maybe later
+
+Wikimedia Foundation
+
+Proud host of Wikipedia and other free knowledge projects
+
+[Problems donating?](https://wikimediafoundation.org/give/donor-frequently-asked-questions/#problems-donating) | [Frequently asked questions](https://wikimediafoundation.org/give/donor-frequently-asked-questions/) | Where your donation goes | [Other ways to give](https://wikimediafoundation.org/give/#ways-to-give)
+
+Sorry to interrupt, but only a fraction of readers will see this.
+
+Give $2.75 Maybe later
+
 For the marketing term, see [Price markdown](https://en.wikipedia.org/wiki/Price_markdown).
 
 Learn moreThis article **relies excessively on [references](https://en.wikipedia.org/wiki/Wikipedia:Verifiability) to [primary sources](https://en.wikipedia.org/wiki/Wikipedia:No_original_research#Primary,_secondary_and_tertiary_sources)** . *(September 2025)*
@@ -105,7 +163,7 @@ Accordingly, GitHub also changed the parser used on their sites, which required 
 
 Markdown Extra is a [lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language) based on Markdown implemented in [PHP](https://en.wikipedia.org/wiki/PHP) (originally), [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) and [Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)).\[49\] It adds the following features that are not available with regular Markdown:
 
-- Markdown markup inside HTML blocks
+- [Markdown markup inside HTML blocks](https://en.wikipedia.org/wiki/HTML)
 - Elements with id/class attribute
 - "Fenced code blocks" that span multiple lines of code
 - Tables\[49\]
@@ -131,13 +189,13 @@ While Markdown is a minimal markup language and is read and edited with a normal
 
 ### See also
 
-- Comparison of document markup languages
-- Comparison of documentation generators
-- Comparison of wiki software
-- Lightweight markup language
-- List of markup languages
-- List of text editors
-- Wiki markup
+- [Comparison of document markup languages](https://en.wikipedia.org/wiki/Comparison_of_document_markup_languages)
+- [Comparison of documentation generators](https://en.wikipedia.org/wiki/Comparison_of_documentation_generators)
+- [Comparison of wiki software](https://en.wikipedia.org/wiki/Comparison_of_wiki_software)
+- [Lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language)
+- [List of markup languages](https://en.wikipedia.org/wiki/List_of_markup_languages)
+- [List of text editors](https://en.wikipedia.org/wiki/List_of_text_editors)
+- [Wiki markup](https://en.wikipedia.org/wiki/Wiki_markup)
 
 ### Explanatory notes
 
@@ -208,12 +266,18 @@ While Markdown is a minimal markup language and is read and edited with a normal
 ## ⋯ menu
 
 - [![Wikipedia](https://en.wikipedia.org/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg)](https://en.wikipedia.org/wiki/Main_Page)
+- [Watch](https://en.wikipedia.org/w/index.php?title=Special%3AUserLogin&returnto=Markdown&experiments=we-1-8-account-creation-form-v2%3Aunsampled)
+- [Edit](https://en.wikipedia.org/w/index.php?title=Markdown&action=edit&section=0)
 
 ---
 
 ## ⋯ footer
 
 - [**Last edited 15 days ago** by Viewmont Viking](https://en.wikipedia.org/w/index.php?title=Markdown&action=history)
+- [![Wikimedia Foundation](https://en.wikipedia.org/static/images/footer/wikimedia.svg)](https://www.wikimedia.org/)
+- [![Powered by MediaWiki](https://en.wikipedia.org/w/resources/assets/mediawiki_compact.svg)](https://www.mediawiki.org/)
+- [Page was rendered with Parsoid .](https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid)
+- [Content is available under CC BY-SA 4.0 unless otherwise noted.](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 - [Privacy policy](https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy)
 - [Contact Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Contact_us)
 - [Legal & safety contacts](https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information)

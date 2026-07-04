@@ -1,6 +1,6 @@
 {
  "doc": {
-  "anchors": 230,
+  "anchors": 227,
   "blocks": [
    {
     "bbox": [
@@ -82,15 +82,15 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://github.com/jamesob/local-llm",
-      "text": "Jamesob's guide to running SOTA LLMs locally"
+      "href": "https://citizenlab.ca/research/member-of-committee-investigating-spyware-hacked-with-pegasus/",
+      "text": "Espionage Against the European Parliament"
      },
      {
-      "href": "https://news.ycombinator.com/from?site=github.com/jamesob",
-      "text": "github.com/jamesob"
+      "href": "https://news.ycombinator.com/from?site=citizenlab.ca",
+      "text": "citizenlab.ca"
      }
     ],
-    "md": "1. [Jamesob's guide to running SOTA LLMs locally](https://github.com/jamesob/local-llm) ([github.com/jamesob](https://news.ycombinator.com/from?site=github.com/jamesob))"
+    "md": "1. [Espionage Against the European Parliament](https://citizenlab.ca/research/member-of-committee-investigating-spyware-hacked-with-pegasus/) ([citizenlab.ca](https://news.ycombinator.com/from?site=citizenlab.ca))"
    },
    {
     "bbox": [
@@ -106,84 +106,28 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://news.ycombinator.com/user?id=livestyle",
-      "text": "livestyle"
+      "href": "https://news.ycombinator.com/user?id=ledoge",
+      "text": "ledoge"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48775921",
-      "text": "5 hours ago"
+      "href": "https://news.ycombinator.com/item?id=48779683",
+      "text": "1 hour ago"
      },
      {
-      "href": "https://news.ycombinator.com/hide?id=48775921&auth=f2c9335f4e2d2a99ff6a1b5065fd3ab9eb193a3d&goto=news",
+      "href": "https://news.ycombinator.com/hide?id=48779683&auth=6c880ac10d5fa2635a19bd501ca0e9df396996ef&goto=news",
       "text": "hide"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48775921",
-      "text": "91 comments"
+      "href": "https://news.ycombinator.com/item?id=48779683",
+      "text": "7 comments"
      }
     ],
-    "md": "194 points by [livestyle](https://news.ycombinator.com/user?id=livestyle) [5 hours ago](https://news.ycombinator.com/item?id=48775921) | [hide](https://news.ycombinator.com/hide?id=48775921&auth=f2c9335f4e2d2a99ff6a1b5065fd3ab9eb193a3d&goto=news) | [91 comments](https://news.ycombinator.com/item?id=48775921)"
+    "md": "87 points by [ledoge](https://news.ycombinator.com/user?id=ledoge) [1 hour ago](https://news.ycombinator.com/item?id=48779683) | [hide](https://news.ycombinator.com/hide?id=48779683&auth=6c880ac10d5fa2635a19bd501ca0e9df396996ef&goto=news) | [7 comments](https://news.ycombinator.com/item?id=48779683)"
    },
    {
     "bbox": [
      0,
      125,
-     390,
-     22
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://crocidb.com/post/freebsd-ate-my-ram/",
-      "text": "FreeBSD ate my RAM"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=crocidb.com",
-      "text": "crocidb.com"
-     }
-    ],
-    "md": "2. [FreeBSD ate my RAM](https://crocidb.com/post/freebsd-ate-my-ram/) ([crocidb.com](https://news.ycombinator.com/from?site=crocidb.com))"
-   },
-   {
-    "bbox": [
-     0,
-     147,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=theanonymousone",
-      "text": "theanonymousone"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48778757",
-      "text": "1 hour ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48778757&auth=d6ebfe5fe15368f8a899521214f2a76007fd02e8&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48778757",
-      "text": "1 comment"
-     }
-    ],
-    "md": "26 points by [theanonymousone](https://news.ycombinator.com/user?id=theanonymousone) [1 hour ago](https://news.ycombinator.com/item?id=48778757) | [hide](https://news.ycombinator.com/hide?id=48778757&auth=d6ebfe5fe15368f8a899521214f2a76007fd02e8&goto=news) | [1 comment](https://news.ycombinator.com/item?id=48778757)"
-   },
-   {
-    "bbox": [
-     0,
-     182,
      390,
      37
     ],
@@ -202,12 +146,12 @@
       "text": "github.com/searxng"
      }
     ],
-    "md": "3. [SearXNG: A free internet metasearch engine](https://github.com/searxng/searxng) ([github.com/searxng](https://news.ycombinator.com/from?site=github.com/searxng))"
+    "md": "2. [SearXNG: A free internet metasearch engine](https://github.com/searxng/searxng) ([github.com/searxng](https://news.ycombinator.com/from?site=github.com/searxng))"
    },
    {
     "bbox": [
      0,
-     220,
+     163,
      390,
      30
     ],
@@ -223,7 +167,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48779454",
-      "text": "37 minutes ago"
+      "text": "1 hour ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48779454&auth=95b1f9d12e2c828f0866d6cc1b83528778feec06&goto=news",
@@ -231,15 +175,127 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48779454",
-      "text": "discuss"
+      "text": "12 comments"
      }
     ],
-    "md": "5 points by [theanonymousone](https://news.ycombinator.com/user?id=theanonymousone) [37 minutes ago](https://news.ycombinator.com/item?id=48779454) | [hide](https://news.ycombinator.com/hide?id=48779454&auth=95b1f9d12e2c828f0866d6cc1b83528778feec06&goto=news) | [discuss](https://news.ycombinator.com/item?id=48779454)"
+    "md": "40 points by [theanonymousone](https://news.ycombinator.com/user?id=theanonymousone) [1 hour ago](https://news.ycombinator.com/item?id=48779454) | [hide](https://news.ycombinator.com/hide?id=48779454&auth=95b1f9d12e2c828f0866d6cc1b83528778feec06&goto=news) | [12 comments](https://news.ycombinator.com/item?id=48779454)"
    },
    {
     "bbox": [
      0,
-     255,
+     198,
+     390,
+     37
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://github.com/jamesob/local-llm",
+      "text": "Jamesob's guide to running SOTA LLMs locally"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=github.com/jamesob",
+      "text": "github.com/jamesob"
+     }
+    ],
+    "md": "3. [Jamesob's guide to running SOTA LLMs locally](https://github.com/jamesob/local-llm) ([github.com/jamesob](https://news.ycombinator.com/from?site=github.com/jamesob))"
+   },
+   {
+    "bbox": [
+     0,
+     235,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=livestyle",
+      "text": "livestyle"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48775921",
+      "text": "6 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48775921&auth=f2c9335f4e2d2a99ff6a1b5065fd3ab9eb193a3d&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48775921",
+      "text": "102 comments"
+     }
+    ],
+    "md": "216 points by [livestyle](https://news.ycombinator.com/user?id=livestyle) [6 hours ago](https://news.ycombinator.com/item?id=48775921) | [hide](https://news.ycombinator.com/hide?id=48775921&auth=f2c9335f4e2d2a99ff6a1b5065fd3ab9eb193a3d&goto=news) | [102 comments](https://news.ycombinator.com/item?id=48775921)"
+   },
+   {
+    "bbox": [
+     0,
+     270,
+     390,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://crocidb.com/post/freebsd-ate-my-ram/",
+      "text": "FreeBSD ate my RAM"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=crocidb.com",
+      "text": "crocidb.com"
+     }
+    ],
+    "md": "4. [FreeBSD ate my RAM](https://crocidb.com/post/freebsd-ate-my-ram/) ([crocidb.com](https://news.ycombinator.com/from?site=crocidb.com))"
+   },
+   {
+    "bbox": [
+     0,
+     292,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=theanonymousone",
+      "text": "theanonymousone"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48778757",
+      "text": "2 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48778757&auth=d6ebfe5fe15368f8a899521214f2a76007fd02e8&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48778757",
+      "text": "10 comments"
+     }
+    ],
+    "md": "47 points by [theanonymousone](https://news.ycombinator.com/user?id=theanonymousone) [2 hours ago](https://news.ycombinator.com/item?id=48778757) | [hide](https://news.ycombinator.com/hide?id=48778757&auth=d6ebfe5fe15368f8a899521214f2a76007fd02e8&goto=news) | [10 comments](https://news.ycombinator.com/item?id=48778757)"
+   },
+   {
+    "bbox": [
+     0,
+     327,
      390,
      22
     ],
@@ -258,12 +314,12 @@
       "text": "phenomenalworld.org"
      }
     ],
-    "md": "4. [Costco is the anti-Amazon](https://phenomenalworld.org/analysis/the-anti-amazon/) ([phenomenalworld.org](https://news.ycombinator.com/from?site=phenomenalworld.org))"
+    "md": "5. [Costco is the anti-Amazon](https://phenomenalworld.org/analysis/the-anti-amazon/) ([phenomenalworld.org](https://news.ycombinator.com/from?site=phenomenalworld.org))"
    },
    {
     "bbox": [
      0,
-     277,
+     349,
      390,
      30
     ],
@@ -279,7 +335,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48776044",
-      "text": "5 hours ago"
+      "text": "6 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48776044&auth=93a1f419f042cd74244b38848fd952644aed4616&goto=news",
@@ -287,15 +343,233 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48776044",
-      "text": "129 comments"
+      "text": "169 comments"
      }
     ],
-    "md": "153 points by [bookofjoe](https://news.ycombinator.com/user?id=bookofjoe) [5 hours ago](https://news.ycombinator.com/item?id=48776044) | [hide](https://news.ycombinator.com/hide?id=48776044&auth=93a1f419f042cd74244b38848fd952644aed4616&goto=news) | [129 comments](https://news.ycombinator.com/item?id=48776044)"
+    "md": "201 points by [bookofjoe](https://news.ycombinator.com/user?id=bookofjoe) [6 hours ago](https://news.ycombinator.com/item?id=48776044) | [hide](https://news.ycombinator.com/hide?id=48776044&auth=93a1f419f042cd74244b38848fd952644aed4616&goto=news) | [169 comments](https://news.ycombinator.com/item?id=48776044)"
    },
    {
     "bbox": [
      0,
-     312,
+     384,
+     390,
+     56
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://stopgreedbuildgreen.climateandcommunity.org/posts/ai-first",
+      "text": "AI First: How the Federal Government Is Prioritizing AI over People and Planet"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=climateandcommunity.org",
+      "text": "climateandcommunity.org"
+     }
+    ],
+    "md": "6. [AI First: How the Federal Government Is Prioritizing AI over People and Planet](https://stopgreedbuildgreen.climateandcommunity.org/posts/ai-first) ([climateandcommunity.org](https://news.ycombinator.com/from?site=climateandcommunity.org))"
+   },
+   {
+    "bbox": [
+     0,
+     440,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=eatox",
+      "text": "eatox"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48780128",
+      "text": "22 minutes ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48780128&auth=45d5380761aebe4fcd9652bc4b526f25426b0b02&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48780128",
+      "text": "discuss"
+     }
+    ],
+    "md": "4 points by [eatox](https://news.ycombinator.com/user?id=eatox) [22 minutes ago](https://news.ycombinator.com/item?id=48780128) | [hide](https://news.ycombinator.com/hide?id=48780128&auth=45d5380761aebe4fcd9652bc4b526f25426b0b02&goto=news) | [discuss](https://news.ycombinator.com/item?id=48780128)"
+   },
+   {
+    "bbox": [
+     0,
+     460,
+     390,
+     39
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://news.ycombinator.com/s.gif"
+    ],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.ycombinator.com/companies/infracost/jobs/YTJcFwr-marketing-lead",
+      "text": "Infracost (YC W21) Is Hiring a Marketing Lead to Shift FinOps Left"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=ycombinator.com",
+      "text": "ycombinator.com"
+     }
+    ],
+    "md": "7. ![](https://news.ycombinator.com/s.gif) [Infracost (YC W21) Is Hiring a Marketing Lead to Shift FinOps Left](https://www.ycombinator.com/companies/infracost/jobs/YTJcFwr-marketing-lead) ([ycombinator.com](https://news.ycombinator.com/from?site=ycombinator.com))"
+   },
+   {
+    "bbox": [
+     0,
+     499,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/item?id=48779906",
+      "text": "42 minutes ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48779906&auth=ee98b5bc6c83c3572c722d0908dd1d9300e03c5f&goto=news",
+      "text": "hide"
+     }
+    ],
+    "md": "[42 minutes ago](https://news.ycombinator.com/item?id=48779906) | [hide](https://news.ycombinator.com/hide?id=48779906&auth=ee98b5bc6c83c3572c722d0908dd1d9300e03c5f&goto=news)"
+   },
+   {
+    "bbox": [
+     0,
+     519,
+     390,
+     37
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.nnehdi.me/p/pet-projects-are-getting-too-big",
+      "text": "Pet projects are getting too big to pet"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=nnehdi.me",
+      "text": "nnehdi.me"
+     }
+    ],
+    "md": "8. [Pet projects are getting too big to pet](https://www.nnehdi.me/p/pet-projects-are-getting-too-big) ([nnehdi.me](https://news.ycombinator.com/from?site=nnehdi.me))"
+   },
+   {
+    "bbox": [
+     0,
+     557,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=nnehdi",
+      "text": "nnehdi"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779415",
+      "text": "1 hour ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48779415&auth=5d087035efca3f7a28ccc858551c38afea463b8a&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779415",
+      "text": "16 comments"
+     }
+    ],
+    "md": "22 points by [nnehdi](https://news.ycombinator.com/user?id=nnehdi) [1 hour ago](https://news.ycombinator.com/item?id=48779415) | [hide](https://news.ycombinator.com/hide?id=48779415&auth=5d087035efca3f7a28ccc858551c38afea463b8a&goto=news) | [16 comments](https://news.ycombinator.com/item?id=48779415)"
+   },
+   {
+    "bbox": [
+     0,
+     577,
+     390,
+     39
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://kagi.com/changelog#10959",
+      "text": "Kagi Changelog (July 2): Heads, tails, and an AI toggle"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=kagi.com",
+      "text": "kagi.com"
+     }
+    ],
+    "md": "9. [Kagi Changelog (July 2): Heads, tails, and an AI toggle](https://kagi.com/changelog#10959) ([kagi.com](https://news.ycombinator.com/from?site=kagi.com))"
+   },
+   {
+    "bbox": [
+     0,
+     616,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=mroche",
+      "text": "mroche"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779352",
+      "text": "1 hour ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48779352&auth=79c818bd7a4269c511c5b5dedd3254be29da523d&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779352",
+      "text": "3 comments"
+     }
+    ],
+    "md": "22 points by [mroche](https://news.ycombinator.com/user?id=mroche) [1 hour ago](https://news.ycombinator.com/item?id=48779352) | [hide](https://news.ycombinator.com/hide?id=48779352&auth=79c818bd7a4269c511c5b5dedd3254be29da523d&goto=news) | [3 comments](https://news.ycombinator.com/item?id=48779352)"
+   },
+   {
+    "bbox": [
+     0,
+     636,
      390,
      22
     ],
@@ -314,12 +588,12 @@
       "text": "interconnected.org"
      }
     ],
-    "md": "5. [Factories are just rooms](https://interconnected.org/home/2026/07/03/factories) ([interconnected.org](https://news.ycombinator.com/from?site=interconnected.org))"
+    "md": "10. [Factories are just rooms](https://interconnected.org/home/2026/07/03/factories) ([interconnected.org](https://news.ycombinator.com/from?site=interconnected.org))"
    },
    {
     "bbox": [
      0,
-     334,
+     658,
      390,
      30
     ],
@@ -335,7 +609,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48776035",
-      "text": "5 hours ago"
+      "text": "6 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48776035&auth=af8c59df726c3bd01d66df87c00d064eb9f27a9e&goto=news",
@@ -343,17 +617,17 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48776035",
-      "text": "57 comments"
+      "text": "64 comments"
      }
     ],
-    "md": "138 points by [arbesman](https://news.ycombinator.com/user?id=arbesman) [5 hours ago](https://news.ycombinator.com/item?id=48776035) | [hide](https://news.ycombinator.com/hide?id=48776035&auth=af8c59df726c3bd01d66df87c00d064eb9f27a9e&goto=news) | [57 comments](https://news.ycombinator.com/item?id=48776035)"
+    "md": "155 points by [arbesman](https://news.ycombinator.com/user?id=arbesman) [6 hours ago](https://news.ycombinator.com/item?id=48776035) | [hide](https://news.ycombinator.com/hide?id=48776035&auth=af8c59df726c3bd01d66df87c00d064eb9f27a9e&goto=news) | [64 comments](https://news.ycombinator.com/item?id=48776035)"
    },
    {
     "bbox": [
      0,
-     369,
+     693,
      390,
-     37
+     39
     ],
     "bold": false,
     "fontSize": 16,
@@ -362,20 +636,20 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://github.com/afspies/ClawdMoji",
-      "text": "ClawdMojis – A Clawd for Every Occasion"
+      "href": "https://www.tryguildly.com/",
+      "text": "Show HN: Updated my landing page with Fable (retro pixel style)"
      },
      {
-      "href": "https://news.ycombinator.com/from?site=github.com/afspies",
-      "text": "github.com/afspies"
+      "href": "https://news.ycombinator.com/from?site=tryguildly.com",
+      "text": "tryguildly.com"
      }
     ],
-    "md": "6. [ClawdMojis – A Clawd for Every Occasion](https://github.com/afspies/ClawdMoji) ([github.com/afspies](https://news.ycombinator.com/from?site=github.com/afspies))"
+    "md": "11. [Show HN: Updated my landing page with Fable (retro pixel style)](https://www.tryguildly.com/) ([tryguildly.com](https://news.ycombinator.com/from?site=tryguildly.com))"
    },
    {
     "bbox": [
      0,
-     406,
+     732,
      390,
      15
     ],
@@ -386,28 +660,84 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://news.ycombinator.com/user?id=afspies",
-      "text": "afspies"
+      "href": "https://news.ycombinator.com/user?id=spiken23",
+      "text": "spiken23"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48778971",
-      "text": "1 hour ago"
+      "href": "https://news.ycombinator.com/item?id=48780222",
+      "text": "14 minutes ago"
      },
      {
-      "href": "https://news.ycombinator.com/hide?id=48778971&auth=d5730ecf4ba1f5d2e9fb3e7b0c182a4f0e66a83e&goto=news",
+      "href": "https://news.ycombinator.com/hide?id=48780222&auth=ee07a5259db7c7bce21fef169823cc581ef22904&goto=news",
       "text": "hide"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48778971",
-      "text": "1 comment"
+      "href": "https://news.ycombinator.com/item?id=48780222",
+      "text": "discuss"
      }
     ],
-    "md": "10 points by [afspies](https://news.ycombinator.com/user?id=afspies) [1 hour ago](https://news.ycombinator.com/item?id=48778971) | [hide](https://news.ycombinator.com/hide?id=48778971&auth=d5730ecf4ba1f5d2e9fb3e7b0c182a4f0e66a83e&goto=news) | [1 comment](https://news.ycombinator.com/item?id=48778971)"
+    "md": "3 points by [spiken23](https://news.ycombinator.com/user?id=spiken23) [14 minutes ago](https://news.ycombinator.com/item?id=48780222) | [hide](https://news.ycombinator.com/hide?id=48780222&auth=ee07a5259db7c7bce21fef169823cc581ef22904&goto=news) | [discuss](https://news.ycombinator.com/item?id=48780222)"
    },
    {
     "bbox": [
      0,
-     426,
+     752,
+     390,
+     56
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://github.com/kerlenton/mcpsnoop",
+      "text": "Show HN: Mcpsnoop – Wireshark for MCP (transparent proxy and live TUI)"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=github.com/kerlenton",
+      "text": "github.com/kerlenton"
+     }
+    ],
+    "md": "12. [Show HN: Mcpsnoop – Wireshark for MCP (transparent proxy and live TUI)](https://github.com/kerlenton/mcpsnoop) ([github.com/kerlenton](https://news.ycombinator.com/from?site=github.com/kerlenton))"
+   },
+   {
+    "bbox": [
+     0,
+     808,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=kerlenton",
+      "text": "kerlenton"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48777144",
+      "text": "4 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48777144&auth=c257a96502d12400d445d834eaf604d6181d8bc8&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48777144",
+      "text": "13 comments"
+     }
+    ],
+    "md": "39 points by [kerlenton](https://news.ycombinator.com/user?id=kerlenton) [4 hours ago](https://news.ycombinator.com/item?id=48777144) | [hide](https://news.ycombinator.com/hide?id=48777144&auth=c257a96502d12400d445d834eaf604d6181d8bc8&goto=news) | [13 comments](https://news.ycombinator.com/item?id=48777144)"
+   },
+   {
+    "bbox": [
+     0,
+     828,
      390,
      39
     ],
@@ -426,12 +756,12 @@
       "text": "ubuntu.com"
      }
     ],
-    "md": "7. [Hunting a 16-year-old SQLite WAL bug with TLA+](https://ubuntu.com/blog/hunting-a-16-year-old-sqlite-bug-with-tla-is-dqlite-affected) ([ubuntu.com](https://news.ycombinator.com/from?site=ubuntu.com))"
+    "md": "13. [Hunting a 16-year-old SQLite WAL bug with TLA+](https://ubuntu.com/blog/hunting-a-16-year-old-sqlite-bug-with-tla-is-dqlite-affected) ([ubuntu.com](https://news.ycombinator.com/from?site=ubuntu.com))"
    },
    {
     "bbox": [
      0,
-     465,
+     868,
      390,
      30
     ],
@@ -455,17 +785,17 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48730953",
-      "text": "8 comments"
+      "text": "9 comments"
      }
     ],
-    "md": "136 points by [peterparker204](https://news.ycombinator.com/user?id=peterparker204) [7 hours ago](https://news.ycombinator.com/item?id=48730953) | [hide](https://news.ycombinator.com/hide?id=48730953&auth=5c3cae8506963ee5c06aaf416682b16edccf6346&goto=news) | [8 comments](https://news.ycombinator.com/item?id=48730953)"
+    "md": "143 points by [peterparker204](https://news.ycombinator.com/user?id=peterparker204) [7 hours ago](https://news.ycombinator.com/item?id=48730953) | [hide](https://news.ycombinator.com/hide?id=48730953&auth=5c3cae8506963ee5c06aaf416682b16edccf6346&goto=news) | [9 comments](https://news.ycombinator.com/item?id=48730953)"
    },
    {
     "bbox": [
      0,
-     500,
+     903,
      390,
-     56
+     22
     ],
     "bold": false,
     "fontSize": 16,
@@ -474,20 +804,76 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://github.com/kerlenton/mcpsnoop",
-      "text": "Show HN: Mcpsnoop – Wireshark for MCP (transparent proxy and live TUI)"
+      "href": "https://www.economist.com/middle-east-and-africa/2026/07/02/africans-are-turning-to-starlink",
+      "text": "Africans Are Turning to Starlink"
      },
      {
-      "href": "https://news.ycombinator.com/from?site=github.com/kerlenton",
-      "text": "github.com/kerlenton"
+      "href": "https://news.ycombinator.com/from?site=economist.com",
+      "text": "economist.com"
      }
     ],
-    "md": "8. [Show HN: Mcpsnoop – Wireshark for MCP (transparent proxy and live TUI)](https://github.com/kerlenton/mcpsnoop) ([github.com/kerlenton](https://news.ycombinator.com/from?site=github.com/kerlenton))"
+    "md": "14. [Africans Are Turning to Starlink](https://www.economist.com/middle-east-and-africa/2026/07/02/africans-are-turning-to-starlink) ([economist.com](https://news.ycombinator.com/from?site=economist.com))"
    },
    {
     "bbox": [
      0,
-     556,
+     925,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=bookofjoe",
+      "text": "bookofjoe"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779977",
+      "text": "34 minutes ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48779977&auth=905472bd97215959ced40097d1bed5d0ce3d02a5&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779977",
+      "text": "1 comment"
+     }
+    ],
+    "md": "9 points by [bookofjoe](https://news.ycombinator.com/user?id=bookofjoe) [34 minutes ago](https://news.ycombinator.com/item?id=48779977) | [hide](https://news.ycombinator.com/hide?id=48779977&auth=905472bd97215959ced40097d1bed5d0ce3d02a5&goto=news) | [1 comment](https://news.ycombinator.com/item?id=48779977)"
+   },
+   {
+    "bbox": [
+     0,
+     960,
+     390,
+     37
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://github.com/colwill/ccc",
+      "text": "Show HN: ContextCodeCache in Rust"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=github.com/colwill",
+      "text": "github.com/colwill"
+     }
+    ],
+    "md": "15. [Show HN: ContextCodeCache in Rust](https://github.com/colwill/ccc) ([github.com/colwill](https://news.ycombinator.com/from?site=github.com/colwill))"
+   },
+   {
+    "bbox": [
+     0,
+     997,
      390,
      15
     ],
@@ -498,84 +884,28 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://news.ycombinator.com/user?id=kerlenton",
-      "text": "kerlenton"
+      "href": "https://news.ycombinator.com/user?id=colwont",
+      "text": "colwont"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48777144",
-      "text": "3 hours ago"
+      "href": "https://news.ycombinator.com/item?id=48779933",
+      "text": "40 minutes ago"
      },
      {
-      "href": "https://news.ycombinator.com/hide?id=48777144&auth=c257a96502d12400d445d834eaf604d6181d8bc8&goto=news",
+      "href": "https://news.ycombinator.com/hide?id=48779933&auth=c13e773ef70e5d0d0b9a396bb4a0fdfcf07df34c&goto=news",
       "text": "hide"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48777144",
-      "text": "12 comments"
+      "href": "https://news.ycombinator.com/item?id=48779933",
+      "text": "discuss"
      }
     ],
-    "md": "33 points by [kerlenton](https://news.ycombinator.com/user?id=kerlenton) [3 hours ago](https://news.ycombinator.com/item?id=48777144) | [hide](https://news.ycombinator.com/hide?id=48777144&auth=c257a96502d12400d445d834eaf604d6181d8bc8&goto=news) | [12 comments](https://news.ycombinator.com/item?id=48777144)"
+    "md": "3 points by [colwont](https://news.ycombinator.com/user?id=colwont) [40 minutes ago](https://news.ycombinator.com/item?id=48779933) | [hide](https://news.ycombinator.com/hide?id=48779933&auth=c13e773ef70e5d0d0b9a396bb4a0fdfcf07df34c&goto=news) | [discuss](https://news.ycombinator.com/item?id=48779933)"
    },
    {
     "bbox": [
      0,
-     576,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://apnews.com/article/california-farmer-nectarines-lawsuit-patent-4f7bc8ab185e8b9cbdd6d6ad4f2aabd1",
-      "text": "Farmer, marketer at odds over sales of white nectarines"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=apnews.com",
-      "text": "apnews.com"
-     }
-    ],
-    "md": "9. [Farmer, marketer at odds over sales of white nectarines](https://apnews.com/article/california-farmer-nectarines-lawsuit-patent-4f7bc8ab185e8b9cbdd6d6ad4f2aabd1) ([apnews.com](https://news.ycombinator.com/from?site=apnews.com))"
-   },
-   {
-    "bbox": [
-     0,
-     616,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=djoldman",
-      "text": "djoldman"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48778031",
-      "text": "2 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48778031&auth=8107f85f19911cac2b9123bfc60379d682f0c172&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48778031",
-      "text": "86 comments"
-     }
-    ],
-    "md": "94 points by [djoldman](https://news.ycombinator.com/user?id=djoldman) [2 hours ago](https://news.ycombinator.com/item?id=48778031) | [hide](https://news.ycombinator.com/hide?id=48778031&auth=8107f85f19911cac2b9123bfc60379d682f0c172&goto=news) | [86 comments](https://news.ycombinator.com/item?id=48778031)"
-   },
-   {
-    "bbox": [
-     0,
-     636,
+     1017,
      390,
      39
     ],
@@ -594,12 +924,12 @@
       "text": "ubicloud.com"
      }
     ],
-    "md": "10. [PostgreSQL and the OOM killer: Why we use strict memory overcommit](https://www.ubicloud.com/blog/postgresql-and-the-oom-killer-why-we-use-strict-memory-overcommit) ([ubicloud.com](https://news.ycombinator.com/from?site=ubicloud.com))"
+    "md": "16. [PostgreSQL and the OOM killer: Why we use strict memory overcommit](https://www.ubicloud.com/blog/postgresql-and-the-oom-killer-why-we-use-strict-memory-overcommit) ([ubicloud.com](https://news.ycombinator.com/from?site=ubicloud.com))"
    },
    {
     "bbox": [
      0,
-     675,
+     1056,
      390,
      30
     ],
@@ -615,7 +945,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48774509",
-      "text": "7 hours ago"
+      "text": "8 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48774509&auth=ccb91d193be13a3e4a78674b63c66dcc31f520cd&goto=news",
@@ -623,127 +953,15 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48774509",
-      "text": "64 comments"
+      "text": "71 comments"
      }
     ],
-    "md": "132 points by [furkansahin](https://news.ycombinator.com/user?id=furkansahin) [7 hours ago](https://news.ycombinator.com/item?id=48774509) | [hide](https://news.ycombinator.com/hide?id=48774509&auth=ccb91d193be13a3e4a78674b63c66dcc31f520cd&goto=news) | [64 comments](https://news.ycombinator.com/item?id=48774509)"
+    "md": "136 points by [furkansahin](https://news.ycombinator.com/user?id=furkansahin) [8 hours ago](https://news.ycombinator.com/item?id=48774509) | [hide](https://news.ycombinator.com/hide?id=48774509&auth=ccb91d193be13a3e4a78674b63c66dcc31f520cd&goto=news) | [71 comments](https://news.ycombinator.com/item?id=48774509)"
    },
    {
     "bbox": [
      0,
-     710,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://www.science.org/content/article/instead-banning-ai-i-made-classroom-contract-my-students",
-      "text": "Instead of banning AI, I made a classroom contract with my students"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=science.org",
-      "text": "science.org"
-     }
-    ],
-    "md": "11. [Instead of banning AI, I made a classroom contract with my students](https://www.science.org/content/article/instead-banning-ai-i-made-classroom-contract-my-students) ([science.org](https://news.ycombinator.com/from?site=science.org))"
-   },
-   {
-    "bbox": [
-     0,
-     749,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=digital55",
-      "text": "digital55"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775499",
-      "text": "5 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48775499&auth=72076431b9c3194ed35367bc53ece2de5ffe2ef3&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775499",
-      "text": "42 comments"
-     }
-    ],
-    "md": "55 points by [digital55](https://news.ycombinator.com/user?id=digital55) [5 hours ago](https://news.ycombinator.com/item?id=48775499) | [hide](https://news.ycombinator.com/hide?id=48775499&auth=72076431b9c3194ed35367bc53ece2de5ffe2ef3&goto=news) | [42 comments](https://news.ycombinator.com/item?id=48775499)"
-   },
-   {
-    "bbox": [
-     0,
-     769,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://ambrook.com/offrange/perspective/how-we-lost-our-oats",
-      "text": "My dad helped build North America's oat supply chain: Can it be remade?"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=ambrook.com",
-      "text": "ambrook.com"
-     }
-    ],
-    "md": "12. [My dad helped build North America's oat supply chain: Can it be remade?](https://ambrook.com/offrange/perspective/how-we-lost-our-oats) ([ambrook.com](https://news.ycombinator.com/from?site=ambrook.com))"
-   },
-   {
-    "bbox": [
-     0,
-     809,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=surprisetalk",
-      "text": "surprisetalk"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48732870",
-      "text": "5 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48732870&auth=0426f6bf3e5a77936db4a23962ec4ac779bc1e39&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48732870",
-      "text": "31 comments"
-     }
-    ],
-    "md": "69 points by [surprisetalk](https://news.ycombinator.com/user?id=surprisetalk) [5 hours ago](https://news.ycombinator.com/item?id=48732870) | [hide](https://news.ycombinator.com/hide?id=48732870&auth=0426f6bf3e5a77936db4a23962ec4ac779bc1e39&goto=news) | [31 comments](https://news.ycombinator.com/item?id=48732870)"
-   },
-   {
-    "bbox": [
-     0,
-     844,
+     1091,
      390,
      39
     ],
@@ -762,12 +980,12 @@
       "text": "wordgard.net"
      }
     ],
-    "md": "13. [Wordgard: In-browser rich-text editor from the creator of ProseMirror](https://wordgard.net/) ([wordgard.net](https://news.ycombinator.com/from?site=wordgard.net))"
+    "md": "17. [Wordgard: In-browser rich-text editor from the creator of ProseMirror](https://wordgard.net/) ([wordgard.net](https://news.ycombinator.com/from?site=wordgard.net))"
    },
    {
     "bbox": [
      0,
-     883,
+     1131,
      390,
      15
     ],
@@ -791,15 +1009,71 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48772573",
-      "text": "82 comments"
+      "text": "83 comments"
      }
     ],
-    "md": "223 points by [indy](https://news.ycombinator.com/user?id=indy) [12 hours ago](https://news.ycombinator.com/item?id=48772573) | [hide](https://news.ycombinator.com/hide?id=48772573&auth=9756523d77604209aacb7b76e1ddd4f848101e9b&goto=news) | [82 comments](https://news.ycombinator.com/item?id=48772573)"
+    "md": "231 points by [indy](https://news.ycombinator.com/user?id=indy) [12 hours ago](https://news.ycombinator.com/item?id=48772573) | [hide](https://news.ycombinator.com/hide?id=48772573&auth=9756523d77604209aacb7b76e1ddd4f848101e9b&goto=news) | [83 comments](https://news.ycombinator.com/item?id=48772573)"
    },
    {
     "bbox": [
      0,
-     903,
+     1151,
+     390,
+     39
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://ambrook.com/offrange/perspective/how-we-lost-our-oats",
+      "text": "My dad helped build North America's oat supply chain: Can it be remade?"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=ambrook.com",
+      "text": "ambrook.com"
+     }
+    ],
+    "md": "18. [My dad helped build North America's oat supply chain: Can it be remade?](https://ambrook.com/offrange/perspective/how-we-lost-our-oats) ([ambrook.com](https://news.ycombinator.com/from?site=ambrook.com))"
+   },
+   {
+    "bbox": [
+     0,
+     1190,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=surprisetalk",
+      "text": "surprisetalk"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48732870",
+      "text": "6 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48732870&auth=0426f6bf3e5a77936db4a23962ec4ac779bc1e39&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48732870",
+      "text": "38 comments"
+     }
+    ],
+    "md": "74 points by [surprisetalk](https://news.ycombinator.com/user?id=surprisetalk) [6 hours ago](https://news.ycombinator.com/item?id=48732870) | [hide](https://news.ycombinator.com/hide?id=48732870&auth=0426f6bf3e5a77936db4a23962ec4ac779bc1e39&goto=news) | [38 comments](https://news.ycombinator.com/item?id=48732870)"
+   },
+   {
+    "bbox": [
+     0,
+     1225,
      390,
      56
     ],
@@ -818,12 +1092,12 @@
       "text": "gamingonlinux.com"
      }
     ],
-    "md": "14. [Valve open-source the Steam Machine e-ink screen so you can make your own](https://www.gamingonlinux.com/2026/07/valve-open-source-the-steam-machine-e-ink-screen-so-you-can-make-your-own/) ([gamingonlinux.com](https://news.ycombinator.com/from?site=gamingonlinux.com))"
+    "md": "19. [Valve open-source the Steam Machine e-ink screen so you can make your own](https://www.gamingonlinux.com/2026/07/valve-open-source-the-steam-machine-e-ink-screen-so-you-can-make-your-own/) ([gamingonlinux.com](https://news.ycombinator.com/from?site=gamingonlinux.com))"
    },
    {
     "bbox": [
      0,
-     959,
+     1281,
      390,
      15
     ],
@@ -839,7 +1113,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48774518",
-      "text": "7 hours ago"
+      "text": "8 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48774518&auth=90709c2947f13ad42bfc407a44f8dde3b2b8474e&goto=news",
@@ -847,17 +1121,17 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48774518",
-      "text": "82 comments"
+      "text": "88 comments"
      }
     ],
-    "md": "468 points by [ahlCVA](https://news.ycombinator.com/user?id=ahlCVA) [7 hours ago](https://news.ycombinator.com/item?id=48774518) | [hide](https://news.ycombinator.com/hide?id=48774518&auth=90709c2947f13ad42bfc407a44f8dde3b2b8474e&goto=news) | [82 comments](https://news.ycombinator.com/item?id=48774518)"
+    "md": "490 points by [ahlCVA](https://news.ycombinator.com/user?id=ahlCVA) [8 hours ago](https://news.ycombinator.com/item?id=48774518) | [hide](https://news.ycombinator.com/hide?id=48774518&auth=90709c2947f13ad42bfc407a44f8dde3b2b8474e&goto=news) | [88 comments](https://news.ycombinator.com/item?id=48774518)"
    },
    {
     "bbox": [
      0,
-     979,
+     1301,
      390,
-     22
+     37
     ],
     "bold": false,
     "fontSize": 16,
@@ -866,22 +1140,22 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://weli.dev/blog/half-baked-product/",
-      "text": "Half-Baked Product"
+      "href": "https://lyra.horse/blog/2026/06/reddit-spam-internals/",
+      "text": "A peek into Reddit's anti-spam internals"
      },
      {
-      "href": "https://news.ycombinator.com/from?site=weli.dev",
-      "text": "weli.dev"
+      "href": "https://news.ycombinator.com/from?site=lyra.horse",
+      "text": "lyra.horse"
      }
     ],
-    "md": "15. [Half-Baked Product](https://weli.dev/blog/half-baked-product/) ([weli.dev](https://news.ycombinator.com/from?site=weli.dev))"
+    "md": "20. [A peek into Reddit's anti-spam internals](https://lyra.horse/blog/2026/06/reddit-spam-internals/) ([lyra.horse](https://news.ycombinator.com/from?site=lyra.horse))"
    },
    {
     "bbox": [
      0,
-     1001,
+     1339,
      390,
-     15
+     30
     ],
     "bold": false,
     "fontSize": 16,
@@ -890,28 +1164,28 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://news.ycombinator.com/user?id=weli",
-      "text": "weli"
+      "href": "https://news.ycombinator.com/user?id=OuterVale",
+      "text": "OuterVale"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48772388",
-      "text": "12 hours ago"
+      "href": "https://news.ycombinator.com/item?id=48699010",
+      "text": "9 hours ago"
      },
      {
-      "href": "https://news.ycombinator.com/hide?id=48772388&auth=2b8f9bfa2fd2f7b4888115e815d18adbbd187f3b&goto=news",
+      "href": "https://news.ycombinator.com/hide?id=48699010&auth=4f8f8c10e29c9e293d824c29f9588de12c57cac4&goto=news",
       "text": "hide"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48772388",
-      "text": "348 comments"
+      "href": "https://news.ycombinator.com/item?id=48699010",
+      "text": "40 comments"
      }
     ],
-    "md": "1140 points by [weli](https://news.ycombinator.com/user?id=weli) [12 hours ago](https://news.ycombinator.com/item?id=48772388) | [hide](https://news.ycombinator.com/hide?id=48772388&auth=2b8f9bfa2fd2f7b4888115e815d18adbbd187f3b&goto=news) | [348 comments](https://news.ycombinator.com/item?id=48772388)"
+    "md": "135 points by [OuterVale](https://news.ycombinator.com/user?id=OuterVale) [9 hours ago](https://news.ycombinator.com/item?id=48699010) | [hide](https://news.ycombinator.com/hide?id=48699010&auth=4f8f8c10e29c9e293d824c29f9588de12c57cac4&goto=news) | [40 comments](https://news.ycombinator.com/item?id=48699010)"
    },
    {
     "bbox": [
      0,
-     1021,
+     1374,
      390,
      56
     ],
@@ -930,12 +1204,12 @@
       "text": "github.com/teamchong"
      }
     ],
-    "md": "16. [60% Fable cost cut by converting code to images and having the model OCR it](https://github.com/teamchong/pxpipe) ([github.com/teamchong](https://news.ycombinator.com/from?site=github.com/teamchong))"
+    "md": "21. [60% Fable cost cut by converting code to images and having the model OCR it](https://github.com/teamchong/pxpipe) ([github.com/teamchong](https://news.ycombinator.com/from?site=github.com/teamchong))"
    },
    {
     "bbox": [
      0,
-     1077,
+     1430,
      390,
      30
     ],
@@ -959,15 +1233,183 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48776464",
-      "text": "54 comments"
+      "text": "68 comments"
      }
     ],
-    "md": "151 points by [dimitropoulos](https://news.ycombinator.com/user?id=dimitropoulos) [5 hours ago](https://news.ycombinator.com/item?id=48776464) | [hide](https://news.ycombinator.com/hide?id=48776464&auth=e68b65aa5b5d2a46b0b4d4e6c508e77805068230&goto=news) | [54 comments](https://news.ycombinator.com/item?id=48776464)"
+    "md": "178 points by [dimitropoulos](https://news.ycombinator.com/user?id=dimitropoulos) [5 hours ago](https://news.ycombinator.com/item?id=48776464) | [hide](https://news.ycombinator.com/hide?id=48776464&auth=e68b65aa5b5d2a46b0b4d4e6c508e77805068230&goto=news) | [68 comments](https://news.ycombinator.com/item?id=48776464)"
    },
    {
     "bbox": [
      0,
-     1112,
+     1465,
+     390,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://math.ucr.edu/home/baez/act_course/index.html",
+      "text": "Applied Category Theory Course (2018)"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=ucr.edu",
+      "text": "ucr.edu"
+     }
+    ],
+    "md": "22. [Applied Category Theory Course (2018)](https://math.ucr.edu/home/baez/act_course/index.html) ([ucr.edu](https://news.ycombinator.com/from?site=ucr.edu))"
+   },
+   {
+    "bbox": [
+     0,
+     1487,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=measurablefunc",
+      "text": "measurablefunc"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779723",
+      "text": "1 hour ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48779723&auth=63412243a0ed4e66e7ddc466368a952bd975615d&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48779723",
+      "text": "discuss"
+     }
+    ],
+    "md": "3 points by [measurablefunc](https://news.ycombinator.com/user?id=measurablefunc) [1 hour ago](https://news.ycombinator.com/item?id=48779723) | [hide](https://news.ycombinator.com/hide?id=48779723&auth=63412243a0ed4e66e7ddc466368a952bd975615d&goto=news) | [discuss](https://news.ycombinator.com/item?id=48779723)"
+   },
+   {
+    "bbox": [
+     0,
+     1507,
+     390,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://weli.dev/blog/half-baked-product/",
+      "text": "Half-Baked Product"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=weli.dev",
+      "text": "weli.dev"
+     }
+    ],
+    "md": "23. [Half-Baked Product](https://weli.dev/blog/half-baked-product/) ([weli.dev](https://news.ycombinator.com/from?site=weli.dev))"
+   },
+   {
+    "bbox": [
+     0,
+     1529,
+     390,
+     15
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=weli",
+      "text": "weli"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48772388",
+      "text": "13 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48772388&auth=2b8f9bfa2fd2f7b4888115e815d18adbbd187f3b&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48772388",
+      "text": "355 comments"
+     }
+    ],
+    "md": "1158 points by [weli](https://news.ycombinator.com/user?id=weli) [13 hours ago](https://news.ycombinator.com/item?id=48772388) | [hide](https://news.ycombinator.com/hide?id=48772388&auth=2b8f9bfa2fd2f7b4888115e815d18adbbd187f3b&goto=news) | [355 comments](https://news.ycombinator.com/item?id=48772388)"
+   },
+   {
+    "bbox": [
+     0,
+     1549,
+     390,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://xkcd.com/3266/large/",
+      "text": "Holes"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=xkcd.com",
+      "text": "xkcd.com"
+     }
+    ],
+    "md": "24. [Holes](https://xkcd.com/3266/large/) ([xkcd.com](https://news.ycombinator.com/from?site=xkcd.com))"
+   },
+   {
+    "bbox": [
+     0,
+     1571,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=caminanteblanco",
+      "text": "caminanteblanco"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48777832",
+      "text": "3 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48777832&auth=cfef58270ac3b1c2d58ecf14a3c07af4b03d00f1&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48777832",
+      "text": "22 comments"
+     }
+    ],
+    "md": "118 points by [caminanteblanco](https://news.ycombinator.com/user?id=caminanteblanco) [3 hours ago](https://news.ycombinator.com/item?id=48777832) | [hide](https://news.ycombinator.com/hide?id=48777832&auth=cfef58270ac3b1c2d58ecf14a3c07af4b03d00f1&goto=news) | [22 comments](https://news.ycombinator.com/item?id=48777832)"
+   },
+   {
+    "bbox": [
+     0,
+     1606,
      390,
      37
     ],
@@ -982,12 +1424,12 @@
       "text": "Ask HN: Is anyone experimenting with different ways of using LLMs for coding?"
      }
     ],
-    "md": "17. [Ask HN: Is anyone experimenting with different ways of using LLMs for coding?](https://news.ycombinator.com/item?id=48771515)"
+    "md": "25. [Ask HN: Is anyone experimenting with different ways of using LLMs for coding?](https://news.ycombinator.com/item?id=48771515)"
    },
    {
     "bbox": [
      0,
-     1149,
+     1643,
      390,
      30
     ],
@@ -1003,7 +1445,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48771515",
-      "text": "10 hours ago"
+      "text": "11 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48771515&auth=3e9fd1c582d8569fe12f5faa66186a3d6c07b70c&goto=news",
@@ -1011,71 +1453,15 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48771515",
-      "text": "92 comments"
+      "text": "113 comments"
      }
     ],
-    "md": "75 points by [yehiaabdelm](https://news.ycombinator.com/user?id=yehiaabdelm) [10 hours ago](https://news.ycombinator.com/item?id=48771515) | [hide](https://news.ycombinator.com/hide?id=48771515&auth=3e9fd1c582d8569fe12f5faa66186a3d6c07b70c&goto=news) | [92 comments](https://news.ycombinator.com/item?id=48771515)"
+    "md": "87 points by [yehiaabdelm](https://news.ycombinator.com/user?id=yehiaabdelm) [11 hours ago](https://news.ycombinator.com/item?id=48771515) | [hide](https://news.ycombinator.com/hide?id=48771515&auth=3e9fd1c582d8569fe12f5faa66186a3d6c07b70c&goto=news) | [113 comments](https://news.ycombinator.com/item?id=48771515)"
    },
    {
     "bbox": [
      0,
-     1184,
-     390,
-     37
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://dannorth.net/blog/best-simple-system-for-now/",
-      "text": "Best Simple System for Now (2025)"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=dannorth.net",
-      "text": "dannorth.net"
-     }
-    ],
-    "md": "18. [Best Simple System for Now (2025)](https://dannorth.net/blog/best-simple-system-for-now/) ([dannorth.net](https://news.ycombinator.com/from?site=dannorth.net))"
-   },
-   {
-    "bbox": [
-     0,
-     1222,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=daan-k",
-      "text": "daan-k"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775949",
-      "text": "5 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48775949&auth=c7a9decb37267f1aa8ec5432429d3982ded0e1e9&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775949",
-      "text": "13 comments"
-     }
-    ],
-    "md": "62 points by [daan-k](https://news.ycombinator.com/user?id=daan-k) [5 hours ago](https://news.ycombinator.com/item?id=48775949) | [hide](https://news.ycombinator.com/hide?id=48775949&auth=c7a9decb37267f1aa8ec5432429d3982ded0e1e9&goto=news) | [13 comments](https://news.ycombinator.com/item?id=48775949)"
-   },
-   {
-    "bbox": [
-     0,
-     1242,
+     1678,
      390,
      39
     ],
@@ -1094,12 +1480,12 @@
       "text": "construction-physics.com"
      }
     ],
-    "md": "19. [The Fall and Rise of Screwworm](https://www.construction-physics.com/p/the-fall-and-rise-of-screwworm) ([construction-physics.com](https://news.ycombinator.com/from?site=construction-physics.com))"
+    "md": "26. [The Fall and Rise of Screwworm](https://www.construction-physics.com/p/the-fall-and-rise-of-screwworm) ([construction-physics.com](https://news.ycombinator.com/from?site=construction-physics.com))"
    },
    {
     "bbox": [
      0,
-     1281,
+     1717,
      390,
      30
     ],
@@ -1126,14 +1512,14 @@
       "text": "44 comments"
      }
     ],
-    "md": "113 points by [crescit\\_eundo](https://news.ycombinator.com/user?id=crescit_eundo) [7 hours ago](https://news.ycombinator.com/item?id=48774492) | [hide](https://news.ycombinator.com/hide?id=48774492&auth=d1dd68eec446133e5090f811cca307580d324413&goto=news) | [44 comments](https://news.ycombinator.com/item?id=48774492)"
+    "md": "122 points by [crescit\\_eundo](https://news.ycombinator.com/user?id=crescit_eundo) [7 hours ago](https://news.ycombinator.com/item?id=48774492) | [hide](https://news.ycombinator.com/hide?id=48774492&auth=d1dd68eec446133e5090f811cca307580d324413&goto=news) | [44 comments](https://news.ycombinator.com/item?id=48774492)"
    },
    {
     "bbox": [
      0,
-     1316,
+     1752,
      390,
-     22
+     37
     ],
     "bold": false,
     "fontSize": 16,
@@ -1142,22 +1528,22 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://xkcd.com/3266/large/",
-      "text": "Holes"
+      "href": "https://dannorth.net/blog/best-simple-system-for-now/",
+      "text": "Best Simple System for Now (2025)"
      },
      {
-      "href": "https://news.ycombinator.com/from?site=xkcd.com",
-      "text": "xkcd.com"
+      "href": "https://news.ycombinator.com/from?site=dannorth.net",
+      "text": "dannorth.net"
      }
     ],
-    "md": "20. [Holes](https://xkcd.com/3266/large/) ([xkcd.com](https://news.ycombinator.com/from?site=xkcd.com))"
+    "md": "27. [Best Simple System for Now (2025)](https://dannorth.net/blog/best-simple-system-for-now/) ([dannorth.net](https://news.ycombinator.com/from?site=dannorth.net))"
    },
    {
     "bbox": [
      0,
-     1338,
+     1790,
      390,
-     30
+     15
     ],
     "bold": false,
     "fontSize": 16,
@@ -1166,28 +1552,28 @@
     "landmark": "body",
     "links": [
      {
-      "href": "https://news.ycombinator.com/user?id=caminanteblanco",
-      "text": "caminanteblanco"
+      "href": "https://news.ycombinator.com/user?id=daan-k",
+      "text": "daan-k"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48777832",
-      "text": "2 hours ago"
+      "href": "https://news.ycombinator.com/item?id=48775949",
+      "text": "6 hours ago"
      },
      {
-      "href": "https://news.ycombinator.com/hide?id=48777832&auth=cfef58270ac3b1c2d58ecf14a3c07af4b03d00f1&goto=news",
+      "href": "https://news.ycombinator.com/hide?id=48775949&auth=c7a9decb37267f1aa8ec5432429d3982ded0e1e9&goto=news",
       "text": "hide"
      },
      {
-      "href": "https://news.ycombinator.com/item?id=48777832",
-      "text": "11 comments"
+      "href": "https://news.ycombinator.com/item?id=48775949",
+      "text": "14 comments"
      }
     ],
-    "md": "77 points by [caminanteblanco](https://news.ycombinator.com/user?id=caminanteblanco) [2 hours ago](https://news.ycombinator.com/item?id=48777832) | [hide](https://news.ycombinator.com/hide?id=48777832&auth=cfef58270ac3b1c2d58ecf14a3c07af4b03d00f1&goto=news) | [11 comments](https://news.ycombinator.com/item?id=48777832)"
+    "md": "66 points by [daan-k](https://news.ycombinator.com/user?id=daan-k) [6 hours ago](https://news.ycombinator.com/item?id=48775949) | [hide](https://news.ycombinator.com/hide?id=48775949&auth=c7a9decb37267f1aa8ec5432429d3982ded0e1e9&goto=news) | [14 comments](https://news.ycombinator.com/item?id=48775949)"
    },
    {
     "bbox": [
      0,
-     1373,
+     1810,
      390,
      37
     ],
@@ -1206,12 +1592,12 @@
       "text": "lwn.net"
      }
     ],
-    "md": "21. [Flexible metaprogramming with Rhombus](https://lwn.net/SubscriberLink/1079001/67840550991151ed/) ([lwn.net](https://news.ycombinator.com/from?site=lwn.net))"
+    "md": "28. [Flexible metaprogramming with Rhombus](https://lwn.net/SubscriberLink/1079001/67840550991151ed/) ([lwn.net](https://news.ycombinator.com/from?site=lwn.net))"
    },
    {
     "bbox": [
      0,
-     1411,
+     1847,
      390,
      30
     ],
@@ -1227,7 +1613,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48763291",
-      "text": "5 hours ago"
+      "text": "6 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48763291&auth=ab5bd5fe95427e9e3bc1a6b7d012061e78348d8d&goto=news",
@@ -1235,15 +1621,71 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48763291",
-      "text": "1 comment"
+      "text": "2 comments"
      }
     ],
-    "md": "78 points by [spdegabrielle](https://news.ycombinator.com/user?id=spdegabrielle) [5 hours ago](https://news.ycombinator.com/item?id=48763291) | [hide](https://news.ycombinator.com/hide?id=48763291&auth=ab5bd5fe95427e9e3bc1a6b7d012061e78348d8d&goto=news) | [1 comment](https://news.ycombinator.com/item?id=48763291)"
+    "md": "98 points by [spdegabrielle](https://news.ycombinator.com/user?id=spdegabrielle) [6 hours ago](https://news.ycombinator.com/item?id=48763291) | [hide](https://news.ycombinator.com/hide?id=48763291&auth=ab5bd5fe95427e9e3bc1a6b7d012061e78348d8d&goto=news) | [2 comments](https://news.ycombinator.com/item?id=48763291)"
    },
    {
     "bbox": [
      0,
-     1446,
+     1882,
+     390,
+     39
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://apnews.com/article/california-farmer-nectarines-lawsuit-patent-4f7bc8ab185e8b9cbdd6d6ad4f2aabd1",
+      "text": "Farmer, marketer at odds over sales of white nectarines"
+     },
+     {
+      "href": "https://news.ycombinator.com/from?site=apnews.com",
+      "text": "apnews.com"
+     }
+    ],
+    "md": "29. [Farmer, marketer at odds over sales of white nectarines](https://apnews.com/article/california-farmer-nectarines-lawsuit-patent-4f7bc8ab185e8b9cbdd6d6ad4f2aabd1) ([apnews.com](https://news.ycombinator.com/from?site=apnews.com))"
+   },
+   {
+    "bbox": [
+     0,
+     1921,
+     390,
+     30
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "row",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.ycombinator.com/user?id=djoldman",
+      "text": "djoldman"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48778031",
+      "text": "3 hours ago"
+     },
+     {
+      "href": "https://news.ycombinator.com/hide?id=48778031&auth=8107f85f19911cac2b9123bfc60379d682f0c172&goto=news",
+      "text": "hide"
+     },
+     {
+      "href": "https://news.ycombinator.com/item?id=48778031",
+      "text": "101 comments"
+     }
+    ],
+    "md": "99 points by [djoldman](https://news.ycombinator.com/user?id=djoldman) [3 hours ago](https://news.ycombinator.com/item?id=48778031) | [hide](https://news.ycombinator.com/hide?id=48778031&auth=8107f85f19911cac2b9123bfc60379d682f0c172&goto=news) | [101 comments](https://news.ycombinator.com/item?id=48778031)"
+   },
+   {
+    "bbox": [
+     0,
+     1956,
      390,
      39
     ],
@@ -1262,12 +1704,12 @@
       "text": "fide.com"
      }
     ],
-    "md": "22. [International chess federation sanctions Kramnik](https://www.fide.com/fide-ethics-disciplinary-commission-issues-a-decision-in-case-involving-gm-vladimir-kramnik/) ([fide.com](https://news.ycombinator.com/from?site=fide.com))"
+    "md": "30. [International chess federation sanctions Kramnik](https://www.fide.com/fide-ethics-disciplinary-commission-issues-a-decision-in-case-involving-gm-vladimir-kramnik/) ([fide.com](https://news.ycombinator.com/from?site=fide.com))"
    },
    {
     "bbox": [
      0,
-     1485,
+     1996,
      390,
      30
     ],
@@ -1283,7 +1725,7 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48777266",
-      "text": "3 hours ago"
+      "text": "4 hours ago"
      },
      {
       "href": "https://news.ycombinator.com/hide?id=48777266&auth=f8f4b50b401f8528a7707e73f4e83471a5831213&goto=news",
@@ -1291,463 +1733,15 @@
      },
      {
       "href": "https://news.ycombinator.com/item?id=48777266",
-      "text": "37 comments"
+      "text": "43 comments"
      }
     ],
-    "md": "83 points by [DarkContinent](https://news.ycombinator.com/user?id=DarkContinent) [3 hours ago](https://news.ycombinator.com/item?id=48777266) | [hide](https://news.ycombinator.com/hide?id=48777266&auth=f8f4b50b401f8528a7707e73f4e83471a5831213&goto=news) | [37 comments](https://news.ycombinator.com/item?id=48777266)"
+    "md": "90 points by [DarkContinent](https://news.ycombinator.com/user?id=DarkContinent) [4 hours ago](https://news.ycombinator.com/item?id=48777266) | [hide](https://news.ycombinator.com/hide?id=48777266&auth=f8f4b50b401f8528a7707e73f4e83471a5831213&goto=news) | [43 comments](https://news.ycombinator.com/item?id=48777266)"
    },
    {
     "bbox": [
      0,
-     1520,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://www.derekthompson.org/p/america-1926-an-absurdly-deep-dive",
-      "text": "America, 1926: A forgotten 100-year-old report"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=derekthompson.org",
-      "text": "derekthompson.org"
-     }
-    ],
-    "md": "23. [America, 1926: A forgotten 100-year-old report](https://www.derekthompson.org/p/america-1926-an-absurdly-deep-dive) ([derekthompson.org](https://news.ycombinator.com/from?site=derekthompson.org))"
-   },
-   {
-    "bbox": [
-     0,
-     1559,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=momentmaker",
-      "text": "momentmaker"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775979",
-      "text": "5 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48775979&auth=13c3ba1f25fa3d1c9fb8eba784ed49979cae312e&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48775979",
-      "text": "144 comments"
-     }
-    ],
-    "md": "109 points by [momentmaker](https://news.ycombinator.com/user?id=momentmaker) [5 hours ago](https://news.ycombinator.com/item?id=48775979) | [hide](https://news.ycombinator.com/hide?id=48775979&auth=13c3ba1f25fa3d1c9fb8eba784ed49979cae312e&goto=news) | [144 comments](https://news.ycombinator.com/item?id=48775979)"
-   },
-   {
-    "bbox": [
-     0,
-     1594,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://www.filfre.net/2026/07/the-life-and-times-of-maxis-part-1-simeverything/",
-      "text": "The Life and Times of Maxis, Part 1: SimEverything"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=filfre.net",
-      "text": "filfre.net"
-     }
-    ],
-    "md": "24. [The Life and Times of Maxis, Part 1: SimEverything](https://www.filfre.net/2026/07/the-life-and-times-of-maxis-part-1-simeverything/) ([filfre.net](https://news.ycombinator.com/from?site=filfre.net))"
-   },
-   {
-    "bbox": [
-     0,
-     1634,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=doppp",
-      "text": "doppp"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48776525",
-      "text": "4 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48776525&auth=65a058f14d277ba393582f8126f832fcaf3d7fca&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48776525",
-      "text": "5 comments"
-     }
-    ],
-    "md": "87 points by [doppp](https://news.ycombinator.com/user?id=doppp) [4 hours ago](https://news.ycombinator.com/item?id=48776525) | [hide](https://news.ycombinator.com/hide?id=48776525&auth=65a058f14d277ba393582f8126f832fcaf3d7fca&goto=news) | [5 comments](https://news.ycombinator.com/item?id=48776525)"
-   },
-   {
-    "bbox": [
-     0,
-     1654,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://www.forbes.com/sites/suzannerowankelleher/2026/06/30/faa-supersonic-flight-no-boom/",
-      "text": "Supersonic flight returning to US after half-century ban"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=forbes.com/sites/suzannerowankelleher",
-      "text": "forbes.com/sites/suzannerowankelleher"
-     }
-    ],
-    "md": "25. [Supersonic flight returning to US after half-century ban](https://www.forbes.com/sites/suzannerowankelleher/2026/06/30/faa-supersonic-flight-no-boom/) ([forbes.com/sites/suzannerowankelleher](https://news.ycombinator.com/from?site=forbes.com/sites/suzannerowankelleher))"
-   },
-   {
-    "bbox": [
-     0,
-     1693,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=lobbly",
-      "text": "lobbly"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48741654",
-      "text": "6 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48741654&auth=a317e158c74e68d3b2ee2d914ba1758d68fd78a8&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48741654",
-      "text": "152 comments"
-     }
-    ],
-    "md": "131 points by [lobbly](https://news.ycombinator.com/user?id=lobbly) [6 hours ago](https://news.ycombinator.com/item?id=48741654) | [hide](https://news.ycombinator.com/hide?id=48741654&auth=a317e158c74e68d3b2ee2d914ba1758d68fd78a8&goto=news) | [152 comments](https://news.ycombinator.com/item?id=48741654)"
-   },
-   {
-    "bbox": [
-     0,
-     1713,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://github.com/clidey/deptrust",
-      "text": "Show HN: CLI that helps AI agents avoid vulnerable dependencies"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=github.com/clidey",
-      "text": "github.com/clidey"
-     }
-    ],
-    "md": "26. [Show HN: CLI that helps AI agents avoid vulnerable dependencies](https://github.com/clidey/deptrust) ([github.com/clidey](https://news.ycombinator.com/from?site=github.com/clidey))"
-   },
-   {
-    "bbox": [
-     0,
-     1752,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=modelorona",
-      "text": "modelorona"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48752948",
-      "text": "4 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48752948&auth=d89cad146398b2b89566c1587c1435403b03fef6&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48752948",
-      "text": "4 comments"
-     }
-    ],
-    "md": "14 points by [modelorona](https://news.ycombinator.com/user?id=modelorona) [4 hours ago](https://news.ycombinator.com/item?id=48752948) | [hide](https://news.ycombinator.com/hide?id=48752948&auth=d89cad146398b2b89566c1587c1435403b03fef6&goto=news) | [4 comments](https://news.ycombinator.com/item?id=48752948)"
-   },
-   {
-    "bbox": [
-     0,
-     1787,
-     390,
-     37
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://webkit.org/blog/18136/introducing-the-safari-mcp-server-for-web-developers/",
-      "text": "The Safari MCP server for web developers"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=webkit.org",
-      "text": "webkit.org"
-     }
-    ],
-    "md": "27. [The Safari MCP server for web developers](https://webkit.org/blog/18136/introducing-the-safari-mcp-server-for-web-developers/) ([webkit.org](https://news.ycombinator.com/from?site=webkit.org))"
-   },
-   {
-    "bbox": [
-     0,
-     1825,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=coloneltcb",
-      "text": "coloneltcb"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48769639",
-      "text": "19 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48769639&auth=4ee95c4a4ba7fb56cab9a0470b742355621bbd99&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48769639",
-      "text": "68 comments"
-     }
-    ],
-    "md": "247 points by [coloneltcb](https://news.ycombinator.com/user?id=coloneltcb) [19 hours ago](https://news.ycombinator.com/item?id=48769639) | [hide](https://news.ycombinator.com/hide?id=48769639&auth=4ee95c4a4ba7fb56cab9a0470b742355621bbd99&goto=news) | [68 comments](https://news.ycombinator.com/item?id=48769639)"
-   },
-   {
-    "bbox": [
-     0,
-     1860,
-     390,
-     56
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://inpreparation.substack.com/p/opinion-i-was-not-allowed-to-type",
-      "text": "I Wasn't Allowed Prompting ChatGPT During My Chalk Talk: This Is Discrimination (2025)"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=inpreparation.substack.com",
-      "text": "inpreparation.substack.com"
-     }
-    ],
-    "md": "28. [I Wasn't Allowed Prompting ChatGPT During My Chalk Talk: This Is Discrimination (2025)](https://inpreparation.substack.com/p/opinion-i-was-not-allowed-to-type) ([inpreparation.substack.com](https://news.ycombinator.com/from?site=inpreparation.substack.com))"
-   },
-   {
-    "bbox": [
-     0,
-     1916,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=theanonymousone",
-      "text": "theanonymousone"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48777728",
-      "text": "3 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48777728&auth=ab101adedbe7179b61c4ae4b7c1dbed9d750caf1&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48777728",
-      "text": "65 comments"
-     }
-    ],
-    "md": "111 points by [theanonymousone](https://news.ycombinator.com/user?id=theanonymousone) [3 hours ago](https://news.ycombinator.com/item?id=48777728) | [hide](https://news.ycombinator.com/hide?id=48777728&auth=ab101adedbe7179b61c4ae4b7c1dbed9d750caf1&goto=news) | [65 comments](https://news.ycombinator.com/item?id=48777728)"
-   },
-   {
-    "bbox": [
-     0,
-     1951,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://github.com/flythenimbus/bramble",
-      "text": "Show HN: Bramble – Local-first password manager"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=github.com/flythenimbus",
-      "text": "github.com/flythenimbus"
-     }
-    ],
-    "md": "29. [Show HN: Bramble – Local-first password manager](https://github.com/flythenimbus/bramble) ([github.com/flythenimbus](https://news.ycombinator.com/from?site=github.com/flythenimbus))"
-   },
-   {
-    "bbox": [
-     0,
-     1990,
-     390,
-     30
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=MegagramEnjoyer",
-      "text": "MegagramEnjoyer"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48766242",
-      "text": "17 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48766242&auth=a35e2df4ad2deffc000fd072a06e2a14eaa6bfb5&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48766242",
-      "text": "19 comments"
-     }
-    ],
-    "md": "97 points by [MegagramEnjoyer](https://news.ycombinator.com/user?id=MegagramEnjoyer) [17 hours ago](https://news.ycombinator.com/item?id=48766242) | [hide](https://news.ycombinator.com/hide?id=48766242&auth=a35e2df4ad2deffc000fd072a06e2a14eaa6bfb5&goto=news) | [19 comments](https://news.ycombinator.com/item?id=48766242)"
-   },
-   {
-    "bbox": [
-     0,
-     2025,
-     390,
-     39
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://github.com/ctxrs/ctx",
-      "text": "Show HN: ctx – Search the coding agent history already on your machine"
-     },
-     {
-      "href": "https://news.ycombinator.com/from?site=github.com/ctxrs",
-      "text": "github.com/ctxrs"
-     }
-    ],
-    "md": "30. [Show HN: ctx – Search the coding agent history already on your machine](https://github.com/ctxrs/ctx) ([github.com/ctxrs](https://news.ycombinator.com/from?site=github.com/ctxrs))"
-   },
-   {
-    "bbox": [
-     0,
-     2064,
-     390,
-     15
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "row",
-    "landmark": "body",
-    "links": [
-     {
-      "href": "https://news.ycombinator.com/user?id=luca-ctx",
-      "text": "luca-ctx"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48763462",
-      "text": "5 hours ago"
-     },
-     {
-      "href": "https://news.ycombinator.com/hide?id=48763462&auth=73e18f287a601e7954f8444673763034abb1bac8&goto=news",
-      "text": "hide"
-     },
-     {
-      "href": "https://news.ycombinator.com/item?id=48763462",
-      "text": "36 comments"
-     }
-    ],
-    "md": "60 points by [luca-ctx](https://news.ycombinator.com/user?id=luca-ctx) [5 hours ago](https://news.ycombinator.com/item?id=48763462) | [hide](https://news.ycombinator.com/hide?id=48763462&auth=73e18f287a601e7954f8444673763034abb1bac8&goto=news) | [36 comments](https://news.ycombinator.com/item?id=48763462)"
-   },
-   {
-    "bbox": [
-     0,
-     2094,
+     2041,
      390,
      19
     ],
@@ -1767,7 +1761,7 @@
    {
     "bbox": [
      5,
-     2141,
+     2087,
      381,
      13
     ],
@@ -1811,7 +1805,7 @@
    {
     "bbox": [
      0,
-     2170,
+     2116,
      390,
      40
     ],
@@ -1825,7 +1819,7 @@
    }
   ],
   "description": "",
-  "docHeight": 2223,
+  "docHeight": 2170,
   "interactive": 1,
   "lang": "en",
   "title": "Hacker News",
@@ -1836,9 +1830,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1496,
+  "elapsed_ms": 1475,
   "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T15:53:01-05:00",
+  "fetched_at": "2026-07-03T16:43:21-05:00",
   "mode": "authenticated",
   "requested_url": "https://news.ycombinator.com",
   "url": "https://news.ycombinator.com/"
