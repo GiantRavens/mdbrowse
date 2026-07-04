@@ -82,11 +82,26 @@
   const escText = (s) => s.replace(/\s+/g, " ")
                           .replace(/([\\`*_[\]])/g, "\\$1");
 
+  // Boundary padding: sites butt inline elements together with no
+  // whitespace in the source ("…</a><p>England's…", "Attribution<a>…").
+  // Pad only when BOTH sides lack separation — openers before and
+  // closers after stay tight, and prose with real spaces is untouched.
+  function needsPad(md, nxt) {
+    if (!md || /[\s([{"'“‘\/\-–—]$/.test(md)) return false;
+    if (!nxt || /^[\s,.;:!?)\]}%'"”’…]/.test(nxt)) return false;
+    return true;
+  }
+
   // Inline serializer for a leaf block: text nodes plus A/EM/STRONG/CODE/IMG.
   // Links come out as [text](abs-url) with their exact position preserved.
   function inlineMD(node, out) {
     for (const child of node.childNodes) {
-      if (child.nodeType === Node.TEXT_NODE) { out.md += escText(child.data); continue; }
+      if (child.nodeType === Node.TEXT_NODE) {
+        const t = escText(child.data);
+        if (needsPad(out.md, t)) out.md += " ";
+        out.md += t;
+        continue;
+      }
       if (child.nodeType !== Node.ELEMENT_NODE) continue;
       const el = child, tag = el.tagName;
       if (KILL.has(tag)) continue;
@@ -97,6 +112,7 @@
         const src = imgSrc(el);
         if (src) {
           const alt = (el.getAttribute("alt") || "").trim();
+          if (needsPad(out.md, "!")) out.md += " ";
           out.md += `![${escText(alt)}](${src})`;
           out.images.push(src);
         }
@@ -111,9 +127,11 @@
         inlineMD(el, inner);
         const label = inner.md.trim();
         if (href && href.startsWith("http") && label) {
+          if (needsPad(out.md, "[")) out.md += " ";
           out.md += `[${label}](${href})`;
           out.links.push({ text: label, href: href });
         } else {
+          if (needsPad(out.md, inner.md)) out.md += " ";
           out.md += inner.md;
         }
         continue;
@@ -122,19 +140,28 @@
         const inner = { md: "", images: out.images, links: out.links };
         inlineMD(el, inner);
         const t = inner.md.trim();
-        out.md += t ? `**${t}** ` : "";
+        if (t) {
+          if (needsPad(out.md, "*")) out.md += " ";
+          out.md += `**${t}** `;
+        }
         continue;
       }
       if (tag === "EM" || tag === "I") {
         const inner = { md: "", images: out.images, links: out.links };
         inlineMD(el, inner);
         const t = inner.md.trim();
-        out.md += t ? `*${t}* ` : "";
+        if (t) {
+          if (needsPad(out.md, "*")) out.md += " ";
+          out.md += `*${t}* `;
+        }
         continue;
       }
       if (tag === "CODE") {
         const t = el.textContent.replace(/\s+/g, " ").trim();
-        out.md += t ? "`" + t + "`" : "";
+        if (t) {
+          if (needsPad(out.md, "`")) out.md += " ";
+          out.md += "`" + t + "`";
+        }
         continue;
       }
       inlineMD(el, out);

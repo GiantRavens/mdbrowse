@@ -54,7 +54,7 @@
       "text": "News"
      }
     ],
-    "md": "[Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram)[Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary)[Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images)[News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)"
+    "md": "[Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram) [Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary) [Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images) [News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)"
    },
    {
     "bbox": [
@@ -69,7 +69,7 @@
     "kind": "p",
     "landmark": "body",
     "links": [],
-    "md": "Results 1 to 10 from 913 in 0.04s"
+    "md": "Results 1 to 10 from 913 in 0.08s"
    },
    {
     "bbox": [
@@ -382,7 +382,7 @@
       "text": "Next"
      }
     ],
-    "md": "Prev1[2](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)[3](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21)[4](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31)[5](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41)[Next](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)"
+    "md": "Prev 1 [2](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11) [3](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21) [4](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31) [5](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41) [Next](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)"
    },
    {
     "bbox": [
@@ -532,7 +532,7 @@
       "text": "Change"
      }
     ],
-    "md": "Austin, US - detected automatically|[Change](https://www.mojeek.com/preferences?tab=location-language)"
+    "md": "Austin, US - detected automatically | [Change](https://www.mojeek.com/preferences?tab=location-language)"
    },
    {
     "bbox": [
@@ -635,9 +635,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 2290,
-  "extractor": "2.0.0a2",
-  "fetched_at": "2026-07-04T11:37:42-05:00",
+  "elapsed_ms": 2390,
+  "extractor": "2.0.0a3",
+  "fetched_at": "2026-07-04T12:06:25-05:00",
   "mode": "authenticated",
   "requested_url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram",
   "url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram"

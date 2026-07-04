@@ -101,7 +101,7 @@ A bright orange sunburst illuminates Earth’s atmosphere during an orbital sunr
 
 - Stay up-to-date on the latest news from NASA–from Earth to the Moon, the Solar System and beyond.
 
-- We will never share your email address.[Privacy Policy](https://www.nasa.gov/privacy/)
+- We will never share your email address. [Privacy Policy](https://www.nasa.gov/privacy/)
 
 - [Sign Up](https://lp.constantcontactpages.com/sl/7ThAX6O/signup)
 

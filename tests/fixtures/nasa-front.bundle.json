@@ -1612,7 +1612,7 @@
       "text": "Privacy Policy"
      }
     ],
-    "md": "We will never share your email address.[Privacy Policy](https://www.nasa.gov/privacy/)"
+    "md": "We will never share your email address. [Privacy Policy](https://www.nasa.gov/privacy/)"
    },
    {
     "bbox": [
@@ -2848,9 +2848,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 901,
-  "extractor": "2.0.0a2",
-  "fetched_at": "2026-07-04T11:37:39-05:00",
+  "elapsed_ms": 1923,
+  "extractor": "2.0.0a3",
+  "fetched_at": "2026-07-04T12:06:22-05:00",
   "mode": "authenticated",
   "requested_url": "https://www.nasa.gov",
   "url": "https://www.nasa.gov/"

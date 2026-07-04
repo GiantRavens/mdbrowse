@@ -1,6 +1,6 @@
 {
  "doc": {
-  "anchors": 518,
+  "anchors": 487,
   "blocks": [
    {
     "bbox": [
@@ -142,536 +142,8 @@
    },
    {
     "bbox": [
-     -1,
-     203,
-     1,
-     1
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "heading",
-    "landmark": "main",
-    "level": 1,
-    "links": [],
-    "md": "Fundraising banner"
-   },
-   {
-    "bbox": [
-     15,
-     203,
-     1,
-     1
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "heading",
-    "landmark": "aside",
-    "level": 2,
-    "links": [],
-    "md": "Fundraising banner navigation"
-   },
-   {
-    "bbox": [
-     17,
-     207,
-     119,
-     35
-    ],
-    "bold": true,
-    "fontSize": 13,
-    "images": [],
-    "kind": "p",
-    "landmark": "aside",
-    "links": [],
-    "md": "Maybe later"
-   },
-   {
-    "bbox": [
-     136,
-     201,
-     119,
-     48
-    ],
-    "bold": true,
-    "fontSize": 13,
-    "images": [],
-    "kind": "p",
-    "landmark": "aside",
-    "links": [],
-    "md": "I already donated"
-   },
-   {
-    "bbox": [
-     254,
-     206,
-     119,
-     37
-    ],
-    "bold": true,
-    "fontSize": 13,
-    "images": [],
-    "kind": "p",
-    "landmark": "aside",
-    "links": [],
-    "md": "Close"
-   },
-   {
-    "bbox": [
-     15,
-     245,
-     1,
-     1
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "heading",
-    "landmark": "main",
-    "level": 2,
-    "links": [],
-    "md": "Fundraising banner message"
-   },
-   {
-    "bbox": [
-     34,
-     264,
-     322,
-     133
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [
-     "https://upload.wikimedia.org/wikipedia/donate/b/b2/Frb-Lisa_Seitz-Gruwell.jpg"
-    ],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "![Lisa Seitz-Gruwell](https://upload.wikimedia.org/wikipedia/donate/b/b2/Frb-Lisa_Seitz-Gruwell.jpg)"
-   },
-   {
-    "bbox": [
-     34,
-     440,
-     322,
-     43
-    ],
-    "bold": true,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "July 3: An important update for readers in the United States."
-   },
-   {
-    "bbox": [
-     34,
-     499,
-     322,
-     240
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "You deserve an explanation, so please don't skip this 1-minute read. It's Friday, July 3, and you only had a small chance of seeing my message. This year, Wikipedia has had fewer visitors and fewer new supporters, so your visit today means a lot. I hope that Wikipedia's given you at least $2.75 of knowledge recently. If everyone who found Wikipedia useful gave $2.75, we'd hit our goal in a few hours."
-   },
-   {
-    "bbox": [
-     34,
-     755,
-     322,
-     144
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "After nearly 25 years, Wikipedia is still the internet we were promised—created by people, not by machines. It's not perfect, but it's not here to push a point of view. It's run by a nonprofit, not a giant technology company or a billionaire."
-   },
-   {
-    "bbox": [
-     34,
-     915,
-     322,
-     120
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Less than 2% of our readers donate. The rare few who give do so because Wikipedia provides them with useful knowledge. If that sounds like you, please donate $2.75. Any contribution you make today helps."
-   },
-   {
-    "bbox": [
-     34,
-     1051,
-     322,
-     48
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Lisa Seitz Gruwell, Chief Advancement Officer, Wikimedia Foundation"
-   },
-   {
-    "bbox": [
-     15,
-     1136,
-     1,
-     1
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "heading",
-    "landmark": "main",
-    "level": 2,
-    "links": [],
-    "md": "Fundraising payment form"
-   },
-   {
-    "bbox": [
      16,
-     1143,
-     358,
-     188
-    ],
-    "bold": true,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Please select an amount (USD). The average donation in the United States is around $13. Many first-time donors give $2.75. If you've never given, all that matters is that you're choosing to stand up for free, open information. For that, you have our gratitude."
-   },
-   {
-    "bbox": [
-     34,
-     1343,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$2.75"
-   },
-   {
-    "bbox": [
-     144,
-     1343,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$15"
-   },
-   {
-    "bbox": [
-     254,
-     1343,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$25"
-   },
-   {
-    "bbox": [
-     34,
-     1405,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$50"
-   },
-   {
-    "bbox": [
-     144,
-     1405,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$100"
-   },
-   {
-    "bbox": [
-     254,
-     1405,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$250"
-   },
-   {
-    "bbox": [
-     34,
-     1467,
-     102,
-     54
-    ],
-    "bold": true,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "$500"
-   },
-   {
-    "bbox": [
-     249,
-     1494,
-     1,
-     1
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Other"
-   },
-   {
-    "bbox": [
-     214,
-     1474,
-     72,
-     16
-    ],
-    "bold": true,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Other ($)"
-   },
-   {
-    "bbox": [
-     16,
-     1549,
-     358,
-     68
-    ],
-    "bold": false,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "I ask you, sincerely: don't skip this. Be one of the rare readers who gives."
-   },
-   {
-    "bbox": [
-     16,
-     1637,
-     358,
-     13
-    ],
-    "bold": false,
-    "fontSize": 13,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Top-rated and trustworthy"
-   },
-   {
-    "bbox": [
-     88,
-     1660,
-     100,
-     51
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [
-     "https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png"
-    ],
-    "kind": "p",
-    "landmark": "main",
-    "links": [
-     {
-      "href": "https://www.charitynavigator.org/ein/200049703",
-      "text": "![Charity Navigator Four Star](https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png)"
-     }
-    ],
-    "md": "[![Charity Navigator Four Star](https://upload.wikimedia.org/wikipedia/donate/1/15/Charity-navigator.png)](https://www.charitynavigator.org/ein/200049703)"
-   },
-   {
-    "bbox": [
-     188,
-     1660,
-     113,
-     68
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [
-     "https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg"
-    ],
-    "kind": "p",
-    "landmark": "main",
-    "links": [
-     {
-      "href": "https://app.candid.org/profile/6971754/wikimedia-foundation-inc-20-0049703",
-      "text": "![Platinum Transparency 2025 - Candid](https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg)"
-     }
-    ],
-    "md": "[![Platinum Transparency 2025 - Candid](https://upload.wikimedia.org/wikipedia/donate/6/6b/Candid-seal-platinum-2025.svg)](https://app.candid.org/profile/6971754/wikimedia-foundation-inc-20-0049703)"
-   },
-   {
-    "bbox": [
-     137,
-     1753,
-     115,
-     50
-    ],
-    "bold": true,
-    "fontSize": 14,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Maybe later"
-   },
-   {
-    "bbox": [
-     26,
-     1823,
-     100,
-     26
-    ],
-    "bold": false,
-    "fontSize": 17,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Wikimedia Foundation"
-   },
-   {
-    "bbox": [
-     136,
-     1823,
-     228,
-     26
-    ],
-    "bold": false,
-    "fontSize": 13,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Proud host of Wikipedia and other free knowledge projects"
-   },
-   {
-    "bbox": [
-     16,
-     1865,
-     358,
-     48
-    ],
-    "bold": false,
-    "fontSize": 14,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [
-     {
-      "href": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/#problems-donating",
-      "text": "Problems donating?"
-     },
-     {
-      "href": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/",
-      "text": "Frequently asked questions"
-     },
-     {
-      "href": "https://wikimediafoundation.org/give/#ways-to-give",
-      "text": "Other ways to give"
-     }
-    ],
-    "md": "[Problems donating?](https://wikimediafoundation.org/give/donor-frequently-asked-questions/#problems-donating) | [Frequently asked questions](https://wikimediafoundation.org/give/donor-frequently-asked-questions/) | Where your donation goes | [Other ways to give](https://wikimediafoundation.org/give/#ways-to-give)"
-   },
-   {
-    "bbox": [
-     35,
-     706,
-     321,
-     45
-    ],
-    "bold": true,
-    "fontSize": 16,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Sorry to interrupt, but only a fraction of readers will see this."
-   },
-   {
-    "bbox": [
-     86,
-     766,
-     218,
-     44
-    ],
-    "bold": false,
-    "fontSize": 15,
-    "images": [],
-    "kind": "p",
-    "landmark": "main",
-    "links": [],
-    "md": "Give $2.75 Maybe later"
-   },
-   {
-    "bbox": [
-     16,
-     1937,
+     204,
      358,
      31
     ],
@@ -691,7 +163,7 @@
    {
     "bbox": [
      28,
-     1973,
+     239,
      343,
      59
     ],
@@ -710,12 +182,12 @@
       "text": "primary sources"
      }
     ],
-    "md": "Learn moreThis article **relies excessively on [references](https://en.wikipedia.org/wiki/Wikipedia:Verifiability) to [primary sources](https://en.wikipedia.org/wiki/Wikipedia:No_original_research#Primary,_secondary_and_tertiary_sources)** . *(September 2025)*"
+    "md": "Learn more This article **relies excessively on [references](https://en.wikipedia.org/wiki/Wikipedia:Verifiability) to [primary sources](https://en.wikipedia.org/wiki/Wikipedia:No_original_research#Primary,_secondary_and_tertiary_sources)** . *(September 2025)*"
    },
    {
     "bbox": [
      16,
-     2043,
+     309,
      358,
      238
     ],
@@ -774,12 +246,12 @@
       "text": "readme files"
      }
     ],
-    "md": "**Markdown** \\[9\\] is a [lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language) for creating [formatted text](https://en.wikipedia.org/wiki/Formatted_text) using a [plain-text editor](https://en.wikipedia.org/wiki/Text_editor). [John Gruber](https://en.wikipedia.org/wiki/John_Gruber) created Markdown in 2004 as an easy-to-read [markup language](https://en.wikipedia.org/wiki/Markup_language).\\[9\\] Markdown is widely used for [blogging](https://en.wikipedia.org/wiki/Blog), [instant messaging](https://en.wikipedia.org/wiki/Instant_messaging), and [large language models](https://en.wikipedia.org/wiki/Large_language_models),\\[10\\] and also used elsewhere in [online forums](https://en.wikipedia.org/wiki/Online_forums), [collaborative software](https://en.wikipedia.org/wiki/Collaborative_software), [documentation](https://en.wikipedia.org/wiki/Documentation) pages, and [readme files](https://en.wikipedia.org/wiki/README)."
+    "md": "**Markdown** \\[9 \\] is a [lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language) for creating [formatted text](https://en.wikipedia.org/wiki/Formatted_text) using a [plain-text editor](https://en.wikipedia.org/wiki/Text_editor). [John Gruber](https://en.wikipedia.org/wiki/John_Gruber) created Markdown in 2004 as an easy-to-read [markup language](https://en.wikipedia.org/wiki/Markup_language). \\[9 \\] Markdown is widely used for [blogging](https://en.wikipedia.org/wiki/Blog), [instant messaging](https://en.wikipedia.org/wiki/Instant_messaging), and [large language models](https://en.wikipedia.org/wiki/Large_language_models), \\[10 \\] and also used elsewhere in [online forums](https://en.wikipedia.org/wiki/Online_forums), [collaborative software](https://en.wikipedia.org/wiki/Collaborative_software), [documentation](https://en.wikipedia.org/wiki/Documentation) pages, and [readme files](https://en.wikipedia.org/wiki/README)."
    },
    {
     "bbox": [
      17,
-     2290,
+     556,
      356,
      34
     ],
@@ -794,7 +266,7 @@
    {
     "bbox": [
      17,
-     2324,
+     590,
      356,
      64
     ],
@@ -816,7 +288,7 @@
    {
     "bbox": [
      17,
-     2388,
+     654,
      356,
      56
     ],
@@ -831,12 +303,12 @@
       "text": "Filename extensions"
      }
     ],
-    "md": "[Filename extensions](https://en.wikipedia.org/wiki/Filename_extension) `.md`, `.markdown`\\[1\\]\\[2\\]"
+    "md": "[Filename extensions](https://en.wikipedia.org/wiki/Filename_extension) `.md`, `.markdown` \\[1 \\] \\[2 \\]"
    },
    {
     "bbox": [
      17,
-     2444,
+     710,
      356,
      35
     ],
@@ -851,12 +323,12 @@
       "text": "Internet media type"
      }
     ],
-    "md": "[Internet media type](https://en.wikipedia.org/wiki/Media_type) `text/markdown`\\[2\\]"
+    "md": "[Internet media type](https://en.wikipedia.org/wiki/Media_type) `text/markdown` \\[2 \\]"
    },
    {
     "bbox": [
      17,
-     2479,
+     746,
      356,
      50
     ],
@@ -876,7 +348,7 @@
    {
     "bbox": [
      17,
-     2529,
+     795,
      356,
      35
     ],
@@ -891,7 +363,7 @@
    {
     "bbox": [
      17,
-     2564,
+     831,
      356,
      34
     ],
@@ -911,7 +383,7 @@
    {
     "bbox": [
      17,
-     2599,
+     865,
      356,
      34
     ],
@@ -931,7 +403,7 @@
    {
     "bbox": [
      17,
-     2633,
+     900,
      356,
      54
     ],
@@ -941,12 +413,12 @@
     "kind": "row",
     "landmark": "main",
     "links": [],
-    "md": "Initial release March 9, 2004 (22 years ago)\\[3\\]\\[4\\]"
+    "md": "Initial release March 9, 2004 (22 years ago) \\[3 \\] \\[4 \\]"
    },
    {
     "bbox": [
      17,
-     2687,
+     953,
      356,
      71
     ],
@@ -961,12 +433,12 @@
       "text": "Latest release"
      }
     ],
-    "md": "[Latest release](https://en.wikipedia.org/wiki/Software_release_life_cycle) 1.0.1 December 17, 2004 (21 years ago)\\[5\\]"
+    "md": "[Latest release](https://en.wikipedia.org/wiki/Software_release_life_cycle) 1.0.1 December 17, 2004 (21 years ago) \\[5 \\]"
    },
    {
     "bbox": [
      17,
-     2758,
+     1024,
      356,
      34
     ],
@@ -981,12 +453,12 @@
       "text": "Open file format"
      }
     ],
-    "md": "Type of format [Open file format](https://en.wikipedia.org/wiki/Open_file_format)\\[6\\]"
+    "md": "Type of format [Open file format](https://en.wikipedia.org/wiki/Open_file_format) \\[6 \\]"
    },
    {
     "bbox": [
      17,
-     2792,
+     1058,
      356,
      112
     ],
@@ -1013,12 +485,12 @@
       "text": "RMarkdown"
      }
     ],
-    "md": "Extended to [pandoc](https://en.wikipedia.org/wiki/Pandoc), [MultiMarkdown](https://en.wikipedia.org/wiki/MultiMarkdown), [Markdown Extra](https://en.wikipedia.org/wiki/Markdown_Extra), CommonMark,\\[7\\] [RMarkdown](https://en.wikipedia.org/wiki/RMarkdown)\\[8\\]"
+    "md": "Extended to [pandoc](https://en.wikipedia.org/wiki/Pandoc), [MultiMarkdown](https://en.wikipedia.org/wiki/MultiMarkdown), [Markdown Extra](https://en.wikipedia.org/wiki/Markdown_Extra), CommonMark, \\[7 \\] [RMarkdown](https://en.wikipedia.org/wiki/RMarkdown) \\[8 \\]"
    },
    {
     "bbox": [
      17,
-     2904,
+     1171,
      356,
      53
     ],
@@ -1030,15 +502,15 @@
     "links": [
      {
       "href": "https://daringfireball.net/projects/markdown/",
-      "text": "daringfireball.net/projects/markdown/"
+      "text": "daringfireball.net /projects /markdown /"
      }
     ],
-    "md": "Website [daringfireball.net/projects/markdown/](https://daringfireball.net/projects/markdown/)"
+    "md": "Website [daringfireball.net /projects /markdown /](https://daringfireball.net/projects/markdown/)"
    },
    {
     "bbox": [
      16,
-     2987,
+     1253,
      358,
      211
     ],
@@ -1053,12 +525,12 @@
       "text": "better source needed"
      }
     ],
-    "md": "The initial description of Markdown\\[11\\] contained ambiguities and raised unanswered questions, causing implementations to both intentionally and accidentally diverge from the original version. This was addressed in 2014 when long-standing Markdown contributors released CommonMark, an unambiguous specification and test suite for Markdown.\\[12\\]\\[*[better source needed](https://en.wikipedia.org/wiki/Wikipedia:Verifiability#Questionable_sources)* \\]"
+    "md": "The initial description of Markdown \\[11 \\] contained ambiguities and raised unanswered questions, causing implementations to both intentionally and accidentally diverge from the original version. This was addressed in 2014 when long-standing Markdown contributors released CommonMark, an unambiguous specification and test suite for Markdown. \\[12 \\] \\[*[better source needed](https://en.wikipedia.org/wiki/Wikipedia:Verifiability#Questionable_sources)* \\]"
    },
    {
     "bbox": [
      38,
-     3226,
+     1492,
      304,
      33
     ],
@@ -1074,7 +546,7 @@
    {
     "bbox": [
      16,
-     3280,
+     1546,
      358,
      132
     ],
@@ -1113,12 +585,12 @@
       "text": "reStructuredText"
      }
     ],
-    "md": "Markdown was inspired by pre-existing [conventions](https://en.wikipedia.org/wiki/Convention_(norm)) for marking up [plain text](https://en.wikipedia.org/wiki/Plain_text) in [email](https://en.wikipedia.org/wiki/Email) and [usenet](https://en.wikipedia.org/wiki/Usenet) posts,\\[13\\] such as the earlier markup languages [setext](https://en.wikipedia.org/wiki/Setext) (c. 1992), [Textile](https://en.wikipedia.org/wiki/Textile_(markup_language)) (c. 2002), and [reStructuredText](https://en.wikipedia.org/wiki/ReStructuredText) (c. 2002).\\[9\\]"
+    "md": "Markdown was inspired by pre-existing [conventions](https://en.wikipedia.org/wiki/Convention_(norm)) for marking up [plain text](https://en.wikipedia.org/wiki/Plain_text) in [email](https://en.wikipedia.org/wiki/Email) and [usenet](https://en.wikipedia.org/wiki/Usenet) posts, \\[13 \\] such as the earlier markup languages [setext](https://en.wikipedia.org/wiki/Setext) (c. 1992), [Textile](https://en.wikipedia.org/wiki/Textile_(markup_language)) (c. 2002), and [reStructuredText](https://en.wikipedia.org/wiki/ReStructuredText) (c. 2002). \\[9 \\]"
    },
    {
     "bbox": [
      16,
-     3428,
+     1694,
      358,
      211
     ],
@@ -1145,12 +617,12 @@
       "text": "HTML"
      }
     ],
-    "md": "In 2002, [Aaron Swartz](https://en.wikipedia.org/wiki/Aaron_Swartz) created [atx](https://en.wikipedia.org/wiki/Atx_(markup_language)) and referred to it as \"the true structured text format\". Gruber created the Markdown language in 2004 with Swartz as his \"sounding board\".\\[14\\] The goal of the language was to enable people \"to write using an easy-to-read and easy-to-write plain text format, optionally convert it to structurally valid [XHTML](https://en.wikipedia.org/wiki/XHTML) (or [HTML](https://en.wikipedia.org/wiki/HTML))\".\\[5\\]"
+    "md": "In 2002, [Aaron Swartz](https://en.wikipedia.org/wiki/Aaron_Swartz) created [atx](https://en.wikipedia.org/wiki/Atx_(markup_language)) and referred to it as \"the true structured text format\". Gruber created the Markdown language in 2004 with Swartz as his \"sounding board\". \\[14 \\] The goal of the language was to enable people \"to write using an easy-to-read and easy-to-write plain text format, optionally convert it to structurally valid [XHTML](https://en.wikipedia.org/wiki/XHTML) (or [HTML](https://en.wikipedia.org/wiki/HTML))\". \\[5 \\]"
    },
    {
     "bbox": [
      16,
-     3655,
+     1921,
      358,
      238
     ],
@@ -1177,12 +649,12 @@
       "text": "citation needed"
      }
     ],
-    "md": "Another key design goal was *readability*, that the language be readable as-is, without looking like it has been marked up with tags or formatting instructions,\\[9\\] unlike text formatted with \"heavier\" [markup languages](https://en.wikipedia.org/wiki/Markup_language), such as [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (RTF), HTML, or even [wikitext](https://en.wikipedia.org/wiki/Wikitext), each of which have obvious in-line tags and formatting instructions which can make the text more difficult for humans to read.\\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
+    "md": "Another key design goal was *readability*, that the language be readable as-is, without looking like it has been marked up with tags or formatting instructions, \\[9 \\] unlike text formatted with \"heavier\" [markup languages](https://en.wikipedia.org/wiki/Markup_language), such as [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (RTF), HTML, or even [wikitext](https://en.wikipedia.org/wiki/Wikitext), each of which have obvious in-line tags and formatting instructions which can make the text more difficult for humans to read. \\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
    },
    {
     "bbox": [
      16,
-     3909,
+     2175,
      358,
      213
     ],
@@ -1217,12 +689,12 @@
       "text": "BBEdit"
      }
     ],
-    "md": "Gruber wrote a [Perl](https://en.wikipedia.org/wiki/Perl) script, `Markdown.pl`, which converts marked-up text input to valid, [well-formed](https://en.wikipedia.org/wiki/Well-formed_document) XHTML or HTML, encoding angle brackets (`<`, `>`) and [ampersands](https://en.wikipedia.org/wiki/Ampersand) (`&`), which would be misinterpreted as special characters in those languages. It can take the role of a standalone script, a plugin for [Blosxom](https://en.wikipedia.org/wiki/Blosxom) or [Movable Type](https://en.wikipedia.org/wiki/Movable_Type), or of a text filter for [BBEdit](https://en.wikipedia.org/wiki/BBEdit).\\[5\\]"
+    "md": "Gruber wrote a [Perl](https://en.wikipedia.org/wiki/Perl) script, `Markdown.pl`, which converts marked-up text input to valid, [well-formed](https://en.wikipedia.org/wiki/Well-formed_document) XHTML or HTML, encoding angle brackets (`<`, `>`) and [ampersands](https://en.wikipedia.org/wiki/Ampersand) (`&`), which would be misinterpreted as special characters in those languages. It can take the role of a standalone script, a plugin for [Blosxom](https://en.wikipedia.org/wiki/Blosxom) or [Movable Type](https://en.wikipedia.org/wiki/Movable_Type), or of a text filter for [BBEdit](https://en.wikipedia.org/wiki/BBEdit). \\[5 \\]"
    },
    {
     "bbox": [
      38,
-     3284,
+     1550,
      304,
      33
     ],
@@ -1238,7 +710,7 @@
    {
     "bbox": [
      16,
-     3338,
+     1604,
      358,
      132
     ],
@@ -1265,12 +737,12 @@
       "text": "citation needed"
      }
     ],
-    "md": "As Markdown's popularity grew rapidly, many Markdown [implementations](https://en.wikipedia.org/wiki/Implementation) appeared, driven mostly by the need for additional features such as [tables](https://en.wikipedia.org/wiki/Table_(information)), [footnotes](https://en.wikipedia.org/wiki/Note_(typography)), definition lists,\\[note 1\\] and Markdown inside HTML blocks.\\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
+    "md": "As Markdown's popularity grew rapidly, many Markdown [implementations](https://en.wikipedia.org/wiki/Implementation) appeared, driven mostly by the need for additional features such as [tables](https://en.wikipedia.org/wiki/Table_(information)), [footnotes](https://en.wikipedia.org/wiki/Note_(typography)), definition lists, \\[note 1 \\] and Markdown inside HTML blocks. \\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
    },
    {
     "bbox": [
      16,
-     3486,
+     1752,
      358,
      132
     ],
@@ -1293,12 +765,12 @@
       "text": "citation needed"
      }
     ],
-    "md": "The behavior of some of these diverged from the reference implementation, as Markdown was only characterised by an informal [specification](https://en.wikipedia.org/wiki/Specification_(technical_standard))\\[17\\] and a [Perl](https://en.wikipedia.org/wiki/Perl) implementation for conversion to HTML.\\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
+    "md": "The behavior of some of these diverged from the reference implementation, as Markdown was only characterised by an informal [specification](https://en.wikipedia.org/wiki/Specification_(technical_standard)) \\[17 \\] and a [Perl](https://en.wikipedia.org/wiki/Perl) implementation for conversion to HTML. \\[*[citation needed](https://en.wikipedia.org/wiki/Wikipedia:Citation_needed)* \\]"
    },
    {
     "bbox": [
      16,
-     3634,
+     1900,
      358,
      290
     ],
@@ -1313,12 +785,12 @@
       "text": "parsers"
      }
     ],
-    "md": "At the same time, a number of ambiguities in the informal specification had attracted attention.\\[18\\] These issues spurred the creation of tools such as Babelmark\\[19\\]\\[20\\] to compare the output of various implementations,\\[21\\] and an effort by some developers of Markdown [parsers](https://en.wikipedia.org/wiki/Parsing) for standardization. However, Gruber has argued that complete standardization would be a mistake: \"Different sites (and people) have different needs. No one syntax would make all happy.\"\\[22\\]"
+    "md": "At the same time, a number of ambiguities in the informal specification had attracted attention. \\[18 \\] These issues spurred the creation of tools such as Babelmark \\[19 \\] \\[20 \\] to compare the output of various implementations, \\[21 \\] and an effort by some developers of Markdown [parsers](https://en.wikipedia.org/wiki/Parsing) for standardization. However, Gruber has argued that complete standardization would be a mistake: \"Different sites (and people) have different needs. No one syntax would make all happy.\"\\[22 \\]"
    },
    {
     "bbox": [
      16,
-     3940,
+     2207,
      358,
      79
     ],
@@ -1328,12 +800,12 @@
     "kind": "p",
     "landmark": "main",
     "links": [],
-    "md": "Gruber avoided using curly braces in Markdown to unofficially reserve them for implementation-specific extensions.\\[23\\]"
+    "md": "Gruber avoided using curly braces in Markdown to unofficially reserve them for implementation-specific extensions. \\[23 \\]"
    },
    {
     "bbox": [
      38,
-     3342,
+     1608,
      304,
      33
     ],
@@ -1349,7 +821,7 @@
    {
     "bbox": [
      17,
-     3403,
+     1670,
      356,
      34
     ],
@@ -1364,7 +836,7 @@
    {
     "bbox": [
      17,
-     3437,
+     1704,
      356,
      35
     ],
@@ -1379,12 +851,12 @@
       "text": "Filename extensions"
      }
     ],
-    "md": "[Filename extensions](https://en.wikipedia.org/wiki/Filename_extension) `.md`, `.markdown`\\[2\\]"
+    "md": "[Filename extensions](https://en.wikipedia.org/wiki/Filename_extension) `.md`, `.markdown` \\[2 \\]"
    },
    {
     "bbox": [
      17,
-     3473,
+     1739,
      356,
      56
     ],
@@ -1399,12 +871,12 @@
       "text": "Internet media type"
      }
     ],
-    "md": "[Internet media type](https://en.wikipedia.org/wiki/Media_type) `text/markdown; variant=CommonMark`\\[7\\]"
+    "md": "[Internet media type](https://en.wikipedia.org/wiki/Media_type) `text/markdown; variant=CommonMark` \\[7 \\]"
    },
    {
     "bbox": [
      17,
-     3529,
+     1795,
      356,
      50
     ],
@@ -1419,12 +891,12 @@
       "text": "Uniform Type Identifier (UTI)"
      }
     ],
-    "md": "[Uniform Type Identifier (UTI)](https://en.wikipedia.org/wiki/Uniform_Type_Identifier) *uncertain* \\[24\\]"
+    "md": "[Uniform Type Identifier (UTI)](https://en.wikipedia.org/wiki/Uniform_Type_Identifier) *uncertain* \\[24 \\]"
    },
    {
     "bbox": [
      17,
-     3578,
+     1845,
      356,
      34
     ],
@@ -1439,7 +911,7 @@
    {
     "bbox": [
      17,
-     3613,
+     1879,
      356,
      54
     ],
@@ -1459,7 +931,7 @@
    {
     "bbox": [
      17,
-     3667,
+     1933,
      356,
      54
     ],
@@ -1474,7 +946,7 @@
    {
     "bbox": [
      17,
-     3720,
+     1987,
      356,
      71
     ],
@@ -1489,12 +961,12 @@
       "text": "Latest release"
      }
     ],
-    "md": "[Latest release](https://en.wikipedia.org/wiki/Software_release_life_cycle) 0.31.2 January 28, 2024 (2 years ago)\\[25\\]"
+    "md": "[Latest release](https://en.wikipedia.org/wiki/Software_release_life_cycle) 0.31.2 January 28, 2024 (2 years ago) \\[25 \\]"
    },
    {
     "bbox": [
      17,
-     3791,
+     2057,
      356,
      34
     ],
@@ -1514,7 +986,7 @@
    {
     "bbox": [
      17,
-     3825,
+     2092,
      356,
      34
     ],
@@ -1529,7 +1001,7 @@
    {
     "bbox": [
      17,
-     3860,
+     2126,
      356,
      54
     ],
@@ -1544,7 +1016,7 @@
    {
     "bbox": [
      17,
-     3914,
+     2180,
      356,
      72
     ],
@@ -1568,7 +1040,7 @@
    {
     "bbox": [
      16,
-     4016,
+     2282,
      358,
      26
     ],
@@ -1583,7 +1055,7 @@
    {
     "bbox": [
      16,
-     4050,
+     2317,
      358,
      79
     ],
@@ -1602,12 +1074,12 @@
       "text": "John MacFarlane"
      }
     ],
-    "md": "In 2012, a group of people, including [Jeff Atwood](https://en.wikipedia.org/wiki/Jeff_Atwood) and [John MacFarlane](https://en.wikipedia.org/wiki/John_MacFarlane_(philosopher)), launched what Atwood characterised as a standardization effort.\\[12\\]"
+    "md": "In 2012, a group of people, including [Jeff Atwood](https://en.wikipedia.org/wiki/Jeff_Atwood) and [John MacFarlane](https://en.wikipedia.org/wiki/John_MacFarlane_(philosopher)), launched what Atwood characterised as a standardization effort. \\[12 \\]"
    },
    {
     "bbox": [
      16,
-     4145,
+     2412,
      358,
      132
     ],
@@ -1617,12 +1089,12 @@
     "kind": "p",
     "landmark": "main",
     "links": [],
-    "md": "A community website now aims to \"document various tools and resources available to document authors and developers, as well as implementors of the various Markdown implementations\".\\[26\\]"
+    "md": "A community website now aims to \"document various tools and resources available to document authors and developers, as well as implementors of the various Markdown implementations\". \\[26 \\]"
    },
    {
     "bbox": [
      16,
-     4285,
+     2552,
      358,
      26
     ],
@@ -1637,7 +1109,7 @@
    {
     "bbox": [
      16,
-     4320,
+     2586,
      358,
      264
     ],
@@ -1647,12 +1119,12 @@
     "kind": "p",
     "landmark": "main",
     "links": [],
-    "md": "In September 2014, Gruber objected to the usage of \"Markdown\" in the name of this effort and it was rebranded as \"CommonMark\".\\[13\\]\\[27\\]\\[28\\] CommonMark.org published several versions of a specification, reference implementation, test suite, and \"\\[plans\\] to announce a finalized 1.0 spec and test suite in 2019\".\\[29\\] A finalized 1.0 spec has not been released, as major issues still remain unsolved.\\[30\\]"
+    "md": "In September 2014, Gruber objected to the usage of \"Markdown\" in the name of this effort and it was rebranded as \"CommonMark\". \\[13 \\] \\[27 \\] \\[28 \\] CommonMark.org published several versions of a specification, reference implementation, test suite, and \"\\[plans\\] to announce a finalized 1.0 spec and test suite in 2019\". \\[29 \\] A finalized 1.0 spec has not been released, as major issues still remain unsolved. \\[30 \\]"
    },
    {
     "bbox": [
      16,
-     4592,
+     2858,
      358,
      26
     ],
@@ -1667,7 +1139,7 @@
    {
     "bbox": [
      16,
-     4626,
+     2892,
      358,
      106
     ],
@@ -1719,7 +1191,7 @@
    {
     "bbox": [
      16,
-     4748,
+     3014,
      358,
      53
     ],
@@ -1739,7 +1211,7 @@
    {
     "bbox": [
      32,
-     4808,
+     3075,
      342,
      79
     ],
@@ -1755,13 +1227,13 @@
       "text": "MIME"
      }
     ],
-    "md": "RFC 7763 – \" The text/markdown Media Type, \" \\[2\\] Informational. Introduces [MIME](https://en.wikipedia.org/wiki/MIME) type `text/markdown`.",
+    "md": "RFC 7763 – \" The text/markdown Media Type, \" \\[2 \\] Informational. Introduces [MIME](https://en.wikipedia.org/wiki/MIME) type `text/markdown`.",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     4898,
+     3164,
      342,
      185
     ],
@@ -1781,13 +1253,13 @@
       "text": "Pandoc"
      }
     ],
-    "md": "RFC 7764 – \" Guidance on Markdown: Design Philosophies, Stability Strategies, and Select Registrations, \" \\[7\\] Informational. Discusses and registers the variants [MultiMarkdown](https://en.wikipedia.org/wiki/MultiMarkdown), GitHub Flavored Markdown (GFM), [Pandoc](https://en.wikipedia.org/wiki/Pandoc), and Markdown Extra (among others).\\[31\\]",
+    "md": "RFC 7764 – \" Guidance on Markdown: Design Philosophies, Stability Strategies, and Select Registrations, \" \\[7 \\] Informational. Discusses and registers the variants [MultiMarkdown](https://en.wikipedia.org/wiki/MultiMarkdown), GitHub Flavored Markdown (GFM), [Pandoc](https://en.wikipedia.org/wiki/Pandoc), and Markdown Extra (among others). \\[31 \\]",
     "ordered": false
    },
    {
     "bbox": [
      38,
-     3400,
+     1666,
      304,
      33
     ],
@@ -1803,7 +1275,7 @@
    {
     "bbox": [
      16,
-     3454,
+     1720,
      358,
      132
     ],
@@ -1842,12 +1314,12 @@
       "text": "Stack Exchange"
      }
     ],
-    "md": "Websites like [Bitbucket](https://en.wikipedia.org/wiki/Bitbucket), [Diaspora](https://en.wikipedia.org/wiki/Diaspora_(social_network)), [Discord](https://en.wikipedia.org/wiki/Discord),\\[32\\] GitHub,\\[33\\] [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap), [Reddit](https://en.wikipedia.org/wiki/Reddit),\\[34\\] [SourceForge](https://en.wikipedia.org/wiki/SourceForge)\\[35\\] and [Stack Exchange](https://en.wikipedia.org/wiki/Stack_Exchange)\\[36\\] use variants of Markdown to make discussions between users easier."
+    "md": "Websites like [Bitbucket](https://en.wikipedia.org/wiki/Bitbucket), [Diaspora](https://en.wikipedia.org/wiki/Diaspora_(social_network)), [Discord](https://en.wikipedia.org/wiki/Discord), \\[32 \\] GitHub, \\[33 \\] [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap), [Reddit](https://en.wikipedia.org/wiki/Reddit), \\[34 \\] [SourceForge](https://en.wikipedia.org/wiki/SourceForge) \\[35 \\] and [Stack Exchange](https://en.wikipedia.org/wiki/Stack_Exchange) \\[36 \\] use variants of Markdown to make discussions between users easier."
    },
    {
     "bbox": [
      16,
-     3602,
+     1868,
      358,
      53
     ],
@@ -1862,12 +1334,12 @@
       "text": "HTML tags"
      }
     ],
-    "md": "Depending on implementation, basic inline [HTML tags](https://en.wikipedia.org/wiki/HTML_tag) may be supported.\\[37\\]"
+    "md": "Depending on implementation, basic inline [HTML tags](https://en.wikipedia.org/wiki/HTML_tag) may be supported. \\[37 \\]"
    },
    {
     "bbox": [
      16,
-     3671,
+     1937,
      358,
      81
     ],
@@ -1877,12 +1349,12 @@
     "kind": "p",
     "landmark": "main",
     "links": [],
-    "md": "Italic text may be implemented by `_underscores_` or `*single-asterisks*`.\\[38\\]"
+    "md": "Italic text may be implemented by `_underscores_` or `*single-asterisks*`. \\[38 \\]"
    },
    {
     "bbox": [
      16,
-     3768,
+     2034,
      358,
      211
     ],
@@ -1892,12 +1364,12 @@
     "kind": "p",
     "landmark": "main",
     "links": [],
-    "md": "Many platforms implement spoiler formatting that hides text until hovered, clicked or tapped. The most common markup is ||spoiler|| used by Discord\\[39\\], Telegram\\[40\\]\\[41\\], various Matrix clients\\[42\\], now defunct Guilded\\[43\\], a forum called Flarum\\[44\\], a NodeBB plugin\\[45\\], the imageboard engine JSChan\\[46\\] and possibly more."
+    "md": "Many platforms implement spoiler formatting that hides text until hovered, clicked or tapped. The most common markup is ||spoiler|| used by Discord \\[39 \\], Telegram \\[40 \\] \\[41 \\], various Matrix clients \\[42 \\], now defunct Guilded \\[43 \\], a forum called Flarum \\[44 \\], a NodeBB plugin \\[45 \\], the imageboard engine JSChan \\[46 \\] and possibly more."
    },
    {
     "bbox": [
      16,
-     3995,
+     2261,
      326,
      26
     ],
@@ -1913,7 +1385,7 @@
    {
     "bbox": [
      342,
-     3986,
+     2253,
      44,
      44
     ],
@@ -1933,7 +1405,7 @@
    {
     "bbox": [
      16,
-     4029,
+     2296,
      358,
      185
     ],
@@ -1952,12 +1424,12 @@
       "text": "block content"
      }
     ],
-    "md": "[GitHub](https://en.wikipedia.org/wiki/GitHub) had been using its own variant of Markdown since as early as 2009,\\[47\\] which added support for additional formatting such as tables and nesting [block content](https://en.wikipedia.org/wiki/HTML_element#Block_elements) inside list elements, as well as GitHub-specific features such as auto-linking references to commits, issues, usernames, etc."
+    "md": "[GitHub](https://en.wikipedia.org/wiki/GitHub) had been using its own variant of Markdown since as early as 2009, \\[47 \\] which added support for additional formatting such as tables and nesting [block content](https://en.wikipedia.org/wiki/HTML_element#Block_elements) inside list elements, as well as GitHub-specific features such as auto-linking references to commits, issues, usernames, etc."
    },
    {
     "bbox": [
      16,
-     4230,
+     2497,
      358,
      158
     ],
@@ -1988,12 +1460,12 @@
       "text": "autolinks"
      }
     ],
-    "md": "In 2017, GitHub released a formal specification of its [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) that is based on [CommonMark](https://en.wikipedia.org/wiki/CommonMark).\\[33\\] It is a [strict superset](https://en.wikipedia.org/wiki/Superset) of CommonMark, following its specification exactly except for tables, [strikethrough](https://en.wikipedia.org/wiki/Strikethrough), [autolinks](https://en.wikipedia.org/wiki/Automatic_hyperlinking) and task lists, which GFM adds as extensions.\\[48\\]"
+    "md": "In 2017, GitHub released a formal specification of its [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) that is based on [CommonMark](https://en.wikipedia.org/wiki/CommonMark). \\[33 \\] It is a [strict superset](https://en.wikipedia.org/wiki/Superset) of CommonMark, following its specification exactly except for tables, [strikethrough](https://en.wikipedia.org/wiki/Strikethrough), [autolinks](https://en.wikipedia.org/wiki/Automatic_hyperlinking) and task lists, which GFM adds as extensions. \\[48 \\]"
    },
    {
     "bbox": [
      16,
-     4405,
+     2671,
      358,
      158
     ],
@@ -2013,7 +1485,7 @@
    {
     "bbox": [
      16,
-     4579,
+     2845,
      326,
      26
     ],
@@ -2029,7 +1501,7 @@
    {
     "bbox": [
      342,
-     4570,
+     2836,
      44,
      44
     ],
@@ -2049,7 +1521,7 @@
    {
     "bbox": [
      16,
-     4613,
+     2880,
      358,
      132
     ],
@@ -2076,12 +1548,12 @@
       "text": "Ruby"
      }
     ],
-    "md": "Markdown Extra is a [lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language) based on Markdown implemented in [PHP](https://en.wikipedia.org/wiki/PHP) (originally), [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) and [Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)).\\[49\\] It adds the following features that are not available with regular Markdown:"
+    "md": "Markdown Extra is a [lightweight markup language](https://en.wikipedia.org/wiki/Lightweight_markup_language) based on Markdown implemented in [PHP](https://en.wikipedia.org/wiki/PHP) (originally), [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) and [Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)). \\[49 \\] It adds the following features that are not available with regular Markdown:"
    },
    {
     "bbox": [
      32,
-     4753,
+     3020,
      342,
      26
     ],
@@ -2103,7 +1575,7 @@
    {
     "bbox": [
      32,
-     4790,
+     3056,
      342,
      26
     ],
@@ -2120,7 +1592,7 @@
    {
     "bbox": [
      32,
-     4826,
+     3092,
      342,
      53
     ],
@@ -2137,7 +1609,7 @@
    {
     "bbox": [
      32,
-     4889,
+     3155,
      342,
      26
     ],
@@ -2148,13 +1620,13 @@
     "kind": "li",
     "landmark": "main",
     "links": [],
-    "md": "Tables\\[49\\]",
+    "md": "Tables \\[49 \\]",
     "ordered": false
    },
    {
     "bbox": [
      32,
-     4925,
+     3192,
      342,
      26
     ],
@@ -2171,7 +1643,7 @@
    {
     "bbox": [
      32,
-     4962,
+     3228,
      342,
      26
     ],
@@ -2188,7 +1660,7 @@
    {
     "bbox": [
      32,
-     4998,
+     3264,
      342,
      26
     ],
@@ -2205,7 +1677,7 @@
    {
     "bbox": [
      16,
-     5032,
+     3299,
      358,
      79
     ],
@@ -2236,12 +1708,12 @@
       "text": "TYPO3"
      }
     ],
-    "md": "Markdown Extra is supported in some [content management systems](https://en.wikipedia.org/wiki/Content_management_system) such as [Drupal](https://en.wikipedia.org/wiki/Drupal),\\[50\\] [Grav (CMS)](https://en.wikipedia.org/wiki/Grav_(CMS)), [Textpattern CMS](https://en.wikipedia.org/wiki/Textpattern)\\[51\\] and [TYPO3](https://en.wikipedia.org/wiki/TYPO3).\\[52\\]"
+    "md": "Markdown Extra is supported in some [content management systems](https://en.wikipedia.org/wiki/Content_management_system) such as [Drupal](https://en.wikipedia.org/wiki/Drupal), \\[50 \\] [Grav (CMS)](https://en.wikipedia.org/wiki/Grav_(CMS)), [Textpattern CMS](https://en.wikipedia.org/wiki/Textpattern) \\[51 \\] and [TYPO3](https://en.wikipedia.org/wiki/TYPO3). \\[52 \\]"
    },
    {
     "bbox": [
      38,
-     3458,
+     1724,
      304,
      33
     ],
@@ -2257,7 +1729,7 @@
    {
     "bbox": [
      17,
-     3521,
+     1787,
      786,
      60
     ],
@@ -2272,7 +1744,7 @@
    {
     "bbox": [
      17,
-     3581,
+     1847,
      786,
      521
     ],
@@ -2282,12 +1754,12 @@
     "kind": "row",
     "landmark": "main",
     "links": [],
-    "md": "Heading ======= Sub-heading ----------- # Alternative heading ## Alternative sub-heading Paragraphs are separated by a blank line. Two spaces at the end of a line produce a line break. <h1>Heading</h1> <h2>Sub-heading</h2> <h1>Alternative heading</h1> <h2>Alternative sub-heading</h2> <p>Paragraphs are separated by a blank line.</p> <p>Two spaces at the end of a line<br /> produce a line break.</p> Heading Sub-heading Alternative heading Alternative sub-heading Paragraphs are separated by a blank line. Two spaces at the end of a line produce a line break."
+    "md": "Heading ======= Sub-heading ----------- # Alternative heading ## Alternative sub-heading Paragraphs are separated by a blank line. Two spaces at the end of a line produce a line break. < h1 > Heading </h1 > < h2 > Sub-heading </h2 > < h1 > Alternative heading </h1 > < h2 > Alternative sub-heading </h2 > < p > Paragraphs are separated by a blank line. </p > < p > Two spaces at the end of a line < br /> produce a line break. </p > Heading Sub-heading Alternative heading Alternative sub-heading Paragraphs are separated by a blank line. Two spaces at the end of a line produce a line break."
    },
    {
     "bbox": [
      17,
-     4102,
+     2368,
      786,
      213
     ],
@@ -2297,12 +1769,12 @@
     "kind": "row",
     "landmark": "main",
     "links": [],
-    "md": "Text attributes \\_italic\\_, \\*\\*bold\\*\\*, \\`monospace\\`. Horizontal rule: --- <p>Text attributes <em>italic</em>, <strong>bold</strong>, <code>monospace</code>.</p> <p>Horizontal rule:</p> <hr /> Text attributes *italic* , **bold** , `monospace`. Horizontal rule:"
+    "md": "Text attributes \\_italic\\_, \\*\\*bold\\*\\*, \\`monospace\\`. Horizontal rule: --- < p > Text attributes < em > italic </em >, < strong > bold </strong >, < code > monospace </code >. </p > < p > Horizontal rule: </p > < hr /> Text attributes *italic* , **bold** , `monospace`. Horizontal rule:"
    },
    {
     "bbox": [
      17,
-     4315,
+     2582,
      786,
      333
     ],
@@ -2312,12 +1784,12 @@
     "kind": "row",
     "landmark": "main",
     "links": [],
-    "md": "Bullet lists nested within numbered list: 1. fruits \\* apple \\* banana 2. vegetables - carrot - broccoli <p>Bullet lists nested within numbered list:</p> <ol> <li>fruits <ul> <li>apple</li> <li>banana</li> </ul></li> <li>vegetables <ul> <li>carrot</li> <li>broccoli</li> </ul></li> </ol> Bullet lists nested within numbered list: fruits apple banana vegetables carrot broccoli"
+    "md": "Bullet lists nested within numbered list: 1. fruits \\* apple \\* banana 2. vegetables - carrot - broccoli < p > Bullet lists nested within numbered list: </p > < ol > < li > fruits < ul > < li > apple </li > < li > banana </li > </ul ></li > < li > vegetables < ul > < li > carrot </li > < li > broccoli </li > </ul ></li > </ol > Bullet lists nested within numbered list: fruits apple banana vegetables carrot broccoli"
    },
    {
     "bbox": [
      17,
-     4649,
+     2915,
      786,
      517
     ],
@@ -2334,12 +1806,12 @@
       "text": "link"
      }
     ],
-    "md": "A \\[link\\](http://example.com). !\\[Image\\](Icon-pictures.png \"icon\") > Markdown uses email-style characters for blockquoting. > > Multiple paragraphs need to be prepended individually. Most inline <abbr title=\"Hypertext Markup Language\">HTML</abbr> tags are supported. <p>A <a href=\"http://example.com\">link</a>.</p> <p><img alt=\"Image\" title=\"icon\" src=\"Icon-pictures.png\" /></p> <blockquote> <p>Markdown uses email-style characters for blockquoting.</p> <p>Multiple paragraphs need to be prepended individually.</p> </blockquote> <p>Most inline <abbr title=\"Hypertext Markup Language\">HTML</abbr> tags are supported.</p> A [link](http://example.com/). ![Image](https://upload.wikimedia.org/wikipedia/commons/5/5c/Icon-pictures.png) Markdown uses email-style characters for blockquoting. Multiple paragraphs need to be prepended individually. Most inline HTML tags are supported."
+    "md": "A \\[link \\](http://example.com). !\\[Image \\](Icon-pictures.png \"icon\") > Markdown uses email-style characters for blockquoting. > > Multiple paragraphs need to be prepended individually. Most inline <abbr title=\"Hypertext Markup Language\">HTML</abbr> tags are supported. < p > A < a href =\"http://example.com\"> link </a >. </p > < p >< img alt =\"Image\" title =\"icon\" src =\"Icon-pictures.png\" /></p > < blockquote > < p > Markdown uses email-style characters for blockquoting. </p > < p > Multiple paragraphs need to be prepended individually. </p > </blockquote > < p > Most inline < abbr title =\"Hypertext Markup Language\"> HTML </abbr > tags are supported. </p > A [link](http://example.com/). ![Image](https://upload.wikimedia.org/wikipedia/commons/5/5c/Icon-pictures.png) Markdown uses email-style characters for blockquoting. Multiple paragraphs need to be prepended individually. Most inline HTML tags are supported."
    },
    {
     "bbox": [
      38,
-     3516,
+     1782,
      304,
      33
     ],
@@ -2355,7 +1827,7 @@
    {
     "bbox": [
      16,
-     3570,
+     1836,
      358,
      158
     ],
@@ -2386,12 +1858,12 @@
       "text": "blogging"
      }
     ],
-    "md": "Implementations of Markdown are available for over a dozen [programming languages](https://en.wikipedia.org/wiki/Programming_language); in addition, many [applications](https://en.wikipedia.org/wiki/Application_software), platforms and [frameworks](https://en.wikipedia.org/wiki/Software_framework) support Markdown.\\[53\\] For example, Markdown [plugins](https://en.wikipedia.org/wiki/Plug-in_(computing)) exist for every major [blogging](https://en.wikipedia.org/wiki/Blog) platform.\\[13\\]"
+    "md": "Implementations of Markdown are available for over a dozen [programming languages](https://en.wikipedia.org/wiki/Programming_language); in addition, many [applications](https://en.wikipedia.org/wiki/Application_software), platforms and [frameworks](https://en.wikipedia.org/wiki/Software_framework) support Markdown. \\[53 \\] For example, Markdown [plugins](https://en.wikipedia.org/wiki/Plug-in_(computing)) exist for every major [blogging](https://en.wikipedia.org/wiki/Blog) platform. \\[13 \\]"
    },
    {
     "bbox": [
      16,
-     3744,
+     2011,
      358,
      264
     ],
@@ -2423,7 +1895,7 @@
    {
     "bbox": [
      38,
-     3574,
+     1840,
      304,
      33
     ],
@@ -2439,7 +1911,7 @@
    {
     "bbox": [
      32,
-     3620,
+     1886,
      342,
      26
     ],
@@ -2461,7 +1933,7 @@
    {
     "bbox": [
      32,
-     3656,
+     1923,
      342,
      26
     ],
@@ -2483,7 +1955,7 @@
    {
     "bbox": [
      32,
-     3693,
+     1959,
      342,
      26
     ],
@@ -2505,7 +1977,7 @@
    {
     "bbox": [
      32,
-     3729,
+     1996,
      342,
      26
     ],
@@ -2527,7 +1999,7 @@
    {
     "bbox": [
      32,
-     3766,
+     2032,
      342,
      26
     ],
@@ -2549,7 +2021,7 @@
    {
     "bbox": [
      32,
-     3802,
+     2068,
      342,
      26
     ],
@@ -2571,7 +2043,7 @@
    {
     "bbox": [
      32,
-     3838,
+     2105,
      342,
      26
     ],
@@ -2593,7 +2065,7 @@
    {
     "bbox": [
      38,
-     3632,
+     1898,
      304,
      33
     ],
@@ -2609,7 +2081,7 @@
    {
     "bbox": [
      52,
-     3678,
+     1944,
      322,
      26
     ],
@@ -2626,7 +2098,7 @@
    {
     "bbox": [
      38,
-     3690,
+     1956,
      304,
      33
     ],
@@ -2642,7 +2114,7 @@
    {
     "bbox": [
      52,
-     3741,
+     2007,
      322,
      369
     ],
@@ -2668,7 +2140,7 @@
    {
     "bbox": [
      52,
-     4120,
+     2387,
      322,
      132
     ],
@@ -2712,13 +2184,13 @@
       "text": "7763"
      }
     ],
-    "md": "Jump up to: S. Leonard (March 2016). [*The text/markdown Media Type*](https://www.rfc-editor.org/rfc/rfc7763). [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force). [doi](https://en.wikipedia.org/wiki/Doi_(identifier)):[10.17487/RFC7763](https://doi.org/10.17487%2FRFC7763). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier)) [2070-1721](https://search.worldcat.org/issn/2070-1721). [RFC](https://en.wikipedia.org/wiki/Request_for_Comments) [7763](https://datatracker.ietf.org/doc/html/rfc7763). *Informational.*",
+    "md": "Jump up to: S. Leonard (March 2016). [*The text/markdown Media Type*](https://www.rfc-editor.org/rfc/rfc7763). [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force). [doi](https://en.wikipedia.org/wiki/Doi_(identifier)): [10.17487/RFC7763](https://doi.org/10.17487%2FRFC7763). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier)) [2070-1721](https://search.worldcat.org/issn/2070-1721). [RFC](https://en.wikipedia.org/wiki/Request_for_Comments) [7763](https://datatracker.ietf.org/doc/html/rfc7763). *Informational.*",
     "ordered": true
    },
    {
     "bbox": [
      52,
-     4262,
+     2529,
      322,
      106
     ],
@@ -2748,7 +2220,7 @@
    {
     "bbox": [
      52,
-     4378,
+     2644,
      322,
      79
     ],
@@ -2782,7 +2254,7 @@
    {
     "bbox": [
      52,
-     4467,
+     2733,
      322,
      106
     ],
@@ -2808,7 +2280,7 @@
    {
     "bbox": [
      52,
-     4583,
+     2849,
      322,
      79
     ],
@@ -2834,7 +2306,7 @@
    {
     "bbox": [
      52,
-     4672,
+     2938,
      322,
      158
     ],
@@ -2878,13 +2350,13 @@
       "text": "7764"
      }
     ],
-    "md": "Jump up to: S. Leonard (March 2016). [*Guidance on Markdown: Design Philosophies, Stability Strategies, and Select Registrations*](https://www.rfc-editor.org/rfc/rfc7764). [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force). [doi](https://en.wikipedia.org/wiki/Doi_(identifier)):[10.17487/RFC7764](https://doi.org/10.17487%2FRFC7764). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier)) [2070-1721](https://search.worldcat.org/issn/2070-1721). [RFC](https://en.wikipedia.org/wiki/Request_for_Comments) [7764](https://datatracker.ietf.org/doc/html/rfc7764). *Informational.*",
+    "md": "Jump up to: S. Leonard (March 2016). [*Guidance on Markdown: Design Philosophies, Stability Strategies, and Select Registrations*](https://www.rfc-editor.org/rfc/rfc7764). [Internet Engineering Task Force](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force). [doi](https://en.wikipedia.org/wiki/Doi_(identifier)): [10.17487/RFC7764](https://doi.org/10.17487%2FRFC7764). [ISSN](https://en.wikipedia.org/wiki/ISSN_(identifier)) [2070-1721](https://search.worldcat.org/issn/2070-1721). [RFC](https://en.wikipedia.org/wiki/Request_for_Comments) [7764](https://datatracker.ietf.org/doc/html/rfc7764). *Informational.*",
     "ordered": true
    },
    {
     "bbox": [
      52,
-     4840,
+     3106,
      322,
      79
     ],
@@ -2910,7 +2382,7 @@
    {
     "bbox": [
      52,
-     4929,
+     3196,
      322,
      369
     ],
@@ -2926,13 +2398,13 @@
       "text": "\"Daring Fireball – Markdown – Syntax\""
      }
     ],
-    "md": "Jump up to: Markdown Syntax [\"Daring Fireball – Markdown – Syntax\"](http://daringfireball.net/projects/markdown/syntax#philosophy). 2013-06-13. \"Readability, however, is emphasized above all else. A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions. While Markdown's syntax has been influenced by several existing text-to-HTML filters — including Setext, atx, Textile, reStructuredText, Grutatext\\[15\\], and EtText\\[16\\] — the single biggest source of inspiration for Markdown's syntax is the format of plain text email.\"",
+    "md": "Jump up to: Markdown Syntax [\"Daring Fireball – Markdown – Syntax\"](http://daringfireball.net/projects/markdown/syntax#philosophy). 2013-06-13. \"Readability, however, is emphasized above all else. A Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions. While Markdown's syntax has been influenced by several existing text-to-HTML filters — including Setext, atx, Textile, reStructuredText, Grutatext \\[15 \\], and EtText \\[16 \\] — the single biggest source of inspiration for Markdown's syntax is the format of plain text email.\"",
     "ordered": true
    },
    {
     "bbox": [
      52,
-     5309,
+     3575,
      322,
      132
     ],
@@ -2954,7 +2426,7 @@
    {
     "bbox": [
      52,
-     5451,
+     3717,
      322,
      106
     ],
@@ -2980,7 +2452,7 @@
    {
     "bbox": [
      52,
-     5566,
+     3833,
      322,
      106
     ],
@@ -3006,7 +2478,7 @@
    {
     "bbox": [
      52,
-     5682,
+     3948,
      322,
      211
     ],
@@ -3040,7 +2512,7 @@
    {
     "bbox": [
      52,
-     5903,
+     4169,
      322,
      106
     ],
@@ -3070,7 +2542,7 @@
    {
     "bbox": [
      52,
-     6018,
+     4285,
      322,
      106
     ],
@@ -3096,7 +2568,7 @@
    {
     "bbox": [
      52,
-     6134,
+     4400,
      322,
      53
     ],
@@ -3118,7 +2590,7 @@
    {
     "bbox": [
      52,
-     6197,
+     4463,
      322,
      79
     ],
@@ -3144,7 +2616,7 @@
    {
     "bbox": [
      52,
-     6286,
+     4552,
      322,
      106
     ],
@@ -3170,7 +2642,7 @@
    {
     "bbox": [
      52,
-     6402,
+     4668,
      322,
      106
     ],
@@ -3196,7 +2668,7 @@
    {
     "bbox": [
      52,
-     6517,
+     4783,
      322,
      106
     ],
@@ -3222,7 +2694,7 @@
    {
     "bbox": [
      52,
-     6633,
+     4899,
      322,
      106
     ],
@@ -3248,7 +2720,7 @@
    {
     "bbox": [
      52,
-     6748,
+     5015,
      322,
      158
     ],
@@ -3282,7 +2754,7 @@
    {
     "bbox": [
      52,
-     6917,
+     5183,
      322,
      369
     ],
@@ -3308,7 +2780,7 @@
    {
     "bbox": [
      52,
-     7296,
+     5562,
      322,
      106
     ],
@@ -3334,7 +2806,7 @@
    {
     "bbox": [
      52,
-     7412,
+     5678,
      322,
      79
     ],
@@ -3360,7 +2832,7 @@
    {
     "bbox": [
      52,
-     7501,
+     5767,
      322,
      79
     ],
@@ -3386,7 +2858,7 @@
    {
     "bbox": [
      52,
-     7590,
+     5856,
      322,
      106
     ],
@@ -3412,7 +2884,7 @@
    {
     "bbox": [
      52,
-     7706,
+     5972,
      322,
      106
     ],
@@ -3438,7 +2910,7 @@
    {
     "bbox": [
      52,
-     7821,
+     6087,
      322,
      211
     ],
@@ -3464,7 +2936,7 @@
    {
     "bbox": [
      52,
-     8042,
+     6309,
      322,
      132
     ],
@@ -3477,20 +2949,20 @@
     "links": [
      {
       "href": "https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287",
-      "text": "\"Issues we MUST resolve before 1.0 release \\[6 remaining\\]\""
+      "text": "\"Issues we MUST resolve before 1.0 release \\[6 remaining \\]\""
      },
      {
       "href": "https://web.archive.org/web/20210414032229/https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287",
       "text": "Archived"
      }
     ],
-    "md": "[\"Issues we MUST resolve before 1.0 release \\[6 remaining\\]\"](https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287). *CommonMark Discussion* . 2015-07-26. [Archived](https://web.archive.org/web/20210414032229/https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287) from the original on 2021-04-14. Retrieved 2020-10-02.",
+    "md": "[\"Issues we MUST resolve before 1.0 release \\[6 remaining \\]\"](https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287). *CommonMark Discussion* . 2015-07-26. [Archived](https://web.archive.org/web/20210414032229/https://talk.commonmark.org/t/issues-we-must-resolve-before-1-0-release-6-remaining/1287) from the original on 2021-04-14. Retrieved 2020-10-02.",
     "ordered": true
    },
    {
     "bbox": [
      52,
-     8184,
+     6450,
      322,
      79
     ],
@@ -3520,7 +2992,7 @@
    {
     "bbox": [
      52,
-     8273,
+     6540,
      322,
      79
     ],
@@ -3542,7 +3014,7 @@
    {
     "bbox": [
      52,
-     8363,
+     6629,
      322,
      79
     ],
@@ -3568,7 +3040,7 @@
    {
     "bbox": [
      52,
-     8452,
+     6718,
      322,
      132
     ],
@@ -3594,7 +3066,7 @@
    {
     "bbox": [
      52,
-     8594,
+     6860,
      322,
      106
     ],
@@ -3624,7 +3096,7 @@
    {
     "bbox": [
      52,
-     8709,
+     6976,
      322,
      106
     ],
@@ -3650,7 +3122,7 @@
    {
     "bbox": [
      52,
-     8825,
+     7091,
      322,
      106
     ],
@@ -3676,7 +3148,7 @@
    {
     "bbox": [
      52,
-     8940,
+     7207,
      322,
      211
     ],
@@ -3702,7 +3174,7 @@
    {
     "bbox": [
      52,
-     9161,
+     7428,
      322,
      53
     ],
@@ -3724,7 +3196,7 @@
    {
     "bbox": [
      52,
-     9224,
+     7491,
      322,
      79
     ],
@@ -3746,7 +3218,7 @@
    {
     "bbox": [
      52,
-     9313,
+     7580,
      322,
      132
     ],
@@ -3768,7 +3240,7 @@
    {
     "bbox": [
      52,
-     9455,
+     7722,
      322,
      79
     ],
@@ -3790,7 +3262,7 @@
    {
     "bbox": [
      52,
-     9545,
+     7811,
      322,
      79
     ],
@@ -3816,7 +3288,7 @@
    {
     "bbox": [
      52,
-     9634,
+     7900,
      322,
      79
     ],
@@ -3838,7 +3310,7 @@
    {
     "bbox": [
      52,
-     9723,
+     7989,
      322,
      53
     ],
@@ -3860,7 +3332,7 @@
    {
     "bbox": [
      52,
-     9786,
+     8052,
      322,
      79
     ],
@@ -3882,7 +3354,7 @@
    {
     "bbox": [
      52,
-     9875,
+     8141,
      322,
      106
     ],
@@ -3912,7 +3384,7 @@
    {
     "bbox": [
      52,
-     9990,
+     8257,
      322,
      106
     ],
@@ -3938,7 +3410,7 @@
    {
     "bbox": [
      52,
-     10106,
+     8372,
      322,
      106
     ],
@@ -3964,7 +3436,7 @@
    {
     "bbox": [
      52,
-     10222,
+     8488,
      322,
      106
     ],
@@ -3990,7 +3462,7 @@
    {
     "bbox": [
      52,
-     10337,
+     8603,
      322,
      53
     ],
@@ -4012,7 +3484,7 @@
    {
     "bbox": [
      52,
-     10400,
+     8666,
      322,
      132
     ],
@@ -4038,7 +3510,7 @@
    {
     "bbox": [
      52,
-     10542,
+     8808,
      322,
      106
     ],
@@ -4064,7 +3536,7 @@
    {
     "bbox": [
      38,
-     3748,
+     2014,
      304,
      33
     ],
@@ -4080,7 +3552,7 @@
    {
     "bbox": [
      32,
-     3794,
+     2060,
      342,
      53
     ],
@@ -4102,7 +3574,7 @@
    {
     "bbox": [
      36,
-     3839,
+     2105,
      322,
      23
     ],
@@ -4114,16 +3586,16 @@
     "links": [
      {
       "href": "https://en.wikipedia.org/w/index.php?title=Markdown&action=history",
-      "text": "**Last edited 15 days ago** by Viewmont Viking"
+      "text": "**Last edited 16 days ago** by Viewmont Viking"
      }
     ],
-    "md": "[**Last edited 15 days ago** by Viewmont Viking](https://en.wikipedia.org/w/index.php?title=Markdown&action=history)"
+    "md": "[**Last edited 16 days ago** by Viewmont Viking](https://en.wikipedia.org/w/index.php?title=Markdown&action=history)"
    },
    {
     "alt": "Wikipedia",
     "bbox": [
      16,
-     4290,
+     2556,
      140,
      22
     ],
@@ -4141,7 +3613,7 @@
    {
     "bbox": [
      260,
-     4279,
+     2545,
      49,
      44
     ],
@@ -4165,7 +3637,7 @@
    {
     "bbox": [
      325,
-     4279,
+     2545,
      49,
      44
     ],
@@ -4189,7 +3661,7 @@
    {
     "bbox": [
      16,
-     4343,
+     2609,
      225,
      28
     ],
@@ -4211,7 +3683,7 @@
    {
     "bbox": [
      16,
-     4371,
+     2637,
      350,
      56
     ],
@@ -4233,7 +3705,7 @@
    {
     "bbox": [
      16,
-     4436,
+     2702,
      358,
      112
     ],
@@ -4284,8 +3756,8 @@
    }
   ],
   "description": "",
-  "docHeight": 4703,
-  "interactive": 103,
+  "docHeight": 2829,
+  "interactive": 32,
   "lang": "en",
   "title": "Markdown - Wikipedia",
   "url": "https://en.wikipedia.org/wiki/Markdown",
@@ -4295,9 +3767,9 @@
   ]
  },
  "meta": {
-  "elapsed_ms": 1526,
-  "extractor": "2.0.0a1",
-  "fetched_at": "2026-07-03T16:43:25-05:00",
+  "elapsed_ms": 900,
+  "extractor": "2.0.0a3",
+  "fetched_at": "2026-07-04T11:45:37-05:00",
   "mode": "authenticated",
   "requested_url": "https://en.wikipedia.org/wiki/Markdown",
   "url": "https://en.wikipedia.org/wiki/Markdown"

@@ -3,9 +3,9 @@
 
 [![Mojeek](https://www.mojeek.com/logos/logo_cc.svg)](https://www.mojeek.com/) ✕
 
-[Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram)[Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary)[Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images)[News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)
+[Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram) [Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary) [Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images) [News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)
 
-Results 1 to 10 from 913 in 0.04s
+Results 1 to 10 from 913 in 0.08s
 
 - https://news.tuxmachines.org › n › ... › 07 › 03 › BSD\_EuroBSDCon\_and\_FreeBSD... [Tux Machines — BSD: EuroBSDCon and FreeBSD Leftovers](https://news.tuxmachines.org/n/2026/07/03/BSD_EuroBSDCon_and_FreeBSD_Leftovers.shtml) Bruno Croci ☛ **FreeBSD** **ate** **my** **ram** ! ... Another user shared Linux **ate** **my** **RAM** , which provide a quick explanation for the same effect on Linux.
 
@@ -25,7 +25,7 @@ Using words that might appear on the page you're looking can help. For example, 
 - konstantin.antselovich.com › category › cache [Konstantin Antselovich » cache](http://konstantin.antselovich.com/category/cache/) Help! Linux **ate** **my** **RAM** ! ... Posted in cache , funny , humor , Linux , memory , **ram** , sysadmin | Comments Off | permalink
 - www.lemis.com › grog › diary-apr2013.php [Greg's diary--April 2013](http://www.lemis.com/grog/diary-apr2013.php) Mail from Eitan Adler in the **FreeBSD** mailing lists today: a proposal to drop full support for the 32 bit Intel i386 architecture (the one others call ... [See more results from www.lemis.com »](https://www.mojeek.com/search?q=site%3Awww.lemis.com+freebsd+ate+my+ram)
 
-Prev1[2](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)[3](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21)[4](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31)[5](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41)[Next](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)
+Prev 1 [2](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11) [3](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21) [4](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31) [5](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41) [Next](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)
 
 Try elsewhere:
 
@@ -41,7 +41,7 @@ Try elsewhere:
 
 ✕
 
-Austin, US - detected automatically|[Change](https://www.mojeek.com/preferences?tab=location-language)
+Austin, US - detected automatically | [Change](https://www.mojeek.com/preferences?tab=location-language)
 
 - [Feedback](https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram)
 - [Privacy](https://www.mojeek.com/about/privacy/)
