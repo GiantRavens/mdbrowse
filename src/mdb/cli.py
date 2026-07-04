@@ -81,6 +81,11 @@ def selftest(update: bool = False) -> int:
 
 
 def main() -> None:
+    # Subcommand dispatch before flag parsing: `mdb watch <verb> ...`
+    if len(sys.argv) > 1 and sys.argv[1] == "watch":
+        from .watch import watch_cli
+        sys.exit(watch_cli(sys.argv[2:]))
+
     ap = argparse.ArgumentParser(
         prog="mdb",
         description="Web -> deterministic markdown compiler (mdbrowse v2).")
