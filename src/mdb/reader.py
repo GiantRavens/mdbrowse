@@ -53,6 +53,7 @@ HELP_LINES = (
     "  r                reload page",
     "  s                save markdown archive",
     "  v                speak page from focused element (v again stops)",
+    "  S / a            summarize / ask this page (Claude); H returns",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
     "  :                go to URL · 'ddg terms' searches DuckDuckGo ·",
@@ -471,6 +472,7 @@ class Reader:
         self.page = None
         self.msg = ""
         self._say = None            # active `say` process, if any
+        self._assist = None         # last LLM answer, shown as a page
 
     def _speech_stop(self):
         from . import speech
@@ -479,6 +481,8 @@ class Reader:
 
     # -- pipeline --
     def load(self, url: str) -> Page:
+        if url == "assist:last" and self._assist is not None:
+            return self._assist
         if url.startswith("safari:"):
             from . import safari
             body = safari.page_markdown(url.split(":", 1)[1] or "start")
@@ -821,6 +825,40 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c in (ord("S"), ord("a")):    # LLM: summarize / ask this page
+                from . import assist
+                if not assist.available():
+                    self.msg = "claude CLI not found on PATH"
+                    continue
+                if not page.body.strip():
+                    self.msg = "nothing to send"
+                    continue
+                question = None
+                if c == ord("a"):
+                    question = self._prompt(scr, h, w, "ask: ").strip()
+                    if not question:
+                        continue
+                verb = "summarizing" if question is None else "asking"
+                self._status_load(scr, f"{verb} via claude -p …")
+                try:
+                    if question is None:
+                        answer = assist.summarize(page.body, page.url)
+                        title = "Summary"
+                    else:
+                        answer = assist.ask(page.body, question, page.url)
+                        title = f"Q: {question}"
+                except Exception as e:
+                    self.msg = f"assist failed: {str(e)[:120]}"
+                    continue
+                src = (page.bundle["doc"].get("title")
+                       if page.bundle else page.url) or page.url
+                body = f"# {title}\n\n_{src}_\n\n{answer}"
+                ap = Page(url="assist:last", bundle=None, manifest=None,
+                          body=body)
+                ap.llines, ap.focusables = parse_body(body)
+                self._assist = ap
+                return ("go", "assist:last")
+
             if c == ord("v"):                # speak page from focused element
                 from . import speech
                 if self._say and self._say.poll() is None:

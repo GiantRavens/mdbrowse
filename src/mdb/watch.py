@@ -226,6 +226,42 @@ def log(name: str) -> int:
     return 0
 
 
+def digest(days: int = 7) -> int:
+    """Morning-briefing material: what changed across all watches in the
+    last N days, summarized by Claude from the git patches. Prints
+    markdown — pipe it wherever the briefing lives."""
+    from . import assist
+    cfg = _load()
+    if not cfg:
+        print("watch digest: no watches configured")
+        return 0
+    chunks = []
+    for name in sorted(cfg):
+        patch = _git("log", f"--since={days} days ago", "-p", "--unified=0",
+                     "--format=commit %ad  %s", "--date=format:%Y-%m-%d",
+                     "--", f"{name}.md", check=False).stdout
+        lines = [l for l in patch.split("\n")
+                 if not re.match(r"^[+-](retrieved|hash|extractor|confidence):", l)]
+        text = "\n".join(lines).strip()
+        if text:
+            chunks.append(f"## watch: {name} ({cfg[name]['url']})\n{text[:8000]}")
+    if not chunks:
+        print(f"watch digest: no changes in the last {days} days")
+        return 0
+    if not assist.available():
+        print("watch digest: claude CLI not found", file=sys.stderr)
+        return 1
+    prompt = (
+        "You are writing a morning-briefing item from web-page watch diffs "
+        "(git patches of markdown page snapshots; deletions are old text, "
+        "additions new). For each watch, say what actually changed in plain "
+        "language — lead with the most significant change overall. If a "
+        "watch shows only trivial churn, one short line. Plain markdown, "
+        f"no preamble. Period: the last {days} days.")
+    print(assist._run(prompt, "\n\n".join(chunks)[:50000]))
+    return 0
+
+
 def ls() -> int:
     cfg = _load()
     if not cfg:
@@ -267,6 +303,9 @@ def watch_cli(argv) -> int:
     p = sub.add_parser("log", help="show a watch's change history")
     p.add_argument("name")
 
+    p = sub.add_parser("digest", help="Claude-written summary of recent changes")
+    p.add_argument("--days", type=int, default=7)
+
     sub.add_parser("ls", help="list watches")
 
     a = ap.parse_args(argv)
@@ -284,6 +323,8 @@ def watch_cli(argv) -> int:
         return diff(a.name)
     if a.verb == "log":
         return log(a.name)
+    if a.verb == "digest":
+        return digest(a.days)
     if a.verb == "ls":
         return ls()
     return 1
