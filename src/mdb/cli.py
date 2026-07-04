@@ -86,8 +86,14 @@ def main() -> None:
         description="Web -> deterministic markdown compiler (mdbrowse v2).")
     ap.add_argument("url", nargs="?", help="page to compile")
     ap.add_argument("--browse", action="store_true",
-                    help="interactive vim-style reader (Tab focus ring, "
-                         "Enter=go, Space=peek)")
+                    help="force the interactive reader (already the default "
+                         "in a terminal)")
+    ap.add_argument("--plain", action="store_true",
+                    help="non-interactive render through the pager instead "
+                         "of the reader (default when output is piped)")
+    ap.add_argument("--no-center", dest="center", action="store_false",
+                    help="left-align the plain render instead of the "
+                         "Goyo-style centered column")
     ap.add_argument("--private", "--anonymous", dest="private",
                     action="store_true",
                     help="send no Safari cookies; add DNT/Sec-GPC")
@@ -119,9 +125,15 @@ def main() -> None:
 
     url = _normalize_url(args.url)
 
-    if args.browse:
+    # In a terminal, mdb IS a browser: the interactive reader is the default.
+    # Piped output, --plain, and the non-view verbs use the render pipeline.
+    interactive = sys.stdout.isatty() and sys.stdin.isatty()
+    want_browse = args.browse or (
+        interactive and not (args.plain or args.raw or args.dump
+                             or args.save or args.fixture))
+    if want_browse:
         from .reader import browse
-        browse(url, private=args.private)
+        browse(url, private=args.private, width=args.width)
         return
 
     try:
@@ -173,7 +185,7 @@ def main() -> None:
         return
 
     render(body, b["meta"]["url"], width=args.width,
-           use_pager=not args.no_pager)
+           use_pager=not args.no_pager, center=args.center)
 
 
 if __name__ == "__main__":

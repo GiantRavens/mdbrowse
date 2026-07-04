@@ -301,9 +301,10 @@ class Page:
 
 
 class Reader:
-    def __init__(self, start_url: str, private: bool = False):
+    def __init__(self, start_url: str, private: bool = False, width: int = 0):
         self.start_url = start_url
         self.private = private
+        self.width = width          # goyo column override (0 = default 88)
         self.engine = Engine(private=private)
         self.history = []
         self.page = None
@@ -377,7 +378,7 @@ class Reader:
         def geometry():
             nonlocal h, w, content_w, pad, view_h, rows, styles, fpos
             h, w = scr.getmaxyx()
-            content_w = min(w - 4, 88)
+            content_w = min(w - 4, self.width or 88)
             pad = max(0, (w - content_w) // 2)
             view_h = max(1, h - 1 - TOP_PAD)
             rows, styles, fpos = layout(page.llines, content_w)
@@ -659,5 +660,5 @@ class Reader:
         return s.decode("utf-8", "replace") if s else ""
 
 
-def browse(url: str, private: bool = False) -> None:
-    Reader(url, private=private).run()
+def browse(url: str, private: bool = False, width: int = 0) -> None:
+    Reader(url, private=private, width=width).run()
