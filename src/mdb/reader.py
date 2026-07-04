@@ -52,6 +52,7 @@ HELP_LINES = (
     "  H / L            history back / forward",
     "  r                reload page",
     "  s                save markdown archive",
+    "  v                speak page from focused element (v again stops)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
     "  :                go to URL (also safari:start / bookmarks / reading)",
@@ -139,6 +140,7 @@ def _tokenize(line: str, focusables: list):
     if pos < len(line):
         segs.append((_clean(line[pos:]), None))
     return [(t, fid) for t, fid in segs if t]
+
 
 
 # ---------------------------------------------------------------------------
@@ -400,15 +402,24 @@ class Page:
 
 
 class Reader:
-    def __init__(self, start_url: str, private: bool = False, width: int = 0):
+    def __init__(self, start_url: str, private: bool = False, width: int = 0,
+                 voice: str = None, announce: bool = False):
         self.start_url = start_url
         self.private = private
         self.width = width          # goyo column override (0 = default 88)
+        self.voice = voice
+        self.announce = announce    # speak each element as focus lands on it
         self.engine = Engine(private=private)
         self.history = []           # back stack
         self.forward = []           # forward stack (L); cleared on new go
         self.page = None
         self.msg = ""
+        self._say = None            # active `say` process, if any
+
+    def _speech_stop(self):
+        from . import speech
+        speech.stop(self._say)
+        self._say = None
 
     # -- pipeline --
     def load(self, url: str) -> Page:
@@ -435,6 +446,7 @@ class Reader:
         try:
             curses.wrapper(self._run)
         finally:
+            self._speech_stop()
             self.engine.close()
 
     def _status_load(self, scr, url):
@@ -464,6 +476,7 @@ class Reader:
             except Exception as e:
                 self.page = self.error_page(current, e)
             nav = self._view(scr)
+            self._speech_stop()      # page is changing; the old page hushes
             if nav is None:
                 return
             action, target = nav
@@ -526,6 +539,12 @@ class Reader:
                 return
             focus = (focus + step) % len(focusables)
             center_focus()
+            if self.announce:
+                from . import speech
+                self._speech_stop()
+                f = focusables[focus]
+                prefix = {IMAGE: "image, ", CARD: "linked image, "}.get(f.kind, "")
+                self._say = speech.speak((prefix + f.label)[:200], self.voice)
 
         def attr_for(f, focused):
             if f.kind == LINK:
@@ -746,6 +765,25 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c == ord("v"):                # speak page from focused element
+                from . import speech
+                if self._say and self._say.poll() is None:
+                    self._speech_stop()
+                    self.msg = "speech stopped"
+                    continue
+                start = 0
+                if 0 <= focus < len(focusables):
+                    for i, ll in enumerate(page.llines):
+                        if any(fid == focus for _, fid in ll.segs):
+                            start = i
+                            break
+                text = speech.from_llines(page.llines, start)
+                if text.strip():
+                    self._say = speech.speak(text, self.voice)
+                    self.msg = "speaking… (v stops)"
+                else:
+                    self.msg = "nothing to speak"
+                continue
             if c == ord("B"):                # add to Safari Reading List
                 from . import safari
                 title = (page.bundle["doc"].get("title")
@@ -889,5 +927,7 @@ class Reader:
         return s.decode("utf-8", "replace") if s else ""
 
 
-def browse(url: str, private: bool = False, width: int = 0) -> None:
-    Reader(url, private=private, width=width).run()
+def browse(url: str, private: bool = False, width: int = 0,
+           voice: str = None, announce: bool = False) -> None:
+    Reader(url, private=private, width=width,
+           voice=voice, announce=announce).run()

@@ -39,6 +39,28 @@ def _normalize_url(url: str) -> str:
     return url
 
 
+def _speak_body(body_md: str, voice, out_path=None) -> int:
+    from .reader import parse_body
+    from . import speech
+    text = speech.from_llines(parse_body(body_md)[0])
+    if not text.strip():
+        _err("nothing to speak")
+        return 1
+    if out_path:
+        ok = speech.render_to_file(text, os.path.expanduser(out_path), voice)
+        print(f"mdb: speech rendered -> {out_path}" if ok
+              else "mdb: speech render failed")
+        return 0 if ok else 1
+    print("mdb: speaking… (Ctrl-C stops)")
+    proc = speech.speak(text, voice)
+    try:
+        proc.wait()
+    except KeyboardInterrupt:
+        speech.stop(proc)
+        print()
+    return 0
+
+
 def _strip_front_matter(doc_md: str) -> str:
     m = re.match(r"(?s)^---\n.*?\n---\n\n?", doc_md)
     return doc_md[m.end():] if m else doc_md
@@ -109,6 +131,14 @@ def main() -> None:
     ap.add_argument("--no-center", dest="center", action="store_false",
                     help="left-align the plain render instead of the "
                          "Goyo-style centered column")
+    ap.add_argument("--speak", action="store_true",
+                    help="speak the page aloud (macOS say; Ctrl-C stops)")
+    ap.add_argument("--speak-out", metavar="AUDIO_FILE", default=None,
+                    help="render speech to an audio file instead of playing")
+    ap.add_argument("--voice", default=None,
+                    help="say voice name (or MDBROWSE_VOICE)")
+    ap.add_argument("--announce", action="store_true",
+                    help="in the reader, speak each element as focus lands on it")
     ap.add_argument("--private", "--anonymous", dest="private",
                     action="store_true",
                     help="send no Safari cookies; add DNT/Sec-GPC")
@@ -153,6 +183,9 @@ def main() -> None:
     # Safari pseudo-pages need no engine: emit directly for non-browse paths.
     if url.startswith("safari:"):
         from .safari import page_markdown
+        if args.speak or args.speak_out:
+            sys.exit(_speak_body(page_markdown(url.split(":", 1)[1] or "start"),
+                                 args.voice, args.speak_out))
         if args.raw or args.dump == "body" or args.plain or not interactive:
             md = page_markdown(url.split(":", 1)[1] or "start")
             if args.raw or args.dump == "body" or not interactive:
@@ -167,12 +200,14 @@ def main() -> None:
 
     # In a terminal, mdb IS a browser: the interactive reader is the default.
     # Piped output, --plain, and the non-view verbs use the render pipeline.
-    want_browse = args.browse or (
+    want_browse = args.announce or args.browse or (
         interactive and not (args.plain or args.raw or args.dump
-                             or args.save or args.fixture))
+                             or args.save or args.fixture
+                             or args.speak or args.speak_out))
     if want_browse:
         from .reader import browse
-        browse(url, private=args.private, width=args.width)
+        browse(url, private=args.private, width=args.width,
+               voice=args.voice, announce=args.announce)
         return
 
     try:
@@ -199,6 +234,9 @@ def main() -> None:
     if args.dump == "body":
         print(body)
         return
+
+    if args.speak or args.speak_out:
+        sys.exit(_speak_body(body, args.voice, args.speak_out))
 
     if args.fixture:
         os.makedirs(FIXTURE_DIR, exist_ok=True)
