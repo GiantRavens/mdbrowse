@@ -1,0 +1,645 @@
+{
+ "doc": {
+  "anchors": 87,
+  "blocks": [
+   {
+    "bbox": [
+     0,
+     0,
+     390,
+     79
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [
+     "https://www.mojeek.com/logos/logo_cc.svg"
+    ],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/",
+      "text": "![Mojeek](https://www.mojeek.com/logos/logo_cc.svg)"
+     }
+    ],
+    "md": "[![Mojeek](https://www.mojeek.com/logos/logo_cc.svg)](https://www.mojeek.com/) ✕"
+   },
+   {
+    "bbox": [
+     20,
+     78,
+     290,
+     40
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram",
+      "text": "Web"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary",
+      "text": "Summary"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images",
+      "text": "Images"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news",
+      "text": "News"
+     }
+    ],
+    "md": "[Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram)[Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary)[Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images)[News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)"
+   },
+   {
+    "bbox": [
+     20,
+     143,
+     205,
+     14
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "Results 1 to 10 from 913 in 0.04s"
+   },
+   {
+    "bbox": [
+     20,
+     181,
+     350,
+     144
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://news.tuxmachines.org/n/2026/07/03/BSD_EuroBSDCon_and_FreeBSD_Leftovers.shtml",
+      "text": "Tux Machines — BSD: EuroBSDCon and FreeBSD Leftovers"
+     }
+    ],
+    "md": "https://news.tuxmachines.org › n › ... › 07 › 03 › BSD\\_EuroBSDCon\\_and\\_FreeBSD... [Tux Machines — BSD: EuroBSDCon and FreeBSD Leftovers](https://news.tuxmachines.org/n/2026/07/03/BSD_EuroBSDCon_and_FreeBSD_Leftovers.shtml) Bruno Croci ☛ **FreeBSD** **ate** **my** **ram** ! ... Another user shared Linux **ate** **my** **RAM** , which provide a quick explanation for the same effect on Linux.",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     349,
+     350,
+     1
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "hr",
+    "landmark": "body",
+    "links": [],
+    "md": ""
+   },
+   {
+    "bbox": [
+     20,
+     368,
+     350,
+     91
+    ],
+    "bold": false,
+    "fontSize": 21,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "More results follow. These matched your query, but may have limited relevance."
+   },
+   {
+    "bbox": [
+     20,
+     459,
+     350,
+     72
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "Using words that might appear on the page you're looking can help. For example, 'cake recipe' instead of 'how to make a cake'."
+   },
+   {
+    "bbox": [
+     20,
+     556,
+     350,
+     146
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "http://fortunes.cat-v.org/freebsd/offensive",
+      "text": "freebsd - offensive"
+     }
+    ],
+    "md": "fortunes.cat-v.org › freebsd › offensive [freebsd - offensive](http://fortunes.cat-v.org/freebsd/offensive) **FreeBSD** : src/games/fortune/datfiles/fortunes-o.real,v 1.22.2.4 2009/06/07 04:49:23 edwin Exp $ % PLAYGIRL, Inc. ... **my** God, screamed Mommy, You went ...",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     726,
+     350,
+     144
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.jasonvanpatten.com/2015/11/26/freebsd-as-my-network-storage-server/",
+      "text": "FreeBSD as my Network Storage Server (Part 1) –"
+     }
+    ],
+    "md": "https://www.jasonvanpatten.com › ... › 11 › 26 › freebsd-as-my-network-stor... [FreeBSD as my Network Storage Server (Part 1) –](https://www.jasonvanpatten.com/2015/11/26/freebsd-as-my-network-storage-server/) After running the gauntlet of returning and swapping a few of the new White Label drives due to bad sectors and other SATA errors on **FreeBSD** , I ...",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     894,
+     350,
+     144
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://vincerants.com/",
+      "text": "@VinceRants – Software Dev – Database Admin –"
+     }
+    ],
+    "md": "https://vincerants.com/ [@VinceRants – Software Dev – Database Admin –](https://vincerants.com/) Both **FreeBSD** 12.1-RELEASE and 13.0-CURRENT will work for this process, though I personally recommend 13.0 as it has a more complete collection of pre ...",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1062,
+     350,
+     170
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://techrights.org/n/2025/12/30/Gemini_Links_30_12_2025_FreeBSD_Gemlogs_and_Xobaque.shtml",
+      "text": "Techrights — Gemini Links 30/12/2025: FreeBSD, Gemlogs,"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=site%3Atechrights.org+freebsd+ate+my+ram",
+      "text": "See more results from techrights.org »"
+     }
+    ],
+    "md": "https://techrights.org › n › ... › 12 › 30 › Gemini\\_Links\\_30\\_12\\_2025\\_FreeBSD\\_... [Techrights — Gemini Links 30/12/2025: FreeBSD, Gemlogs,](https://techrights.org/n/2025/12/30/Gemini_Links_30_12_2025_FreeBSD_Gemlogs_and_Xobaque.shtml) ... jails with VNC, bhyve, and other VM in the **FreeBSD** ... Microsoft XBox Having a \"Dog **Ate** **My** Homework\" Moment: No New Console Until 3 Years From Now... [See more results from techrights.org »](https://www.mojeek.com/search?q=site%3Atechrights.org+freebsd+ate+my+ram)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1256,
+     350,
+     170
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.osnews.com/story/139225/ixsystems-focusing-on-linux-makes-more-sense-than-freebsd/",
+      "text": "iXsystems: focusing on Linux makes more sense than FreeBSD"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=site%3Awww.osnews.com+freebsd+ate+my+ram",
+      "text": "See more results from www.osnews.com »"
+     }
+    ],
+    "md": "https://www.osnews.com › ... › ... › ixsystems-focusing-on-linux-makes-mo... [iXsystems: focusing on Linux makes more sense than FreeBSD](https://www.osnews.com/story/139225/ixsystems-focusing-on-linux-makes-more-sense-than-freebsd/) In an early demo one of **my** colleges demoed the **FreeBSD** version, and forgot to swap out the loading screen with the BSD Daemon and the Fortune 500 ... [See more results from www.osnews.com »](https://www.mojeek.com/search?q=site%3Awww.osnews.com+freebsd+ate+my+ram)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1450,
+     350,
+     122
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://br-linux.org/wparchive/2009/virtualbox-port-para-freebsd-a-caminho.php",
+      "text": "VirtualBox – Port para FreeBSD a caminho"
+     }
+    ],
+    "md": "https://br-linux.org › ... › ... › virtualbox-port-para-freebsd-a-caminho... [VirtualBox – Port para FreeBSD a caminho](https://br-linux.org/wparchive/2009/virtualbox-port-para-freebsd-a-caminho.php) Ah, sim: a Sun ainda não declarou oficial o suporte a **FreeBSD** , e esta versão foi feita pelos desenvolvedores enquanto estavam livres para testá-lo.",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1596,
+     350,
+     144
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://blog.thalheim.io/2025/10/17/zfs-ate-my-ram-understanding-the-arc-cache/",
+      "text": "ZFS ate my RAM: Understanding the ARC cache | ~/git/blog"
+     }
+    ],
+    "md": "https://blog.thalheim.io › ... › 10 › 17 › zfs-ate-my-ram-understanding-the... [ZFS ate my RAM: Understanding the ARC cache | ~/git/blog](https://blog.thalheim.io/2025/10/17/zfs-ate-my-ram-understanding-the-arc-cache/) Since OpenZFS 2.3, the default ARC size is max(**RAM** - 1GB, 5/8 × **RAM** ) , which means ... Linux **ate** **my** **RAM** - Understanding general Linux memory usage",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1764,
+     350,
+     122
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "http://konstantin.antselovich.com/category/cache/",
+      "text": "Konstantin Antselovich » cache"
+     }
+    ],
+    "md": "konstantin.antselovich.com › category › cache [Konstantin Antselovich » cache](http://konstantin.antselovich.com/category/cache/) Help! Linux **ate** **my** **RAM** ! ... Posted in cache , funny , humor , Linux , memory , **ram** , sysadmin | Comments Off | permalink",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     1910,
+     350,
+     148
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "http://www.lemis.com/grog/diary-apr2013.php",
+      "text": "Greg's diary--April 2013"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=site%3Awww.lemis.com+freebsd+ate+my+ram",
+      "text": "See more results from www.lemis.com »"
+     }
+    ],
+    "md": "www.lemis.com › grog › diary-apr2013.php [Greg's diary--April 2013](http://www.lemis.com/grog/diary-apr2013.php) Mail from Eitan Adler in the **FreeBSD** mailing lists today: a proposal to drop full support for the 32 bit Intel i386 architecture (the one others call ... [See more results from www.lemis.com »](https://www.mojeek.com/search?q=site%3Awww.lemis.com+freebsd+ate+my+ram)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     20,
+     2090,
+     350,
+     31
+    ],
+    "bold": false,
+    "fontSize": 17,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11",
+      "text": "2"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21",
+      "text": "3"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31",
+      "text": "4"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41",
+      "text": "5"
+     },
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11",
+      "text": "Next"
+     }
+    ],
+    "md": "Prev1[2](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)[3](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=21)[4](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=31)[5](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=41)[Next](https://www.mojeek.com/search?q=freebsd+ate+my+ram&s=11)"
+   },
+   {
+    "bbox": [
+     20,
+     2145,
+     350,
+     24
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "Try elsewhere:"
+   },
+   {
+    "bbox": [
+     20,
+     2179,
+     73,
+     34
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Brave",
+      "text": "Brave"
+     }
+    ],
+    "md": "[Brave](https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Brave)"
+   },
+   {
+    "bbox": [
+     101,
+     2179,
+     79,
+     34
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Ecosia",
+      "text": "Ecosia"
+     }
+    ],
+    "md": "[Ecosia](https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Ecosia)"
+   },
+   {
+    "bbox": [
+     188,
+     2179,
+     99,
+     34
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Startpage",
+      "text": "Startpage"
+     }
+    ],
+    "md": "[Startpage](https://www.mojeek.com/search?q=freebsd+ate+my+ram&sc=Startpage)"
+   },
+   {
+    "bbox": [
+     20,
+     2245,
+     350,
+     56
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/search?q=freebsd+ate+my+ram&mal=1",
+      "text": "Summarise these results »"
+     }
+    ],
+    "md": "[Summarise these results »](https://www.mojeek.com/search?q=freebsd+ate+my+ram&mal=1)"
+   },
+   {
+    "bbox": [
+     0,
+     2301,
+     390,
+     41
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram",
+      "text": "Submit feedback"
+     }
+    ],
+    "md": "[Submit feedback](https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram)"
+   },
+   {
+    "bbox": [
+     21,
+     2383,
+     348,
+     32
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [],
+    "md": "✕"
+   },
+   {
+    "bbox": [
+     0,
+     2455,
+     390,
+     45
+    ],
+    "bold": false,
+    "fontSize": 15,
+    "images": [],
+    "kind": "p",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/preferences?tab=location-language",
+      "text": "Change"
+     }
+    ],
+    "md": "Austin, US - detected automatically|[Change](https://www.mojeek.com/preferences?tab=location-language)"
+   },
+   {
+    "bbox": [
+     65,
+     2512,
+     77,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram",
+      "text": "Feedback"
+     }
+    ],
+    "md": "[Feedback](https://www.mojeek.com/about/contact?q=freebsd+ate+my+ram)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     142,
+     2512,
+     62,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/about/privacy/",
+      "text": "Privacy"
+     }
+    ],
+    "md": "[Privacy](https://www.mojeek.com/about/privacy/)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     204,
+     2512,
+     54,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/about/terms.html",
+      "text": "Terms"
+     }
+    ],
+    "md": "[Terms](https://www.mojeek.com/about/terms.html)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     258,
+     2512,
+     67,
+     24
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 15,
+    "images": [],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.mojeek.com/preferences",
+      "text": "Settings"
+     }
+    ],
+    "md": "[Settings](https://www.mojeek.com/preferences)",
+    "ordered": false
+   }
+  ],
+  "description": "",
+  "docHeight": 2548,
+  "interactive": 30,
+  "lang": "en",
+  "title": "freebsd ate my ram - Mojeek Search",
+  "url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram",
+  "viewport": [
+   390,
+   664
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 2290,
+  "extractor": "2.0.0a2",
+  "fetched_at": "2026-07-04T11:37:42-05:00",
+  "mode": "authenticated",
+  "requested_url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram",
+  "url": "https://www.mojeek.com/search?q=freebsd+ate+my+ram"
+ }
+}

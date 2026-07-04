@@ -110,6 +110,19 @@ def main() -> None:
     if len(sys.argv) > 1 and sys.argv[1] == "get":
         from .download import get_cli
         sys.exit(get_cli(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] in ("ddg", "search"):
+        # `mdb ddg rust atomics` -> rewrite argv to the results URL and fall
+        # through to the normal pipeline, so every flag still applies.
+        from .search import ddg_url, search_url
+        rest = sys.argv[2:]
+        cut = next((i for i, a in enumerate(rest) if a.startswith("-")),
+                   len(rest))
+        terms, flags = rest[:cut], rest[cut:]
+        if not terms:
+            print("mdb: search needs query terms", file=sys.stderr)
+            sys.exit(2)
+        build = ddg_url if sys.argv[1] == "ddg" else search_url
+        sys.argv = [sys.argv[0], build(" ".join(terms))] + flags
 
     ap = argparse.ArgumentParser(
         prog="mdb",

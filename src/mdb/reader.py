@@ -55,7 +55,8 @@ HELP_LINES = (
     "  v                speak page from focused element (v again stops)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
-    "  :                go to URL (also safari:start / bookmarks / reading)",
+    "  :                go to URL · 'ddg terms' searches DuckDuckGo ·",
+    "                   's terms' uses MDBROWSE_SEARCH_URL · safari:start",
     "  q                quit",
     "",
     "  mouse: wheel scrolls, click follows a link, click 🖼 previews",
@@ -867,6 +868,10 @@ class Reader:
             if c == ord(":"):
                 u = self._prompt(scr, h, w, ":")
                 if u.strip():
+                    from .search import resolve_prompt
+                    hit = resolve_prompt(u)
+                    if hit:
+                        return ("go", hit)
                     url = u.strip()
                     if not url.startswith("safari:") and not re.match(
                             r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url):
