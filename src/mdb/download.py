@@ -51,20 +51,29 @@ def _dedupe(path: str) -> str:
 
 
 def download(url: str, private: bool = False, referer: str = None,
-             dest_dir: str = None):
-    """Fetch a URL to disk. Returns (path, size_bytes)."""
+             dest_dir: str = None, engine=None):
+    """Fetch a URL to disk. Returns (path, size_bytes). With an engine,
+    falls back to fetching through the browser when httpx is tarpitted
+    (hostile-CDN WAFs block non-browser TLS fingerprints)."""
     import httpx
     headers = {"User-Agent": IPHONE_UA, "Accept": "*/*"}
     if referer:
         headers["Referer"] = referer
-    cookies = None if private else safari_cookies.for_httpx()
-    with httpx.Client(follow_redirects=True, timeout=120.0,
-                      headers=headers, cookies=cookies) as c:
-        r = c.get(url)
-        r.raise_for_status()
-        data = r.content
-        name = _filename(str(r.url), r.headers.get("content-disposition", ""),
-                         r.headers.get("content-type", ""))
+    try:
+        cookies = None if private else safari_cookies.for_httpx()
+        with httpx.Client(follow_redirects=True, timeout=30.0,
+                          headers=headers, cookies=cookies) as c:
+            r = c.get(url)
+            r.raise_for_status()
+            data = r.content
+            name = _filename(str(r.url),
+                             r.headers.get("content-disposition", ""),
+                             r.headers.get("content-type", ""))
+    except Exception:
+        if engine is None:
+            raise
+        data, ct = engine.fetch_resource(url, timeout=60.0)
+        name = _filename(url, "", ct)
     dest_dir = os.path.expanduser(dest_dir) if dest_dir else DOWNLOAD_DIR
     os.makedirs(dest_dir, exist_ok=True)
     path = _dedupe(os.path.join(dest_dir, name))

@@ -357,11 +357,16 @@ def _image_ext(url: str, content_type: str, data: bytes) -> str:
     return ".jpg"
 
 
-def _fetch_image(url: str, private: bool = False, referer: str = None):
+def _fetch_image(url: str, private: bool = False, referer: str = None,
+                 engine=None):
     """Download an image the way a real browser would (session cookies,
     Safari UA, image Accept, Referer) and validate that what came back IS
     an image. Returns (path|None, note) — the note goes to the status bar,
-    so a refused or placeholder image is a reading, not a blank window."""
+    so a refused or placeholder image is a reading, not a blank window.
+
+    Fallback chain: httpx (fast, 6s) -> the browser engine itself. Hostile
+    CDNs (luxury-brand WAFs) tarpit httpx's TLS fingerprint; a fetch
+    through Chromium is indistinguishable from the real browser."""
     import httpx
     from .capture import IPHONE_UA
     headers = {
@@ -371,14 +376,22 @@ def _fetch_image(url: str, private: bool = False, referer: str = None):
     }
     if referer:
         headers["Referer"] = referer
+    via = ""
     try:
-        cookies = None if private else safari_cookies.for_httpx()
-        with httpx.Client(follow_redirects=True, timeout=20.0,
-                          headers=headers, cookies=cookies) as c:
-            r = c.get(url)
-            r.raise_for_status()
-            data = r.content
-        ct = (r.headers.get("content-type", "") or "").split(";")[0].strip().lower()
+        try:
+            cookies = None if private else safari_cookies.for_httpx()
+            with httpx.Client(follow_redirects=True, timeout=6.0,
+                              headers=headers, cookies=cookies) as c:
+                r = c.get(url)
+                r.raise_for_status()
+                data = r.content
+            ct_header = r.headers.get("content-type", "")
+        except Exception:
+            if engine is None:
+                raise
+            data, ct_header = engine.fetch_resource(url)
+            via = " · via engine"
+        ct = (ct_header or "").split(";")[0].strip().lower()
         looks_html = (data.lstrip()[:1] == b"<"
                       and b"<svg" not in data[:256].lower())
         if ct.startswith("text/") or ct == "application/json" or (
@@ -390,14 +403,17 @@ def _fetch_image(url: str, private: bool = False, referer: str = None):
         fd, path = tempfile.mkstemp(suffix=ext, prefix="mdb_img_")
         os.write(fd, data)
         os.close(fd)
-        return path, f"{ct or ext.lstrip('.')} · {max(1, len(data) // 1024)} KB"
+        return path, (f"{ct or ext.lstrip('.')} · "
+                      f"{max(1, len(data) // 1024)} KB{via}")
     except Exception as e:
         return None, f"{type(e).__name__}: {str(e)[:80]}"
 
 
-def preview_image(url: str, private: bool = False, referer: str = None):
+def preview_image(url: str, private: bool = False, referer: str = None,
+                  engine=None):
     """Fetch + validate + pop macOS Quick Look. Returns (ok, note)."""
-    path, note = _fetch_image(url, private=private, referer=referer)
+    path, note = _fetch_image(url, private=private, referer=referer,
+                              engine=engine)
     if not path:
         return False, note
     subprocess.Popen(["qlmanage", "-p", path],
@@ -644,7 +660,8 @@ class Reader:
             return (base | curses.A_REVERSE) if focused else base
 
         def show_preview(f):
-            ok, note = preview_image(f.src, self.private, referer=page.url)
+            ok, note = preview_image(f.src, self.private, referer=page.url,
+                                     engine=self.engine)
             self.msg = f"🖼  {note}" if ok else f"preview failed: {note}"
 
         def go(f):
@@ -809,7 +826,8 @@ class Reader:
                         from .download import download
                         self.msg = "downloading…"
                         path, size = download(target, self.private,
-                                              referer=page.url)
+                                              referer=page.url,
+                                              engine=self.engine)
                         self.msg = f"saved → {path} ({max(1, size // 1024)} KB)"
                     except Exception as e:
                         self.msg = f"download failed: {str(e)[:80]}"

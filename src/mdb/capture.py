@@ -276,6 +276,25 @@ class Engine:
         finally:
             page.close()
 
+    def fetch_resource(self, url: str, timeout: float = 20.0):
+        """Fetch a raw asset THROUGH the browser — its TLS fingerprint,
+        HTTP/2 stack, and cookies. Hostile CDNs (luxury-brand WAFs) tarpit
+        non-browser clients like httpx; a navigation to the asset URL is
+        indistinguishable from the real thing. Returns (bytes, content_type).
+
+        Navigations have resource_type 'document', so the context's
+        image-blocking route does not apply here."""
+        self._ensure()
+        page = self._context.new_page()
+        try:
+            resp = page.goto(url, wait_until="commit",
+                             timeout=int(timeout * 1000))
+            if resp is None:
+                raise RuntimeError("no response")
+            return resp.body(), (resp.headers or {}).get("content-type", "")
+        finally:
+            page.close()
+
     def close(self) -> None:
         for obj, meth in ((self._context, "close"), (self._browser, "close"),
                           (self._pw, "stop")):
