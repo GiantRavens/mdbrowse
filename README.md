@@ -1,4 +1,6 @@
-# mdbrowse — browse the web as faithful, deterministic markdown
+# mdbrowse
+
+**Compiles the web to markdown — faithful, deterministic, shaped for reading.**
 
 `mdb` is a web → markdown **compiler** with a terminal browser on top.
 It renders pages in headless Chromium, extracts structured truth from
