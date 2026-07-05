@@ -27,7 +27,16 @@
     if (!st) return true;
     if (st.display === "none" || st.visibility === "hidden") return true;
     if (parseFloat(st.opacity) === 0) return true;
-    if (el.getAttribute("aria-hidden") === "true") return true;
+    if (el.getAttribute("aria-hidden") === "true") {
+      // aria-hidden speaks to screen readers, not to pixels — carousels
+      // mark visually-rendered slides aria-hidden (apple.com's promo
+      // gallery hides 30 of its 49 images this way). Honor it for
+      // small/decorative elements; substantial rendered area is visual
+      // truth, and pixels are the judge here. Truly-hidden slides also
+      // carry display:none / opacity:0, caught above.
+      const r = el.getBoundingClientRect();
+      if (r.width * r.height < 10000) return true;
+    }
     return false;
   }
 
@@ -65,19 +74,41 @@
   // data-src/srcset (WordPress et al.). Same logic the v1 tool learned the
   // hard way, now applied at the source.
   function imgSrc(el) {
-    let src = el.currentSrc || el.getAttribute("src") || "";
-    if (!src || src.startsWith("data:")) {
-      src = el.getAttribute("data-src") || el.getAttribute("data-lazy-src") ||
-            el.getAttribute("data-original") || "";
-      if (!src) {
-        for (const k of ["srcset", "data-srcset", "data-lazy-srcset"]) {
-          const v = el.getAttribute(k);
-          if (v) { src = v.split(",")[0].trim().split(" ")[0]; break; }
-        }
+    const real = (v) => v && !v.startsWith("data:");
+    const firstSet = (v) => {
+      for (const part of (v || "").split(",")) {
+        const u = part.trim().split(" ")[0];
+        if (real(u)) return u;
+      }
+      return "";
+    };
+    // currentSrc can SHADOW a real src attribute: apple.com's lazy
+    // galleries put a data: gif on <source media=(min-width:0px)>,
+    // which the browser dutifully selects as currentSrc, while the
+    // <img src> holds the true URL. Prefer whichever is real.
+    let src = "";
+    for (const cand of [el.currentSrc, el.getAttribute("src"),
+                        el.getAttribute("data-src"),
+                        el.getAttribute("data-lazy-src"),
+                        el.getAttribute("data-original")]) {
+      if (real(cand)) { src = cand; break; }
+    }
+    if (!src) {
+      for (const k of ["srcset", "data-srcset", "data-lazy-srcset"]) {
+        const v = firstSet(el.getAttribute(k));
+        if (v) { src = v; break; }
       }
     }
-    if (!src || src.startsWith("data:")) return "";
-    return absURL(src);
+    // Responsive <picture>: real URLs may live only on sibling
+    // <source> elements (skipping data: placeholders).
+    if (!src && el.parentElement && el.parentElement.tagName === "PICTURE") {
+      for (const s of el.parentElement.querySelectorAll("source")) {
+        const v = firstSet(s.getAttribute("srcset") ||
+                           s.getAttribute("data-srcset"));
+        if (v) { src = v; break; }
+      }
+    }
+    return src ? absURL(src) : "";
   }
 
   const escText = (s) => s.replace(/\s+/g, " ")
