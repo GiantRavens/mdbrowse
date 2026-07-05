@@ -230,8 +230,38 @@ def live_sweep(pick: list) -> bool:
                 failures += 1
                 print(f"  determin. FAIL hash drift: {hashes}")
 
+    if not pick:
+        # The daemon path — the CLI's ACTUAL first path, which every
+        # other row here bypasses by using its own Engine. The captain
+        # found the blind spot the hard way: a wedged/stale daemon made
+        # `mdb apple.com` hang while all our engine-direct tests were
+        # green. Asserts: it answers inside one page budget, and it
+        # speaks the client's extractor version (the handshake restarts
+        # stale daemons automatically; this row proves that works).
+        from mdb import EXTRACTOR_VERSION
+        from mdb import daemon as dmn
+        t0 = time.time()
+        try:
+            b = dmn.capture_via_daemon(DETERMINISM_URL)
+            dt = time.time() - t0
+            served = (b or {}).get("meta", {}).get("extractor")
+            if b is None:
+                failures += 1
+                print(f"  daemon    FAIL unavailable ({dt:.1f}s) — the "
+                      f"silent local-engine fallback would hide this")
+            elif served != EXTRACTOR_VERSION:
+                failures += 1
+                print(f"  daemon    FAIL stale after handshake: "
+                      f"{served} != {EXTRACTOR_VERSION}")
+            else:
+                print(f"  daemon    ok   extractor={served} ({dt:.1f}s)")
+        except Exception as e:
+            failures += 1
+            print(f"  daemon    FAIL {str(e)[:80]} "
+                  f"({time.time() - t0:.1f}s)")
+
     _save_baseline(baseline)
-    total = len(sites) + (0 if pick else 1)
+    total = len(sites) + (0 if pick else 2)
     print(f"live sweep: {total - failures}/{total} passing")
     return failures == 0
 

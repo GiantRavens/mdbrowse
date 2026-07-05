@@ -25,13 +25,39 @@ import time
 
 RUNTIME_DIR = os.path.expanduser(os.environ.get("MDBROWSE_RUNTIME", "~/.mdb"))
 SOCK = os.path.join(RUNTIME_DIR, "engine.sock")
+PIDFILE = os.path.join(RUNTIME_DIR, "engine.pid")
 IDLE_EXIT = float(os.environ.get("MDBROWSE_DAEMON_IDLE", "1800"))
-_CAPTURE_TIMEOUT = 150.0
+
+# Timeout ladder: the server's worker gives up at 40s (page budget 30s
+# plus settle slack) and REPLIES with the error; the client waits 50s —
+# always longer than the server's own cap, so "stuck loading" cannot
+# outlive one page budget. The server is single-threaded per request: a
+# wedged capture used to hold every later call (pings included) hostage
+# for the old 150s client timeout.
+_SERVER_CAPTURE_TIMEOUT = 40.0
+_CAPTURE_TIMEOUT = 50.0
 
 
 # ---------------------------------------------------------------------------
 # Client
 # ---------------------------------------------------------------------------
+def _code_stamp() -> int:
+    """Newest mtime across the package's source files. A daemon whose
+    stamp differs from the client's is running different code — version
+    bump or not. The extractor version alone missed exactly this: a
+    same-version daemon serving hours-old behavior."""
+    root = os.path.dirname(os.path.abspath(__file__))
+    newest = 0
+    try:
+        for name in os.listdir(root):
+            if name.endswith((".py", ".js")):
+                st = os.stat(os.path.join(root, name))
+                newest = max(newest, int(st.st_mtime))
+    except OSError:
+        pass
+    return newest
+
+
 def _request(payload: dict, timeout: float):
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     s.settimeout(timeout)
@@ -74,27 +100,70 @@ def _spawn() -> bool:
     return False
 
 
+def _force_kill() -> None:
+    """A daemon that can't answer inside the client timeout is wedged
+    (its worker already had 40s to reply with an error). Kill it by
+    pidfile and clear the socket so the next spawn starts clean."""
+    import signal
+    try:
+        with open(PIDFILE, encoding="utf-8") as f:
+            os.kill(int(f.read().strip()), signal.SIGKILL)
+    except (OSError, ValueError):
+        pass
+    for path in (SOCK, PIDFILE):
+        try:
+            os.unlink(path)
+        except OSError:
+            pass
+
+
 def capture_via_daemon(url: str, private: bool = False,
                        wait_selector: str = None):
     """Bundle from the daemon, auto-spawning it on first use.
     Returns None when the daemon path is unavailable/disabled (caller
-    falls back to a local engine); raises on real page errors."""
+    falls back to a local engine); raises on real page errors.
+
+    Two recovery rules learned in the field: a client-side timeout
+    means the daemon is WEDGED (kill it, respawn once); a bundle
+    carrying the wrong extractor version means the daemon is STALE —
+    code moved under a running process (restart it, recapture). Both
+    were 'works after restart' bugs until the restart became automatic.
+    """
     if os.environ.get("MDBROWSE_DAEMON", "auto").lower() in ("off", "never", "0"):
         return None
+    from . import EXTRACTOR_VERSION
     for attempt in (0, 1):
         try:
             r = _request({"op": "capture", "url": url, "private": private,
                           "wait": wait_selector}, _CAPTURE_TIMEOUT)
-        except (FileNotFoundError, ConnectionRefusedError, socket.timeout,
+        except socket.timeout:
+            _force_kill()
+            if attempt or not _spawn():
+                return None
+            continue
+        except (FileNotFoundError, ConnectionRefusedError,
                 ConnectionResetError):
             if attempt or not _spawn():
                 return None
             continue
         except Exception:
             return None
-        if r.get("ok"):
-            return r["bundle"]
-        raise RuntimeError(r.get("error", "daemon capture failed"))
+        if not r.get("ok"):
+            raise RuntimeError(r.get("error", "daemon capture failed"))
+        bundle = r["bundle"]
+        served = bundle.get("meta", {}).get("extractor")
+        stale = (served != EXTRACTOR_VERSION
+                 or r.get("stamp") != _code_stamp())
+        if stale and not attempt:
+            print(f"mdb: daemon is stale (code moved under it); "
+                  f"restarting", file=sys.stderr)
+            try:
+                _request({"op": "stop"}, 5.0)
+            except Exception:
+                _force_kill()
+            if _spawn():
+                continue
+        return bundle
     return None
 
 
@@ -114,7 +183,10 @@ def serve() -> int:
     srv.bind(SOCK)
     srv.listen(8)
     srv.settimeout(5.0)
+    with open(PIDFILE, "w", encoding="utf-8") as f:
+        f.write(str(os.getpid()))
     worker = EngineWorker()
+    stamp = _code_stamp()          # what code THIS process is running
     started = time.time()
     last = time.monotonic()
     stopping = False
@@ -140,15 +212,18 @@ def serve() -> int:
                     op = req.get("op")
                     if op == "ping":
                         resp = {"ok": True, "pid": os.getpid(),
-                                "uptime": int(time.time() - started)}
+                                "uptime": int(time.time() - started),
+                                "stamp": stamp}
                     elif op == "stop":
                         resp = {"ok": True, "stopping": True}
                         stopping = True
                     elif op == "capture":
                         bundle = worker.capture(req["url"],
                                                 bool(req.get("private")),
-                                                req.get("wait"))
-                        resp = {"ok": True, "bundle": bundle}
+                                                req.get("wait"),
+                                                timeout=_SERVER_CAPTURE_TIMEOUT)
+                        resp = {"ok": True, "bundle": bundle,
+                                "stamp": stamp}
                     else:
                         resp = {"ok": False, "error": f"unknown op {op!r}"}
                 except Exception as e:
@@ -160,10 +235,11 @@ def serve() -> int:
     finally:
         worker.close()
         srv.close()
-        try:
-            os.unlink(SOCK)
-        except OSError:
-            pass
+        for path in (SOCK, PIDFILE):
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
     return 0
 
 
