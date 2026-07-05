@@ -1,0 +1,2919 @@
+{
+ "doc": {
+  "anchors": 726,
+  "blocks": [
+   {
+    "bbox": [
+     12,
+     16,
+     115,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/",
+      "text": "Fox News"
+     }
+    ],
+    "md": "[Fox News](https://www.foxnews.com/)"
+   },
+   {
+    "bbox": [
+     227,
+     14,
+     45,
+     23
+    ],
+    "bold": true,
+    "fontSize": 11,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [],
+    "md": "Log In"
+   },
+   {
+    "bbox": [
+     280,
+     14,
+     62,
+     23
+    ],
+    "bold": true,
+    "fontSize": 11,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/5614615980001",
+      "text": "Watch TV"
+     }
+    ],
+    "md": "[Watch TV](https://www.foxnews.com/video/5614615980001)"
+   },
+   {
+    "bbox": [
+     342,
+     2,
+     48,
+     48
+    ],
+    "bold": false,
+    "fontSize": 20,
+    "images": [],
+    "kind": "p",
+    "landmark": "nav",
+    "links": [],
+    "md": "Menu"
+   },
+   {
+    "bbox": [
+     16,
+     70,
+     146,
+     18
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "heading",
+    "landmark": "body",
+    "level": 3,
+    "links": [],
+    "md": "Recommended Videos"
+   },
+   {
+    "bbox": [
+     192,
+     70,
+     151,
+     18
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "heading",
+    "landmark": "body",
+    "level": 3,
+    "links": [],
+    "md": "Recommended Articles"
+   },
+   {
+    "bbox": [
+     16,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/8139abb6-cb57-41a0-8ba1-c874622ca3c6/4d611774-dd43-47f5-9037-64ec56f7972b/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400283173112",
+      "text": "![Former USA soccer player previews US match against Belgium](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/8139abb6-cb57-41a0-8ba1-c874622ca3c6/4d611774-dd43-47f5-9037-64ec56f7972b/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400283173112",
+      "text": "Former USA soccer player previews US match against Belgium"
+     }
+    ],
+    "md": "[![Former USA soccer player previews US match against Belgium](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/8139abb6-cb57-41a0-8ba1-c874622ca3c6/4d611774-dd43-47f5-9037-64ec56f7972b/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400283173112) [Former USA soccer player previews US match against Belgium](https://www.foxnews.com/video/6400283173112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     224,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/755fb522-8064-4480-90e9-c52f854445dc/c59ccd2b-559f-4a65-8b5a-43c4e5f73a68/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400282736112",
+      "text": "![Enes Kanter Freedom emphasizes importance of passing freedom down to younger generations](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/755fb522-8064-4480-90e9-c52f854445dc/c59ccd2b-559f-4a65-8b5a-43c4e5f73a68/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400282736112",
+      "text": "Enes Kanter Freedom emphasizes importance of passing freedom down to younger generations"
+     }
+    ],
+    "md": "[![Enes Kanter Freedom emphasizes importance of passing freedom down to younger generations](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/755fb522-8064-4480-90e9-c52f854445dc/c59ccd2b-559f-4a65-8b5a-43c4e5f73a68/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400282736112) [Enes Kanter Freedom emphasizes importance of passing freedom down to younger generations](https://www.foxnews.com/video/6400282736112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     432,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/76d88b2b-ecd3-42b1-b639-8551946c4176/ed4fa79d-035b-4970-8176-8b86a51d1f57/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400271009112",
+      "text": "![Viral Sophie Cunningham meme reaches WWE ring](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/76d88b2b-ecd3-42b1-b639-8551946c4176/ed4fa79d-035b-4970-8176-8b86a51d1f57/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400271009112",
+      "text": "Viral Sophie Cunningham meme reaches WWE ring"
+     }
+    ],
+    "md": "[![Viral Sophie Cunningham meme reaches WWE ring](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/76d88b2b-ecd3-42b1-b639-8551946c4176/ed4fa79d-035b-4970-8176-8b86a51d1f57/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400271009112) [Viral Sophie Cunningham meme reaches WWE ring](https://www.foxnews.com/video/6400271009112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     640,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/277542a2-6b0d-49bc-b70e-9024245111dd/25c13761-e883-4157-a979-8920c66ca5d4/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400227018112",
+      "text": "![Bob Bradley and Brad Guzan share their Top 5 All-Time USA FIFA World Cup Moments 🇺🇸⚽️](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/277542a2-6b0d-49bc-b70e-9024245111dd/25c13761-e883-4157-a979-8920c66ca5d4/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400227018112",
+      "text": "Bob Bradley and Brad Guzan share their Top 5 All-Time USA FIFA World Cup Moments 🇺🇸⚽️"
+     }
+    ],
+    "md": "[![Bob Bradley and Brad Guzan share their Top 5 All-Time USA FIFA World Cup Moments 🇺🇸⚽️](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/277542a2-6b0d-49bc-b70e-9024245111dd/25c13761-e883-4157-a979-8920c66ca5d4/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400227018112) [Bob Bradley and Brad Guzan share their Top 5 All-Time USA FIFA World Cup Moments 🇺🇸⚽️](https://www.foxnews.com/video/6400227018112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     848,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9dff6f66-2359-4aa8-a91e-34f434e031c3/808f654a-9eec-4c56-95d8-8e92ca8961ce/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400223165112",
+      "text": "![Enes Kanter Freedom says people ‘have no idea’ how blessed they are to be in America](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9dff6f66-2359-4aa8-a91e-34f434e031c3/808f654a-9eec-4c56-95d8-8e92ca8961ce/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400223165112",
+      "text": "Enes Kanter Freedom says people ‘have no idea’ how blessed they are to be in America"
+     }
+    ],
+    "md": "[![Enes Kanter Freedom says people ‘have no idea’ how blessed they are to be in America](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9dff6f66-2359-4aa8-a91e-34f434e031c3/808f654a-9eec-4c56-95d8-8e92ca8961ce/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400223165112) [Enes Kanter Freedom says people ‘have no idea’ how blessed they are to be in America](https://www.foxnews.com/video/6400223165112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     1056,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/a38fe2e8-f562-447a-b1a6-fc4529d6fcb1/7cca00ae-c05f-4f2f-80c3-3d9a0d90ad0e/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400218623112",
+      "text": "![Canada Full Press Conference After Loss in Round of 16 🎤 2026 FIFA World Cup™](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/a38fe2e8-f562-447a-b1a6-fc4529d6fcb1/7cca00ae-c05f-4f2f-80c3-3d9a0d90ad0e/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400218623112",
+      "text": "Canada Full Press Conference After Loss in Round of 16 🎤 2026 FIFA World Cup™"
+     }
+    ],
+    "md": "[![Canada Full Press Conference After Loss in Round of 16 🎤 2026 FIFA World Cup™](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/a38fe2e8-f562-447a-b1a6-fc4529d6fcb1/7cca00ae-c05f-4f2f-80c3-3d9a0d90ad0e/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400218623112) [Canada Full Press Conference After Loss in Round of 16 🎤 2026 FIFA World Cup™](https://www.foxnews.com/video/6400218623112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     1264,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9bd3e2bb-a22e-4128-9fa8-7951691dd64c/d1f210d0-0824-4080-a7ab-355819ab184f/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400218810112",
+      "text": "![MOROCCO IS QUARTERFINALS BOUND 🇲🇦👀 Instant Reaction to Morocco's 3-0 shoutout win vs Canada ⚽️](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9bd3e2bb-a22e-4128-9fa8-7951691dd64c/d1f210d0-0824-4080-a7ab-355819ab184f/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400218810112",
+      "text": "MOROCCO IS QUARTERFINALS BOUND 🇲🇦👀 Instant Reaction to Morocco's 3-0 shoutout win vs Canada ⚽️"
+     }
+    ],
+    "md": "[![MOROCCO IS QUARTERFINALS BOUND 🇲🇦👀 Instant Reaction to Morocco's 3-0 shoutout win vs Canada ⚽️](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/9bd3e2bb-a22e-4128-9fa8-7951691dd64c/d1f210d0-0824-4080-a7ab-355819ab184f/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400218810112) [MOROCCO IS QUARTERFINALS BOUND 🇲🇦👀 Instant Reaction to Morocco's 3-0 shoutout win vs Canada ⚽️](https://www.foxnews.com/video/6400218810112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     1472,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/dd861ca8-2665-4574-b6d7-7c22b2b2e2ef/577e5ade-f998-4442-bc22-097c360efb13/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400204825112",
+      "text": "![United States vs Belgium Preview: Tim Ream on USA's Development In 2026 FIFA World Cup](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/dd861ca8-2665-4574-b6d7-7c22b2b2e2ef/577e5ade-f998-4442-bc22-097c360efb13/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400204825112",
+      "text": "United States vs Belgium Preview: Tim Ream on USA's Development In 2026 FIFA World Cup"
+     }
+    ],
+    "md": "[![United States vs Belgium Preview: Tim Ream on USA's Development In 2026 FIFA World Cup](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/dd861ca8-2665-4574-b6d7-7c22b2b2e2ef/577e5ade-f998-4442-bc22-097c360efb13/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400204825112) [United States vs Belgium Preview: Tim Ream on USA's Development In 2026 FIFA World Cup](https://www.foxnews.com/video/6400204825112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     1680,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/bfdad752-696b-4ee3-a0a4-7582f4bbbf30/6a843d5e-885d-4e4b-9db0-25631822ddcb/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400198076112",
+      "text": "![Ryan Fitzpatrick reacts to former teammate Chris Johnson's ALS diagnosis](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/bfdad752-696b-4ee3-a0a4-7582f4bbbf30/6a843d5e-885d-4e4b-9db0-25631822ddcb/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400198076112",
+      "text": "Ryan Fitzpatrick reacts to former teammate Chris Johnson's ALS diagnosis"
+     }
+    ],
+    "md": "[![Ryan Fitzpatrick reacts to former teammate Chris Johnson's ALS diagnosis](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/bfdad752-696b-4ee3-a0a4-7582f4bbbf30/6a843d5e-885d-4e4b-9db0-25631822ddcb/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400198076112) [Ryan Fitzpatrick reacts to former teammate Chris Johnson's ALS diagnosis](https://www.foxnews.com/video/6400198076112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     1888,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/276acf19-bc94-4a03-9b37-a1df92f13689/2614ce9f-4e9f-41d5-a848-2058b06713be/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400170606112",
+      "text": "![France, Argentina, Spain battle, Mexico arrives 👀FIFA World Cup Now Power Rankings into Round of 16](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/276acf19-bc94-4a03-9b37-a1df92f13689/2614ce9f-4e9f-41d5-a848-2058b06713be/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400170606112",
+      "text": "France, Argentina, Spain battle, Mexico arrives 👀FIFA World Cup Now Power Rankings into Round of 16"
+     }
+    ],
+    "md": "[![France, Argentina, Spain battle, Mexico arrives 👀FIFA World Cup Now Power Rankings into Round of 16](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/276acf19-bc94-4a03-9b37-a1df92f13689/2614ce9f-4e9f-41d5-a848-2058b06713be/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400170606112) [France, Argentina, Spain battle, Mexico arrives 👀FIFA World Cup Now Power Rankings into Round of 16](https://www.foxnews.com/video/6400170606112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     2096,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/316047c7-200c-4465-8d2b-d13bb52505d6/d3529bae-b75e-403a-9115-1b0d517a9136/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400159685112",
+      "text": "![Cape Verde's Best Moments 2026 FIFA World Cup™ 🇨🇻](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/316047c7-200c-4465-8d2b-d13bb52505d6/d3529bae-b75e-403a-9115-1b0d517a9136/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400159685112",
+      "text": "Cape Verde's Best Moments 2026 FIFA World Cup™ 🇨🇻"
+     }
+    ],
+    "md": "[![Cape Verde's Best Moments 2026 FIFA World Cup™ 🇨🇻](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/316047c7-200c-4465-8d2b-d13bb52505d6/d3529bae-b75e-403a-9115-1b0d517a9136/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400159685112) [Cape Verde's Best Moments 2026 FIFA World Cup™ 🇨🇻](https://www.foxnews.com/video/6400159685112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     2304,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/d3c503bd-755d-45cf-b39e-8ba302ebac16/df13b87f-fdfd-412d-8b21-8670076a0108/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400159349112",
+      "text": "![Argentina Holds Off Cape Verde in INSTANT CLASSIC 🚨 Zlatan & Thierry Henry's INSTANT Analysis](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/d3c503bd-755d-45cf-b39e-8ba302ebac16/df13b87f-fdfd-412d-8b21-8670076a0108/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400159349112",
+      "text": "Argentina Holds Off Cape Verde in INSTANT CLASSIC 🚨 Zlatan & Thierry Henry's INSTANT Analysis"
+     }
+    ],
+    "md": "[![Argentina Holds Off Cape Verde in INSTANT CLASSIC 🚨 Zlatan & Thierry Henry's INSTANT Analysis](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/d3c503bd-755d-45cf-b39e-8ba302ebac16/df13b87f-fdfd-412d-8b21-8670076a0108/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400159349112) [Argentina Holds Off Cape Verde in INSTANT CLASSIC 🚨 Zlatan & Thierry Henry's INSTANT Analysis](https://www.foxnews.com/video/6400159349112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     2512,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/0c871e98-ae57-4bff-86f9-38f92446fa86/933f1b94-013c-4fe4-a539-1e1b04f5dfdf/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400150504112",
+      "text": "![Thunderbirds fly 18 inches apart at 450 mph: Thunderbird pilot](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/0c871e98-ae57-4bff-86f9-38f92446fa86/933f1b94-013c-4fe4-a539-1e1b04f5dfdf/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400150504112",
+      "text": "Thunderbirds fly 18 inches apart at 450 mph: Thunderbird pilot"
+     }
+    ],
+    "md": "[![Thunderbirds fly 18 inches apart at 450 mph: Thunderbird pilot](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/0c871e98-ae57-4bff-86f9-38f92446fa86/933f1b94-013c-4fe4-a539-1e1b04f5dfdf/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400150504112) [Thunderbirds fly 18 inches apart at 450 mph: Thunderbird pilot](https://www.foxnews.com/video/6400150504112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     2720,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/c5f33cf9-18b6-4fcc-b6cd-011b6ba2fc88/0a2c4594-061c-435e-9d23-1e5cabfda1fb/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400149729112",
+      "text": "![Joey Jones: When you have enough money, you just don’t care](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/c5f33cf9-18b6-4fcc-b6cd-011b6ba2fc88/0a2c4594-061c-435e-9d23-1e5cabfda1fb/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400149729112",
+      "text": "Joey Jones: When you have enough money, you just don’t care"
+     }
+    ],
+    "md": "[![Joey Jones: When you have enough money, you just don’t care](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/c5f33cf9-18b6-4fcc-b6cd-011b6ba2fc88/0a2c4594-061c-435e-9d23-1e5cabfda1fb/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400149729112) [Joey Jones: When you have enough money, you just don’t care](https://www.foxnews.com/video/6400149729112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     2928,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/cd63f6b9-9d84-4e10-a371-1d4dfabe0f45/ca5a1c9a-ece8-48c2-943f-3a8cb54b0b0d/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400149061112",
+      "text": "![Joey Jones: ‘Don’t understand’ why some people care about Swift-Kelce wedding](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/cd63f6b9-9d84-4e10-a371-1d4dfabe0f45/ca5a1c9a-ece8-48c2-943f-3a8cb54b0b0d/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400149061112",
+      "text": "Joey Jones: ‘Don’t understand’ why some people care about Swift-Kelce wedding"
+     }
+    ],
+    "md": "[![Joey Jones: ‘Don’t understand’ why some people care about Swift-Kelce wedding](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/cd63f6b9-9d84-4e10-a371-1d4dfabe0f45/ca5a1c9a-ece8-48c2-943f-3a8cb54b0b0d/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400149061112) [Joey Jones: ‘Don’t understand’ why some people care about Swift-Kelce wedding](https://www.foxnews.com/video/6400149061112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     3136,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/7184c8ae-343f-4fc6-86f0-ef44647b40c0/07fbd396-1faf-4c9c-9214-f7d2ccbcd764/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400143713112",
+      "text": "![US vs Bosnia-Herzegovina World Cup match breaks viewing record](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/7184c8ae-343f-4fc6-86f0-ef44647b40c0/07fbd396-1faf-4c9c-9214-f7d2ccbcd764/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400143713112",
+      "text": "US vs Bosnia-Herzegovina World Cup match breaks viewing record"
+     }
+    ],
+    "md": "[![US vs Bosnia-Herzegovina World Cup match breaks viewing record](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/7184c8ae-343f-4fc6-86f0-ef44647b40c0/07fbd396-1faf-4c9c-9214-f7d2ccbcd764/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400143713112) [US vs Bosnia-Herzegovina World Cup match breaks viewing record](https://www.foxnews.com/video/6400143713112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     3344,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/fb6182dc-80ae-4ff9-b5ad-e3566a616a1c/616be69c-5b34-4d33-9be0-aa2b311423a5/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400138151112",
+      "text": "![Caitlin Clark sounds off on WNBA in lengthy rant](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/fb6182dc-80ae-4ff9-b5ad-e3566a616a1c/616be69c-5b34-4d33-9be0-aa2b311423a5/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400138151112",
+      "text": "Caitlin Clark sounds off on WNBA in lengthy rant"
+     }
+    ],
+    "md": "[![Caitlin Clark sounds off on WNBA in lengthy rant](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/fb6182dc-80ae-4ff9-b5ad-e3566a616a1c/616be69c-5b34-4d33-9be0-aa2b311423a5/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400138151112) [Caitlin Clark sounds off on WNBA in lengthy rant](https://www.foxnews.com/video/6400138151112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     3552,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/603abb50-c579-433d-af83-f6e75c3304b5/46bbe754-d09a-4b34-8426-2278b3b615ea/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400134822112",
+      "text": "![Mitchell Robinson appears to throw shade at Knicks after free agency departure](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/603abb50-c579-433d-af83-f6e75c3304b5/46bbe754-d09a-4b34-8426-2278b3b615ea/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400134822112",
+      "text": "Mitchell Robinson appears to throw shade at Knicks after free agency departure"
+     }
+    ],
+    "md": "[![Mitchell Robinson appears to throw shade at Knicks after free agency departure](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/603abb50-c579-433d-af83-f6e75c3304b5/46bbe754-d09a-4b34-8426-2278b3b615ea/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400134822112) [Mitchell Robinson appears to throw shade at Knicks after free agency departure](https://www.foxnews.com/video/6400134822112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     3760,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/60d7d363-d584-4547-b6b7-2051b1a0abcb/008bc991-dd2a-4fae-a374-851690258b5a/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400127089112",
+      "text": "![NBA to test out major free throw rule in Summer League to speed up games](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/60d7d363-d584-4547-b6b7-2051b1a0abcb/008bc991-dd2a-4fae-a374-851690258b5a/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400127089112",
+      "text": "NBA to test out major free throw rule in Summer League to speed up games"
+     }
+    ],
+    "md": "[![NBA to test out major free throw rule in Summer League to speed up games](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/60d7d363-d584-4547-b6b7-2051b1a0abcb/008bc991-dd2a-4fae-a374-851690258b5a/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400127089112) [NBA to test out major free throw rule in Summer League to speed up games](https://www.foxnews.com/video/6400127089112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     3968,
+     108,
+     192,
+     108
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/4e4e5424-65cb-439b-a13a-4597a19b54e3/ec737be1-53e9-4108-9b12-2fffcc462127/1280x720/match/400/226/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "li",
+    "landmark": "body",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400119599112",
+      "text": "![Tim Hardaway says son cannot wear his retired number with Heat](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/4e4e5424-65cb-439b-a13a-4597a19b54e3/ec737be1-53e9-4108-9b12-2fffcc462127/1280x720/match/400/226/image.jpg?ve=1&tl=1)"
+     },
+     {
+      "href": "https://www.foxnews.com/video/6400119599112",
+      "text": "Tim Hardaway says son cannot wear his retired number with Heat"
+     }
+    ],
+    "md": "[![Tim Hardaway says son cannot wear his retired number with Heat](https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/4e4e5424-65cb-439b-a13a-4597a19b54e3/ec737be1-53e9-4108-9b12-2fffcc462127/1280x720/match/400/226/image.jpg?ve=1&tl=1)](https://www.foxnews.com/video/6400119599112) [Tim Hardaway says son cannot wear his retired number with Heat](https://www.foxnews.com/video/6400119599112)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     138,
+     425,
+     114,
+     22
+    ],
+    "bold": true,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/category/sports/soccer/the-world-cup",
+      "text": "The World Cup"
+     }
+    ],
+    "md": "[The World Cup](https://www.foxnews.com/category/sports/soccer/the-world-cup)"
+   },
+   {
+    "bbox": [
+     16,
+     455,
+     358,
+     180
+    ],
+    "bold": true,
+    "fontSize": 30,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 1,
+    "links": [],
+    "md": "USA World Cup star Folarin Balogun available to play vs Belgium in stunning twist"
+   },
+   {
+    "bbox": [
+     16,
+     643,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 2,
+    "links": [],
+    "md": "Balogun scored against Bosnia and Herzegovina but was sent off for a red card"
+   },
+   {
+    "bbox": [
+     0,
+     687,
+     390,
+     28
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/person/g/ryan-gaydos",
+      "text": "Ryan Gaydos"
+     },
+     {
+      "href": "https://www.foxnews.com/",
+      "text": "Fox News"
+     }
+    ],
+    "md": "By [Ryan Gaydos](https://www.foxnews.com/person/g/ryan-gaydos) [Fox News](https://www.foxnews.com/)"
+   },
+   {
+    "bbox": [
+     0,
+     731,
+     390,
+     31
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/html-sitemap/2026/july/5",
+      "text": "July 5, 2026 1:04pm EDT"
+     }
+    ],
+    "md": "Published [July 5, 2026 1:04pm EDT](https://www.foxnews.com/html-sitemap/2026/july/5)"
+   },
+   {
+    "bbox": [
+     72,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Facebook",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     108,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Twitter",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     144,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Threads",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     180,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Flipboard",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     216,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Comments",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     252,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/sports/usa-world-cup-star-folarin-balogun-available-play-vs-belgium-stunning-twist.print",
+      "text": "Print"
+     }
+    ],
+    "md": "[Print](https://www.foxnews.com/sports/usa-world-cup-star-folarin-balogun-available-play-vs-belgium-stunning-twist.print)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     288,
+     762,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Email",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     109,
+     800,
+     173,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "main",
+    "links": [],
+    "md": "Add Fox News on Google",
+    "ordered": false
+   },
+   {
+    "alt": "Former USA World Cup star wants red card rule changes after Folarin Balogun's suspension",
+    "bbox": [
+     16,
+     888,
+     358,
+     200
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/b34d154d-5aa8-4695-a0b6-fbd2fcb42a4d/ba53435f-36f6-4857-bb09-27525784d08b/1280x720/match/576/324/image.jpg?ve=1&tl=1"
+    ],
+    "kind": "img",
+    "landmark": "main",
+    "links": [],
+    "md": "",
+    "src": "https://a57.foxnews.com/cf-images.us-east-1.prod.boltdns.net/v1/static/694940094001/b34d154d-5aa8-4695-a0b6-fbd2fcb42a4d/ba53435f-36f6-4857-bb09-27525784d08b/1280x720/match/576/324/image.jpg?ve=1&tl=1"
+   },
+   {
+    "bbox": [
+     279,
+     993,
+     75,
+     75
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400037826112",
+      "text": "Video"
+     }
+    ],
+    "md": "[Video](https://www.foxnews.com/video/6400037826112)"
+   },
+   {
+    "bbox": [
+     16,
+     1101,
+     358,
+     40
+    ],
+    "bold": true,
+    "fontSize": 14,
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 4,
+    "links": [
+     {
+      "href": "https://www.foxnews.com/video/6400037826112",
+      "text": "Former USA World Cup star wants red card rule changes after Folarin Balogun's suspension"
+     }
+    ],
+    "md": "[Former USA World Cup star wants red card rule changes after Folarin Balogun's suspension](https://www.foxnews.com/video/6400037826112)"
+   },
+   {
+    "bbox": [
+     16,
+     1145,
+     358,
+     48
+    ],
+    "bold": false,
+    "fontSize": 11,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "1994 USA World Cup player John Harkes, who was suspended himself for yellow card violations, wants to see FIFA change its red card rules after Folarin Balogun's suspension."
+   },
+   {
+    "bbox": [
+     16,
+     1234,
+     358,
+     110
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/outkick-sports/world-cup-round-32-soccer-preview-england-belgium-usa-seek-regulation-wins-packed-day",
+      "text": "against Belgium"
+     }
+    ],
+    "md": "USA World Cup star Folarin Balogun will be able to play in Monday’s game [against Belgium](https://www.foxnews.com/outkick-sports/world-cup-round-32-soccer-preview-england-belgium-usa-seek-regulation-wins-packed-day) in the Round of 16 match after all following an uproar over a red card he received against Bosnia and Herzegovina."
+   },
+   {
+    "bbox": [
+     16,
+     1640,
+     358,
+     132
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Balogun received the red card after he stepped on the foot of Bosnia and Herzegovina defender Tarik Muharemovic. The red card was given after Brazilian referee Raphael Claus stopped the match for a VAR review to determine whether Balogun had committed a severe foul."
+   },
+   {
+    "bbox": [
+     16,
+     1794,
+     358,
+     66
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://link.podtrac.com/dmwdd_article",
+      "text": "**ZERO BS. JUST DAKICH. TAKE THE DON'T @ ME PODCAST ON THE ROAD. DOWNLOAD NOW!**"
+     }
+    ],
+    "md": "[**ZERO BS. JUST DAKICH. TAKE THE DON'T @ ME PODCAST ON THE ROAD. DOWNLOAD NOW!**](https://link.podtrac.com/dmwdd_article)"
+   },
+   {
+    "bbox": [
+     16,
+     1882,
+     358,
+     200
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/folarin-balogun-7226.jpg?ve=1&tl=1"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "![2283713280](https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/folarin-balogun-7226.jpg?ve=1&tl=1)"
+   },
+   {
+    "bbox": [
+     16,
+     2095,
+     358,
+     108
+    ],
+    "bold": true,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Folarin Balogun of United States of America walks off the field after receiving a red card during the FIFA World Cup 2026 Round of 32 match between United States of America and Bosnia and Herzegovina on July 1, 2026 at San Francisco Bay Area Stadium in Santa Clara, California (Matthew Huang/Icon Sportswire via Getty Images)"
+   },
+   {
+    "bbox": [
+     16,
+     2228,
+     358,
+     22
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "It was ruled that Balogun did and he was sent off."
+   },
+   {
+    "bbox": [
+     16,
+     2546,
+     358,
+     110
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.nytimes.com/athletic/7423410/2026/07/05/usmnt-folarin-balogun-red-card-available/",
+      "text": "The Athletic"
+     }
+    ],
+    "md": "[The Athletic](https://www.nytimes.com/athletic/7423410/2026/07/05/usmnt-folarin-balogun-red-card-available/), which first reported Balogun’s playing status on Sunday, noted that part of FIFA’s disciplinary code stated, \"the judicial body may decide to fully or partially suspend the implementation of a disciplinary measure.\""
+   },
+   {
+    "bbox": [
+     16,
+     2678,
+     358,
+     154
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "\"If the person benefiting from a suspended sanction commits another infringement of a similar nature and gravity during the probationary period, the suspension shall be revoked by the judicial body and the sanction enforced without prejudice to any additional sanction imposed for the new infringement,\" the rule added."
+   },
+   {
+    "bbox": [
+     16,
+     2854,
+     358,
+     66
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxsports.com/stories/soccer/usa-star-folarin-balogun-play-world-cup-match-vs-belgium",
+      "text": "FOX Sports"
+     }
+    ],
+    "md": "[FOX Sports](https://www.foxsports.com/stories/soccer/usa-star-folarin-balogun-play-world-cup-match-vs-belgium) confirmed that Balogun would be able to play. The report noted that the play should not have been flagged to Claus."
+   },
+   {
+    "bbox": [
+     16,
+     3216,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/sports",
+      "text": "**CLICK HERE FOR MORE SPORTS COVERAGE ON FOXNEWS.COM**"
+     }
+    ],
+    "md": "[**CLICK HERE FOR MORE SPORTS COVERAGE ON FOXNEWS.COM**](https://www.foxnews.com/sports)"
+   },
+   {
+    "bbox": [
+     16,
+     3282,
+     358,
+     200
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/world-cup-folarin-balogun-070126-2.jpg?ve=1&tl=1"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "![Folarin Balogun and Christian Pulisic](https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/world-cup-folarin-balogun-070126-2.jpg?ve=1&tl=1)"
+   },
+   {
+    "bbox": [
+     16,
+     3494,
+     358,
+     108
+    ],
+    "bold": true,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "United States' Folarin Balogun (20) and United States' Christian Pulisic (10) stand by after Balogun received a red card during the World Cup round of 32 soccer match between the United States and Bosnia in Santa Clara, Calif., near San Francisco, Wednesday, July 1, 2026. (AP Photo/Martin Meissner)"
+   },
+   {
+    "bbox": [
+     16,
+     3627,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/sports/fifa-final-ruling-us-soccer-star-folarin-balogun-controversial-red-card-suspension",
+      "text": "probationary period of one year"
+     }
+    ],
+    "md": "FIFA confirmed that the suspension was suspended for a [probationary period of one year](https://www.foxnews.com/sports/fifa-final-ruling-us-soccer-star-folarin-balogun-controversial-red-card-suspension)."
+   },
+   {
+    "bbox": [
+     16,
+     3693,
+     358,
+     154
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "\"We accept the decision of the Disciplinary Committee and are pleased that Folarin Balogun is eligible to compete tomorrow,\" U.S. Soccer said. \"Our full attention is focused on the Round of 16 match against Belgium in Seattle, and we look forward to the continued support of our amazing fans.\""
+   },
+   {
+    "bbox": [
+     16,
+     4143,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Balogun scored against Bosnia and Herzegovina. He spoke to reporters Friday about the red card."
+   },
+   {
+    "bbox": [
+     16,
+     4209,
+     358,
+     220
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "\"First and foremost, it was totally unintentional, which I'm sure a lot of people know. But, you know, I think the choice of the referee was, of course, his choice, but I don't think it was the correct call,\" he said. \"I think a yellow card would have been fair due to it not being intentional. There's not many places I can place my foot in such a scenario. But it's happened, and it's something that I have to accept and move forward from."
+   },
+   {
+    "bbox": [
+     16,
+     4451,
+     358,
+     264
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/sports/former-team-usa-star-wants-see-red-card-rule-change-after-falorin-balogun-controversy",
+      "text": "different emotions"
+     }
+    ],
+    "md": "\"There’s been lots of [different emotions](https://www.foxnews.com/sports/former-team-usa-star-wants-see-red-card-rule-change-after-falorin-balogun-controversy). I’ve been upset, I’ve been happy, it’s been surreal to be honest,\" he added. \"But for me it was just important to stay calm. I never want to react out of anger and emotion. There’s still lots of people we’re inspiring. Little kids, boys and girls are watching. We have to show them the correct way to handle things even when you think it’s unjust, so I felt I did that. I’m happy with the support, not just I’m receiving but the team. I think we’re all looking forward to seeing what we can do against Belgium.\""
+   },
+   {
+    "bbox": [
+     16,
+     5011,
+     358,
+     154
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/category/sports/soccer",
+      "text": "U.S. Soccer"
+     }
+    ],
+    "md": "[U.S. Soccer](https://www.foxnews.com/category/sports/soccer) had no way to appeal the ruing. Article 9.6 of the 2026 World Cup regulations reads, \"No protests may be made about the referee’s decisions regarding facts connected with play. Such decisions are final and not subject to appeal, unless otherwise stipulated in the FIFA Disciplinary Code.\""
+   },
+   {
+    "bbox": [
+     16,
+     5187,
+     358,
+     200
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/falorin-balogun-lebron-ode.jpg?ve=1&tl=1"
+    ],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "![Falorin Balogun celebrates goal](https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/07/686/384/falorin-balogun-lebron-ode.jpg?ve=1&tl=1)"
+   },
+   {
+    "bbox": [
+     16,
+     5400,
+     358,
+     90
+    ],
+    "bold": true,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "United States' Folarin Balogun celebrates after scoring the opening goal during the World Cup round of 32 soccer match between the United States and Bosnia in Santa Clara, Calif., near San Francisco, Wednesday, July 1, 2026. (AP Photo/Jeff Chiu)"
+   },
+   {
+    "bbox": [
+     16,
+     5515,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [
+     {
+      "href": "https://foxnews.onelink.me/xLDS?pid=AppArticleLink&af_dp=foxnewsaf%3A%2F%2F&af_web_dp=https%3A%2F%2Fwww.foxnews.com%2Fapps-products",
+      "text": "**CLICK HERE TO DOWNLOAD THE FOX NEWS APP**"
+     }
+    ],
+    "md": "[**CLICK HERE TO DOWNLOAD THE FOX NEWS APP**](https://foxnews.onelink.me/xLDS?pid=AppArticleLink&af_dp=foxnewsaf%3A%2F%2F&af_web_dp=https%3A%2F%2Fwww.foxnews.com%2Fapps-products)"
+   },
+   {
+    "bbox": [
+     16,
+     5581,
+     358,
+     88
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "\"If a player or team official is sent off as a result of a direct or indirect red card (second caution), they will automatically be suspended from their team’s subsequent match,\" Article 10.5 adds."
+   },
+   {
+    "bbox": [
+     16,
+     5965,
+     358,
+     44
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "*Fox News' Jonathan Hunt contributed to this report.*"
+   },
+   {
+    "bbox": [
+     16,
+     6048,
+     358,
+     21
+    ],
+    "bold": false,
+    "fontSize": 14,
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "Ryan Gaydos is a senior editor for Fox News Digital."
+   },
+   {
+    "bbox": [
+     16,
+     7583,
+     358,
+     28
+    ],
+    "bold": true,
+    "fontSize": 24,
+    "images": [],
+    "kind": "heading",
+    "landmark": "footer",
+    "level": 2,
+    "links": [],
+    "md": "Related Topics"
+   },
+   {
+    "bbox": [
+     16,
+     7627,
+     123,
+     28
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/category/sports/soccer/the-world-cup",
+      "text": "The World Cup"
+     }
+    ],
+    "md": "[The World Cup](https://www.foxnews.com/category/sports/soccer/the-world-cup)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     147,
+     7627,
+     74,
+     28
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/category/sports/soccer",
+      "text": "Soccer"
+     }
+    ],
+    "md": "[Soccer](https://www.foxnews.com/category/sports/soccer)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     229,
+     7627,
+     71,
+     28
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/category/sports",
+      "text": "Sports"
+     }
+    ],
+    "md": "[Sports](https://www.foxnews.com/category/sports)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     0,
+     9025,
+     390,
+     2509
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/us",
+      "text": "U.S."
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/blue-city-crime",
+      "text": "Blue City Crime"
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/campus-radicals",
+      "text": "Campus Radicals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/immigration",
+      "text": "Border Crisis"
+     },
+     {
+      "href": "https://www.foxnews.com/true-crime",
+      "text": "True Crime"
+     },
+     {
+      "href": "https://www.foxnews.com/politics",
+      "text": "Politics"
+     },
+     {
+      "href": "https://www.foxnews.com/category/person/donald-trump",
+      "text": "Donald Trump"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/senate",
+      "text": "Senate"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/house-of-representatives",
+      "text": "House"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/judiciary",
+      "text": "Judiciary"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/foreign-policy",
+      "text": "Foreign Policy"
+     },
+     {
+      "href": "https://www.foxnews.com/official-polls",
+      "text": "Fox News Polls"
+     },
+     {
+      "href": "https://www.foxnews.com/elections",
+      "text": "Elections"
+     },
+     {
+      "href": "https://www.foxnews.com/world",
+      "text": "World"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/united-nations",
+      "text": "U.N."
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/conflicts",
+      "text": "Conflicts"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/terrorism",
+      "text": "Terrorism"
+     },
+     {
+      "href": "https://www.foxnews.com/category/disasters",
+      "text": "Disasters"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/global-economy",
+      "text": "Global Economy"
+     },
+     {
+      "href": "https://www.foxnews.com/category/environment",
+      "text": "Environment"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/religion",
+      "text": "Religion"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/scandals",
+      "text": "Scandals"
+     },
+     {
+      "href": "https://www.foxnews.com/opinion",
+      "text": "Opinion"
+     },
+     {
+      "href": "https://www.foxnews.com/media",
+      "text": "Media"
+     },
+     {
+      "href": "https://www.foxnews.com/shows/fox-nation",
+      "text": "FOX Nation Coverage"
+     },
+     {
+      "href": "https://www.foxnews.com/entertainment",
+      "text": "Entertainment"
+     },
+     {
+      "href": "https://www.foxnews.com/category/person/taylor-swift",
+      "text": "Taylor Swift"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/personalities/british-royals",
+      "text": "Royal Families"
+     },
+     {
+      "href": "https://www.foxnews.com/category/entertainment/genres/country",
+      "text": "Country Music"
+     },
+     {
+      "href": "https://www.foxnews.com/sports",
+      "text": "Sports"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "FIFA WORLD CUP 26"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nfl",
+      "text": "NFL"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/ncaa-fb",
+      "text": "College Football"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/mlb",
+      "text": "MLB"
+     },
+     {
+      "href": "https://www.foxnews.com/category/auto/nascar",
+      "text": "NASCAR"
+     },
+     {
+      "href": "https://www.foxnews.com/category/auto/indycar",
+      "text": "INDYCAR"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nba",
+      "text": "NBA"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nhl",
+      "text": "NHL"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/golf",
+      "text": "Golf"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/tennis",
+      "text": "Tennis"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/ufc",
+      "text": "UFC"
+     },
+     {
+      "href": "https://www.foxnews.com/category/organization/wwe",
+      "text": "WWE"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "FIFA World Cup 26 Live"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-81-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch USA vs Bosnia and Herzegovina"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-76-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Brazil vs Japan"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-75-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Netherlands vs Morocco"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-73-jun-28-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch South Africa vs Canada"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-74-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Germany vs Paraguay"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-78-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Ivory Coast vs Norway"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-77-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch France vs Sweden"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-80-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch England vs DR Congo"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-83-jul-2-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Portugal vs Croatia"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-86-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Argentina vs Cape Verde"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-87-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Colombia vs Ghana"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-79-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Mexico vs Ecuador"
+     },
+     {
+      "href": "https://www.foxnews.com/outkick",
+      "text": "OutKick"
+     },
+     {
+      "href": "https://www.foxnews.com/lifestyle",
+      "text": "Lifestyle"
+     },
+     {
+      "href": "https://www.foxnews.com/travel",
+      "text": "Travel"
+     },
+     {
+      "href": "https://www.foxnews.com/food-drink",
+      "text": "Food & Drink"
+     },
+     {
+      "href": "https://www.foxnews.com/faith-values",
+      "text": "Faith"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/archaeology",
+      "text": "Discovery"
+     },
+     {
+      "href": "https://www.foxnews.com/games",
+      "text": "Games & Quizzes"
+     },
+     {
+      "href": "https://www.foxnews.com/health",
+      "text": "Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/healthy-living/longevity",
+      "text": "Longevity"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/brain-health",
+      "text": "Brain Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/nutrition-and-fitness/weight-loss",
+      "text": "Weight Loss"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/sleep-disorders",
+      "text": "Sleep Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/cancer",
+      "text": "Cancer News"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/mental-health",
+      "text": "Mental Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/heart-health",
+      "text": "Heart Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/healthy-living",
+      "text": "Healthy Living"
+     },
+     {
+      "href": "https://www.foxnews.com/deals",
+      "text": "Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/trending",
+      "text": "Trending Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/gift",
+      "text": "Gift Guides"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/home",
+      "text": "Home Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/kitchen",
+      "text": "Kitchen Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/tech-and-electronic",
+      "text": "Tech and Electronic Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/health-and-fitness",
+      "text": "Health and Fitness Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/beauty-and-fashion",
+      "text": "Beauty and Fashion Deals"
+     },
+     {
+      "href": "https://www.foxbusiness.com/",
+      "text": "FOX Business"
+     },
+     {
+      "href": "https://www.foxbusiness.com/personal-finance",
+      "text": "Personal Finance"
+     },
+     {
+      "href": "https://www.foxbusiness.com/economy",
+      "text": "Economy"
+     },
+     {
+      "href": "https://www.foxbusiness.com/markets",
+      "text": "Markets"
+     },
+     {
+      "href": "https://www.foxbusiness.com/watchlist",
+      "text": "Watchlist"
+     },
+     {
+      "href": "https://www.foxbusiness.com/lifestyle",
+      "text": "Lifestyle"
+     },
+     {
+      "href": "https://www.foxbusiness.com/real-estate",
+      "text": "Real Estate"
+     },
+     {
+      "href": "https://www.foxbusiness.com/technology",
+      "text": "Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/tech",
+      "text": "Science & Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/air-and-space",
+      "text": "Air & Space"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/security",
+      "text": "Security"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/innovation",
+      "text": "Innovation"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/video-games",
+      "text": "Video Games"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/military-tech",
+      "text": "Military Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/planet-earth",
+      "text": "Planet Earth"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/wild-nature",
+      "text": "Wild Nature"
+     },
+     {
+      "href": "https://www.foxnews.com/games",
+      "text": "Games"
+     },
+     {
+      "href": "https://www.foxnews.com/games/scattergories-daily",
+      "text": "Scattergories Daily"
+     },
+     {
+      "href": "https://www.foxnews.com/games/5-across-word-game",
+      "text": "5 Across the Letter Word Game"
+     },
+     {
+      "href": "https://www.foxnews.com/games/lil-snack-downwords",
+      "text": "Downwords"
+     },
+     {
+      "href": "https://www.foxnews.com/games/sudoku",
+      "text": "Sudoku"
+     },
+     {
+      "href": "https://www.foxnews.com/games/lil-snack-word-swap",
+      "text": "Word Swap"
+     },
+     {
+      "href": "https://www.foxnews.com/games/word-search",
+      "text": "Word Search"
+     },
+     {
+      "href": "https://www.foxnews.com/games/icon-match-puzzle",
+      "text": "Icon Match"
+     },
+     {
+      "href": "https://www.foxnews.com/games/daily-crossword-puzzle",
+      "text": "Daily Crossword Puzzle"
+     },
+     {
+      "href": "https://www.foxnews.com/games/mini-crossword-puzzle",
+      "text": "Mini Crossword Puzzle"
+     },
+     {
+      "href": "https://www.foxnews.com/video/5614615980001",
+      "text": "Watch Live"
+     },
+     {
+      "href": "https://www.foxnews.com/shows",
+      "text": "FOX News Shows"
+     },
+     {
+      "href": "https://www.foxnews.com/fnctv",
+      "text": "Programming Schedule"
+     },
+     {
+      "href": "https://www.foxnews.com/person/personalities",
+      "text": "On Air Personalities"
+     },
+     {
+      "href": "https://www.foxnews.com/video/shows",
+      "text": "Full Episodes"
+     },
+     {
+      "href": "https://www.foxnews.com/video/topics/v-most-recent-episodes",
+      "text": "Show Clips"
+     },
+     {
+      "href": "https://www.foxnews.com/video/topics/latest-news-video",
+      "text": "News Clips"
+     },
+     {
+      "href": "https://www.foxnews.com/about",
+      "text": "About"
+     },
+     {
+      "href": "https://www.foxnews.com/contact",
+      "text": "Contact Us"
+     },
+     {
+      "href": "https://foxcareers.com/Search/SearchResults?brand=Fox%20News%20Careers",
+      "text": "Careers"
+     },
+     {
+      "href": "https://www.foxnews.com/story/where-in-the-world-is-fox",
+      "text": "Fox Around the World"
+     },
+     {
+      "href": "https://www.foxadvertising.com/fox-news-media/",
+      "text": "Advertise With Us"
+     },
+     {
+      "href": "https://press.foxnews.com/media-contacts",
+      "text": "Media Relations"
+     },
+     {
+      "href": "https://press.foxnews.com/",
+      "text": "Corporate Information"
+     },
+     {
+      "href": "https://www.foxnews.com/compliance",
+      "text": "Compliance"
+     },
+     {
+      "href": "https://www.foxnews.com/apps-products",
+      "text": "Apps & Products"
+     },
+     {
+      "href": "https://www.foxnews.com/go",
+      "text": "FOX News Go"
+     },
+     {
+      "href": "https://www.foxweather.com/",
+      "text": "FOX Weather"
+     },
+     {
+      "href": "https://www.foxnews.com/shows/fox-nation",
+      "text": "FOX Nation"
+     },
+     {
+      "href": "https://noticias.foxnews.com/shows/fox-noticias",
+      "text": "FOX Noticias"
+     },
+     {
+      "href": "https://shop.foxnews.com/",
+      "text": "FOX News Shop"
+     },
+     {
+      "href": "https://radio.foxnews.com/",
+      "text": "FOX News Radio"
+     },
+     {
+      "href": "https://www.foxnews.com/newsletters",
+      "text": "FOX News Newsletters"
+     },
+     {
+      "href": "https://radio.foxnews.com/podcast/",
+      "text": "FOX News Podcasts"
+     },
+     {
+      "href": "https://www.fox.com/?cmpid=org=one::ag=owned::mc=referral::src=fn::cmp=10010071001::add=621a",
+      "text": "FOX One"
+     }
+    ],
+    "md": "[U.S.](https://www.foxnews.com/us) [Blue City Crime](https://www.foxnews.com/category/us/blue-city-crime) [Campus Radicals](https://www.foxnews.com/category/us/campus-radicals) [Border Crisis](https://www.foxnews.com/category/us/immigration) [True Crime](https://www.foxnews.com/true-crime) [Politics](https://www.foxnews.com/politics) [Donald Trump](https://www.foxnews.com/category/person/donald-trump) [Senate](https://www.foxnews.com/category/politics/senate) [House](https://www.foxnews.com/category/politics/house-of-representatives) [Judiciary](https://www.foxnews.com/category/politics/judiciary) [Foreign Policy](https://www.foxnews.com/category/politics/foreign-policy) [Fox News Polls](https://www.foxnews.com/official-polls) [Elections](https://www.foxnews.com/elections) [World](https://www.foxnews.com/world) [U.N.](https://www.foxnews.com/category/world/united-nations) [Conflicts](https://www.foxnews.com/category/world/conflicts) [Terrorism](https://www.foxnews.com/category/world/terrorism) [Disasters](https://www.foxnews.com/category/disasters) [Global Economy](https://www.foxnews.com/category/world/global-economy) [Environment](https://www.foxnews.com/category/environment) [Religion](https://www.foxnews.com/category/world/religion) [Scandals](https://www.foxnews.com/category/world/scandals) [Opinion](https://www.foxnews.com/opinion) [Media](https://www.foxnews.com/media) [FOX Nation Coverage](https://www.foxnews.com/shows/fox-nation) [Entertainment](https://www.foxnews.com/entertainment) [Taylor Swift](https://www.foxnews.com/category/person/taylor-swift) [Royal Families](https://www.foxnews.com/category/world/personalities/british-royals) [Country Music](https://www.foxnews.com/category/entertainment/genres/country) [Sports](https://www.foxnews.com/sports) [FIFA WORLD CUP 26](https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [NFL](https://www.foxnews.com/category/sports/nfl) [College Football](https://www.foxnews.com/category/sports/ncaa-fb) [MLB](https://www.foxnews.com/category/sports/mlb) [NASCAR](https://www.foxnews.com/category/auto/nascar) [INDYCAR](https://www.foxnews.com/category/auto/indycar) [NBA](https://www.foxnews.com/category/sports/nba) [NHL](https://www.foxnews.com/category/sports/nhl) [Golf](https://www.foxnews.com/category/sports/golf) [Tennis](https://www.foxnews.com/category/sports/tennis) [UFC](https://www.foxnews.com/category/sports/ufc) [WWE](https://www.foxnews.com/category/organization/wwe) [FIFA World Cup 26 Live](https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch USA vs Bosnia and Herzegovina](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-81-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Brazil vs Japan](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-76-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Netherlands vs Morocco](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-75-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch South Africa vs Canada](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-73-jun-28-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Germany vs Paraguay](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-74-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Ivory Coast vs Norway](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-78-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch France vs Sweden](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-77-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch England vs DR Congo](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-80-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Portugal vs Croatia](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-83-jul-2-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Argentina vs Cape Verde](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-86-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Colombia vs Ghana](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-87-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Mexico vs Ecuador](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-79-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [OutKick](https://www.foxnews.com/outkick) [Lifestyle](https://www.foxnews.com/lifestyle) [Travel](https://www.foxnews.com/travel) [Food & Drink](https://www.foxnews.com/food-drink) [Faith](https://www.foxnews.com/faith-values) [Discovery](https://www.foxnews.com/category/science/archaeology) [Games & Quizzes](https://www.foxnews.com/games) [Health](https://www.foxnews.com/health) [Longevity](https://www.foxnews.com/category/health/healthy-living/longevity) [Brain Health](https://www.foxnews.com/category/health/brain-health) [Weight Loss](https://www.foxnews.com/category/health/nutrition-and-fitness/weight-loss) [Sleep Health](https://www.foxnews.com/category/health/sleep-disorders) [Cancer News](https://www.foxnews.com/category/health/cancer) [Mental Health](https://www.foxnews.com/category/health/mental-health) [Heart Health](https://www.foxnews.com/category/health/heart-health) [Healthy Living](https://www.foxnews.com/category/health/healthy-living) [Deals](https://www.foxnews.com/deals) [Trending Deals](https://www.foxnews.com/category/deals/trending) [Gift Guides](https://www.foxnews.com/category/deals/gift) [Home Deals](https://www.foxnews.com/category/deals/home) [Kitchen Deals](https://www.foxnews.com/category/deals/kitchen) [Tech and Electronic Deals](https://www.foxnews.com/category/deals/tech-and-electronic) [Health and Fitness Deals](https://www.foxnews.com/category/deals/health-and-fitness) [Beauty and Fashion Deals](https://www.foxnews.com/category/deals/beauty-and-fashion) [FOX Business](https://www.foxbusiness.com/) [Personal Finance](https://www.foxbusiness.com/personal-finance) [Economy](https://www.foxbusiness.com/economy) [Markets](https://www.foxbusiness.com/markets) [Watchlist](https://www.foxbusiness.com/watchlist) [Lifestyle](https://www.foxbusiness.com/lifestyle) [Real Estate](https://www.foxbusiness.com/real-estate) [Tech](https://www.foxbusiness.com/technology) [Science & Tech](https://www.foxnews.com/tech) [Air & Space](https://www.foxnews.com/category/science/air-and-space) [Security](https://www.foxnews.com/category/tech/topics/security) [Innovation](https://www.foxnews.com/category/tech/topics/innovation) [Video Games](https://www.foxnews.com/category/tech/topics/video-games) [Military Tech](https://www.foxnews.com/category/tech/topics/military-tech) [Planet Earth](https://www.foxnews.com/category/science/planet-earth) [Wild Nature](https://www.foxnews.com/category/science/wild-nature) [Games](https://www.foxnews.com/games) [Scattergories Daily](https://www.foxnews.com/games/scattergories-daily) [5 Across the Letter Word Game](https://www.foxnews.com/games/5-across-word-game) [Downwords](https://www.foxnews.com/games/lil-snack-downwords) [Sudoku](https://www.foxnews.com/games/sudoku) [Word Swap](https://www.foxnews.com/games/lil-snack-word-swap) [Word Search](https://www.foxnews.com/games/word-search) [Icon Match](https://www.foxnews.com/games/icon-match-puzzle) [Daily Crossword Puzzle](https://www.foxnews.com/games/daily-crossword-puzzle) [Mini Crossword Puzzle](https://www.foxnews.com/games/mini-crossword-puzzle) [Watch Live](https://www.foxnews.com/video/5614615980001) [FOX News Shows](https://www.foxnews.com/shows) [Programming Schedule](https://www.foxnews.com/fnctv) [On Air Personalities](https://www.foxnews.com/person/personalities) [Full Episodes](https://www.foxnews.com/video/shows) [Show Clips](https://www.foxnews.com/video/topics/v-most-recent-episodes) [News Clips](https://www.foxnews.com/video/topics/latest-news-video) [About](https://www.foxnews.com/about) [Contact Us](https://www.foxnews.com/contact) [Careers](https://foxcareers.com/Search/SearchResults?brand=Fox%20News%20Careers) [Fox Around the World](https://www.foxnews.com/story/where-in-the-world-is-fox) [Advertise With Us](https://www.foxadvertising.com/fox-news-media/) [Media Relations](https://press.foxnews.com/media-contacts) [Corporate Information](https://press.foxnews.com/) [Compliance](https://www.foxnews.com/compliance) [Apps & Products](https://www.foxnews.com/apps-products) [FOX News Go](https://www.foxnews.com/go) [FOX Weather](https://www.foxweather.com/) [FOX Nation](https://www.foxnews.com/shows/fox-nation) [FOX Noticias](https://noticias.foxnews.com/shows/fox-noticias) [FOX News Shop](https://shop.foxnews.com/) [FOX News Radio](https://radio.foxnews.com/) [FOX News Newsletters](https://www.foxnews.com/newsletters) [FOX News Podcasts](https://radio.foxnews.com/podcast/) [FOX One](https://www.fox.com/?cmpid=org=one::ag=owned::mc=referral::src=fn::cmp=10010071001::add=621a)"
+   },
+   {
+    "bbox": [
+     0,
+     11534,
+     390,
+     2509
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/us",
+      "text": "U.S."
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/blue-city-crime",
+      "text": "Blue City Crime"
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/campus-radicals",
+      "text": "Campus Radicals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/us/immigration",
+      "text": "Border Crisis"
+     },
+     {
+      "href": "https://www.foxnews.com/true-crime",
+      "text": "True Crime"
+     },
+     {
+      "href": "https://www.foxnews.com/politics",
+      "text": "Politics"
+     },
+     {
+      "href": "https://www.foxnews.com/category/person/donald-trump",
+      "text": "Donald Trump"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/senate",
+      "text": "Senate"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/house-of-representatives",
+      "text": "House"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/judiciary",
+      "text": "Judiciary"
+     },
+     {
+      "href": "https://www.foxnews.com/category/politics/foreign-policy",
+      "text": "Foreign Policy"
+     },
+     {
+      "href": "https://www.foxnews.com/official-polls",
+      "text": "Fox News Polls"
+     },
+     {
+      "href": "https://www.foxnews.com/elections",
+      "text": "Elections"
+     },
+     {
+      "href": "https://www.foxnews.com/world",
+      "text": "World"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/united-nations",
+      "text": "U.N."
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/conflicts",
+      "text": "Conflicts"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/terrorism",
+      "text": "Terrorism"
+     },
+     {
+      "href": "https://www.foxnews.com/category/disasters",
+      "text": "Disasters"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/global-economy",
+      "text": "Global Economy"
+     },
+     {
+      "href": "https://www.foxnews.com/category/environment",
+      "text": "Environment"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/religion",
+      "text": "Religion"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/scandals",
+      "text": "Scandals"
+     },
+     {
+      "href": "https://www.foxnews.com/opinion",
+      "text": "Opinion"
+     },
+     {
+      "href": "https://www.foxnews.com/media",
+      "text": "Media"
+     },
+     {
+      "href": "https://www.foxnews.com/shows/fox-nation",
+      "text": "FOX Nation Coverage"
+     },
+     {
+      "href": "https://www.foxnews.com/entertainment",
+      "text": "Entertainment"
+     },
+     {
+      "href": "https://www.foxnews.com/category/person/taylor-swift",
+      "text": "Taylor Swift"
+     },
+     {
+      "href": "https://www.foxnews.com/category/world/personalities/british-royals",
+      "text": "Royal Families"
+     },
+     {
+      "href": "https://www.foxnews.com/category/entertainment/genres/country",
+      "text": "Country Music"
+     },
+     {
+      "href": "https://www.foxnews.com/sports",
+      "text": "Sports"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "FIFA WORLD CUP 26"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nfl",
+      "text": "NFL"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/ncaa-fb",
+      "text": "College Football"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/mlb",
+      "text": "MLB"
+     },
+     {
+      "href": "https://www.foxnews.com/category/auto/nascar",
+      "text": "NASCAR"
+     },
+     {
+      "href": "https://www.foxnews.com/category/auto/indycar",
+      "text": "INDYCAR"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nba",
+      "text": "NBA"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/nhl",
+      "text": "NHL"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/golf",
+      "text": "Golf"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/tennis",
+      "text": "Tennis"
+     },
+     {
+      "href": "https://www.foxnews.com/category/sports/ufc",
+      "text": "UFC"
+     },
+     {
+      "href": "https://www.foxnews.com/category/organization/wwe",
+      "text": "WWE"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "FIFA World Cup 26 Live"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-81-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch USA vs Bosnia and Herzegovina"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-76-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Brazil vs Japan"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-75-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Netherlands vs Morocco"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-73-jun-28-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch South Africa vs Canada"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-74-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Germany vs Paraguay"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-78-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Ivory Coast vs Norway"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-77-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch France vs Sweden"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-80-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch England vs DR Congo"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-83-jul-2-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Portugal vs Croatia"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-86-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Argentina vs Cape Verde"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-87-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Colombia vs Ghana"
+     },
+     {
+      "href": "https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-79-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j",
+      "text": "Watch Mexico vs Ecuador"
+     },
+     {
+      "href": "https://www.foxnews.com/outkick",
+      "text": "OutKick"
+     },
+     {
+      "href": "https://www.foxnews.com/lifestyle",
+      "text": "Lifestyle"
+     },
+     {
+      "href": "https://www.foxnews.com/travel",
+      "text": "Travel"
+     },
+     {
+      "href": "https://www.foxnews.com/food-drink",
+      "text": "Food & Drink"
+     },
+     {
+      "href": "https://www.foxnews.com/faith-values",
+      "text": "Faith"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/archaeology",
+      "text": "Discovery"
+     },
+     {
+      "href": "https://www.foxnews.com/games",
+      "text": "Games & Quizzes"
+     },
+     {
+      "href": "https://www.foxnews.com/health",
+      "text": "Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/healthy-living/longevity",
+      "text": "Longevity"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/brain-health",
+      "text": "Brain Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/nutrition-and-fitness/weight-loss",
+      "text": "Weight Loss"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/sleep-disorders",
+      "text": "Sleep Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/cancer",
+      "text": "Cancer News"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/mental-health",
+      "text": "Mental Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/heart-health",
+      "text": "Heart Health"
+     },
+     {
+      "href": "https://www.foxnews.com/category/health/healthy-living",
+      "text": "Healthy Living"
+     },
+     {
+      "href": "https://www.foxnews.com/deals",
+      "text": "Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/trending",
+      "text": "Trending Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/gift",
+      "text": "Gift Guides"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/home",
+      "text": "Home Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/kitchen",
+      "text": "Kitchen Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/tech-and-electronic",
+      "text": "Tech and Electronic Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/health-and-fitness",
+      "text": "Health and Fitness Deals"
+     },
+     {
+      "href": "https://www.foxnews.com/category/deals/beauty-and-fashion",
+      "text": "Beauty and Fashion Deals"
+     },
+     {
+      "href": "https://www.foxbusiness.com/",
+      "text": "FOX Business"
+     },
+     {
+      "href": "https://www.foxbusiness.com/personal-finance",
+      "text": "Personal Finance"
+     },
+     {
+      "href": "https://www.foxbusiness.com/economy",
+      "text": "Economy"
+     },
+     {
+      "href": "https://www.foxbusiness.com/markets",
+      "text": "Markets"
+     },
+     {
+      "href": "https://www.foxbusiness.com/watchlist",
+      "text": "Watchlist"
+     },
+     {
+      "href": "https://www.foxbusiness.com/lifestyle",
+      "text": "Lifestyle"
+     },
+     {
+      "href": "https://www.foxbusiness.com/real-estate",
+      "text": "Real Estate"
+     },
+     {
+      "href": "https://www.foxbusiness.com/technology",
+      "text": "Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/tech",
+      "text": "Science & Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/air-and-space",
+      "text": "Air & Space"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/security",
+      "text": "Security"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/innovation",
+      "text": "Innovation"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/video-games",
+      "text": "Video Games"
+     },
+     {
+      "href": "https://www.foxnews.com/category/tech/topics/military-tech",
+      "text": "Military Tech"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/planet-earth",
+      "text": "Planet Earth"
+     },
+     {
+      "href": "https://www.foxnews.com/category/science/wild-nature",
+      "text": "Wild Nature"
+     },
+     {
+      "href": "https://www.foxnews.com/games",
+      "text": "Games"
+     },
+     {
+      "href": "https://www.foxnews.com/games/scattergories-daily",
+      "text": "Scattergories Daily"
+     },
+     {
+      "href": "https://www.foxnews.com/games/5-across-word-game",
+      "text": "5 Across the Letter Word Game"
+     },
+     {
+      "href": "https://www.foxnews.com/games/lil-snack-downwords",
+      "text": "Downwords"
+     },
+     {
+      "href": "https://www.foxnews.com/games/sudoku",
+      "text": "Sudoku"
+     },
+     {
+      "href": "https://www.foxnews.com/games/lil-snack-word-swap",
+      "text": "Word Swap"
+     },
+     {
+      "href": "https://www.foxnews.com/games/word-search",
+      "text": "Word Search"
+     },
+     {
+      "href": "https://www.foxnews.com/games/icon-match-puzzle",
+      "text": "Icon Match"
+     },
+     {
+      "href": "https://www.foxnews.com/games/daily-crossword-puzzle",
+      "text": "Daily Crossword Puzzle"
+     },
+     {
+      "href": "https://www.foxnews.com/games/mini-crossword-puzzle",
+      "text": "Mini Crossword Puzzle"
+     },
+     {
+      "href": "https://www.foxnews.com/video/5614615980001",
+      "text": "Watch Live"
+     },
+     {
+      "href": "https://www.foxnews.com/shows",
+      "text": "FOX News Shows"
+     },
+     {
+      "href": "https://www.foxnews.com/fnctv",
+      "text": "Programming Schedule"
+     },
+     {
+      "href": "https://www.foxnews.com/person/personalities",
+      "text": "On Air Personalities"
+     },
+     {
+      "href": "https://www.foxnews.com/video/shows",
+      "text": "Full Episodes"
+     },
+     {
+      "href": "https://www.foxnews.com/video/topics/v-most-recent-episodes",
+      "text": "Show Clips"
+     },
+     {
+      "href": "https://www.foxnews.com/video/topics/latest-news-video",
+      "text": "News Clips"
+     },
+     {
+      "href": "https://www.foxnews.com/about",
+      "text": "About"
+     },
+     {
+      "href": "https://www.foxnews.com/contact",
+      "text": "Contact Us"
+     },
+     {
+      "href": "https://foxcareers.com/Search/SearchResults?brand=Fox%20News%20Careers",
+      "text": "Careers"
+     },
+     {
+      "href": "https://www.foxnews.com/story/where-in-the-world-is-fox",
+      "text": "Fox Around the World"
+     },
+     {
+      "href": "https://www.foxadvertising.com/fox-news-media/",
+      "text": "Advertise With Us"
+     },
+     {
+      "href": "https://press.foxnews.com/media-contacts",
+      "text": "Media Relations"
+     },
+     {
+      "href": "https://press.foxnews.com/",
+      "text": "Corporate Information"
+     },
+     {
+      "href": "https://www.foxnews.com/compliance",
+      "text": "Compliance"
+     },
+     {
+      "href": "https://www.foxnews.com/apps-products",
+      "text": "Apps & Products"
+     },
+     {
+      "href": "https://www.foxnews.com/go",
+      "text": "FOX News Go"
+     },
+     {
+      "href": "https://www.foxweather.com/",
+      "text": "FOX Weather"
+     },
+     {
+      "href": "https://www.foxnews.com/shows/fox-nation",
+      "text": "FOX Nation"
+     },
+     {
+      "href": "https://noticias.foxnews.com/shows/fox-noticias",
+      "text": "FOX Noticias"
+     },
+     {
+      "href": "https://shop.foxnews.com/",
+      "text": "FOX News Shop"
+     },
+     {
+      "href": "https://radio.foxnews.com/",
+      "text": "FOX News Radio"
+     },
+     {
+      "href": "https://www.foxnews.com/newsletters",
+      "text": "FOX News Newsletters"
+     },
+     {
+      "href": "https://radio.foxnews.com/podcast/",
+      "text": "FOX News Podcasts"
+     },
+     {
+      "href": "https://www.fox.com/?cmpid=org=one::ag=owned::mc=referral::src=fn::cmp=10010071001::add=621a",
+      "text": "FOX One"
+     }
+    ],
+    "md": "[U.S.](https://www.foxnews.com/us) [Blue City Crime](https://www.foxnews.com/category/us/blue-city-crime) [Campus Radicals](https://www.foxnews.com/category/us/campus-radicals) [Border Crisis](https://www.foxnews.com/category/us/immigration) [True Crime](https://www.foxnews.com/true-crime) [Politics](https://www.foxnews.com/politics) [Donald Trump](https://www.foxnews.com/category/person/donald-trump) [Senate](https://www.foxnews.com/category/politics/senate) [House](https://www.foxnews.com/category/politics/house-of-representatives) [Judiciary](https://www.foxnews.com/category/politics/judiciary) [Foreign Policy](https://www.foxnews.com/category/politics/foreign-policy) [Fox News Polls](https://www.foxnews.com/official-polls) [Elections](https://www.foxnews.com/elections) [World](https://www.foxnews.com/world) [U.N.](https://www.foxnews.com/category/world/united-nations) [Conflicts](https://www.foxnews.com/category/world/conflicts) [Terrorism](https://www.foxnews.com/category/world/terrorism) [Disasters](https://www.foxnews.com/category/disasters) [Global Economy](https://www.foxnews.com/category/world/global-economy) [Environment](https://www.foxnews.com/category/environment) [Religion](https://www.foxnews.com/category/world/religion) [Scandals](https://www.foxnews.com/category/world/scandals) [Opinion](https://www.foxnews.com/opinion) [Media](https://www.foxnews.com/media) [FOX Nation Coverage](https://www.foxnews.com/shows/fox-nation) [Entertainment](https://www.foxnews.com/entertainment) [Taylor Swift](https://www.foxnews.com/category/person/taylor-swift) [Royal Families](https://www.foxnews.com/category/world/personalities/british-royals) [Country Music](https://www.foxnews.com/category/entertainment/genres/country) [Sports](https://www.foxnews.com/sports) [FIFA WORLD CUP 26](https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [NFL](https://www.foxnews.com/category/sports/nfl) [College Football](https://www.foxnews.com/category/sports/ncaa-fb) [MLB](https://www.foxnews.com/category/sports/mlb) [NASCAR](https://www.foxnews.com/category/auto/nascar) [INDYCAR](https://www.foxnews.com/category/auto/indycar) [NBA](https://www.foxnews.com/category/sports/nba) [NHL](https://www.foxnews.com/category/sports/nhl) [Golf](https://www.foxnews.com/category/sports/golf) [Tennis](https://www.foxnews.com/category/sports/tennis) [UFC](https://www.foxnews.com/category/sports/ufc) [WWE](https://www.foxnews.com/category/organization/wwe) [FIFA World Cup 26 Live](https://www.fox.com/soccer/fifa-world-cup?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch USA vs Bosnia and Herzegovina](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-81-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Brazil vs Japan](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-76-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Netherlands vs Morocco](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-75-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch South Africa vs Canada](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-73-jun-28-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Germany vs Paraguay](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-74-jun-29-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Ivory Coast vs Norway](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-78-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch France vs Sweden](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-77-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch England vs DR Congo](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-80-jul-1-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Portugal vs Croatia](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-83-jul-2-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Argentina vs Cape Verde](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-86-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Colombia vs Ghana](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-87-jul-3-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [Watch Mexico vs Ecuador](https://www.fox.com/soccer/fifa-world-cup/round-of-32-match-79-jun-30-2026?cmpid=org=one::ag=owned_other::mc=referral::src=fn::cmp=10010131001::add=621j) [OutKick](https://www.foxnews.com/outkick) [Lifestyle](https://www.foxnews.com/lifestyle) [Travel](https://www.foxnews.com/travel) [Food & Drink](https://www.foxnews.com/food-drink) [Faith](https://www.foxnews.com/faith-values) [Discovery](https://www.foxnews.com/category/science/archaeology) [Games & Quizzes](https://www.foxnews.com/games) [Health](https://www.foxnews.com/health) [Longevity](https://www.foxnews.com/category/health/healthy-living/longevity) [Brain Health](https://www.foxnews.com/category/health/brain-health) [Weight Loss](https://www.foxnews.com/category/health/nutrition-and-fitness/weight-loss) [Sleep Health](https://www.foxnews.com/category/health/sleep-disorders) [Cancer News](https://www.foxnews.com/category/health/cancer) [Mental Health](https://www.foxnews.com/category/health/mental-health) [Heart Health](https://www.foxnews.com/category/health/heart-health) [Healthy Living](https://www.foxnews.com/category/health/healthy-living) [Deals](https://www.foxnews.com/deals) [Trending Deals](https://www.foxnews.com/category/deals/trending) [Gift Guides](https://www.foxnews.com/category/deals/gift) [Home Deals](https://www.foxnews.com/category/deals/home) [Kitchen Deals](https://www.foxnews.com/category/deals/kitchen) [Tech and Electronic Deals](https://www.foxnews.com/category/deals/tech-and-electronic) [Health and Fitness Deals](https://www.foxnews.com/category/deals/health-and-fitness) [Beauty and Fashion Deals](https://www.foxnews.com/category/deals/beauty-and-fashion) [FOX Business](https://www.foxbusiness.com/) [Personal Finance](https://www.foxbusiness.com/personal-finance) [Economy](https://www.foxbusiness.com/economy) [Markets](https://www.foxbusiness.com/markets) [Watchlist](https://www.foxbusiness.com/watchlist) [Lifestyle](https://www.foxbusiness.com/lifestyle) [Real Estate](https://www.foxbusiness.com/real-estate) [Tech](https://www.foxbusiness.com/technology) [Science & Tech](https://www.foxnews.com/tech) [Air & Space](https://www.foxnews.com/category/science/air-and-space) [Security](https://www.foxnews.com/category/tech/topics/security) [Innovation](https://www.foxnews.com/category/tech/topics/innovation) [Video Games](https://www.foxnews.com/category/tech/topics/video-games) [Military Tech](https://www.foxnews.com/category/tech/topics/military-tech) [Planet Earth](https://www.foxnews.com/category/science/planet-earth) [Wild Nature](https://www.foxnews.com/category/science/wild-nature) [Games](https://www.foxnews.com/games) [Scattergories Daily](https://www.foxnews.com/games/scattergories-daily) [5 Across the Letter Word Game](https://www.foxnews.com/games/5-across-word-game) [Downwords](https://www.foxnews.com/games/lil-snack-downwords) [Sudoku](https://www.foxnews.com/games/sudoku) [Word Swap](https://www.foxnews.com/games/lil-snack-word-swap) [Word Search](https://www.foxnews.com/games/word-search) [Icon Match](https://www.foxnews.com/games/icon-match-puzzle) [Daily Crossword Puzzle](https://www.foxnews.com/games/daily-crossword-puzzle) [Mini Crossword Puzzle](https://www.foxnews.com/games/mini-crossword-puzzle) [Watch Live](https://www.foxnews.com/video/5614615980001) [FOX News Shows](https://www.foxnews.com/shows) [Programming Schedule](https://www.foxnews.com/fnctv) [On Air Personalities](https://www.foxnews.com/person/personalities) [Full Episodes](https://www.foxnews.com/video/shows) [Show Clips](https://www.foxnews.com/video/topics/v-most-recent-episodes) [News Clips](https://www.foxnews.com/video/topics/latest-news-video) [About](https://www.foxnews.com/about) [Contact Us](https://www.foxnews.com/contact) [Careers](https://foxcareers.com/Search/SearchResults?brand=Fox%20News%20Careers) [Fox Around the World](https://www.foxnews.com/story/where-in-the-world-is-fox) [Advertise With Us](https://www.foxadvertising.com/fox-news-media/) [Media Relations](https://press.foxnews.com/media-contacts) [Corporate Information](https://press.foxnews.com/) [Compliance](https://www.foxnews.com/compliance) [Apps & Products](https://www.foxnews.com/apps-products) [FOX News Go](https://www.foxnews.com/go) [FOX Weather](https://www.foxweather.com/) [FOX Nation](https://www.foxnews.com/shows/fox-nation) [FOX Noticias](https://noticias.foxnews.com/shows/fox-noticias) [FOX News Shop](https://shop.foxnews.com/) [FOX News Radio](https://radio.foxnews.com/) [FOX News Newsletters](https://www.foxnews.com/newsletters) [FOX News Podcasts](https://radio.foxnews.com/podcast/) [FOX One](https://www.fox.com/?cmpid=org=one::ag=owned::mc=referral::src=fn::cmp=10010071001::add=621a)"
+   },
+   {
+    "bbox": [
+     36,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.facebook.com/FoxNews",
+      "text": "Facebook"
+     }
+    ],
+    "md": "[Facebook](https://www.facebook.com/FoxNews)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     72,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://twitter.com/foxnews",
+      "text": "Twitter"
+     }
+    ],
+    "md": "[Twitter](https://twitter.com/foxnews)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     108,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.instagram.com/foxnews",
+      "text": "Instagram"
+     }
+    ],
+    "md": "[Instagram](https://www.instagram.com/foxnews)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     144,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.youtube.com/FoxNewsChannel",
+      "text": "Youtube"
+     }
+    ],
+    "md": "[Youtube](https://www.youtube.com/FoxNewsChannel)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     180,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://flipboard.com/@FoxNews",
+      "text": "Flipboard"
+     }
+    ],
+    "md": "[Flipboard](https://flipboard.com/@FoxNews)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     216,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.linkedin.com/company/fox-news-channel/",
+      "text": "LinkedIn"
+     }
+    ],
+    "md": "[LinkedIn](https://www.linkedin.com/company/fox-news-channel/)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     252,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://foxnews.slack.com/apps/A013AUF6VMG-fox-news",
+      "text": "Slack"
+     }
+    ],
+    "md": "[Slack](https://foxnews.slack.com/apps/A013AUF6VMG-fox-news)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     288,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/story/foxnews-com-rss-feeds",
+      "text": "RSS"
+     }
+    ],
+    "md": "[RSS](https://www.foxnews.com/story/foxnews-com-rss-feeds)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     324,
+     14068,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/newsletters",
+      "text": "Newsletters"
+     }
+    ],
+    "md": "[Newsletters](https://www.foxnews.com/newsletters)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     162,
+     14106,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://open.spotify.com/show/7A4YfyFtNOZhqMV7F3kYVu",
+      "text": "Spotify"
+     }
+    ],
+    "md": "[Spotify](https://open.spotify.com/show/7A4YfyFtNOZhqMV7F3kYVu)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     198,
+     14106,
+     30,
+     30
+    ],
+    "bold": false,
+    "depth": 0,
+    "fontSize": 16,
+    "images": [],
+    "kind": "li",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.iheart.com/podcast/256-the-fox-news-rundown-31090295/",
+      "text": "iHeartRadio"
+     }
+    ],
+    "md": "[iHeartRadio](https://www.iheart.com/podcast/256-the-fox-news-rundown-31090295/)",
+    "ordered": false
+   },
+   {
+    "bbox": [
+     16,
+     14168,
+     52,
+     49
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/",
+      "text": "Fox News"
+     }
+    ],
+    "md": "[Fox News](https://www.foxnews.com/)"
+   },
+   {
+    "bbox": [
+     84,
+     14168,
+     290,
+     76
+    ],
+    "bold": false,
+    "fontSize": 16,
+    "images": [
+     "https://static.foxnews.com/static/orion/styles/img/core/s/icons/privacy-options.png"
+    ],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.foxnews.com/terms-of-use",
+      "text": "Terms of Use"
+     },
+     {
+      "href": "https://www.foxnews.com/privacy-policy",
+      "text": "New Privacy Policy"
+     },
+     {
+      "href": "https://privacy.foxnews.com/main/web/main",
+      "text": "![California Consumer Privacy Act (CCPA) Opt-Out Icon](https://static.foxnews.com/static/orion/styles/img/core/s/icons/privacy-options.png) Your Privacy Choices"
+     },
+     {
+      "href": "https://www.foxnews.com/closed-captioning",
+      "text": "Closed Caption Policy"
+     },
+     {
+      "href": "https://help.foxnews.com/hc/en-us",
+      "text": "Help"
+     },
+     {
+      "href": "https://www.foxnews.com/contact",
+      "text": "Contact Us"
+     },
+     {
+      "href": "https://www.foxnews.com/accessibility-statement",
+      "text": "Accessibility Statement"
+     },
+     {
+      "href": "https://www.foxnews.com/html-sitemap",
+      "text": "News Sitemap"
+     },
+     {
+      "href": "https://www.foxnews.com/html-video-sitemap",
+      "text": "Video Sitemap"
+     }
+    ],
+    "md": "[Terms of Use](https://www.foxnews.com/terms-of-use) [New Privacy Policy](https://www.foxnews.com/privacy-policy) [![California Consumer Privacy Act (CCPA) Opt-Out Icon](https://static.foxnews.com/static/orion/styles/img/core/s/icons/privacy-options.png) Your Privacy Choices](https://privacy.foxnews.com/main/web/main) [Closed Caption Policy](https://www.foxnews.com/closed-captioning) [Help](https://help.foxnews.com/hc/en-us) [Contact Us](https://www.foxnews.com/contact) [Accessibility Statement](https://www.foxnews.com/accessibility-statement) [News Sitemap](https://www.foxnews.com/html-sitemap) [Video Sitemap](https://www.foxnews.com/html-video-sitemap)"
+   },
+   {
+    "bbox": [
+     84,
+     14254,
+     290,
+     147
+    ],
+    "bold": false,
+    "fontSize": 12,
+    "images": [],
+    "kind": "p",
+    "landmark": "footer",
+    "links": [
+     {
+      "href": "https://www.factset.com/",
+      "text": "Factset"
+     },
+     {
+      "href": "https://www.factset.com/solutions/business-needs/digital-solutions",
+      "text": "FactSet Digital Solutions"
+     },
+     {
+      "href": "https://www.factset.com/privacy",
+      "text": "Legal Statement"
+     },
+     {
+      "href": "https://lipperalpha.refinitiv.com/",
+      "text": "LSEG"
+     }
+    ],
+    "md": "This material may not be published, broadcast, rewritten, or redistributed. ©2026 FOX News Network, LLC. All rights reserved. Quotes displayed in real-time or delayed by at least 15 minutes. Market data provided by [Factset](https://www.factset.com/). Powered and implemented by [FactSet Digital Solutions](https://www.factset.com/solutions/business-needs/digital-solutions). [Legal Statement](https://www.factset.com/privacy). Mutual Fund and ETF data provided by [LSEG](https://lipperalpha.refinitiv.com/)."
+   }
+  ],
+  "description": "Folarin Balogun will play for the USA against Belgium in the World Cup Round of 16 after the red card he received against Bosnia and Herzegovina was suspended.",
+  "docHeight": 14469,
+  "feeds": [
+   {
+    "href": "https://www.foxnews.com/rss.xml?category=sports",
+    "title": "Latest Breaking News, News, Rumors",
+    "type": "application/rss+xml"
+   }
+  ],
+  "interactive": 42,
+  "lang": "en",
+  "title": "Folarin Balogun cleared to play vs. Belgium after red card lifted | Fox News",
+  "url": "https://www.foxnews.com/sports/usa-world-cup-star-folarin-balogun-available-play-vs-belgium-stunning-twist",
+  "viewport": [
+   390,
+   664
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 1156,
+  "extractor": "2.0.0a7",
+  "fetched_at": "2026-07-05T12:53:25-05:00",
+  "mode": "authenticated",
+  "requested_url": "https://www.foxnews.com/sports/usa-world-cup-star-folarin-balogun-available-play-vs-belgium-stunning-twist",
+  "url": "https://www.foxnews.com/sports/usa-world-cup-star-folarin-balogun-available-play-vs-belgium-stunning-twist"
+ }
+}

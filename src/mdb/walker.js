@@ -135,7 +135,10 @@
         continue;
       }
       if (child.nodeType !== Node.ELEMENT_NODE) continue;
-      const el = child, tag = el.tagName;
+      // toUpperCase: SVG is XML — inline <svg>/<style> report lowercase
+      // tagName, and un-uppercased they dodge KILL (reddit's Snoo logo
+      // leaked its embedded stylesheet into the page text).
+      const el = child, tag = el.tagName.toUpperCase();
       if (KILL.has(tag)) continue;
       const st = style(el);
       if (hidden(el, st)) continue;
@@ -257,7 +260,7 @@
 
   function hasBlockChild(el) {
     for (const c of el.children) {
-      if (KILL.has(c.tagName)) continue;
+      if (KILL.has(c.tagName.toUpperCase())) continue;
       const st = style(c);
       if (st && BLOCKISH.has(st.display)) return true;
     }
@@ -271,7 +274,7 @@
   }
 
   function visit(el) {
-    const tag = el.tagName;
+    const tag = el.tagName.toUpperCase();   // SVG tags report lowercase
     if (KILL.has(tag)) return;
     const st = style(el);
     const r = el.getBoundingClientRect();
@@ -317,7 +320,7 @@
         if (c.nodeType === Node.ELEMENT_NODE &&
             (c.tagName === "UL" || c.tagName === "OL")) continue;
         if (c.nodeType === Node.TEXT_NODE) { clone.md += escText(c.data); continue; }
-        if (c.nodeType === Node.ELEMENT_NODE && !KILL.has(c.tagName)) {
+        if (c.nodeType === Node.ELEMENT_NODE && !KILL.has(c.tagName.toUpperCase())) {
           const cst = style(c);
           if (!hidden(c, cst)) inlineMD(c, clone), clone.md += " ";
         }

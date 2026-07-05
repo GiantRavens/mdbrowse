@@ -50,6 +50,7 @@ def classify(bundle: dict) -> Manifest:
                     if b.get("kind") in ("p", "quote")
                     and visible_len(b.get("md", "")) >= 120
                     and not is_link_led(b)]
+    prose_chars = sum(visible_len(b.get("md", "")) for b in prose_blocks)
     link_led = [b for b in blocks
                 if b.get("kind") in ("p", "li", "row") and is_link_led(b)]
     total_text = sum(len(b.get("md", "")) + len(b.get("text", ""))
@@ -63,6 +64,7 @@ def classify(bundle: dict) -> Manifest:
         "blocks": len(blocks),
         "total_text": total_text,
         "prose_blocks": len(prose_blocks),
+        "prose_chars": prose_chars,
         "link_led_blocks": len(link_led),
         "main_share": round(main_share, 2),
         "interactive": interactive,
@@ -73,8 +75,16 @@ def classify(bundle: dict) -> Manifest:
     if total_text < 400 and interactive > 20:
         return Manifest("app", 0.8, signals)
 
+    # An article-grade prose mass overrides the feed count: news sites
+    # bury the story under recommendation rails (foxnews: 49 link-led
+    # blocks around 15 paragraphs), and repetition must not outvote
+    # substance. Real fronts never carry this much prose — corpus max
+    # is nasa-front at 6 blocks / 1298 chars; articles run 15-31 blocks.
+    buried_article = len(prose_blocks) >= 8 and prose_chars >= 2000
+
     # Feed: the page is substantially a run of link-led items.
-    if len(link_led) >= 15 and len(link_led) > 2 * len(prose_blocks):
+    if (not buried_article
+            and len(link_led) >= 15 and len(link_led) > 2 * len(prose_blocks)):
         conf = 0.9 if len(link_led) >= 25 else 0.7
         return Manifest("feed", conf, signals)
 
