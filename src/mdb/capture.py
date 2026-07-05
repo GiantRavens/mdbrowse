@@ -11,6 +11,7 @@ warm-session reuse, and the www. retry.
 """
 
 import datetime
+import re
 import sys
 import time
 from importlib import resources
@@ -59,6 +60,8 @@ def _www_variant(url: str):
     host = p.hostname or ""
     if not host or host.startswith("www.") or "." not in host:
         return None
+    if re.fullmatch(r"[\d.]+", host) or ":" in host:
+        return None                     # www.192.168.1.7 is not a thing
     return urlunparse(p._replace(netloc="www." + p.netloc))
 
 
@@ -198,8 +201,8 @@ class Engine:
                 f"system resolver black-holes '{host}' (lookup hangs, so the "
                 f"browser would wait {int(self._timeout)}s in silence). "
                 "Likely a split-DNS rule claiming this domain — e.g. a "
-                "corporate VPN (GlobalProtect) that isn't connected. Check: "
-                f"scutil --dns | grep -A4 {host}")
+                "corporate VPN (GlobalProtect) that isn't connected. "
+                f"Diagnose: mdb doctor {host}")
         raise RuntimeError(f"'{host}' does not resolve (and no www. variant does)")
 
     def _ensure(self) -> None:

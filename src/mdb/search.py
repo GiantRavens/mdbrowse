@@ -50,9 +50,18 @@ def _is_urlish(t: str) -> bool:
     return "." in host or host.startswith("localhost")
 
 
+def _local_host(t: str) -> bool:
+    host = t.split("/")[0].split(":")[0]
+    return bool(re.fullmatch(r"[\d.]+", host)          # IP literal
+                or host.endswith(".local")              # mDNS
+                or host.startswith("localhost"))
+
+
 def omnibox(text: str) -> str:
     """The browser address-bar convention: explicit search prefixes win,
-    URL-looking input navigates, everything else searches."""
+    URL-looking input navigates, everything else searches. Local targets
+    (IP literals, .local mDNS, localhost) default to http:// — bare-IP
+    devices rarely speak TLS."""
     t = text.strip()
     hit = resolve_prompt(t)
     if hit:
@@ -60,5 +69,5 @@ def omnibox(text: str) -> str:
     if _is_urlish(t):
         if "://" in t or t.startswith(("safari:", "feed:")):
             return t
-        return "https://" + t
+        return ("http://" if _local_host(t) else "https://") + t
     return search_url(t)

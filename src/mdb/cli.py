@@ -116,6 +116,9 @@ def main() -> None:
     if len(sys.argv) > 1 and sys.argv[1] == "oracle":
         from .oracle import oracle_cli
         sys.exit(oracle_cli(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "doctor":
+        from .doctor import doctor_cli
+        sys.exit(doctor_cli(sys.argv[2:]))
     if len(sys.argv) > 2 and sys.argv[1] == "feed":
         sys.argv = [sys.argv[0], "feed:" + sys.argv[2]] + sys.argv[3:]
     if len(sys.argv) > 1 and sys.argv[1] in ("ddg", "search"):
