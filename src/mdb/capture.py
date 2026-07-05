@@ -174,6 +174,7 @@ class Engine:
         self._block_images = block_images
         self._pw = self._browser = self._context = None
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
+        self._resolver_rules = {}   # host -> ip, for --host-resolver-rules
 
     def _resolve_target(self, url: str) -> str:
         """Observe before navigating: a 3s resolver preflight instead of a
@@ -197,20 +198,71 @@ class Engine:
             if alt_verdict == "ok":
                 return alt
         if verdict == "hang":
+            if self._dns_bypass(host):
+                return url
             raise RuntimeError(
                 f"system resolver black-holes '{host}' (lookup hangs, so the "
-                f"browser would wait {int(self._timeout)}s in silence). "
-                "Likely a split-DNS rule claiming this domain — e.g. a "
-                "corporate VPN (GlobalProtect) that isn't connected. "
-                f"Diagnose: mdb doctor {host}")
+                f"browser would wait {int(self._timeout)}s in silence), and "
+                "direct DNS has no answer either. Likely a split-DNS rule "
+                "claiming this domain — e.g. a corporate VPN (GlobalProtect) "
+                f"that isn't connected. Diagnose: mdb doctor {host}")
         raise RuntimeError(f"'{host}' does not resolve (and no www. variant does)")
+
+    def _dns_bypass(self, host: str) -> bool:
+        """The system resolver black-holed this host, but direct DNS may
+        still answer — the split-DNS-with-tunnel-down state mdb doctor
+        diagnoses. Chromium accepts explicit host->IP maps
+        (--host-resolver-rules), so route around the damaged resolver
+        instead of refusing: map the host (and its www/apex sibling,
+        which a redirect would otherwise hang on), relaunch the engine
+        with the rules, and say so. TLS is unaffected — the hostname
+        still rides SNI and certificate checks; only resolution is ours."""
+        from .doctor import _dig
+        ips = _dig(host)
+        if not ips:
+            return False
+        self._resolver_rules[host] = ips[0]
+        self._dns_verdicts[host] = "ok"
+        sib = host[4:] if host.startswith("www.") else "www." + host
+        if sib not in self._resolver_rules:
+            sips = _dig(sib)
+            if sips:
+                self._resolver_rules[sib] = sips[0]
+                self._dns_verdicts[sib] = "ok"
+        mapped = ", ".join(f"{h} → {ip}" for h, ip in
+                           sorted(self._resolver_rules.items())
+                           if h in (host, sib))
+        print(f"mdb: system resolver black-holes '{host}'; routing around "
+              f"it via direct DNS ({mapped}). The damage itself persists "
+              f"machine-wide — see: mdb doctor {host}", file=sys.stderr)
+        self._relaunch()
+        return True
+
+    def _relaunch(self) -> None:
+        """Tear down browser+context (keeping Playwright itself) so the
+        next _ensure() launches with the current resolver rules."""
+        for attr in ("_context", "_browser"):
+            obj = getattr(self, attr)
+            if obj is not None:
+                try:
+                    obj.close()
+                except Exception:
+                    pass
+                setattr(self, attr, None)
+        self._ensure()
 
     def _ensure(self) -> None:
         if self._context is not None:
             return
         from playwright.sync_api import sync_playwright
-        self._pw = sync_playwright().start()
-        self._browser = self._pw.chromium.launch(headless=True)
+        if self._pw is None:
+            self._pw = sync_playwright().start()
+        args = []
+        if self._resolver_rules:
+            rules = ", ".join(f"MAP {h} {ip}" for h, ip
+                              in sorted(self._resolver_rules.items()))
+            args.append(f"--host-resolver-rules={rules}")
+        self._browser = self._pw.chromium.launch(headless=True, args=args)
         ctx_opts = {
             **self._pw.devices.get("iPhone 13", {}),
             "user_agent": IPHONE_UA,
