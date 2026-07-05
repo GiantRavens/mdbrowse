@@ -68,6 +68,44 @@ def _tight(kind: str) -> bool:
     return kind in ("li",) or kind == "row"
 
 
+def _row_cells(b: dict):
+    """Positional per-cell markdown, present only in bundles captured since
+    the walker learned tables (2.0.0a6). Older bundles fall through to the
+    joined-md row path unchanged."""
+    cells = b.get("cells")
+    return cells if isinstance(cells, list) and cells else None
+
+
+def _is_data_table(rows: list) -> bool:
+    """Data table vs layout scaffolding: a real table announces itself with
+    a header row, or repeats a regular >=2-column grid. Layout tables (HN
+    story rows, spacer rows) have irregular cell counts and no headers."""
+    if len(rows) < 2:
+        return False
+    counts = [len(_row_cells(b)) for b in rows]
+    if max(counts) < 2:
+        return False
+    if rows[0].get("header"):
+        return True
+    return len(set(counts)) == 1
+
+
+def _table_md(rows: list) -> str:
+    """Pipe table from a row run. The first row is the header line (it is
+    one when the source used <th>; otherwise markdown's required header
+    slot is simply the first data row — the honest choice)."""
+    width = max(len(_row_cells(b)) for b in rows)
+
+    def line(cells: list) -> str:
+        cells = [c.replace("|", "\\|") for c in cells]
+        cells += [""] * (width - len(cells))
+        return "| " + " | ".join(cells) + " |"
+
+    out = [line(_row_cells(rows[0])), "|" + " --- |" * width]
+    out += [line(_row_cells(b)) for b in rows[1:]]
+    return "\n".join(out)
+
+
 def _region_links(blocks: list) -> str:
     seen, lines = set(), []
     for b in blocks:
@@ -163,8 +201,29 @@ def emit_body(bundle: dict, manifest) -> str:
                     state["prev_md"] = line
                     parts.append(("item", line))
     else:
-        for b in body_blocks:
+        # Table-aware walk: consecutive rows of one <table> that read as a
+        # data table emit as a pipe table; everything else block-by-block.
+        i = 0
+        while i < len(body_blocks):
+            b = body_blocks[i]
+            if b.get("kind") == "row" and _row_cells(b):
+                j = i
+                while (j < len(body_blocks)
+                       and body_blocks[j].get("kind") == "row"
+                       and _row_cells(body_blocks[j])
+                       and body_blocks[j].get("tbl") == b.get("tbl")):
+                    j += 1
+                run = body_blocks[i:j]
+                if _is_data_table(run):
+                    parts.append(("table", _table_md(run)))
+                    state["prev_md"] = None
+                else:
+                    for rb in run:
+                        add_block(rb)
+                i = j
+                continue
             add_block(b)
+            i += 1
 
     out = []
     if title:

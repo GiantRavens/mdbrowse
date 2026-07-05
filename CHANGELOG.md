@@ -2,6 +2,40 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — Agent-grade: data tables, MCP search + pagination, agent probe suite (2.0.0a6)
+
+The audit question was "would an agent prefer this over its built-in web
+tools?" Three gaps said not-yet; all three closed.
+
+### Added
+- **Data tables survive as pipe tables.** The walker now records per-cell
+  markdown (`cells`), header-ness (`<th>` rows), and table ownership (`tbl`)
+  as layout-engine facts; the emitter turns runs that read as data tables
+  (header row, or a regular >=2-column grid) into markdown pipe tables, `|`
+  escaped. Layout tables (HN story rows, irregular grids) still emit as
+  prose/feed lines. Old bundles lack `cells` and emit byte-identically —
+  goldens untouched. New offline fixture `table-basic` guards both sides.
+- **MCP: `search_web(query)`** — the missing half of an agent's web verb
+  pair. Results ride the same pipeline (Mojeek default, MDBROWSE_SEARCH_URL
+  overrides) and come back as one linked line per result.
+- **MCP: `fetch_page` paginates.** `start_char` slices long documents; the
+  truncation note names the next offset, and the 60s bundle cache makes the
+  continuation free (no re-render). `page_links` gains a `pattern` regex
+  filter (text OR href) so navigation questions cost tokens proportional
+  to the question.
+- **Agent probe suite** (`tests/agent_probes.py`): eight live probes for
+  the actions agents actually perform — docs code fidelity, pipe tables,
+  search results, feed digest, filtered links, pagination stitching, hash
+  determinism across fresh captures, fast classified failure. Its first
+  run caught a bad assertion before it caught a bad feature: probes are
+  telemetry about the suite too.
+
+### Fixed
+- **Decorative inline icons dropped.** Textless images measuring under
+  ~600 px² (sort arrows, bullet gifs) no longer pollute prose or table
+  cells; zero-size (lazy/unmeasured) images still pass, so card thumbnails
+  survive.
+
 ## 2026-07-04 — v1 retired; v2 (`mdb`) is mdbrowse
 
 The single-file v1 (`mdbrowse.py`, fetch → strip → convert → repair) is

@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "elapsed_ms": 0,
+    "extractor": "2.0.0a6",
+    "fetched_at": "2026-07-05T00:00:00-05:00",
+    "mode": "authenticated",
+    "requested_url": "https://fixtures.local/table-basic",
+    "url": "https://fixtures.local/table-basic"
+  },
+  "doc": {
+    "anchors": 2,
+    "blocks": [
+      {"bbox": [0, 0, 600, 30], "bold": true, "fontSize": 24, "images": [], "kind": "heading", "landmark": "main", "level": 1, "links": [], "md": "Storage Media Comparison"},
+      {"bbox": [0, 40, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "p", "landmark": "main", "links": [], "md": "Two tables follow: a data table with headers, then an HN-style layout table that must NOT become a pipe table."},
+      {"bbox": [0, 80, 600, 20], "bold": true, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [], "md": "Medium Capacity Cost/TB", "cells": ["Medium", "Capacity", "Cost/TB"], "header": true, "tbl": 1},
+      {"bbox": [0, 100, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [], "md": "LTO-9 18 TB $4", "cells": ["LTO-9", "18 TB", "$4"], "header": false, "tbl": 1},
+      {"bbox": [0, 120, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [], "md": "HDD 22 TB $14 | ish", "cells": ["HDD", "22 TB", "$14 | ish"], "header": false, "tbl": 1},
+      {"bbox": [0, 140, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [], "md": "NVMe 8 TB $55", "cells": ["NVMe", "8 TB", "$55"], "header": false, "tbl": 1},
+      {"bbox": [0, 180, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "p", "landmark": "main", "links": [], "md": "Between-tables prose keeps the runs apart."},
+      {"bbox": [0, 220, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [{"text": "A story title that reads long enough", "href": "https://fixtures.local/story1"}], "md": "1. [A story title that reads long enough](https://fixtures.local/story1)", "cells": ["1.", "[A story title that reads long enough](https://fixtures.local/story1)"], "header": false, "tbl": 2},
+      {"bbox": [0, 240, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [], "md": "42 points by someone", "cells": ["42 points by someone"], "header": false, "tbl": 2},
+      {"bbox": [0, 260, 600, 20], "bold": false, "fontSize": 16, "images": [], "kind": "row", "landmark": "main", "links": [{"text": "Another story with a plausible headline", "href": "https://fixtures.local/story2"}], "md": "2. [Another story with a plausible headline](https://fixtures.local/story2)", "cells": ["2.", "[Another story with a plausible headline](https://fixtures.local/story2)"], "header": false, "tbl": 2}
+    ],
+    "description": "",
+    "docHeight": 300,
+    "feeds": [],
+    "interactive": 0,
+    "lang": "en",
+    "title": "Storage Media Comparison",
+    "url": "https://fixtures.local/table-basic",
+    "viewport": [980, 1200]
+  }
+}

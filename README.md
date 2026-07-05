@@ -15,7 +15,8 @@ screenshot-based fidelity oracle.
   sends none.
 - **Shape-aware.** Articles come out as clean prose; feeds (HN, news
   fronts) as one linked line per story; index cards merge their
-  fragments; app-shaped pages get a classified refusal instead of soup.
+  fragments; data tables as markdown pipe tables (layout tables stay
+  prose); app-shaped pages get a classified refusal instead of soup.
 - **Deterministic and diffable.** Front-matter carries provenance
   (source, retrieved, mode, shape+confidence, extractor version) and a
   body content-hash. Same page state → identical body. Pages become
@@ -93,8 +94,14 @@ Mouse: wheel scrolls, click follows, click 🖼 previews. (tmux: `set -g mouse o
 ### Agents and speed
 
 - **MCP server** (`mdb-mcp`, registered as `mdbrowse`): `fetch_page`
-  (markdown + provenance), `page_links`, `archive_page` (returns the
-  body hash — compare to detect change).
+  (markdown + provenance; long pages paginate via `start_char`, the
+  continuation served from the capture cache), `search_web` (results as
+  linked lines), `page_links` (with a `pattern` regex filter),
+  `archive_page` (returns the body hash — compare to detect change).
+- **Agent probe suite** (`tests/agent_probes.py`): live regression
+  guards for the actions agents actually perform — docs code fidelity,
+  pipe tables, search, feed digests, link filtering, pagination
+  stitching, hash determinism, fast classified failure.
 - **Engine daemon**: warm Chromium behind `~/.mdb/engine.sock`,
   auto-spawned on first CLI capture, idle-exit after 30 min. Warm
   fetches run ~0.7–1.0s. `mdb daemon start|stop|status|run`;

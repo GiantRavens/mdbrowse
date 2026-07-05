@@ -1,6 +1,6 @@
 [project]
 name = "mdb"
-version = "2.0.0a5"
+version = "2.0.0a6"
 description = "Web -> deterministic markdown compiler (mdbrowse v2 core)"
 requires-python = ">=3.11"
 dependencies = [

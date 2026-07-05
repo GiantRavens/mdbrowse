@@ -19,6 +19,7 @@
                             "table-cell", "table-row-group", "list-item",
                             "flow-root"]);
   const blocks = [];
+  const tableIds = new Map();   // <table> element -> stable ordinal
 
   const style = (el) => { try { return getComputedStyle(el); } catch { return null; } };
 
@@ -112,6 +113,10 @@
         const src = imgSrc(el);
         if (src) {
           const alt = (el.getAttribute("alt") || "").trim();
+          // Decorative inline icons (sort arrows, bullet gifs): textless AND
+          // measurably tiny. Zero-size means lazy/unmeasured — keep those.
+          const rr = el.getBoundingClientRect();
+          if (!alt && rr.width > 0 && rr.width * rr.height < 600) continue;
           if (needsPad(out.md, "!")) out.md += " ";
           out.md += `![${escText(alt)}](${src})`;
           out.images.push(src);
@@ -297,22 +302,33 @@
       return;
     }
     if (tag === "TR" && !el.querySelector("table")) {
-      // Layout-table row (HN story rows): one row, one block. Cells joined
-      // in order; the feed emitter later turns link-led rows into bullets.
+      // Table row: one row, one block. `md` joins non-empty cells for prose
+      // and feed use (HN story rows); `cells` keeps positional per-cell
+      // markdown (empties included) so the emitter can rebuild data tables
+      // as pipe tables. `header` and `tbl` (which <table> this row belongs
+      // to) are layout-engine facts — recorded here, decided downstream.
       const parts = [];
+      let ths = 0, tds = 0;
       const rowOut = { md: "", images: [], links: [] };
       for (const cell of el.cells || []) {
         const cst = style(cell);
         if (hidden(cell, cst)) continue;
+        if (cell.tagName === "TH") ths++; else tds++;
         const before = rowOut.md.length;
         inlineMD(cell, rowOut);
         const seg = rowOut.md.slice(before).replace(/\s+/g, " ").trim();
         rowOut.md = rowOut.md.slice(0, before);
-        if (seg) parts.push(seg);
+        parts.push(seg);
       }
-      const md = parts.join(" ").replace(/\s+/g, " ").trim();
-      if (md) push(el, st, r, { kind: "row", md: md,
-                                links: rowOut.links, images: rowOut.images });
+      const md = parts.filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+      if (md) {
+        const tEl = el.closest("table");
+        let tid = tableIds.get(tEl);
+        if (tid === undefined) { tid = tableIds.size + 1; tableIds.set(tEl, tid); }
+        push(el, st, r, { kind: "row", md: md, cells: parts,
+                          header: ths > 0 && tds === 0, tbl: tid,
+                          links: rowOut.links, images: rowOut.images });
+      }
       return;
     }
     if (tag === "IMG") {
