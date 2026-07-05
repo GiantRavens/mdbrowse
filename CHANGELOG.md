@@ -2,6 +2,33 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — The MCP grows memory and senses: archive search + the watch fleet
+
+An agent could archive pages and manage nothing: the store was
+write-only and the sensors CLI-only. Both surfaces now speak MCP.
+
+### Added
+- **`archive_search`** — term-AND full text over `~/mdbrowse-archive`
+  with provenance per hit (path, title, source, retrieved, score,
+  snippet). Index-free scan, honest at current size; the docstring
+  carries the graduation trigger (visible lag → real FTS, the kf/df
+  pattern). `archive_page` + `archive_search` = a personal web memory.
+- **Watch fleet over MCP** — `watch_add`, `watch_list`, `watch_scan`,
+  `watch_diff`, `watch_remove`. Scan readings are structured
+  (ok / changed with diff sample / error with the why), so an agent can
+  drive the change-detection fleet and react to what moved.
+- Two agent probes: watch lifecycle and archive memory, both against
+  scratch stores. The archive probe queries with the page's *own words*
+  — its first run failed because example.com had quietly rewritten its
+  copy since the hardcoded query was written, which is exactly the
+  lesson: probes assert structure and round-trips, never live content.
+
+### Changed
+- `watch.py` split per doctrine — `scan_readings()` and `diff_text()`
+  are pure data functions; the CLI verbs and MCP tools are both thin
+  frontends over them. SystemExit stays a CLI dialect; the MCP wrapper
+  translates it to a readable error.
+
 ## 2026-07-05 — Checkin gate: the real web signs off on every commit
 
 `tests/checkin.py`, wired as a git pre-commit hook (`--install-hook`).

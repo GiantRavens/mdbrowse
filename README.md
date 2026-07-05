@@ -97,7 +97,11 @@ Mouse: wheel scrolls, click follows, click 🖼 previews. (tmux: `set -g mouse o
   (markdown + provenance; long pages paginate via `start_char`, the
   continuation served from the capture cache), `search_web` (results as
   linked lines), `page_links` (with a `pattern` regex filter),
-  `archive_page` (returns the body hash — compare to detect change).
+  `archive_page` (returns the body hash — compare to detect change),
+  `archive_search` (full text over the archive: a personal web memory),
+  and the watch fleet — `watch_add` / `watch_list` / `watch_scan`
+  (structured readings: ok / changed+diff / error+why) / `watch_diff` /
+  `watch_remove`.
 - **Agent probe suite** (`tests/agent_probes.py`): live regression
   guards for the actions agents actually perform — docs code fidelity,
   pipe tables, search, feed digests, link filtering, pagination

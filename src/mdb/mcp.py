@@ -162,6 +162,80 @@ def archive_page(url: str, private: bool = False) -> dict:
     }
 
 
+def _no_exit(fn, *args, **kwargs):
+    """watch.py's CLI verbs speak SystemExit; over MCP that must become
+    a normal error the agent can read and react to."""
+    try:
+        return fn(*args, **kwargs)
+    except SystemExit as e:
+        raise RuntimeError(str(e))
+
+
+@mcp.tool()
+def watch_add(url: str, name: str = "", private: bool = False) -> dict:
+    """Start watching a URL for real content change. Takes the first
+    snapshot now (git-committed to the watch store); later watch_scan
+    calls fire only when visible text changes — link-token churn never
+    false-fires. Name defaults to a slug of the URL.
+    """
+    from . import watch
+    watch_name = _no_exit(watch.add, _normalize(url), name or None, private)
+    return {"name": watch_name, "store": watch.WATCH_DIR,
+            "snapshot": f"{watch.WATCH_DIR}/{watch_name}.md"}
+
+
+@mcp.tool()
+def watch_list() -> list:
+    """List configured watches: name, url, mode, when last checked and
+    last actually changed."""
+    from . import watch
+    return [{"name": n, "url": w["url"],
+             "mode": "private" if w.get("private") else "authenticated",
+             "last_checked": w.get("last_checked"),
+             "last_changed": w.get("last_changed")}
+            for n, w in sorted(watch._load().items())]
+
+
+@mcp.tool()
+def watch_scan(names: list = []) -> list:
+    """Re-fetch watches and report one reading each: status ok (no real
+    change) / changed (snapshot committed; diff_sample shows what moved)
+    / error (with the why). Empty names scans everything. Changes are
+    detected on visible text only, so a 'changed' reading means a reader
+    would agree the page changed.
+    """
+    from . import watch
+    return watch.scan_readings(names or None)
+
+
+@mcp.tool()
+def watch_diff(name: str) -> str:
+    """A watch's most recent change as a git patch (old lines -, new
+    lines +). Use after watch_scan reports 'changed' to see exactly
+    what moved."""
+    from . import watch
+    return watch.diff_text(name)
+
+
+@mcp.tool()
+def watch_remove(name: str) -> dict:
+    """Stop watching a page. Its snapshot history stays in the store's
+    git log."""
+    from . import watch
+    _no_exit(watch.remove, name)
+    return {"removed": name}
+
+
+@mcp.tool()
+def archive_search(query: str, max_results: int = 10) -> list:
+    """Search previously archived pages (the personal web memory that
+    archive_page writes to). Term-AND full text; returns {path, title,
+    source, retrieved, score, snippet} best-first. Read a hit's path
+    for the full page as it was when archived."""
+    from .archive import search_archive
+    return search_archive(query, max_results)
+
+
 def main() -> None:
     mcp.run()
 

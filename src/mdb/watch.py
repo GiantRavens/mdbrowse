@@ -124,18 +124,19 @@ def remove(name: str) -> None:
         _git("commit", "-q", "-m", f"watch rm: {name}", check=False)
 
 
-def scan(names=None, json_out: bool = False) -> int:
-    """Fetch every watch, compare text hashes, commit + report changes.
-    Exit code: 0 clean, 2 if any watch errored."""
+def scan_readings(names=None) -> list:
+    """The scan as data: fetch every watch, compare text hashes, commit
+    real changes to the store, return one reading per watch — status
+    ok / changed / error, with the diff sample and error reason inline.
+    Pure with respect to output: CLI and MCP are both frontends over
+    this. Empty list = no watches matched."""
     _ensure_store()
     cfg = _load()
     targets = {n: w for n, w in cfg.items() if not names or n in names}
     if not targets:
-        print("mdb watch: nothing to scan (add one: mdb watch add URL)",
-              file=sys.stderr)
-        return 1
+        return []
 
-    readings, errors = [], 0
+    readings = []
     with Engine() as eng_auth, Engine(private=True) as eng_priv:
         for name, w in sorted(targets.items()):
             now = time.strftime("%Y-%m-%dT%H:%M:%S")
@@ -163,11 +164,22 @@ def scan(names=None, json_out: bool = False) -> int:
                                  "url": w["url"], "checked": now,
                                  "stat": stat, "diff_sample": sample})
             except Exception as e:
-                errors += 1
                 readings.append({"name": name, "status": "error",
                                  "url": w["url"], "checked": now,
                                  "error": str(e)[:200]})
     _save(cfg)
+    return readings
+
+
+def scan(names=None, json_out: bool = False) -> int:
+    """CLI frontend over scan_readings. Exit: 0 clean, 1 nothing to
+    scan, 2 if any watch errored."""
+    readings = scan_readings(names)
+    if not readings:
+        print("mdb watch: nothing to scan (add one: mdb watch add URL)",
+              file=sys.stderr)
+        return 1
+    errors = sum(1 for r in readings if r["status"] == "error")
 
     if json_out:
         print(json.dumps(readings, indent=1))
@@ -206,13 +218,23 @@ def _diff_sample(fname: str, limit: int = 24):
     return lines
 
 
-def diff(name: str) -> int:
+def diff_text(name: str) -> str:
+    """A watch's last change as a patch string (raises ValueError on an
+    unknown name). CLI and MCP are both frontends over this."""
     cfg = _load()
     if name not in cfg:
-        raise SystemExit(f"mdb watch: no watch named '{name}'")
+        raise ValueError(f"no watch named '{name}' "
+                         f"(watching: {', '.join(sorted(cfg)) or 'nothing'})")
     r = _git("log", "-p", "--follow", "-1", "--format=commit %h  %ad  %s",
              "--date=format:%Y-%m-%d %H:%M", "--", f"{name}.md", check=False)
-    print(r.stdout)
+    return r.stdout
+
+
+def diff(name: str) -> int:
+    try:
+        print(diff_text(name))
+    except ValueError as e:
+        raise SystemExit(f"mdb watch: {e}")
     return 0
 
 
