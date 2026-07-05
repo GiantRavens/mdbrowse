@@ -21,6 +21,7 @@ without the why is Level-1 telemetry.
 Escape hatches: MDB_CHECKIN_SKIP_LIVE=1, or git commit --no-verify.
 """
 
+import json
 import os
 import re
 import socket
@@ -71,6 +72,10 @@ SITES = [
          why="dead-but-resolving apex: DNS answers, every SYN dropped "
              "(the live site is wsj.com) — must fail fast and classified",
          expect_error="accepts no connections"),
+    dict(name="wsj", url="https://www.wsj.com",
+         why="DataDome verification wall: must classify as wall with the "
+             "why, never emit a silent one-line ghost",
+         shape="wall", contains=["Nothing rendered"]),
 ]
 
 DETERMINISM_URL = "https://example.com"   # captured twice; hashes must match
@@ -155,6 +160,7 @@ def live_sweep(pick: list) -> bool:
     print(f"\nphase 1 — live sweep ({len(sites)} sites"
           f"{' + determinism' if not pick else ''})")
     failures = 0
+    baseline = _load_baseline()
     with Engine() as eng:
         for site in sites:
             t0 = time.time()
@@ -200,9 +206,19 @@ def live_sweep(pick: list) -> bool:
                 print(f"  {site['name']:9} FAIL shape={manifest.shape} "
                       f"({dt:.1f}s) — {'; '.join(fails)}")
             else:
+                # Drift sensor: a big drop against the recorded baseline
+                # means the site changed under us (layout shift, new
+                # wall) even though every static assertion still holds.
+                drift = ""
+                prev = baseline.get(site["name"])
+                if prev and len(body) < prev * 0.5:
+                    drift = f"  DRIFT: {prev // 1000}k -> {len(body) // 1000}k chars vs baseline"
+                baseline[site["name"]] = len(body)
+                cov = manifest.signals.get("coverage")
                 print(f"  {site['name']:9} ok   shape={manifest.shape} "
                       f"conf={manifest.confidence} "
-                      f"{len(body) // 1000}k chars ({dt:.1f}s){slow}")
+                      f"{len(body) // 1000}k chars cov={cov} "
+                      f"({dt:.1f}s){slow}{drift}")
 
         if not pick:   # determinism rides the same warm engine
             hashes = [content_hash(emit_body(b, classify(b)))
@@ -214,9 +230,34 @@ def live_sweep(pick: list) -> bool:
                 failures += 1
                 print(f"  determin. FAIL hash drift: {hashes}")
 
+    _save_baseline(baseline)
     total = len(sites) + (0 if pick else 1)
     print(f"live sweep: {total - failures}/{total} passing")
     return failures == 0
+
+
+_BASELINE = os.path.expanduser("~/.mdb/checkin-baseline.json")
+
+
+def _load_baseline() -> dict:
+    """Per-site body sizes from the previous run — host-local memory the
+    drift sensor compares against (a site can pass every static
+    assertion and still have quietly lost half its content)."""
+    try:
+        with open(_BASELINE, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_baseline(b: dict) -> None:
+    import json as _json
+    try:
+        os.makedirs(os.path.dirname(_BASELINE), exist_ok=True)
+        with open(_BASELINE, "w", encoding="utf-8") as f:
+            _json.dump(b, f, indent=1, sort_keys=True)
+    except OSError:
+        pass
 
 
 HOOK = """#!/bin/sh

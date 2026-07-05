@@ -142,6 +142,18 @@ def emit_body(bundle: dict, manifest) -> str:
                 f"interactive controls). Markdown cannot represent it "
                 f"faithfully — open it in a real browser._")
 
+    if shape == "wall":
+        challenge = manifest.signals.get("challenge_iframes") or []
+        why = ("a verification challenge is running in an iframe "
+               f"({challenge[0].split('/')[2]}) that mdb does not enter"
+               if challenge else
+               "the site served an empty shell to this browser — commonly "
+               "a bot check, or JS that refuses headless engines")
+        return (f"# {doc.get('title') or bundle['meta']['url']}\n\n"
+                f"_Nothing rendered: {why}. Open the page in a real "
+                f"browser; once the site trusts your Safari session again, "
+                f"mdb browses with its cookies._")
+
     body_blocks = [b for b in blocks if b.get("landmark") not in _CHROME_LANDMARKS]
     chrome = {lm: [b for b in blocks if b.get("landmark") == lm]
               for lm in _CHROME_LANDMARKS}

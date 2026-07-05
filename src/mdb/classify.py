@@ -10,6 +10,9 @@ Shapes:
   feed     run of link-led items (HN, blog index) -> one bullet per item
   page     mixed/unknown document           -> generic: everything, in order
   app      thin text, dense interactivity   -> classified refusal
+  wall     nothing rendered at all          -> classified refusal (bot
+           challenge / verification interstitial; the giveaway is a
+           captcha-delivery iframe over an empty body — wsj.com's DataDome)
 """
 
 import re
@@ -60,9 +63,18 @@ def classify(bundle: dict) -> Manifest:
     main_share = main_text / max(1, total_text)
     interactive = doc.get("interactive", 0)
 
+    # Coverage: how much of the page's rendered text did the walker
+    # actually capture? A low ratio on a text-bearing page is the
+    # walker-missed-content class (aria-hidden carousels, namespace
+    # leaks) surfacing as a number instead of a captain's report.
+    captured = sum(visible_len(b.get("md", "")) + len(b.get("text", ""))
+                   for b in blocks)
+    page_text = doc.get("textLen", 0)
+
     signals = {
         "blocks": len(blocks),
         "total_text": total_text,
+        "coverage": round(captured / page_text, 2) if page_text else None,
         "prose_blocks": len(prose_blocks),
         "prose_chars": prose_chars,
         "link_led_blocks": len(link_led),
@@ -70,6 +82,16 @@ def classify(bundle: dict) -> Manifest:
         "interactive": interactive,
         "anchors": doc.get("anchors", 0),
     }
+
+    # Wall: nothing rendered — no text, no links, no controls. A silent
+    # one-line ghost is a lie; say what happened. A captcha/challenge
+    # iframe over the empty body names the cause with confidence.
+    if total_text < 40 and doc.get("anchors", 0) <= 2 and interactive <= 2:
+        challenge = [f for f in doc.get("iframes", [])
+                     if re.search(r"captcha|challenge|datadome|perimeterx"
+                                  r"|px-cloud|turnstile|cf-chl", f, re.I)]
+        signals["challenge_iframes"] = challenge
+        return Manifest("wall", 0.9 if challenge else 0.6, signals)
 
     # App: barely any document to speak of, lots of controls.
     if total_text < 400 and interactive > 20:

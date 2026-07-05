@@ -1,0 +1,31 @@
+{
+ "doc": {
+  "anchors": 0,
+  "blocks": [],
+  "description": "",
+  "docHeight": 664,
+  "feeds": [],
+  "iframes": [
+   "https://geo.captcha-delivery.com/captcha/?initialCid=AHrlqAAAAAMAKxFda6KqtAIARnqJOQ%3D%3D&hash=D428D51E28968797BC27FB9153435D&cid=DgpNjI8NbBmPxzu9Padm1oz8rLETP58nE5o_gzac42FvtGWf6hbcxn8jNseKUEERXrqi07"
+  ],
+  "interactive": 0,
+  "lang": "en",
+  "policyKilled": 0,
+  "textLen": 0,
+  "title": "wsj.com",
+  "url": "https://www.wsj.com/",
+  "viewport": [
+   390,
+   664
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 6968,
+  "extractor": "2.0.0a7",
+  "fetched_at": "2026-07-05T15:32:36-05:00",
+  "mode": "authenticated",
+  "policy_killed": 0,
+  "requested_url": "https://wsj.com",
+  "url": "https://www.wsj.com/"
+ }
+}

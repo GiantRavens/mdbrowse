@@ -433,6 +433,15 @@
   const interactive = document.querySelectorAll(
     "button,input,select,textarea,[role=button],[contenteditable=true]").length;
 
+  // Iframe srcs (bounded): the walker never enters iframes, but WHAT a
+  // page delegates to them is a classification signal — a lone
+  // captcha-delivery iframe over an empty body is a verification wall.
+  const iframes = [];
+  for (const f of document.querySelectorAll("iframe")) {
+    const src = f.getAttribute("src") || "";
+    if (src && iframes.length < 5) iframes.push(src.slice(0, 200));
+  }
+
   const feeds = [];
   for (const l of document.querySelectorAll(
       'link[rel="alternate"][type*="rss"], link[rel="alternate"][type*="atom"]')) {
@@ -452,6 +461,8 @@
     docHeight: Math.round(document.documentElement.scrollHeight),
     interactive: interactive,
     anchors: document.querySelectorAll("a[href]").length,
+    textLen: (document.body.innerText || "").length,
+    iframes: iframes,
     policyKilled: policyKilled,
     blocks: blocks,
   };

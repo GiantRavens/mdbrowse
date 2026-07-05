@@ -515,7 +515,7 @@ class Reader:
             b = self.engine.capture(url)
             m = classify(b)
             body = emit_body(b, m)
-            if m.shape == "app":
+            if m.shape in ("app", "wall"):
                 # The classified refusal must not be a dead end: the reader
                 # itself has the exits. (Frontend hint only — the emitted
                 # document, archives, and hashes stay untouched.)
