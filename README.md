@@ -137,6 +137,14 @@ five suite tiers:
 | agent probes | task truths (the MCP verbs agents ride) | `tests/agent_probes.py` |
 | checkin gate | fixtures + 11-site live sweep, every commit | `tests/checkin.py` (pre-commit hook: `--install-hook`) |
 | fidelity oracle | pixel truths — screenshots as judge, never extractor | `mdb oracle URL` |
+| benchmark | mdb vs other agent web tools: tokens, recall, links, structure, speed, determinism | `tests/benchmark.py` |
+
+The benchmark is an instrument, not a gate: seven contenders (mdb, raw
+HTML, tag-strip, Chromium innerText, trafilatura, pandoc, Jina reader)
+against ground-truth fact signals that no contender defines. Headline
+numbers (2026-07-05): mdb is the only contender with 100% recall AND
+navigable links AND surviving structure; raw HTML costs ~9× mdb's
+tokens per fact; the pandoc pipeline emits 2 tokens for all of HN.
 
 The checkin gate's site manifest (HN, CNN, BBC, apple.com, quantum.com,
 Wikipedia, Python docs, IANA, GitHub, xkcd, Mojeek) asserts *structure*

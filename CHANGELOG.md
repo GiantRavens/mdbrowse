@@ -2,6 +2,27 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — Benchmark: what does an agent actually pay to read the web?
+
+`tests/benchmark.py` — an instrument, not a gate. Seven contenders
+(mdb, raw HTML, regex tag-strip, Chromium innerText, trafilatura,
+pandoc html->gfm, Jina's r.jina.ai reader) over five pages, scored on
+tokens (chars/4, applied identically), ground-truth fact recall,
+navigable links, structure survival (code fences, pipe tables),
+per-fetch speed, and double-fetch determinism. Ground truth is never a
+contender's output: static pages use known-fact strings; HN titles are
+regexed from the server HTML by an independent parser at run time.
+
+First readings: mdb is the only contender with 100% recall AND links
+AND structure (587 tok/fact, 355 links, 2/2 struct). innerText/strip
+are cheaper per fact (344/413) but carry 1-2 links total across five
+pages — an agent goes blind after one hop. Raw HTML: 5,031 tok/fact
+(apple.com alone is 62K tokens; mdb emits 639). The "remote-control
+local tools" pipeline (fetch + pandoc) scored worst on recall (66.7%):
+pandoc emits 2 tokens for all of HN (layout tables collapse) and 10.7K
+tokens of nav soup for apple.com — generic converters are fine on
+document-shaped HTML and lost everywhere the modern web isn't.
+
 ## 2026-07-05 — The MCP grows memory and senses: archive search + the watch fleet
 
 An agent could archive pages and manage nothing: the store was
