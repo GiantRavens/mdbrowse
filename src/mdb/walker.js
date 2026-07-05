@@ -9,7 +9,19 @@
 // their positions, which innerText loses); Python owns *block* assembly
 // (ordering, regions, heading hierarchy, front-matter). Nothing downstream
 // ever re-parses HTML strings.
-() => {
+(EXTRA_KILL) => {
+  // EXTRA_KILL: per-host policy selectors (policy.py) — first-party ad
+  // furniture host-blocking can't reach. Joined once; skipped elements
+  // are counted, so removal is telemetry, never silent.
+  const KILL_SEL = (EXTRA_KILL && EXTRA_KILL.length) ? EXTRA_KILL.join(",") : "";
+  let policyKilled = 0;
+  function policyKill(el) {
+    if (!KILL_SEL) return false;
+    try {
+      if (el.matches(KILL_SEL)) { policyKilled++; return true; }
+    } catch (e) {}
+    return false;
+  }
   const VPW = Math.max(1, window.innerWidth);
   const VPH = Math.max(1, window.innerHeight);
   const KILL = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "SVG",
@@ -140,6 +152,7 @@
       // leaked its embedded stylesheet into the page text).
       const el = child, tag = el.tagName.toUpperCase();
       if (KILL.has(tag)) continue;
+      if (policyKill(el)) continue;
       const st = style(el);
       if (hidden(el, st)) continue;
       if (tag === "BR") { out.md += " "; continue; }
@@ -276,6 +289,7 @@
   function visit(el) {
     const tag = el.tagName.toUpperCase();   // SVG tags report lowercase
     if (KILL.has(tag)) return;
+    if (policyKill(el)) return;
     const st = style(el);
     const r = el.getBoundingClientRect();
     if (hidden(el, st)) return;
@@ -438,6 +452,7 @@
     docHeight: Math.round(document.documentElement.scrollHeight),
     interactive: interactive,
     anchors: document.querySelectorAll("a[href]").length,
+    policyKilled: policyKilled,
     blocks: blocks,
   };
 }

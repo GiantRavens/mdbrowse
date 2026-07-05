@@ -256,6 +256,10 @@ def emit(bundle: dict, manifest) -> str:
         "extractor": meta.get("extractor", EXTRACTOR_VERSION),
         "hash": content_hash(body),
     }
+    # Removal is telemetry, never silent editing: say how many elements
+    # the per-host policy dropped (promoted posts, ad slots).
+    if meta.get("policy_killed"):
+        front["policy_killed"] = meta["policy_killed"]
     fm = "---\n" + "".join(f"{k}: {json.dumps(v, ensure_ascii=False)}\n"
                            for k, v in front.items()) + "---\n\n"
     return fm + body + "\n"

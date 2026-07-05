@@ -307,7 +307,9 @@ class Engine:
                     raise
                 page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
             _settle(page, budget_ms, wait_selector)
-            doc = page.evaluate(_walker_source())
+            from .policy import kill_selectors
+            doc = page.evaluate(_walker_source(),
+                                kill_selectors(urlparse(page.url).hostname))
             if screenshot_path:
                 try:
                     page.screenshot(path=screenshot_path, full_page=True)
@@ -322,6 +324,7 @@ class Engine:
                     "mode": "private" if self._private else "authenticated",
                     "extractor": EXTRACTOR_VERSION,
                     "elapsed_ms": int((time.monotonic() - t0) * 1000),
+                    "policy_killed": doc.get("policyKilled", 0),
                 },
                 "doc": doc,
             }

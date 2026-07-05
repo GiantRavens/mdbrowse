@@ -2,6 +2,29 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — Element policy: no point showing an LLM the ads (2.0.0a7 wave)
+
+Borrowed from empathymachine: declarative per-host rules that carry
+their WHY. mdb already blocked tracker hosts; this layer reaches what
+host-blocking can't — first-party ad furniture (reddit's promoted
+posts: 56 `shreddit-ad-post`/`shreddit-dynamic-ad-link` elements on one
+probed front page; AdSense `ins.adsbygoogle` slots). `policy.py` holds
+the builtins (kept small and certain — an over-broad selector silently
+eats content, worse than showing an ad); the walker skips matches and
+counts them; the count rides bundle meta and front-matter as
+`policy_killed`, so removal is telemetry, never silent editing. User
+rules merge from `~/.mdb/policy.json`; `MDBROWSE_NO_POLICY=1` disables.
+
+Same wave, from captain field reports: buried-article classify override
+(foxnews leads with the story, not the rails — prose mass >=8 blocks /
+>=2000 chars outvotes link-led counts; `fox-article` fixture), SVG
+namespace KILL fix (reddit's Snoo stylesheet leaked as text — SVG tags
+report lowercase tagName), DNS bypass (quantum.com browses through a
+GlobalProtect-poisoned resolver via direct DNS + Chromium
+host-resolver-rules), and the apple.com image triple-fix (aria-hidden
+carousels, currentSrc data: shadowing, <picture> source fallback:
+3 → 24 unique images).
+
 ## 2026-07-05 — Benchmark: what does an agent actually pay to read the web?
 
 `tests/benchmark.py` — an instrument, not a gate. Seven contenders

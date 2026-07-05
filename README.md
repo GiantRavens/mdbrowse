@@ -21,6 +21,12 @@ screenshot-based fidelity oracle.
   (source, retrieved, mode, shape+confidence, extractor version) and a
   body content-hash. Same page state → identical body. Pages become
   versionable.
+- **Reader's-choice ad policy.** Tracker hosts are blocked at the
+  network; first-party ad furniture (reddit promoted posts, AdSense
+  slots) is dropped by per-host policy rules (`policy.py`) — each rule
+  carries its why, removal is counted in front-matter
+  (`policy_killed`), user rules merge from `~/.mdb/policy.json`, and
+  `MDBROWSE_NO_POLICY=1` turns the layer off.
 
 ## Install
 
