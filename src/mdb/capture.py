@@ -158,9 +158,34 @@ def _settle(page, budget_ms: int, wait_selector: str = None) -> None:
                 except Exception:
                     pass
 
+    # Scroll nudge. Observe first: a page whose imagery is mostly
+    # unmaterialized (many <img> with no rendered area — apple.com/iphone
+    # holds 106 of 112 back for IntersectionObservers) needs a stepped
+    # sweep so mid-page observers actually fire; a single bottom-jump
+    # passes through too fast and lit only 6 of them. Everyone else
+    # keeps the cheap jump — the sweep (~1.7s max) is paid only where
+    # it buys pixels.
     try:
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        page.wait_for_timeout(120)
+        lazy = page.evaluate(
+            "(() => { const im = [...document.querySelectorAll('img')];"
+            " if (im.length < 12) return false;"
+            " const unsized = im.filter(i => {"
+            "   const r = i.getBoundingClientRect();"
+            "   return r.width * r.height <= 2500; }).length;"
+            " return unsized / im.length > 0.5; })()")
+    except Exception:
+        lazy = False
+    try:
+        if lazy and left_ms() > 2500:
+            steps = int(page.evaluate(
+                "Math.min(12, Math.ceil(document.body.scrollHeight"
+                " / Math.max(1, window.innerHeight)))"))
+            for i in range(1, steps + 1):
+                page.evaluate(f"window.scrollTo(0, {i} * window.innerHeight)")
+                page.wait_for_timeout(140)
+        else:
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(120)
         page.evaluate("window.scrollTo(0, 0)")
     except Exception:
         pass
