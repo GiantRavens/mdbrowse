@@ -171,6 +171,31 @@ def _no_exit(fn, *args, **kwargs):
         raise RuntimeError(str(e))
 
 
+def _in_thread(fn, *args, **kwargs):
+    """Watch verbs that capture own their own sync-Playwright engines,
+    and FastMCP executes tools on the asyncio loop, where sync
+    Playwright refuses to run. Give them a plain thread (no running
+    loop) and join. Found by the first live smoke test over the wire —
+    the agent probes call these functions from a loop-free main thread,
+    which is exactly why they passed while the transport failed."""
+    import threading
+    box = {}
+
+    def work():
+        try:
+            box["v"] = fn(*args, **kwargs)
+        except BaseException as e:      # SystemExit included
+            box["e"] = e
+
+    t = threading.Thread(target=work, daemon=True)
+    t.start()
+    t.join()
+    if "e" in box:
+        e = box["e"]
+        raise RuntimeError(str(e)) if isinstance(e, SystemExit) else e
+    return box.get("v")
+
+
 @mcp.tool()
 def watch_add(url: str, name: str = "", private: bool = False) -> dict:
     """Start watching a URL for real content change. Takes the first
@@ -179,7 +204,7 @@ def watch_add(url: str, name: str = "", private: bool = False) -> dict:
     false-fires. Name defaults to a slug of the URL.
     """
     from . import watch
-    watch_name = _no_exit(watch.add, _normalize(url), name or None, private)
+    watch_name = _in_thread(watch.add, _normalize(url), name or None, private)
     return {"name": watch_name, "store": watch.WATCH_DIR,
             "snapshot": f"{watch.WATCH_DIR}/{watch_name}.md"}
 
@@ -205,7 +230,7 @@ def watch_scan(names: list = []) -> list:
     would agree the page changed.
     """
     from . import watch
-    return watch.scan_readings(names or None)
+    return _in_thread(watch.scan_readings, names or None)
 
 
 @mcp.tool()

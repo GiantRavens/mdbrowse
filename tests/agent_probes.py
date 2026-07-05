@@ -121,7 +121,11 @@ def probe_hash_stability():
 def probe_watch_lifecycle():
     """Change detection is a first-class agent verb: add a watch, scan
     it (unchanged page reads 'ok'), read its listing, remove it — all
-    against a scratch store, never the real one."""
+    against a scratch store, never the real one. The capturing verbs
+    run INSIDE an asyncio loop, because that is where FastMCP executes
+    tools and where sync Playwright refuses to run — the first wire
+    smoke test failed exactly there while this probe passed."""
+    import asyncio
     import shutil
     import tempfile
     from mdb import watch
@@ -129,12 +133,18 @@ def probe_watch_lifecycle():
     tmp = tempfile.mkdtemp(prefix="mdb-watch-probe-")
     real = watch.WATCH_DIR
     watch.WATCH_DIR = tmp
+
+    def in_loop(fn, *a, **kw):
+        async def call():
+            return fn(*a, **kw)
+        return asyncio.run(call())
+
     try:
-        added = m.watch_add("https://example.com", name="probe")
+        added = in_loop(m.watch_add, "https://example.com", name="probe")
         assert added["name"] == "probe" and tmp in added["snapshot"]
         names = [w["name"] for w in m.watch_list()]
         assert names == ["probe"], f"listing wrong: {names}"
-        readings = m.watch_scan(["probe"])
+        readings = in_loop(m.watch_scan, ["probe"])
         assert readings and readings[0]["status"] == "ok", \
             f"static page should scan ok: {readings}"
         patch = m.watch_diff("probe")
