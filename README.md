@@ -50,6 +50,7 @@ mdb news.ycombinator.com             # interactive reader (default in a terminal
 mdb <url> --plain                    # non-interactive render (centered; --no-center)
 mdb <url> --raw                      # markdown document with front-matter
 mdb <url> --save                     # archive to ~/mdbrowse-archive
+mdb <url> --headed                   # visible real-Chrome window; verification walls (wall shape) trust it
 mdb <url> --speak                    # the page talks (macOS say; --voice, MDBROWSE_VOICE)
 mdb <url> --speak-out article.aiff   # page as an audio file
 mdb search rust atomics              # web search (Mojeek; MDBROWSE_SEARCH_URL overrides)

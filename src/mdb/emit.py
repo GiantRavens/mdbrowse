@@ -150,9 +150,11 @@ def emit_body(bundle: dict, manifest) -> str:
                "the site served an empty shell to this browser — commonly "
                "a bot check, or JS that refuses headless engines")
         return (f"# {doc.get('title') or bundle['meta']['url']}\n\n"
-                f"_Nothing rendered: {why}. Open the page in a real "
-                f"browser; once the site trusts your Safari session again, "
-                f"mdb browses with its cookies._")
+                f"_Nothing rendered: {why}. Retry with `--headed` (a real "
+                f"browser window — verification walls usually trust a "
+                f"headed session), or open the page in your browser; once "
+                f"the site trusts your session again, mdb browses with "
+                f"its cookies._")
 
     body_blocks = [b for b in blocks if b.get("landmark") not in _CHROME_LANDMARKS]
     chrome = {lm: [b for b in blocks if b.get("landmark") == lm]

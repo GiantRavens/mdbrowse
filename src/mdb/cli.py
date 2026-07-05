@@ -170,6 +170,10 @@ def main() -> None:
                     help="send no Safari cookies; add DNT/Sec-GPC")
     ap.add_argument("--wait", metavar="SELECTOR", default=None,
                     help="wait for this CSS selector before capturing")
+    ap.add_argument("--headed", action="store_true",
+                    help="capture through a visible browser window — "
+                         "verification walls (wall shape) usually trust "
+                         "a real headed session")
     ap.add_argument("--raw", action="store_true",
                     help="print the full markdown document (front-matter + body)")
     ap.add_argument("--dump", choices=["bundle", "manifest", "body"],
@@ -243,7 +247,8 @@ def main() -> None:
         return
 
     try:
-        b = capture(url, private=args.private, wait_selector=args.wait)
+        b = capture(url, private=args.private, wait_selector=args.wait,
+                    headed=args.headed)
     except Exception as e:
         _err(f"could not capture {url}: {e}")
         sys.exit(1)

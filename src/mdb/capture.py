@@ -208,10 +208,11 @@ class Engine:
     """A warm browser reused across captures (first page pays the launch)."""
 
     def __init__(self, private: bool = False, timeout: float = 30.0,
-                 block_images: bool = True):
+                 block_images: bool = True, headed: bool = False):
         self._private = private
         self._timeout = timeout
         self._block_images = block_images
+        self._headed = headed
         self._pw = self._browser = self._context = None
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
         self._tcp_verdicts = {}     # (host, port) -> bool, per session
@@ -336,16 +337,37 @@ class Engine:
             rules = ", ".join(f"MAP {h} {ip}" for h, ip
                               in sorted(self._resolver_rules.items()))
             args.append(f"--host-resolver-rules={rules}")
-        self._browser = self._pw.chromium.launch(headless=True, args=args)
-        ctx_opts = {
-            **self._pw.devices.get("iPhone 13", {}),
-            "user_agent": IPHONE_UA,
-            "java_script_enabled": True,
-            "locale": "en-US",
-            "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
-        }
-        self._context = self._browser.new_context(**ctx_opts)
-        self._context.add_init_script(_STEALTH_INIT_JS)
+        # Headed = a real browser window on a real GPU, wearing NO
+        # costume: real Chrome channel when installed, native UA, no
+        # device emulation, no stealth shim. Verification walls
+        # (DataDome et al.) exist to catch identity contradictions —
+        # headed mode's whole premise is having none. Headless keeps
+        # the iPhone-Safari presentation (small pages, Safari cookies
+        # read naturally) plus the shim that keeps it self-consistent.
+        if self._headed:
+            try:
+                self._browser = self._pw.chromium.launch(
+                    headless=False, channel="chrome", args=args)
+            except Exception:
+                self._browser = self._pw.chromium.launch(
+                    headless=False, args=args)
+            ctx_opts = {
+                "java_script_enabled": True,
+                "locale": "en-US",
+                "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
+            }
+            self._context = self._browser.new_context(**ctx_opts)
+        else:
+            self._browser = self._pw.chromium.launch(headless=True, args=args)
+            ctx_opts = {
+                **self._pw.devices.get("iPhone 13", {}),
+                "user_agent": IPHONE_UA,
+                "java_script_enabled": True,
+                "locale": "en-US",
+                "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
+            }
+            self._context = self._browser.new_context(**ctx_opts)
+            self._context.add_init_script(_STEALTH_INIT_JS)
         if not self._private:
             try:
                 self._context.add_cookies(safari_cookies.for_playwright())
@@ -485,13 +507,15 @@ class EngineWorker:
 
 
 def capture(url: str, private: bool = False, timeout: float = 30.0,
-            wait_selector: str = None) -> dict:
+            wait_selector: str = None, headed: bool = False) -> dict:
     """One-shot capture. Tries the engine daemon first (warm Chromium,
     sub-second; auto-spawned on first use) and falls back to a local
-    engine when the daemon path is unavailable or disabled."""
-    from . import daemon
-    bundle = daemon.capture_via_daemon(url, private, wait_selector)
-    if bundle is not None:
-        return bundle
-    with Engine(private=private, timeout=timeout) as eng:
+    engine when the daemon path is unavailable or disabled. Headed
+    captures never ride the daemon — the window is the point."""
+    if not headed:
+        from . import daemon
+        bundle = daemon.capture_via_daemon(url, private, wait_selector)
+        if bundle is not None:
+            return bundle
+    with Engine(private=private, timeout=timeout, headed=headed) as eng:
         return eng.capture(url, wait_selector=wait_selector)

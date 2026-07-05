@@ -2,6 +2,29 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — Walls classify; --headed walks through them (2.0.0a7 wave)
+
+wsj.com rendered as a silent one-line ghost. Now: new shape `wall` —
+an empty capture (no text, links, or controls) classifies with the
+why, and a captcha-delivery iframe over the empty body names the
+cause at 0.9 (walker now reports iframe srcs as a signal; it still
+never enters them). Fixture `wall-challenge` + gate row `wsj` guard
+both sides; `wsj-apex` separately guards the dead-but-resolving apex
+fast-fail (TCP preflight, 30s hang → 6.5s classified answer).
+
+And the wall is walkable: `--headed` captures through a visible real
+browser wearing NO costume — Chrome channel, native UA, no device
+emulation, no stealth shim, just your Safari cookies. DataDome's whole
+job is catching identity contradictions; headed mode's premise is
+having none. wsj.com: wall → full front page, feed 0.9. (The first
+attempt kept the iPhone-Safari mask on a desktop window and was
+correctly re-challenged — the lesson is the feature: honesty renders.)
+
+Telemetry now leads the reports: per-capture `coverage`
+(captured-vs-rendered text — walker misses surface as a number) and
+gate drift baselines (~/.mdb/checkin-baseline.json — a >50% body-size
+drop flags even when static assertions pass).
+
 ## 2026-07-05 — Element policy: no point showing an LLM the ads (2.0.0a7 wave)
 
 Borrowed from empathymachine: declarative per-host rules that carry
