@@ -471,35 +471,58 @@ class EngineWorker:
     objects directly. Holds one warm engine per privacy mode."""
 
     def __init__(self):
+        self._spawn()
+
+    def _spawn(self):
+        """(Re)create the worker thread with a FRESH queue and engine
+        set. The queue rides as a thread argument, never read back off
+        self — an abandoned wedged loop must not steal jobs from its
+        replacement."""
         import queue
         import threading
         self._q = queue.Queue()
-        self._engines = {}
-        self._thread = threading.Thread(target=self._loop, daemon=True)
+        self._thread = threading.Thread(target=self._loop, args=(self._q,),
+                                        daemon=True)
         self._thread.start()
 
-    def _loop(self):
+    def _loop(self, q):
+        engines = {}
         while True:
-            job = self._q.get()
+            job = q.get()
             if job is None:
-                for eng in self._engines.values():
+                for eng in engines.values():
                     eng.close()
                 break
             url, private, wait, fut = job
             try:
-                eng = self._engines.get(private)
+                eng = engines.get(private)
                 if eng is None:
-                    eng = self._engines[private] = Engine(private=private)
+                    eng = engines[private] = Engine(private=private)
                 fut.set_result(eng.capture(url, wait_selector=wait))
             except Exception as e:
                 fut.set_exception(e)
 
     def capture(self, url: str, private: bool = False,
-                wait: str = None, timeout: float = 150.0) -> dict:
+                wait: str = None, timeout: float = 90.0) -> dict:
         from concurrent.futures import Future
+        from concurrent.futures import TimeoutError as _FutTimeout
         fut = Future()
         self._q.put((url, private, wait, fut))
-        return fut.result(timeout=timeout)
+        try:
+            return fut.result(timeout=timeout)
+        except _FutTimeout:
+            # Watchdog: page.evaluate has no timeout of its own, and a
+            # wedged evaluate (concurrent chromium fleets) would other-
+            # wise stall this worker forever — every later call timing
+            # out against a thread that will never read the queue
+            # again. Abandon it, spawn fresh. The stuck chromium may
+            # linger until process exit; a leaked process is
+            # recoverable, a wedged service is not.
+            self._spawn()
+            raise RuntimeError(
+                f"capture wedged past {int(timeout)}s and the engine "
+                f"worker was replaced — retry the fetch (cause is "
+                f"usually concurrent chromium fleets)")
 
     def close(self):
         self._q.put(None)

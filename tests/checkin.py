@@ -278,6 +278,56 @@ def install_hook() -> int:
     return 0
 
 
+LIVE_SWEEP_CAP = int(os.environ.get("MDB_CHECKIN_LIVE_CAP", "240"))
+
+
+def _live_sweep_guarded(pick: list) -> bool:
+    """Watchdog: the sweep runs as its own PROCESS GROUP under a hard
+    wall-clock cap. Concurrent chromium fleets can wedge page.evaluate
+    (no timeout exists at that layer), and a gate that can hang inside
+    a pre-commit hook is worse than any bug it catches — it wedged
+    twice on 2026-07-05 before this guard. On breach: SIGKILL the whole
+    group (the chromium children too), say so loudly, and gate on
+    fixtures alone — the same posture as a dead network, because a
+    wedged fleet is an environment failure, not a code verdict.
+    MDB_CHECKIN_STRICT=1 fails the gate instead."""
+    import signal
+    import subprocess
+    cmd = [sys.executable, os.path.abspath(__file__), "--live-only", *pick]
+    proc = subprocess.Popen(cmd, start_new_session=True,
+                            cwd=os.path.dirname(os.path.dirname(
+                                os.path.abspath(__file__))))
+    try:
+        return proc.wait(timeout=LIVE_SWEEP_CAP) == 0
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+        except OSError:
+            pass
+        proc.wait()
+        # Chromium utility/gpu processes escape the group when their
+        # broker dies mid-kill and reparent to launchd; reap the
+        # orphans (ppid 1, headless shell only) so wedges don't
+        # accrete stray processes across gate runs.
+        try:
+            out = subprocess.run(["ps", "-eo", "pid=,ppid=,comm="],
+                                 capture_output=True, text=True).stdout
+            for line in out.splitlines():
+                parts = line.split(None, 2)
+                if (len(parts) == 3 and parts[1] == "1"
+                        and "chrome-headless-shell" in parts[2]):
+                    os.kill(int(parts[0]), signal.SIGKILL)
+        except Exception:
+            pass
+        strict = bool(os.environ.get("MDB_CHECKIN_STRICT"))
+        print(f"\nphase 1 — WEDGED past {LIVE_SWEEP_CAP}s; process group "
+              f"killed (chromium children included). "
+              + ("Failing: MDB_CHECKIN_STRICT is set." if strict else
+                 "Gating on fixtures alone — rerun tests/checkin.py "
+                 "--live-only once the fleet is quiet."))
+        return not strict
+
+
 def main() -> int:
     args = sys.argv[1:]
     if "--install-hook" in args:
@@ -296,8 +346,10 @@ def main() -> int:
         elif not _network_up():
             print("\nphase 1 — SKIPPED: network unavailable; gating on "
                   "fixtures alone. Run the live sweep when back online.")
+        elif live_only:
+            ok = live_sweep(pick) and ok      # we ARE the guarded child
         else:
-            ok = live_sweep(pick) and ok
+            ok = _live_sweep_guarded(pick) and ok
     print(f"\ncheckin gate: {'PASS' if ok else 'FAIL'} "
           f"({time.time() - t0:.0f}s)")
     return 0 if ok else 1
