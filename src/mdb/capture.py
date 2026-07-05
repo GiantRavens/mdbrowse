@@ -97,6 +97,21 @@ def _dns_preflight(host: str, timeout: float = 3.0) -> str:
     return result.get("v", "hang")
 
 
+def _tcp_preflight(host: str, port: int, timeout: float = 3.0) -> bool:
+    """Can this host actually be connected to? DNS answering is not the
+    same as a server listening: wallstreetjournal.com resolves cleanly
+    and then DROPs every packet on 443/80 (dead-but-resolving apex — the
+    real site lives on wsj.com). Without this check, Chromium burns its
+    full navigation budget on a SYN that will never be answered."""
+    import socket
+    try:
+        s = socket.create_connection((host, port), timeout=timeout)
+        s.close()
+        return True
+    except OSError:
+        return False
+
+
 def _should_block(req_url: str, resource_type: str) -> bool:
     if resource_type in ("media", "font"):
         return True
@@ -174,6 +189,7 @@ class Engine:
         self._block_images = block_images
         self._pw = self._browser = self._context = None
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
+        self._tcp_verdicts = {}     # (host, port) -> bool, per session
         self._resolver_rules = {}   # host -> ip, for --host-resolver-rules
 
     def _resolve_target(self, url: str) -> str:
@@ -188,7 +204,25 @@ class Engine:
         if verdict is None:
             verdict = self._dns_verdicts[host] = _dns_preflight(host)
         if verdict == "ok":
-            return url
+            if self._tcp_ok(url, host):
+                return url
+            # Resolves, but nothing listens (wallstreetjournal.com DROPs
+            # every SYN). A www sibling may be the live host; otherwise
+            # fail in seconds with the why, not a 30s silent goto.
+            alt = _www_variant(url)
+            if alt:
+                alt_host = urlparse(alt).hostname or ""
+                av = self._dns_verdicts.get(alt_host)
+                if av is None:
+                    av = self._dns_verdicts[alt_host] = _dns_preflight(alt_host)
+                if av == "ok" and self._tcp_ok(alt, alt_host):
+                    return alt
+            raise RuntimeError(
+                f"'{host}' resolves but accepts no connections — DNS "
+                "answers while every SYN to the service port is dropped, "
+                "the signature of a dead-but-resolving host. The live "
+                "site may answer on a different domain entirely (try a "
+                f"web search for the site name). Diagnose: mdb doctor {host}")
         alt = _www_variant(url)
         if alt:
             alt_host = urlparse(alt).hostname or ""
@@ -207,6 +241,21 @@ class Engine:
                 "claiming this domain — e.g. a corporate VPN (GlobalProtect) "
                 f"that isn't connected. Diagnose: mdb doctor {host}")
         raise RuntimeError(f"'{host}' does not resolve (and no www. variant does)")
+
+    def _tcp_ok(self, url: str, host: str) -> bool:
+        """Cached connect preflight on the URL's service port. Hosts we
+        bypass via resolver rules are exempt — the system resolver would
+        hang the very getaddrinfo this check rides on, and Chromium
+        connects them by mapped IP anyway."""
+        if host in self._resolver_rules:
+            return True
+        p = urlparse(url)
+        port = p.port or (80 if p.scheme == "http" else 443)
+        key = (host, port)
+        v = self._tcp_verdicts.get(key)
+        if v is None:
+            v = self._tcp_verdicts[key] = _tcp_preflight(host, port)
+        return v
 
     def _dns_bypass(self, host: str) -> bool:
         """The system resolver black-holed this host, but direct DNS may

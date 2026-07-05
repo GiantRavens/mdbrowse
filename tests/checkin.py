@@ -67,6 +67,10 @@ SITES = [
     dict(name="search", url="https://www.mojeek.com/search?q=lto+tape+capacity",
          why="the search pipeline agents ride via search_web",
          min_links=5, min_chars=500),
+    dict(name="wsj-apex", url="https://wallstreetjournal.com",
+         why="dead-but-resolving apex: DNS answers, every SYN dropped "
+             "(the live site is wsj.com) — must fail fast and classified",
+         expect_error="accepts no connections"),
 ]
 
 DETERMINISM_URL = "https://example.com"   # captured twice; hashes must match
@@ -158,9 +162,25 @@ def live_sweep(pick: list) -> bool:
                 bundle = eng.capture(site["url"])
                 manifest = classify(bundle)
                 body = emit_body(bundle, manifest)
+                if site.get("expect_error"):
+                    failures += 1
+                    print(f"  {site['name']:9} FAIL expected a classified "
+                          f"failure but the page rendered — did the host "
+                          f"come alive? update the manifest")
+                    continue
                 fails = _check_site(site, bundle, manifest, body)
             except Exception as e:
                 dt = time.time() - t0
+                want = site.get("expect_error")
+                if want:
+                    if want in str(e) and dt < 10:
+                        print(f"  {site['name']:9} ok   classified failure "
+                              f"in {dt:.1f}s (not a 30s hang)")
+                    else:
+                        failures += 1
+                        print(f"  {site['name']:9} FAIL wanted {want!r} "
+                              f"fast, got: {str(e)[:70]} ({dt:.1f}s)")
+                    continue
                 # A DNS black-hole on an env_dns_warn site is machine state
                 # (GlobalProtect split-DNS holds quantum.com until reboot),
                 # not a tool regression — warn, don't block the commit.
