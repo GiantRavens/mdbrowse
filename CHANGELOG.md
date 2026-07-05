@@ -2,6 +2,23 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-05 — Checkin gate: the real web signs off on every commit
+
+`tests/checkin.py`, wired as a git pre-commit hook (`--install-hook`).
+Phase 0 re-runs the offline fixture corpus; phase 1 sweeps an 11-site
+manifest where each site earns its slot by stressing something the
+others don't — HN (layout tables/unit detector), CNN (stretched-link
+cards/overlay kill), BBC (card merging), apple.com (lazy marketing
+pages), quantum.com (the split-DNS lesson), Wikipedia + Python docs
+(article + code-fence fidelity), IANA (pipe tables), GitHub (chrome-
+heavy SPA), xkcd (RSS discovery + images), Mojeek (the search
+pipeline) — plus a double-capture determinism check. Assertions are
+structural (shape, counts, fences), never content. Failures carry
+their class (dns/timeout/tls/shape/thin); a DNS black-hole on an
+`env_dns_warn` site (quantum.com under GlobalProtect) warns and points
+at `mdb doctor` instead of blocking the commit, and a dead network
+skips the sweep entirely — fixtures still gate. Full run: ~17s warm.
+
 ## 2026-07-05 — Agent-grade: data tables, MCP search + pagination, agent probe suite (2.0.0a6)
 
 The audit question was "would an agent prefer this over its built-in web

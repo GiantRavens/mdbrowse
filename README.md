@@ -123,10 +123,21 @@ Mouse: wheel scrolls, click follows, click 🖼 previews. (tmux: `set -g mouse o
    demote to link lists; forms stay out of documents (they're
    affordances — the reader's `f` uses them from the bundle).
 
-Every stage is inspectable (`--dump`), every change is measured: the
-fixture corpus (`tests/fixtures/`, 8 real sites) re-emits offline in
-`--selftest`, and `mdb oracle` judges output against full-page
-screenshots — pixels as judge, never as extractor.
+Every stage is inspectable (`--dump`), every change is measured, across
+five suite tiers:
+
+| tier | guards | run |
+|---|---|---|
+| fixture corpus (10) | emit truths, offline, deterministic | `mdb --selftest` |
+| live probes | network truths (hostile CDNs, DNS) | `tests/live_probes.py` |
+| agent probes | task truths (the MCP verbs agents ride) | `tests/agent_probes.py` |
+| checkin gate | fixtures + 11-site live sweep, every commit | `tests/checkin.py` (pre-commit hook: `--install-hook`) |
+| fidelity oracle | pixel truths — screenshots as judge, never extractor | `mdb oracle URL` |
+
+The checkin gate's site manifest (HN, CNN, BBC, apple.com, quantum.com,
+Wikipedia, Python docs, IANA, GitHub, xkcd, Mojeek) asserts *structure*
+(shape, item counts, code fences, pipe tables), never content; if the
+network is down it gates on fixtures alone rather than blocking commits.
 
 ## History
 
