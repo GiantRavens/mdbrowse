@@ -11,6 +11,7 @@ warm-session reuse, and the www. retry.
 """
 
 import datetime
+import os
 import re
 import sys
 import time
@@ -95,6 +96,33 @@ def _dns_preflight(host: str, timeout: float = 3.0) -> str:
     t.start()
     t.join(timeout)
     return result.get("v", "hang")
+
+
+def _descendant_browsers(root_pid: int) -> list:
+    """PIDs of browser processes descended from root_pid (chromium via
+    playwright's node driver). The watchdog's kill list: sync Playwright
+    objects can't be touched from another thread, but the PROCESS can —
+    killing the browser makes a wedged page.evaluate raise immediately."""
+    import subprocess
+    try:
+        out = subprocess.run(["ps", "-eo", "pid=,ppid=,comm="],
+                             capture_output=True, text=True, timeout=5).stdout
+    except Exception:
+        return []
+    children, comm = {}, {}
+    for line in out.splitlines():
+        parts = line.split(None, 2)
+        if len(parts) == 3:
+            pid, ppid, name = parts
+            children.setdefault(ppid, []).append(pid)
+            comm[pid] = name
+    found, stack = [], [str(root_pid)]
+    while stack:
+        for c in children.get(stack.pop(), []):
+            stack.append(c)
+            if "chrom" in comm.get(c, "").lower():
+                found.append(int(c))
+    return found
 
 
 def _tcp_preflight(host: str, port: int, timeout: float = 3.0) -> bool:
@@ -388,11 +416,36 @@ class Engine:
                 screenshot_path: str = None) -> dict:
         """Load one URL, settle, run the walker. Returns a capture bundle.
         screenshot_path additionally saves a full-page PNG — the fidelity
-        oracle's evidence (pixels as judge, never as extractor)."""
+        oracle's evidence (pixels as judge, never as extractor).
+
+        A watchdog rides every capture: page.evaluate has no timeout of
+        its own, and a wedged evaluate (concurrent chromium fleets)
+        would otherwise hang the CALLER forever — the reader sat on a
+        blank page for exactly this. Sync Playwright objects are thread-
+        bound, but processes aren't: past the deadline, the watchdog
+        kills this process's descendant browsers, the blocked call
+        raises, the engine resets, and the caller gets an error it can
+        show instead of silence."""
+        import threading
+
         self._ensure()
         url = self._resolve_target(url)
         page = self._context.new_page()
         budget_ms = int(self._timeout * 1000)
+        wd_budget = self._timeout + 15          # page budget + settle slack
+        wd_fired = threading.Event()
+
+        def _wd_fire():
+            wd_fired.set()
+            for pid in _descendant_browsers(os.getpid()):
+                try:
+                    os.kill(pid, 9)
+                except OSError:
+                    pass
+
+        wd = threading.Timer(wd_budget, _wd_fire)
+        wd.daemon = True
+        wd.start()
         t0 = time.monotonic()
         try:
             try:
@@ -424,8 +477,29 @@ class Engine:
                 },
                 "doc": doc,
             }
+        except Exception:
+            if wd_fired.is_set():
+                # The browser is dead by our own hand; reset so the next
+                # capture relaunches clean, and say what happened.
+                for attr in ("_context", "_browser"):
+                    try:
+                        obj = getattr(self, attr)
+                        if obj is not None:
+                            obj.close()
+                    except Exception:
+                        pass
+                    setattr(self, attr, None)
+                raise RuntimeError(
+                    f"capture watchdog: page wedged past {int(wd_budget)}s; "
+                    f"browser killed and engine reset — retry (cause is "
+                    f"usually concurrent chromium fleets)")
+            raise
         finally:
-            page.close()
+            wd.cancel()
+            try:
+                page.close()
+            except Exception:
+                pass
 
     def fetch_resource(self, url: str, timeout: float = 20.0):
         """Fetch a raw asset THROUGH the browser — its TLS fingerprint,

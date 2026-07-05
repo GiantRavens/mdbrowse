@@ -71,9 +71,37 @@ def probe_dns_preflight_speed():
     return f"ok ({dt:.2f}s)"
 
 
+def probe_capture_watchdog():
+    """page.evaluate has no timeout at any layer, and a wedged evaluate
+    left the reader on a blank page forever (captain's report,
+    2026-07-05: `mdb apple.com`, nondeterministic, fleet congestion).
+    The in-engine watchdog must kill the browser past the deadline,
+    raise a classified error, and leave the engine able to self-heal.
+    Wedge is forced with an in-page infinite loop — deterministic, no
+    network beyond the recovery fetch."""
+    import time
+    from mdb.capture import Engine
+
+    with Engine(timeout=2) as eng:          # watchdog deadline = 17s
+        t0 = time.time()
+        try:
+            eng.capture("data:text/html,<title>t</title><p>hello</p>"
+                        "<script>setTimeout(()=>{for(;;);},800)</script>")
+            raise AssertionError("wedged capture returned instead of raising")
+        except RuntimeError as e:
+            dt = time.time() - t0
+            assert "watchdog" in str(e), f"unclassified: {e}"
+            assert dt < 30, f"watchdog too slow: {dt:.1f}s"
+        t0 = time.time()
+        b = eng.capture("https://example.com")
+        assert b["doc"]["blocks"], "engine did not self-heal after the kill"
+        return f"ok (fired, classified, healed in {time.time() - t0:.1f}s)"
+
+
 PROBES = [probe_hostile_cdn_image_preview,
           probe_plain_image_httpx_path,
-          probe_dns_preflight_speed]
+          probe_dns_preflight_speed,
+          probe_capture_watchdog]
 
 if __name__ == "__main__":
     failures = 0
