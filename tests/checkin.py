@@ -293,6 +293,8 @@ def _live_sweep_guarded(pick: list) -> bool:
     MDB_CHECKIN_STRICT=1 fails the gate instead."""
     import signal
     import subprocess
+    sys.stdout.flush()   # parent is block-buffered under pipes; the child
+    # inherits the fd and would otherwise print phase 1 before phase 0
     cmd = [sys.executable, os.path.abspath(__file__), "--live-only", *pick]
     proc = subprocess.Popen(cmd, start_new_session=True,
                             cwd=os.path.dirname(os.path.dirname(
