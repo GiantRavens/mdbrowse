@@ -125,19 +125,25 @@ def _descendant_browsers(root_pid: int) -> list:
     return found
 
 
-def _tcp_preflight(host: str, port: int, timeout: float = 3.0) -> bool:
-    """Can this host actually be connected to? DNS answering is not the
-    same as a server listening: wallstreetjournal.com resolves cleanly
-    and then DROPs every packet on 443/80 (dead-but-resolving apex — the
-    real site lives on wsj.com). Without this check, Chromium burns its
-    full navigation budget on a SYN that will never be answered."""
+def _tcp_preflight(host: str, port: int, timeout: float = 2.0) -> bool:
+    """Is this host reachable at all? A host is DEAD only when BOTH the
+    requested port and its http/https sibling fail — the
+    wallstreetjournal.com signature (every SYN dropped on 443 AND 80).
+    An alive host connects in well under a second, so a single probe per
+    port suffices; checking BOTH ports absorbs a transient lost SYN on
+    one of them without a per-port retry that would drag a truly-dead
+    host out to 16s. starringthecomputer.com (connects 0.2s, briefly
+    flagged dead by a one-port 3s probe under load) now stays alive via
+    its sibling port; wsj-apex still fails in ~6s, not a 30s hang."""
     import socket
-    try:
-        s = socket.create_connection((host, port), timeout=timeout)
-        s.close()
-        return True
-    except OSError:
-        return False
+    sibling = 80 if port == 443 else 443
+    for p in (port, sibling):
+        try:
+            socket.create_connection((host, p), timeout=timeout).close()
+            return True
+        except OSError:
+            continue
+    return False
 
 
 def _should_block(req_url: str, resource_type: str) -> bool:
@@ -215,6 +221,43 @@ def _settle(page, budget_ms: int, wait_selector: str = None) -> None:
             page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
             page.wait_for_timeout(120)
         page.evaluate("window.scrollTo(0, 0)")
+    except Exception:
+        pass
+
+    # Reveal collapsed content BEFORE the stability poll. Two safe,
+    # bounded patterns — no arbitrary clicking:
+    #   1. <details> disclosure (standard HTML) — just set .open.
+    #   2. mobile Wikipedia (Minerva skin) lazy-loads section BODIES via
+    #      API and only on toggle; under our iPhone UA a reference
+    #      article renders ~1150 chars instead of ~7000. Click its
+    #      section headings, which is the documented expand affordance.
+    # Guarded to Minerva so no other site gets its headings clicked.
+    try:
+        expanded = page.evaluate(
+            "(() => {"
+            " let n = 0;"
+            " for (const d of document.querySelectorAll('details:not([open])'))"
+            "   { d.open = true; n++; }"
+            " if (document.body.classList.contains('skin-minerva')"
+            "     || document.querySelector('.mw-mf, .collapsible-heading')) {"
+            "   for (const h of document.querySelectorAll("
+            "       '.mw-heading, .collapsible-heading, .section-heading'))"
+            "     { try { h.click(); n++; } catch (e) {} }"
+            " }"
+            " return n; })()")
+        if expanded:
+            # Minerva section bodies arrive over several async API loads;
+            # wait for innerText to stop growing (up to 6s) so the poll
+            # below doesn't snapshot a half-expanded article. This is why
+            # the wiki row flapped article/feed at the prose-count edge.
+            grow_end = time.monotonic() + min(left_ms() / 1000.0, 6.0)
+            gprev = -1
+            while time.monotonic() < grow_end:
+                cur = text_len()
+                if cur == gprev:
+                    break
+                gprev = cur
+                page.wait_for_timeout(300)
     except Exception:
         pass
 

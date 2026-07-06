@@ -99,10 +99,13 @@ def classify(bundle: dict) -> Manifest:
 
     # An article-grade prose mass overrides the feed count: news sites
     # bury the story under recommendation rails (foxnews: 49 link-led
-    # blocks around 15 paragraphs), and repetition must not outvote
-    # substance. Real fronts never carry this much prose — corpus max
-    # is nasa-front at 6 blocks / 1298 chars; articles run 15-31 blocks.
-    buried_article = len(prose_blocks) >= 8 and prose_chars >= 2000
+    # blocks around 15 paragraphs), and encyclopedia articles carry
+    # link-dense prose that reads as feed by block count alone (the
+    # Wikipedia "Hacker News" article: 7 prose blocks, 2570 chars, 15
+    # link-led). Prose CHARS is the honest separator — real feeds top
+    # out near nasa-front's 1298; a page past 2000 is substance, not a
+    # front. Keep a low block floor to exclude a single long blurb.
+    buried_article = prose_chars >= 2000 and len(prose_blocks) >= 5
 
     # Feed: the page is substantially a run of link-led items.
     if (not buried_article

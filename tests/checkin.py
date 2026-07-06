@@ -51,8 +51,10 @@ SITES = [
          why="www-retry + the split-DNS afternoon (mdb doctor's origin)",
          title_re=r"(?i)quantum", min_chars=400, env_dns_warn=True),
     dict(name="wiki", url="https://en.wikipedia.org/wiki/Hacker_News",
-         why="article shape: dense inline links, citations, infobox",
-         shape="article", min_headings=3, min_chars=2000),
+         why="article shape + mobile-Wikipedia section expand: under the "
+             "iPhone UA sections lazy-collapse to a ~1150-char stub, so a "
+             "high char floor guards the settle's expand from regressing",
+         shape="article", min_headings=3, min_chars=6000),
     dict(name="pydocs", url="https://docs.python.org/3/library/functools.html",
          why="code-fence fidelity (the line-doubling oracle finding)",
          shape="article", min_fences=4),
@@ -76,6 +78,10 @@ SITES = [
          why="DataDome verification wall: must classify as wall with the "
              "why, never emit a silent one-line ghost",
          shape="wall", contains=["Nothing rendered"]),
+    dict(name="slow-host", url="https://www.starringthecomputer.com/computers.html",
+         why="slow shared host the TCP preflight false-flagged dead — "
+             "the both-ports probe must let it through, not refuse it",
+         min_chars=500),
 ]
 
 DETERMINISM_URL = "https://example.com"   # captured twice; hashes must match

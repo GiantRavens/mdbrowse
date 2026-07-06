@@ -537,8 +537,49 @@ class Reader:
         page.llines, page.focusables = parse_body(body)
         return page
 
+    def _load_animated(self, scr, url: str) -> Page:
+        """Load in a worker thread while the status bar shows a live
+        spinner and elapsed seconds — the capture can take seconds
+        (render, settle, section-expand) and a frozen 'loading …' line
+        reads as a hang. Returns the Page, or an error_page on failure."""
+        import threading
+        import time as _t
+        box = {}
+
+        def work():
+            try:
+                box["page"] = self.load(url)
+            except Exception as e:      # noqa: BLE001 — shown to the user
+                box["err"] = e
+
+        th = threading.Thread(target=work, daemon=True)
+        th.start()
+        spin = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+        t0, i = _t.monotonic(), 0
+        h, w = scr.getmaxyx()
+        short = url if len(url) <= w - 24 else url[:w - 25] + "…"
+        while th.is_alive():
+            el = _t.monotonic() - t0
+            note = "" if el < 3 else ("  (slow site — still trying)"
+                                      if el < 12 else "  (heavy page — hang on)")
+            line = f" {spin[i % len(spin)]} loading {short}  {el:0.0f}s{note}"
+            try:
+                scr.addstr(h - 1, 0, line[:w - 1].ljust(w - 1), curses.A_REVERSE)
+                scr.refresh()
+            except curses.error:
+                pass
+            i += 1
+            th.join(0.12)
+        if "err" in box:
+            return self.error_page(url, box["err"])
+        return box["page"]
+
     def error_page(self, url: str, e: Exception) -> Page:
-        body = f"# Error\n\nCould not load {url}:\n\n{e}"
+        body = (f"# Couldn't load this page\n\n`{url}`\n\n{e}\n\n---\n\n"
+                "**From here you can:**\n\n"
+                "- press `:` and type a web search for the site\n"
+                "- press `O` — open it in your browser\n"
+                "- press `H` — go back")
         page = Page(url=url, bundle=None, manifest=None, body=body)
         page.llines, page.focusables = parse_body(body)
         return page
@@ -571,9 +612,8 @@ class Reader:
 
         current = self.start_url
         while True:
-            self._status_load(scr, current)
             try:
-                self.page = self.load(current)
+                self.page = self._load_animated(scr, current)
                 current = self.page.url
                 hints = []
                 if self.page.bundle:
