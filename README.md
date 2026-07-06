@@ -19,6 +19,11 @@ screenshot-based fidelity oracle.
   fronts) as one linked line per story; index cards merge their
   fragments; data tables as markdown pipe tables (layout tables stay
   prose); app-shaped pages get a classified refusal instead of soup.
+- **Site-smart.** Thin-mobile sites (Wikipedia, Stack Overflow, Reddit)
+  are captured with a desktop UA; Reddit uses its `.json` endpoint for
+  a browser-free structured read (old.reddit HTML when unauthenticated);
+  Cloudflare "Just a moment…" challenges are waited out before capture.
+  Per-host rules live in `policy.py` (+ `~/.mdb/policy.json`).
 - **Deterministic and diffable.** Front-matter carries provenance
   (source, retrieved, mode, shape+confidence, extractor version) and a
   body content-hash. Same page state → identical body. Pages become

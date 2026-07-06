@@ -143,11 +143,51 @@ def probe_reader_link_following():
     return f"ok ({followed} links followed, no thread error)"
 
 
+def probe_reddit_paths():
+    """Reddit's two paths: authenticated .json (browser-free, structured)
+    and the old.reddit HTML fallback when cookies are absent. A listing
+    must read as a feed; a post must carry its comments; private mode
+    must NOT use .json (reddit 403s a cold client) and must rewrite to
+    old.reddit instead."""
+    from mdb.capture import Engine
+    from mdb.classify import classify
+    from mdb.emit import emit_body
+
+    with Engine() as eng:
+        lst = eng.capture("https://www.reddit.com/r/programming")
+        src = lst["meta"].get("source")
+        rows = [b for b in lst["doc"]["blocks"] if b.get("kind") == "row"]
+        if src == "reddit-json":
+            assert len(rows) >= 15, f".json listing had {len(rows)} posts"
+            perm = rows[0]["links"][0]["href"]
+            post = eng.capture(perm)
+            assert post["meta"].get("source") == "reddit-json"
+            comments = [b for b in post["doc"]["blocks"]
+                        if b.get("kind") == "li"]
+            assert comments, "post carried no comments"
+            note = f".json ({len(rows)} posts, {len(comments)} comments)"
+        else:
+            # No cookies here — must have fallen back to old.reddit HTML.
+            assert "old.reddit.com" in lst["meta"]["url"], \
+                f"no-cookie path should rewrite to old.reddit: {lst['meta']['url']}"
+            note = "old.reddit HTML fallback (no cookies)"
+        assert classify(lst).shape == "feed", "reddit listing must be a feed"
+
+    with Engine(private=True) as priv:
+        pb = priv.capture("https://www.reddit.com/r/programming")
+        assert pb["meta"].get("source") != "reddit-json", \
+            "private mode must not use the cookie'd .json path"
+        assert "old.reddit.com" in pb["meta"]["url"], \
+            "private mode must rewrite to old.reddit"
+    return f"ok ({note}; private → old.reddit)"
+
+
 PROBES = [probe_hostile_cdn_image_preview,
           probe_plain_image_httpx_path,
           probe_dns_preflight_speed,
           probe_capture_watchdog,
-          probe_reader_link_following]
+          probe_reader_link_following,
+          probe_reddit_paths]
 
 if __name__ == "__main__":
     failures = 0

@@ -335,7 +335,10 @@ class Engine:
         """Observe before navigating: a 3s resolver preflight instead of a
         silent 30s goto on a black-holed name. On a dead apex, jump straight
         to www. (no first-30s burn); on a resolver hang, fail immediately
-        and say WHY."""
+        and say WHY. Also applies per-host URL rewrites (reddit →
+        old.reddit) so the browser fetches the extractor-friendly host."""
+        from .policy import rewrite_url
+        url = rewrite_url(url)
         host = urlparse(url).hostname or ""
         if not host or "." not in host:
             return url
@@ -530,6 +533,17 @@ class Engine:
         raises, the engine resets, and the caller gets an error it can
         show instead of silence."""
         import threading
+
+        # Reddit .json fast path: browser-free, structured, complete.
+        # Runs before the engine even starts; falls through to the HTML
+        # path (old.reddit via the rewrite in _resolve_target) when it
+        # can't authenticate. Skipped for --headed and explicit waits.
+        from .reddit import is_reddit, json_bundle
+        if (not self._headed and not wait_selector and not screenshot_path
+                and is_reddit(urlparse(url).hostname)):
+            rb = json_bundle(url, private=self._private)
+            if rb is not None:
+                return rb
 
         self._ensure()
         url = self._resolve_target(url)

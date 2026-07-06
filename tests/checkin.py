@@ -87,6 +87,11 @@ SITES = [
              "wait for it to clear, then render the real page (not the "
              "interstitial); if it ever stops clearing this flips to wall",
          contains=["Firearms"], min_chars=1500),
+    dict(name="reddit", url="https://www.reddit.com/r/programming",
+         why="reddit .json fast path (cookies) or old.reddit fallback — a "
+             "subreddit must read as a feed of linked posts, browser-free "
+             "when authenticated",
+         shape="feed", min_feed_items=15),
 ]
 
 DETERMINISM_URL = "https://example.com"   # captured twice; hashes must match

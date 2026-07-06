@@ -55,6 +55,36 @@ DESKTOP_HOSTS = {
                   "style renders threads as text",
 }
 
+# Per-host URL rewrites: send a host to a sibling that our extractor
+# reads better. old.reddit.com is near-static markup (the desktop SPA
+# and mobile web are both JS shells); it renders fully through the
+# normal pipeline, and is the fallback when the reddit .json fast path
+# can't authenticate. Applied to the browser target only — the .json
+# path in reddit.py runs first and independently.
+REWRITE_HOSTS = {
+    "www.reddit.com": "old.reddit.com",
+    "reddit.com": "old.reddit.com",
+    "np.reddit.com": "old.reddit.com",
+    "m.reddit.com": "old.reddit.com",
+    "i.reddit.com": "old.reddit.com",
+}
+
+
+def rewrite_url(url: str) -> str:
+    """Rewrite a URL's host per REWRITE_HOSTS (reddit → old.reddit).
+    MDBROWSE_NO_POLICY disables."""
+    if os.environ.get("MDBROWSE_NO_POLICY"):
+        return url
+    from urllib.parse import urlparse, urlunparse
+    p = urlparse(url)
+    host = (p.hostname or "").lower()
+    target = REWRITE_HOSTS.get(host)
+    if not target:
+        return url
+    netloc = target + (f":{p.port}" if p.port else "")
+    return urlunparse(p._replace(netloc=netloc))
+
+
 _USER_PATH = os.path.expanduser(
     os.environ.get("MDBROWSE_POLICY", "~/.mdb/policy.json"))
 
