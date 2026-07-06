@@ -82,6 +82,11 @@ SITES = [
          why="slow shared host the TCP preflight false-flagged dead — "
              "the both-ports probe must let it through, not refuse it",
          min_chars=500),
+    dict(name="cloudflare", url="https://www.imfdb.org/wiki/Main_Page",
+         why="Cloudflare 'Just a moment…' JS challenge — the settle must "
+             "wait for it to clear, then render the real page (not the "
+             "interstitial); if it ever stops clearing this flips to wall",
+         contains=["Firearms"], min_chars=1500),
 ]
 
 DETERMINISM_URL = "https://example.com"   # captured twice; hashes must match
@@ -145,7 +150,25 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
 def offline_gate() -> bool:
     from mdb.cli import selftest
     print("phase 0 — offline fixture corpus")
-    return selftest() == 0
+    ok = selftest() == 0
+    ok = _policy_sanity() and ok
+    return ok
+
+
+def _policy_sanity() -> bool:
+    """The per-host desktop-UA list is invisible until a site renders
+    thin — guard it here so an accidental empty/typo doesn't silently
+    drop back to mobile for Wikipedia et al."""
+    from mdb.policy import wants_desktop
+    want = {"en.wikipedia.org": True, "www.apple.com": False,
+            "news.ycombinator.com": False,
+            "stackoverflow.com": True}
+    bad = [h for h, exp in want.items() if wants_desktop(h) != exp]
+    if bad:
+        print(f"  policy: FAIL desktop-host verdicts wrong for {bad}")
+        return False
+    print("  policy: OK (desktop-UA host list intact)")
+    return True
 
 
 def _network_up() -> bool:

@@ -83,9 +83,15 @@ def classify(bundle: dict) -> Manifest:
         "anchors": doc.get("anchors", 0),
     }
 
-    # Wall: nothing rendered — no text, no links, no controls. A silent
-    # one-line ghost is a lie; say what happened. A captcha/challenge
-    # iframe over the empty body names the cause with confidence.
+    # Wall: a verification interstitial, or nothing rendered at all. A
+    # silent one-line ghost is a lie; say what happened. A Cloudflare
+    # "Just a moment…" that never cleared (walker.challenge) is a wall
+    # even though it carries a few hundred chars of interstitial copy;
+    # so is an empty body with a captcha iframe.
+    cf = doc.get("challenge")
+    if cf and total_text < 600:
+        signals["challenge"] = cf
+        return Manifest("wall", 0.9, signals)
     if total_text < 40 and doc.get("anchors", 0) <= 2 and interactive <= 2:
         challenge = [f for f in doc.get("iframes", [])
                      if re.search(r"captcha|challenge|datadome|perimeterx"

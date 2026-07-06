@@ -38,18 +38,50 @@ BUILTIN = {
     },
 }
 
+# Hosts that serve THIN content to a phone UA — the coverage lever.
+# We present iPhone Safari by default (small pages, Safari cookies read
+# naturally), but some sites collapse, truncate, or redirect their
+# mobile view to a fraction of the desktop page. For these, capture with
+# a desktop UA + viewport instead. Each entry names what desktop buys.
+DESKTOP_HOSTS = {
+    "wikipedia.org": "Minerva mobile skin lazy-collapses section bodies "
+                     "(~1150 vs ~7000 chars); desktop serves them inline",
+    "wikimedia.org": "same Minerva skin across the Wikimedia family",
+    "wiktionary.org": "same Minerva skin",
+    "stackoverflow.com": "mobile view truncates answers and hides the "
+                         "sidebar of linked/related questions",
+    "stackexchange.com": "same mobile truncation across the network",
+    "reddit.com": "mobile web is a login-walled SPA stub; desktop old-"
+                  "style renders threads as text",
+}
+
 _USER_PATH = os.path.expanduser(
     os.environ.get("MDBROWSE_POLICY", "~/.mdb/policy.json"))
 
 
-def _user_rules() -> dict:
+def _user_data() -> dict:
     try:
         with open(_USER_PATH, encoding="utf-8") as f:
-            data = json.load(f)
-        return {h: v if isinstance(v, list) else v.get("kill", [])
-                for h, v in data.items()}
+            return json.load(f)
     except (OSError, ValueError):
         return {}
+
+
+def _user_rules() -> dict:
+    return {h: v if isinstance(v, list) else v.get("kill", [])
+            for h, v in _user_data().items() if h != "_desktop"}
+
+
+def wants_desktop(host: str) -> bool:
+    """True when this host is served better with a desktop UA. Builtins
+    plus a user list under the reserved "_desktop" key in policy.json
+    (e.g. {"_desktop": ["example.com"]}). MDBROWSE_NO_POLICY disables."""
+    if os.environ.get("MDBROWSE_NO_POLICY"):
+        return False
+    host = (host or "").lower()
+    user = _user_data().get("_desktop") or []
+    hosts = set(DESKTOP_HOSTS) | {h.lower() for h in user}
+    return any(host == h or host.endswith("." + h) for h in hosts)
 
 
 def kill_selectors(host: str) -> list:

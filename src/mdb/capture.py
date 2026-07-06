@@ -25,6 +25,12 @@ IPHONE_UA = (
     "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) "
     "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1"
 )
+# Desktop Safari on Mac — matches the Safari cookie jar we seed, so the
+# projected identity stays consistent (see Engine desktop mode).
+DESKTOP_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15"
+)
 _PRIVACY_HEADERS = {"DNT": "1", "Sec-GPC": "1"}
 
 # Keep the projected identity internally consistent: hide the automation flag,
@@ -146,6 +152,24 @@ def _tcp_preflight(host: str, port: int, timeout: float = 2.0) -> bool:
     return False
 
 
+# A bot-verification interstitial (Cloudflare "Just a moment…",
+# challenge iframes) — detected by the signatures these services leave:
+# their challenge script/host, the running-challenge container, or the
+# telltale title over an otherwise-empty body. Used to WAIT for the swap
+# in settle and to CLASSIFY a stuck one as a wall.
+_IS_CHALLENGE_JS = """
+(() => {
+  const t = (document.title || '').toLowerCase();
+  if (t.includes('just a moment') || t.includes('attention required')
+      || t.includes('verifying you are human')) return true;
+  if (document.querySelector('#challenge-running, #cf-chl-widget,'
+      + ' script[src*="challenges.cloudflare.com"], #challenge-stage,'
+      + ' iframe[src*="challenges.cloudflare.com"]')) return true;
+  return false;
+})()
+"""
+
+
 def _should_block(req_url: str, resource_type: str) -> bool:
     if resource_type in ("media", "font"):
         return True
@@ -165,6 +189,21 @@ def _settle(page, budget_ms: int, wait_selector: str = None) -> None:
     left_ms = lambda: max(0, int((deadline - time.monotonic()) * 1000))
     text_len = lambda: page.evaluate(
         "document.body ? document.body.innerText.length : 0")
+
+    # Cloudflare / interstitial challenge: a "Just a moment…" page runs
+    # JS, verifies, and swaps itself for the real content — often within
+    # a few seconds even headless. Wait for that swap before doing
+    # anything else, so we don't capture the interstitial. If it never
+    # clears (hard bot-block), classify handles it as a wall downstream.
+    try:
+        if page.evaluate(_IS_CHALLENGE_JS):
+            wait_end = time.monotonic() + min(left_ms() / 1000.0, 12.0)
+            while time.monotonic() < wait_end:
+                page.wait_for_timeout(500)
+                if not page.evaluate(_IS_CHALLENGE_JS):
+                    break
+    except Exception:
+        pass
 
     if wait_selector:
         try:
@@ -279,11 +318,13 @@ class Engine:
     """A warm browser reused across captures (first page pays the launch)."""
 
     def __init__(self, private: bool = False, timeout: float = 30.0,
-                 block_images: bool = True, headed: bool = False):
+                 block_images: bool = True, headed: bool = False,
+                 desktop: bool = False):
         self._private = private
         self._timeout = timeout
         self._block_images = block_images
         self._headed = headed
+        self._desktop = desktop
         self._pw = self._browser = self._context = None
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
         self._tcp_verdicts = {}     # (host, port) -> bool, per session
@@ -431,6 +472,22 @@ class Engine:
                 "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
             }
             self._context = self._browser.new_context(**ctx_opts)
+        elif self._desktop:
+            # Desktop mode: a Mac-Safari UA + desktop viewport for sites
+            # that serve a thin mobile page to a phone (policy.py's
+            # DESKTOP_HOSTS — Wikipedia's Minerva collapse et al.). Same
+            # Safari cookies, same stealth self-consistency, just not a
+            # phone. The UA stays Safari so the cookie jar matches.
+            self._browser = self._pw.chromium.launch(headless=True, args=args)
+            ctx_opts = {
+                "user_agent": DESKTOP_UA,
+                "viewport": {"width": 1280, "height": 1600},
+                "java_script_enabled": True,
+                "locale": "en-US",
+                "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
+            }
+            self._context = self._browser.new_context(**ctx_opts)
+            self._context.add_init_script(_STEALTH_INIT_JS)
         else:
             self._browser = self._pw.chromium.launch(headless=True, args=args)
             ctx_opts = {
@@ -628,21 +685,23 @@ class EngineWorker:
                 for eng in engines.values():
                     eng.close()
                 break
-            url, private, wait, fut = job
+            url, private, wait, desktop, fut = job
             try:
-                eng = engines.get(private)
+                key = (private, desktop)     # one warm engine per identity
+                eng = engines.get(key)
                 if eng is None:
-                    eng = engines[private] = Engine(private=private)
+                    eng = engines[key] = Engine(private=private, desktop=desktop)
                 fut.set_result(eng.capture(url, wait_selector=wait))
             except Exception as e:
                 fut.set_exception(e)
 
     def capture(self, url: str, private: bool = False,
-                wait: str = None, timeout: float = 90.0) -> dict:
+                wait: str = None, timeout: float = 90.0,
+                desktop: bool = False) -> dict:
         from concurrent.futures import Future
         from concurrent.futures import TimeoutError as _FutTimeout
         fut = Future()
-        self._q.put((url, private, wait, fut))
+        self._q.put((url, private, wait, desktop, fut))
         try:
             return fut.result(timeout=timeout)
         except _FutTimeout:
@@ -664,16 +723,28 @@ class EngineWorker:
         self._thread.join(timeout=10)
 
 
+def wants_desktop(url: str) -> bool:
+    from .policy import wants_desktop as _wd
+    return _wd(urlparse(url).hostname or "")
+
+
 def capture(url: str, private: bool = False, timeout: float = 30.0,
-            wait_selector: str = None, headed: bool = False) -> dict:
+            wait_selector: str = None, headed: bool = False,
+            desktop: bool = None) -> dict:
     """One-shot capture. Tries the engine daemon first (warm Chromium,
     sub-second; auto-spawned on first use) and falls back to a local
     engine when the daemon path is unavailable or disabled. Headed
-    captures never ride the daemon — the window is the point."""
+    captures never ride the daemon — the window is the point.
+
+    desktop=None auto-selects a desktop UA for hosts that serve thin
+    mobile pages (policy.DESKTOP_HOSTS); pass True/False to force."""
+    if desktop is None:
+        desktop = wants_desktop(url)
     if not headed:
         from . import daemon
-        bundle = daemon.capture_via_daemon(url, private, wait_selector)
+        bundle = daemon.capture_via_daemon(url, private, wait_selector, desktop)
         if bundle is not None:
             return bundle
-    with Engine(private=private, timeout=timeout, headed=headed) as eng:
+    with Engine(private=private, timeout=timeout, headed=headed,
+                desktop=desktop) as eng:
         return eng.capture(url, wait_selector=wait_selector)

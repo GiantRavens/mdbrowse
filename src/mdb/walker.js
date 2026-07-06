@@ -462,6 +462,14 @@
     interactive: interactive,
     anchors: document.querySelectorAll("a[href]").length,
     textLen: (document.body.innerText || "").length,
+    challenge: (() => {
+      const t = (document.title || "").toLowerCase();
+      if (t.includes("just a moment") || t.includes("attention required")
+          || t.includes("verifying you are human")) return "cloudflare";
+      if (document.querySelector('script[src*="challenges.cloudflare.com"],'
+          + ' #challenge-running, #cf-chl-widget')) return "cloudflare";
+      return "";
+    })(),
     iframes: iframes,
     policyKilled: policyKilled,
     blocks: blocks,

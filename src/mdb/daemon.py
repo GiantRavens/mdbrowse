@@ -118,7 +118,7 @@ def _force_kill() -> None:
 
 
 def capture_via_daemon(url: str, private: bool = False,
-                       wait_selector: str = None):
+                       wait_selector: str = None, desktop: bool = False):
     """Bundle from the daemon, auto-spawning it on first use.
     Returns None when the daemon path is unavailable/disabled (caller
     falls back to a local engine); raises on real page errors.
@@ -135,7 +135,8 @@ def capture_via_daemon(url: str, private: bool = False,
     for attempt in (0, 1):
         try:
             r = _request({"op": "capture", "url": url, "private": private,
-                          "wait": wait_selector}, _CAPTURE_TIMEOUT)
+                          "wait": wait_selector, "desktop": desktop},
+                         _CAPTURE_TIMEOUT)
         except socket.timeout:
             _force_kill()
             if attempt or not _spawn():
@@ -221,7 +222,8 @@ def serve() -> int:
                         bundle = worker.capture(req["url"],
                                                 bool(req.get("private")),
                                                 req.get("wait"),
-                                                timeout=_SERVER_CAPTURE_TIMEOUT)
+                                                timeout=_SERVER_CAPTURE_TIMEOUT,
+                                                desktop=bool(req.get("desktop")))
                         resp = {"ok": True, "bundle": bundle,
                                 "stamp": stamp}
                     else:

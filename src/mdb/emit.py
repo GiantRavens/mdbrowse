@@ -144,14 +144,19 @@ def emit_body(bundle: dict, manifest) -> str:
 
     if shape == "wall":
         challenge = manifest.signals.get("challenge_iframes") or []
-        why = ("a verification challenge is running in an iframe "
-               f"({challenge[0].split('/')[2]}) that mdb does not enter"
-               if challenge else
-               "the site served an empty shell to this browser — commonly "
-               "a bot check, or JS that refuses headless engines")
+        cf = manifest.signals.get("challenge")
+        if cf == "cloudflare":
+            why = ("a Cloudflare bot-verification challenge ('Just a "
+                   "moment…') that did not clear for this headless browser")
+        elif challenge:
+            why = ("a verification challenge is running in an iframe "
+                   f"({challenge[0].split('/')[2]}) that mdb does not enter")
+        else:
+            why = ("the site served an empty shell to this browser — "
+                   "commonly a bot check, or JS that refuses headless engines")
         return (f"# {doc.get('title') or bundle['meta']['url']}\n\n"
                 f"_Nothing rendered: {why}. Retry with `--headed` (a real "
-                f"browser window — verification walls usually trust a "
+                f"browser window — verification walls usually clear for a "
                 f"headed session), or open the page in your browser; once "
                 f"the site trusts your session again, mdb browses with "
                 f"its cookies._")
