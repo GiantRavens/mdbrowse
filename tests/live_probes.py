@@ -98,10 +98,56 @@ def probe_capture_watchdog():
         return f"ok (fired, classified, healed in {time.time() - t0:.1f}s)"
 
 
+def probe_reader_link_following():
+    """Click a few links, like a reader session — the test the captain
+    asked for. It exists because the threaded-loader UX regression bound
+    the engine to a fresh thread per nav; the SECOND link raised 'cannot
+    switch to a different thread'. So: load a page, follow real links
+    through the reader's own load path across several hops, and assert
+    every hop returns a page (not an error). Uses the reader's engine
+    executor exactly as the TUI does — the layer bare-Engine tests skip."""
+    import re
+    from concurrent.futures import ThreadPoolExecutor
+    from mdb.reader import Reader
+
+    r = Reader("https://www.starringthecomputer.com/computers.html")
+    hops, followed = [], 0
+    try:
+        page = r._exec.submit(r.load, r.start_url).result()
+        assert page.focusables, "start page had no links to follow"
+        hops.append(page.url)
+        # Follow up to 3 distinct in-site links, each through r.load —
+        # the same call the reader makes, on the same engine thread.
+        seen = {page.url}
+        for f in page.focusables:
+            if followed >= 3:
+                break
+            href = getattr(f, "href", "")
+            if not href or href in seen or "starringthecomputer" not in href:
+                continue
+            seen.add(href)
+            nxt = r._exec.submit(r.load, href).result()
+            assert nxt.bundle is not None, f"link {href} yielded no bundle"
+            assert "Couldn't load" not in nxt.body[:40], \
+                f"link {href} errored: {nxt.body[:80]}"
+            hops.append(nxt.url)
+            followed += 1
+        assert followed >= 2, f"only followed {followed} links (need >=2 to " \
+            "exercise the cross-nav engine-thread reuse)"
+    finally:
+        try:
+            r._exec.submit(r.engine.close).result(timeout=10)
+        except Exception:
+            pass
+        r._exec.shutdown(wait=False)
+    return f"ok ({followed} links followed, no thread error)"
+
+
 PROBES = [probe_hostile_cdn_image_preview,
           probe_plain_image_httpx_path,
           probe_dns_preflight_speed,
-          probe_capture_watchdog]
+          probe_capture_watchdog,
+          probe_reader_link_following]
 
 if __name__ == "__main__":
     failures = 0

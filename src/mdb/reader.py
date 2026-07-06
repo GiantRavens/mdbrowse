@@ -492,6 +492,16 @@ class Reader:
         self.voice = voice
         self.announce = announce    # speak each element as focus lands on it
         self.engine = Engine(private=private)
+        # Playwright's sync API is thread-bound: the engine may only be
+        # touched from ONE thread for its whole life. A single-worker
+        # executor owns it — every capture, image fetch, download, and
+        # close runs here, and the curses main thread stays free to
+        # animate. (Following a link once ran the load on a fresh thread
+        # per nav; the second nav hit 'cannot switch to a different
+        # thread' — this serializes them onto the engine's own thread.)
+        from concurrent.futures import ThreadPoolExecutor
+        self._exec = ThreadPoolExecutor(max_workers=1,
+                                        thread_name_prefix="mdb-engine")
         self.history = []           # back stack
         self.forward = []           # forward stack (L); cleared on new go
         self.page = None
@@ -542,23 +552,20 @@ class Reader:
         spinner and elapsed seconds — the capture can take seconds
         (render, settle, section-expand) and a frozen 'loading …' line
         reads as a hang. Returns the Page, or an error_page on failure."""
-        import threading
         import time as _t
-        box = {}
-
-        def work():
-            try:
-                box["page"] = self.load(url)
-            except Exception as e:      # noqa: BLE001 — shown to the user
-                box["err"] = e
-
-        th = threading.Thread(target=work, daemon=True)
-        th.start()
+        from concurrent.futures import TimeoutError as _FutTimeout
+        fut = self._exec.submit(self.load, url)   # runs on the engine thread
         spin = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
         t0, i = _t.monotonic(), 0
         h, w = scr.getmaxyx()
         short = url if len(url) <= w - 24 else url[:w - 25] + "…"
-        while th.is_alive():
+        while True:
+            try:
+                return fut.result(timeout=0.12)
+            except _FutTimeout:
+                pass
+            except Exception as e:      # noqa: BLE001 — shown to the user
+                return self.error_page(url, e)
             el = _t.monotonic() - t0
             note = "" if el < 3 else ("  (slow site — still trying)"
                                       if el < 12 else "  (heavy page — hang on)")
@@ -569,10 +576,6 @@ class Reader:
             except curses.error:
                 pass
             i += 1
-            th.join(0.12)
-        if "err" in box:
-            return self.error_page(url, box["err"])
-        return box["page"]
 
     def error_page(self, url: str, e: Exception) -> Page:
         body = (f"# Couldn't load this page\n\n`{url}`\n\n{e}\n\n---\n\n"
@@ -591,7 +594,11 @@ class Reader:
         finally:
             os.write(1, b"\x1b[?1000;1006l")   # mouse reporting off
             self._speech_stop()
-            self.engine.close()
+            try:
+                self._exec.submit(self.engine.close).result(timeout=10)
+            except Exception:
+                pass
+            self._exec.shutdown(wait=False)
 
     def _status_load(self, scr, url):
         h, w = scr.getmaxyx()
@@ -707,8 +714,10 @@ class Reader:
             return (base | curses.A_REVERSE) if focused else base
 
         def show_preview(f):
-            ok, note = preview_image(f.src, self.private, referer=page.url,
-                                     engine=self.engine)
+            # fetch_resource is Playwright-bound; run on the engine thread.
+            ok, note = self._exec.submit(
+                preview_image, f.src, self.private, page.url,
+                self.engine).result()
             self.msg = f"🖼  {note}" if ok else f"preview failed: {note}"
 
         def go(f):
@@ -872,9 +881,11 @@ class Reader:
                     try:
                         from .download import download
                         self.msg = "downloading…"
-                        path, size = download(target, self.private,
-                                              referer=page.url,
-                                              engine=self.engine)
+                        # download may fall back to engine.fetch_resource
+                        # (Playwright-bound); run on the engine thread.
+                        path, size = self._exec.submit(
+                            download, target, self.private, page.url,
+                            self.engine).result()
                         self.msg = f"saved → {path} ({max(1, size // 1024)} KB)"
                     except Exception as e:
                         self.msg = f"download failed: {str(e)[:80]}"
