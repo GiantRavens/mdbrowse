@@ -3,9 +3,13 @@
 
 ### Skip to content
 
+![](https://static.files.bbci.co.uk/bbcdotcom/web/20260629-131846-8a2eb2c100-web-3.12.0-2/grey-placeholder.png)
+
+![Americans hold up a large US flag as they walk on the lawn just outside Capitol Hill](https://ichef.bbci.co.uk/ace/standard/480/cpsprodpb/7d2a/live/5a859390-77dc-11f1-9c35-2d47de17e6e4.jpg.webp)
+
 - [LIVE US marks 250th independence anniversary as heatwave disrupts celebrations](https://www.bbc.com/news/live/c20y3rzq0w1t)
 
-- Some events have already been cancelled, or will start later, as parts of the country grapple with extreme heat.
+Some events have already been cancelled, or will start later, as parts of the country grapple with extreme heat.
 
 ---
 

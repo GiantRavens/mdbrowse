@@ -245,6 +245,7 @@ class Engine:
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
         self._tcp_verdicts = {}     # (host, port) -> bool, per session
         self._resolver_rules = {}   # host -> ip, for --host-resolver-rules
+        self._no_http2 = False      # sticky after an ERR_HTTP2_PROTOCOL_ERROR
 
     def _resolve_target(self, url: str) -> str:
         """Observe before navigating: a 3s resolver preflight instead of a
@@ -365,6 +366,8 @@ class Engine:
             rules = ", ".join(f"MAP {h} {ip}" for h, ip
                               in sorted(self._resolver_rules.items()))
             args.append(f"--host-resolver-rules={rules}")
+        if self._no_http2:
+            args.append("--disable-http2")
         # Headed = a real browser window on a real GPU, wearing NO
         # costume: real Chrome channel when installed, native UA, no
         # device emulation, no stealth shim. Verification walls
@@ -450,11 +453,26 @@ class Engine:
         try:
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
-            except Exception:
-                alt = _www_variant(url)  # backstop; preflight usually caught it
-                if not alt:
-                    raise
-                page.goto(alt, wait_until="domcontentloaded", timeout=budget_ms)
+            except Exception as e:
+                # Chromium's HTTP/2 parser is stricter than curl's; some
+                # CDNs (adobe.com's) send frames it rejects with
+                # ERR_HTTP2_PROTOCOL_ERROR even though the site is fine
+                # over HTTP/1.1. Relaunch this engine with H2 disabled
+                # (session-sticky) and retry — the DNS-bypass pattern
+                # applied to the protocol layer.
+                if "ERR_HTTP2_PROTOCOL_ERROR" in str(e) and not self._no_http2:
+                    self._no_http2 = True
+                    page.close()
+                    self._relaunch()
+                    page = self._context.new_page()
+                    page.goto(url, wait_until="domcontentloaded",
+                              timeout=budget_ms)
+                else:
+                    alt = _www_variant(url)   # backstop; preflight usually caught it
+                    if not alt:
+                        raise
+                    page.goto(alt, wait_until="domcontentloaded",
+                              timeout=budget_ms)
             _settle(page, budget_ms, wait_selector)
             from .policy import kill_selectors
             doc = page.evaluate(_walker_source(),

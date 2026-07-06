@@ -93,10 +93,17 @@ class Focusable:
     src: str = ""       # preview target (image, card)
 
 
-# URL matcher tolerating one level of parentheses (Wikipedia URLs). Label
-# matchers are escape-aware: the walker emits literal brackets as \[ \],
-# and a label pattern that stops at any ']' would shred those links.
-_URL = r"(?:[^()\s]+|\([^()\s]*\))+"
+# URL matcher tolerating one level of parentheses (Wikipedia URLs).
+# UNROLLED to a linear form — the earlier `(?:[^()\s]+|\(...\))+` had a
+# nested quantifier over the same character class, and a run of images
+# in one line ([![](url) ![](url) …], apple.com's feed) fed the card
+# alternative input with no closing `](href)`, detonating catastrophic
+# backtracking that hung the reader forever (capture was fine; _tokenize
+# was not). This matches the same language — non-paren runs with single-
+# level balanced parens between them — with no ambiguity. Label matchers
+# stay escape-aware: the walker emits literal brackets as \[ \], and a
+# label pattern that stops at any ']' would shred those links.
+_URL = r"[^()\s]*(?:\([^()\s]*\)[^()\s]*)*"
 _LBL = r"(?:[^\[\]\\]|\\.)"
 _TOKEN_RE = re.compile(
     rf"\[(?P<cpre>{_LBL}*)!\[(?P<calt>{_LBL}*)\]\((?P<csrc>{_URL})\)"

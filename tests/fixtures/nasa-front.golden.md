@@ -27,17 +27,33 @@ Happy 250th to the U.S.A., from 250 miles above Earth! NASA astronauts celebrate
 
 - [NASA’s Chandra Examines Milky Way at Arms’ Length](https://science.nasa.gov/missions/chandra/nasas-chandra-examines-milky-way-at-arms-length/) — Article — 5 Min Read
 
+![](https://assets.science.nasa.gov/dynamicimage/assets/science/missions/chandra/2026/arms_unlabeled.jpg)
+
 - [NASA Seeks Volunteers for New Yearlong Simulated Moon, Mars Mission](https://www.nasa.gov/humans-in-space/nasa-seeks-volunteers-for-new-yearlong-simulated-moon-mars-mission/) — Article — 3 Min Read
+
+![](https://www.nasa.gov/wp-content/uploads/2026/07/mmea.png?resize=1024,576)
 
 - [NASA’s Webb Studies How Planet Survived Death of its Star](https://science.nasa.gov/missions/webb/nasas-webb-studies-how-planet-survived-death-of-its-star/) — Article — 6 Min Read
 
+![](https://assets.science.nasa.gov/dynamicimage/assets/science/missions/webb/science/2026/07/STScI-01KV8SMVYFK67J7RPRW1HB0SKS.jpg)
+
 - [NASA’s TESS Mission Finds Planetary System in New Way](https://science.nasa.gov/missions/tess/nasas-tess-mission-finds-planetary-system-in-new-way/) — Article — 5 Min Read
+
+![](https://assets.science.nasa.gov/dynamicimage/assets/science/missions/rst/science/Brown%20superjupiter%20D2%201.jpg)
+
+![](https://assets.science.nasa.gov/dynamicimage/assets/science/missions/swift-observatory/homepage/swift-boost-hub/Swift_Over_Earth_Animation-2025.jpg)
 
 - [Launch of Swift Boost Mission Delayed, Teams Reviewing Data](https://science.nasa.gov/blogs/swift/2026/07/02/launch-of-swift-boost-mission-delayed-teams-reviewing-data/) — 1 Min Read — Blog
 
+![](https://www.nasa.gov/wp-content/uploads/2026/04/55193772552-b8cfb47b7e-o.jpg?resize=200,200)
+
 - [NASA’s Artemis II Breaks Agency Streaming Record](https://www.nasa.gov/general/nasas-artemis-ii-breaks-agency-streaming-record/) — 9 Min Read — Article
 
+![](https://assets.science.nasa.gov/dynamicimage/assets/science/esd/articles/2026/jsc2026e394067.jpg)
+
 - [NASA Data Helps CDC Track Air Quality During World Cup 2026](https://science.nasa.gov/blogs/science-news/2026/07/01/nasa-cdc-air-quality-world-cup-2026/) — 2 Min Read — Blog
+
+![](https://www.nasa.gov/wp-content/uploads/2026/06/rovers.jpg?resize=200,200)
 
 - [NASA Awards More Moon Base Science, Previews New Opportunities](https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/) — 5 Min Read — News Release
 
@@ -85,13 +101,31 @@ A bright orange sunburst illuminates Earth’s atmosphere during an orbital sunr
 
 ## More NASA Images
 
+![](https://www.nasa.gov/wp-content/uploads/2024/05/hubble-hptau-wfc3-1-flat-finalok.jpg?w=300)
+
+![](https://www.nasa.gov/wp-content/uploads/2023/03/hubble_j2034417_freggs_fullsize_0-1.jpg?w=300)
+
+![](https://www.nasa.gov/wp-content/uploads/2023/03/potw2135a.jpg?w=300)
+
 ### [Great Observatories: Hubble Space Telescope Gallery](https://www.nasa.gov/gallery/hubble/)
 
 - [422 Images](https://www.nasa.gov/gallery/hubble/)
 
+![](https://www.nasa.gov/wp-content/uploads/2024/04/stsci-01hv4cg0eacm1mc07e10x19knx.png?w=298)
+
+![](https://www.nasa.gov/wp-content/uploads/2024/04/timelapse-crab-nebula.jpg?w=300)
+
+![](https://images-assets.nasa.gov/image/stephan_quintet/stephan_quintet~large.jpg?w=1920&h=1840&fit=clip&crop=faces%2Cfocalpoint)
+
 ### [Great Observatories: James Webb Space Telescope Gallery](https://www.nasa.gov/gallery/james-webb-space-telescope/)
 
 - [39 Images](https://www.nasa.gov/gallery/james-webb-space-telescope/)
+
+![](https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002059/GSFC_20171208_Archive_e002059~large.jpg?w=1890&h=1920&fit=clip&crop=faces%2Cfocalpoint)
+
+![](https://www.nasa.gov/wp-content/uploads/2025/04/3dmodels-cygnus-astro-74ffde.jpg?w=278)
+
+![](https://images-assets.nasa.gov/image/PIA21089/PIA21089~orig.jpg?w=1800&h=1800&fit=clip&crop=faces%2Cfocalpoint)
 
 ### [Great Observatories: Chandra X-ray Observatory Gallery](https://www.nasa.gov/gallery/great-observatories-chandra-x-ray-observatory/)
 
@@ -104,6 +138,8 @@ A bright orange sunburst illuminates Earth’s atmosphere during an orbital sunr
 - We will never share your email address. [Privacy Policy](https://www.nasa.gov/privacy/)
 
 - [Sign Up](https://lp.constantcontactpages.com/sl/7ThAX6O/signup)
+
+![Space image with stars and swirls of colorful orange, red and white.](https://www.nasa.gov/wp-content/uploads/2023/01/webb-tarantula-neb.png?w=1536)
 
 ### Freedom 250
 

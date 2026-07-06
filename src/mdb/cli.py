@@ -88,18 +88,57 @@ def selftest(update: bool = False) -> int:
             continue
         with open(gpath, encoding="utf-8") as f:
             want = f.read()
-        if got == want:
-            print(f"  {name}: OK (shape={manifest.shape})")
+        # The reader path, offline: every emitted body must tokenize for
+        # the reader in bounded time. This is where the apple.com blank
+        # page hid — capture and emit were fine; _tokenize's URL regex
+        # backtracked catastrophically on a line of many images, and no
+        # test walked the reader. A hard wall-clock cap turns any future
+        # ReDoS into a fixture failure instead of a frozen terminal.
+        reader_note, reader_wedged = "", False
+        rd = _reader_tokenize_time(body)
+        if rd is None:
+            reader_wedged = True
+            reader_note = "  READER WEDGED (tokenize > 3s — ReDoS?)"
+        elif rd > 0.3:
+            reader_note = f"  reader slow ({rd:.2f}s)"
+        if got == want and not reader_wedged:
+            print(f"  {name}: OK (shape={manifest.shape}){reader_note}")
         else:
             failures += 1
-            print(f"  {name}: FAIL (shape={manifest.shape})")
-            diff = difflib.unified_diff(
-                want.splitlines(True), got.splitlines(True),
-                fromfile=f"{name}.golden.md", tofile=f"{name} (current)")
-            sys.stdout.writelines(list(diff)[:60])
+            print(f"  {name}: FAIL (shape={manifest.shape}){reader_note}")
+            if got != want:
+                diff = difflib.unified_diff(
+                    want.splitlines(True), got.splitlines(True),
+                    fromfile=f"{name}.golden.md", tofile=f"{name} (current)")
+                sys.stdout.writelines(list(diff)[:60])
     total = len(bundles)
     print(f"selftest: {total - failures}/{total} fixtures match")
     return 1 if failures else 0
+
+
+def _reader_tokenize_time(body: str):
+    """Run the reader's tokenizer over a body under a hard wall-clock
+    cap in a daemon thread (SIGALRM is main-thread-only; the gate calls
+    selftest from a child process). Returns seconds, or None if it blew
+    past the cap — a wedged tokenizer, the reader-hang signature."""
+    import threading
+    from .reader import parse_body
+    box = {}
+
+    def work():
+        t0 = os.times()[4] if hasattr(os, "times") else 0
+        import time as _t
+        s = _t.monotonic()
+        try:
+            parse_body(body)
+            box["dt"] = _t.monotonic() - s
+        except Exception:
+            box["dt"] = _t.monotonic() - s
+
+    th = threading.Thread(target=work, daemon=True)
+    th.start()
+    th.join(3.0)
+    return box.get("dt")   # None if the thread is still stuck past 3s
 
 
 def main() -> None:

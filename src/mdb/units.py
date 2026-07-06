@@ -53,13 +53,23 @@ def is_prose(b: dict) -> bool:
             and not is_link_led(b))
 
 
+def _standalone_image(b: dict) -> bool:
+    """A bare image block carrying a real picture — a hero / showcase
+    shot, not a card thumbnail. Card thumbnails ride INSIDE p/li/row
+    blocks as inline markdown; a kind=='img' block is a picture standing
+    on its own. On a feed these are content (apple.com's product heroes
+    vanished when the unit detector swallowed them as 'thumbnails')."""
+    return b.get("kind") == "img" and bool(b.get("src"))
+
+
 def segment(blocks: list):
     """Split a block stream into ('run', [...]) itemish runs and
-    ('block', b) passthroughs (headings, prose, boundaries, code...)."""
+    ('block', b) passthroughs (headings, prose, boundaries, code,
+    standalone images...)."""
     run = []
     for b in blocks:
         if (b.get("kind") in ITEMISH_KINDS and not is_boundary(b)
-                and not is_prose(b)):
+                and not is_prose(b) and not _standalone_image(b)):
             run.append(b)
         else:
             if run:
