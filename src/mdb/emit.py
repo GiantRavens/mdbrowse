@@ -117,6 +117,28 @@ def _region_links(blocks: list) -> str:
     return "\n".join(lines)
 
 
+def _menu_links(doc: dict, nav_blocks: list) -> str:
+    """The menu appendix, merged from two sources deduped by href:
+    the walker's visibility-independent nav harvest (doc['navLinks'] —
+    the complete map, including hamburger-collapsed drawers the mobile
+    profile paints as display:none), then any visible nav-region links
+    the harvest missed (header links on sites with no semantic <nav>)."""
+    seen, lines = set(), []
+    for l in doc.get("navLinks") or []:
+        href, text = l.get("href"), l.get("text")
+        if not href or not text or href in seen:
+            continue
+        seen.add(href)
+        lines.append(f"- [{text}]({href})")
+    for b in nav_blocks:
+        for l in b.get("links") or []:
+            if l["href"] in seen:
+                continue
+            seen.add(l["href"])
+            lines.append(f"- [{l['text']}]({l['href']})")
+    return "\n".join(lines)
+
+
 def _assemble(parts: list) -> str:
     out, prev_kind = [], None
     for kind, text in parts:
@@ -259,7 +281,11 @@ def emit_body(bundle: dict, manifest) -> str:
     if body:
         out.append(body)
     for lm in _CHROME_LANDMARKS:
-        links = _region_links(chrome[lm])
+        # The menu draws on the visibility-independent nav harvest so a
+        # hamburger-collapsed primary menu still lands in the appendix;
+        # sidebar/footer stay render-faithful (visible blocks only).
+        links = (_menu_links(doc, chrome[lm]) if lm == "nav"
+                 else _region_links(chrome[lm]))
         if links:
             out.append(f"---\n\n## {_REGION_TITLES[lm]}\n\n{links}")
 

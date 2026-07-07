@@ -91,6 +91,15 @@ SITES = [
          why="Akamai/EdgeSuite explicit Access Denied page — must classify "
              "as a wall with the vendor/reason, not as a thin generic page",
          shape="wall", contains=["explicit access-denied page", "edgesuite"]),
+    dict(name="congruity", url="https://www.congruity360.com",
+         why="hamburger-collapsed primary nav: the default iPhone profile "
+             "paints the mega-menu display:none, so the walker's "
+             "visibility-independent nav harvest must still land the full "
+             "menu in the ⋯ menu appendix (deep items appear ONLY via the "
+             "harvest — they are hidden at phone width)",
+         contains=["## ⋯ menu", "Enterprise Insights",
+                   "Intelligent Cloud Migrations"],
+         min_links=20),
     dict(name="reddit", url="https://www.reddit.com/r/programming",
          why="reddit .json fast path (cookies) or old.reddit fallback — a "
              "subreddit must read as a feed of linked posts, browser-free "

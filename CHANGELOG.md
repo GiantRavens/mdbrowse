@@ -2,6 +2,44 @@
 
 All notable changes to mdbrowse. Newest first.
 
+
+## 2026-07-06 — Skip-link suppression (2.0.0a7 wave)
+
+"Skip to content" (WCAG bypass-blocks link) leaked in as a stray first
+line — often promoted to a heading (github, bbc). It's visually hidden
+OFF-SCREEN (clip / `position:absolute; left:-9999px`), which `hidden()`'s
+display/opacity/aria test doesn't catch. The walker now drops it on two
+signals together: structural (a same-page `#`-fragment anchor) AND
+lexical (short `^skip to …`) — both required, so prose like "Skip to the
+recipe" and long sentences survive. Applied at the heading and leaf
+branches. Fixtures unchanged (walker doesn't re-run on frozen bundles;
+the bbc golden keeps its historical snapshot).
+
+## 2026-07-06 — The menu was there all along (2.0.0a7 wave)
+
+congruity360.com's `⋯ menu` appendix showed two links (logo + "Let's
+Talk") while the real 30-item navigation was missing. Not a bug — a
+profile consequence: mdb captures as an iPhone (small pages, Safari-
+cookie match, walls clear for a self-consistent mobile identity), and
+responsive sites collapse their primary menu into a `display:none`
+hamburger drawer at phone width. The walker's `hidden()` rightly drops
+it from the body — pixels are the judge there.
+
+But the menu appendix was never a faithful render: it already demotes
+nav to a flat, deduped link list at the tail. So the fix scopes to it
+alone. The walker now runs a visibility-independent harvest over
+`nav,[role=navigation]` anchors — deduped by href, labels
+de-concatenated (mega-menus stack title+`<span class=menu-description>`
+inside one `<a>`; the anchor's direct text nodes are the title),
+capped at 60. `emit._menu_links` merges the harvest with visible
+nav-region links (header links on sites with no semantic `<nav>`).
+Body stays render-faithful to mobile; only the menu gains the hidden
+links. Fixes the whole hamburger-nav cohort, not just this host — no
+per-site `DESKTOP_HOSTS` patch, no desktop re-fetch. Old bundles
+(no `navLinks`) fall back to region links, so fixtures are unchanged.
+Gate row `congruity` guards it (deep items "Enterprise Insights",
+"Intelligent Cloud Migrations" appear ONLY via the harvest).
+
 ## 2026-07-05 — Walls classify; --headed walks through them (2.0.0a7 wave)
 
 wsj.com rendered as a silent one-line ghost. Now: new shape `wall` —

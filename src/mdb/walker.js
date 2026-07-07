@@ -290,6 +290,19 @@
     return false;
   }
 
+  // WCAG "skip to content" bypass links: a same-page fragment anchor,
+  // visually hidden OFF-SCREEN (clip / position:absolute left:-9999px),
+  // which hidden()'s display/opacity/aria test doesn't catch — so it
+  // leaks in as a stray "Skip to content" line (often the page's first).
+  // Drop it on BOTH signals together: structural (fragment target) AND
+  // lexical (short "skip to …"), so real prose like "Skip to the recipe"
+  // (no fragment anchor) and long sentences are left untouched.
+  function isSkipLink(el) {
+    const a = el.tagName === "A" ? el : el.querySelector("a[href^='#']");
+    if (!a || !(a.getAttribute("href") || "").startsWith("#")) return false;
+    const t = (el.textContent || "").replace(/\s+/g, " ").trim();
+    return t.length <= 40 && /^skip\s+(to|past|navigation|main)\b/i.test(t);
+  }
 
   function listDepth(el) {
     let d = 0, p = el.parentElement;
@@ -309,6 +322,7 @@
     const h = tag.match(/^H([1-6])$/);
     const ariaHeading = el.getAttribute("role") === "heading";
     if (h || ariaHeading) {
+      if (isSkipLink(el)) return;
       const s = serialize(el);
       if (s.md) push(el, st, r, {
         kind: "heading",
@@ -427,6 +441,7 @@
     }
 
     if (!hasBlockChild(el)) {
+      if (isSkipLink(el)) return;
       const s = serialize(el);
       if (s.md) push(el, st, r, { kind: "p", md: s.md,
                                   links: s.links, images: s.images });
@@ -440,6 +455,55 @@
   function escTextKeep(s) { return s.replace(/([\\`*_[\]])/g, "\\$1"); }
 
   visit(document.body);
+
+  // Navigation harvest: the menu appendix is a navigation *affordance*,
+  // not a faithful render — it already demotes nav to a flat link list at
+  // the tail, deduped and reordered. So it collects links from semantic
+  // nav landmarks REGARDLESS of visibility. Responsive sites collapse
+  // their primary menu into a display:none hamburger drawer at phone width
+  // (mdb's default iPhone profile); hidden() rightly drops it from the
+  // body, but those links are exactly what a reader wants for navigation.
+  // Deduped by href; labels de-concatenated (mega-menus stack title+desc
+  // inside one <a>, so the first text-bearing child is the title); capped
+  // so a pathological mega-menu can't bloat the tail.
+  const NAV_CAP = 60;
+  function navLabel(a) {
+    const aria = (a.getAttribute("aria-label") || "").trim();
+    if (aria) return aria;
+    // Mega-menus put the title as the anchor's own text and the blurb in
+    // a child <span class="menu-description"> — so the anchor's DIRECT
+    // text nodes are the title (<a>Enterprise Insights<span>blurb</span>).
+    let direct = "";
+    for (const n of a.childNodes)
+      if (n.nodeType === Node.TEXT_NODE) direct += n.data;
+    direct = direct.replace(/\s+/g, " ").trim();
+    if (direct) return direct;
+    // Title-in-span layouts: first text-bearing child element.
+    for (const c of a.children) {
+      if (KILL.has(c.tagName.toUpperCase())) continue;
+      const t = (c.textContent || "").replace(/\s+/g, " ").trim();
+      if (t) return t;
+    }
+    const own = (a.textContent || "").replace(/\s+/g, " ").trim();
+    if (own) return own;
+    const img = a.querySelector("img[alt]");   // logo-only nav links
+    return img ? (img.getAttribute("alt") || "").trim() : "";
+  }
+  const navLinks = [];
+  const navSeen = new Set();
+  for (const nav of document.querySelectorAll("nav,[role=navigation]")) {
+    if (policyKill(nav)) continue;
+    for (const a of nav.querySelectorAll("a[href]")) {
+      const href = cardHref(a.getAttribute("href"));
+      if (!href || navSeen.has(href)) continue;
+      const label = escText(navLabel(a)).trim();
+      if (!label) continue;
+      navSeen.add(href);
+      navLinks.push({ text: label, href: href });
+      if (navLinks.length >= NAV_CAP) break;
+    }
+    if (navLinks.length >= NAV_CAP) break;
+  }
 
   const interactive = document.querySelectorAll(
     "button,input,select,textarea,[role=button],[contenteditable=true]").length;
@@ -483,6 +547,7 @@
     })(),
     iframes: iframes,
     policyKilled: policyKilled,
+    navLinks: navLinks,
     blocks: blocks,
   };
 }
