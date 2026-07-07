@@ -1,0 +1,59 @@
+{
+ "doc": {
+  "anchors": 4,
+  "blocks": [
+   {
+    "images": [],
+    "kind": "heading",
+    "landmark": "main",
+    "level": 1,
+    "links": [],
+    "md": "jack (@jack)"
+   },
+   {
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "_Mar 21, 2006 · X_"
+   },
+   {
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "just setting up my twttr"
+   },
+   {
+    "images": [],
+    "kind": "p",
+    "landmark": "main",
+    "links": [],
+    "md": "_Replies 17,946 · Likes 307,890_"
+   }
+  ],
+  "challenge": "",
+  "description": "just setting up my twttr",
+  "docHeight": 0,
+  "feeds": [],
+  "iframes": [],
+  "interactive": 0,
+  "lang": "en",
+  "textLen": 24,
+  "title": "jack on X: “just setting up my twttr”",
+  "url": "https://x.com/jack/status/20",
+  "viewport": [
+   980,
+   1200
+  ]
+ },
+ "meta": {
+  "elapsed_ms": 0,
+  "extractor": "2.0.0a7",
+  "fetched_at": "2026-07-07T10:46:44-05:00",
+  "mode": "authenticated",
+  "requested_url": "https://x.com/jack/status/20",
+  "source": "x-syndication",
+  "url": "https://x.com/jack/status/20"
+ }
+}

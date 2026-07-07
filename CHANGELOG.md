@@ -2,6 +2,26 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-07 — X status pages via the syndication side door (2.0.0a7 wave)
+
+X status pages read as "numbers without context" — `17K 131K 307K 21K`
+with no labels. Investigated: not a wall (they extract at feed/0.9/0.91
+coverage), but the engagement nouns live only in SVG icons the walker
+strips, the SPA hydrates nondeterministically (heading-vs-paragraph,
+metrics present-or-not per load), and the headless *desktop* profile gets
+a ~551-char shell — so a bigger viewport makes X worse. When the DOM is
+the wrong substrate, use a different one: X's own public embed API,
+`cdn.syndication.twimg.com/tweet-result?id=<id>` (login-free, cookieless,
+deterministic, *labeled*), is the exact analogue of reddit's `.json` fast
+path. New `x.py` builds a bundle from it — H1 author, date, linkified text
+(t.co expanded, @mentions/#hashtags linked), inline media, and the counts
+as one honest line (`Replies 17,946 · Likes 307,890` — only the metrics
+the payload carries, never a faked 0). Wired into `capture.py` beside the
+reddit hook; `/status/<id>` only, everything else (profiles, deleted-tweet
+HTML tombstones, `--private` needs none since it's cookieless) falls
+through to the walker. Fixture `x-status` + a network-free `x-adapter`
+gate check (routing, labeled counts, linkify) guard it. Spec:
+docs/x-adapter.md.
 
 ## 2026-07-06 — Skip-link suppression (2.0.0a7 wave)
 

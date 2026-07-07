@@ -545,6 +545,17 @@ class Engine:
             if rb is not None:
                 return rb
 
+        # X status fast path: the public syndication JSON, browser-free.
+        # Same seam as reddit — a status page becomes a labeled article;
+        # non-status X surfaces and gone tweets return None → walker.
+        if not self._headed and not wait_selector and not screenshot_path:
+            from .x import is_x_status, x_bundle
+            xid = is_x_status(url)
+            if xid:
+                xb = x_bundle(url, xid, private=self._private)
+                if xb is not None:
+                    return xb
+
         self._ensure()
         url = self._resolve_target(url)
         page = self._context.new_page()

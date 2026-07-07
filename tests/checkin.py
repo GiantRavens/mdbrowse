@@ -198,7 +198,45 @@ def offline_gate() -> bool:
     print("phase 0 — offline fixture corpus")
     ok = selftest() == 0
     ok = _policy_sanity() and ok
+    ok = _x_adapter_sanity() and ok
     return ok
+
+
+def _x_adapter_sanity() -> bool:
+    """The X syndication adapter's parsing, network-free: routing, labeled
+    counts (no faked zeros), entity linkification, and rejection of a
+    non-Tweet payload (the HTML tombstone a gone tweet returns)."""
+    from mdb import x
+    bad = []
+    # routing: status ids in, non-status / non-X out
+    if x.is_x_status("https://x.com/jack/status/20") != "20":
+        bad.append("route: missed /status/20")
+    if x.is_x_status("https://twitter.com/i/web/status/99") != "99":
+        bad.append("route: missed /i/web/status")
+    if x.is_x_status("https://x.com/jack") is not None:
+        bad.append("route: profile should be None")
+    if x.is_x_status("https://example.com/a/status/1") is not None:
+        bad.append("route: non-X host should be None")
+    # labeled counts, and a missing metric omitted (never faked 0)
+    if x._counts_line({"conversation_count": 5, "favorite_count": 1000}) \
+            != "Replies 5 · Likes 1,000":
+        bad.append("counts: label/format wrong")
+    if x._counts_line({"favorite_count": None}) != "":
+        bad.append("counts: missing metric not omitted")
+    # linkification: mention, hashtag, t.co expansion
+    md = x._linkify("hi @bob #cool https://t.co/abc", {"urls": [
+        {"url": "https://t.co/abc", "expanded_url": "https://e.com/p",
+         "display_url": "e.com/p"}]})
+    for needle in ("[@bob](https://x.com/bob)",
+                   "[#cool](https://x.com/hashtag/cool)",
+                   "[e.com/p](https://e.com/p)"):
+        if needle not in md:
+            bad.append(f"linkify: missing {needle!r}")
+    if bad:
+        print("  x-adapter: FAIL " + "; ".join(bad))
+        return False
+    print("  x-adapter: OK (routing, labeled counts, linkify)")
+    return True
 
 
 def _policy_sanity() -> bool:
