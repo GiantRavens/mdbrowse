@@ -57,6 +57,7 @@ HELP_LINES = (
     "  F                open the page's RSS feed (when advertised)",
     "  f                fill the page's search form and go (GET forms)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
+    "  C                retry current page through a headed browser for mdb",
     "  B                add page to Safari Reading List",
     "  :                omnibox — URLs navigate, anything else searches",
     "                   (MDBROWSE_SEARCH_URL; also 'ddg t', safari:start, feed:)",
@@ -508,13 +509,42 @@ class Reader:
         self.msg = ""
         self._say = None            # active `say` process, if any
         self._assist = None         # last LLM answer, shown as a page
+        self._headed_hosts = set()  # hosts trusted only through headed capture
 
     def _speech_stop(self):
         from . import speech
         speech.stop(self._say)
         self._say = None
 
+    def _host(self, url: str) -> str:
+        return (urlparse(url).hostname or "").lower()
+
+    def _wants_headed(self, url: str) -> bool:
+        return self._host(url) in self._headed_hosts
+
+    def _remember_headed(self, url: str) -> None:
+        host = self._host(url)
+        if host:
+            self._headed_hosts.add(host)
+
     # -- pipeline --
+    def _add_refusal_exits(self, body: str, manifest) -> str:
+        if manifest.shape not in ("app", "wall"):
+            return body
+        lines = [
+            "\n\n---\n\n",
+            "**From here you can:**\n\n",
+            "- press `O` — open this page in your browser",
+        ]
+        if manifest.shape == "wall":
+            lines.append(
+                "- press `C` — retry mdb capture headed, then keep headed for this host")
+        lines.extend([
+            "- press `:` and type search terms — search the web",
+            "- press `H` — go back",
+        ])
+        return body + "\n".join(lines)
+
     def load(self, url: str) -> Page:
         if url == "assist:last" and self._assist is not None:
             return self._assist
@@ -532,29 +562,55 @@ class Reader:
             b = self.engine.capture(url)
             m = classify(b)
             body = emit_body(b, m)
-            if m.shape in ("app", "wall"):
-                # The classified refusal must not be a dead end: the reader
-                # itself has the exits. (Frontend hint only — the emitted
-                # document, archives, and hashes stay untouched.)
-                body += (
-                    "\n\n---\n\n"
-                    "**From here you can:**\n\n"
-                    "- press `O` — open this page in your browser\n"
-                    "- press `:` and type search terms — search the web\n"
-                    "- press `H` — go back"
-                )
+            # The classified refusal must not be a dead end: the reader
+            # itself has the exits. (Frontend hint only — the emitted
+            # document, archives, and hashes stay untouched.)
+            body = self._add_refusal_exits(body, m)
             page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
         page.llines, page.focusables = parse_body(body)
         return page
 
-    def _load_animated(self, scr, url: str) -> Page:
+    def load_headed_once(self, url: str) -> Page:
+        # The reader's normal engine already owns a sync Playwright
+        # runtime on self._exec's thread. Starting a second sync runtime
+        # on that same thread trips Playwright's "inside asyncio loop"
+        # guard, so the headed retry gets its own short-lived thread.
+        import threading
+        box = {}
+
+        def work():
+            try:
+                with Engine(private=self.private, headed=True) as eng:
+                    box["bundle"] = eng.capture(url)
+            except BaseException as e:
+                box["error"] = e
+
+        th = threading.Thread(target=work, daemon=True,
+                              name="mdb-headed-retry")
+        th.start()
+        th.join(70)
+        if th.is_alive():
+            raise RuntimeError("headed retry timed out")
+        if "error" in box:
+            raise box["error"]
+        b = box["bundle"]
+        b.setdefault("meta", {})["headed_fallback"] = True
+        b["meta"]["fallback_reason"] = "reader_key_C"
+        m = classify(b)
+        body = self._add_refusal_exits(emit_body(b, m), m)
+        page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
+        page.llines, page.focusables = parse_body(body)
+        return page
+
+    def _load_animated(self, scr, url: str, headed: bool = False) -> Page:
         """Load in a worker thread while the status bar shows a live
         spinner and elapsed seconds — the capture can take seconds
         (render, settle, section-expand) and a frozen 'loading …' line
         reads as a hang. Returns the Page, or an error_page on failure."""
         import time as _t
         from concurrent.futures import TimeoutError as _FutTimeout
-        fut = self._exec.submit(self.load, url)   # runs on the engine thread
+        loader = self.load_headed_once if headed else self.load
+        fut = self._exec.submit(loader, url)   # runs on the engine thread
         spin = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
         t0, i = _t.monotonic(), 0
         h, w = scr.getmaxyx()
@@ -569,7 +625,9 @@ class Reader:
             el = _t.monotonic() - t0
             note = "" if el < 3 else ("  (slow site — still trying)"
                                       if el < 12 else "  (heavy page — hang on)")
-            line = f" {spin[i % len(spin)]} loading {short}  {el:0.0f}s{note}"
+            mode = "headed " if headed else ""
+            line = (f" {spin[i % len(spin)]} loading {mode}{short}  "
+                    f"{el:0.0f}s{note}")
             try:
                 scr.addstr(h - 1, 0, line[:w - 1].ljust(w - 1), curses.A_REVERSE)
                 scr.refresh()
@@ -618,11 +676,18 @@ class Reader:
         os.write(1, b"\x1b[?1000;1006h")
 
         current = self.start_url
+        next_headed = False
         while True:
             try:
-                self.page = self._load_animated(scr, current)
+                headed = next_headed or self._wants_headed(current)
+                next_headed = False
+                self.page = self._load_animated(scr, current,
+                                                headed=headed)
                 current = self.page.url
                 hints = []
+                if headed and self.page.bundle:
+                    self._remember_headed(current)
+                    hints.append(f"headed: {self._host(current)}")
                 if self.page.bundle:
                     if self.page.bundle["doc"].get("feeds"):
                         hints.append("RSS: F")
@@ -648,11 +713,13 @@ class Reader:
             elif action == "forward":
                 self.history.append(current)
                 current = self.forward.pop()
+            elif action == "headed":
+                next_headed = True
             # "reload": fall through with same URL
 
     def _view(self, scr):
         """Show self.page; return None to quit, ('go', url), ('back', None),
-        or ('reload', None)."""
+        ('headed', url), or ('reload', None)."""
         page = self.page
         h, w = scr.getmaxyx()
 
@@ -924,6 +991,11 @@ class Reader:
                 app = open_in_browser(page.url)
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
+                continue
+            if c == ord("C"):
+                if page.url.startswith(("http://", "https://")):
+                    return ("headed", page.url)
+                self.msg = "not a web page"
                 continue
             if c == ord("f"):                # fill the page's GET form
                 forms = [b for b in (page.bundle["doc"].get("blocks", [])

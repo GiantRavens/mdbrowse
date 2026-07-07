@@ -27,7 +27,7 @@
   const KILL = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "SVG",
                         "IFRAME", "LINK", "META", "CANVAS", "VIDEO", "AUDIO",
                         "OBJECT", "EMBED", "MAP", "DIALOG"]);
-  const BLOCKISH = new Set(["block", "flex", "grid", "table", "table-row",
+  const BLOCKISH = new Set(["block", "contents", "flex", "grid", "table", "table-row",
                             "table-cell", "table-row-group", "list-item",
                             "flow-root"]);
   const blocks = [];
@@ -276,9 +276,20 @@
       if (KILL.has(c.tagName.toUpperCase())) continue;
       const st = style(c);
       if (st && BLOCKISH.has(st.display)) return true;
+      // Custom element regions sometimes report display:inline even while
+      // painting full-width, multi-section boxes (NetApp's
+      // <n-main-content-region>, <n-hero-region>). Treat rendered geometry
+      // as the structural truth; otherwise the whole page becomes one
+      // 6,000px paragraph before Python can format it.
+      if (st && c.tagName.includes("-") && c.children.length) {
+        const r = c.getBoundingClientRect();
+        const fs = parseFloat(st.fontSize) || 16;
+        if (r.width > VPW * 0.45 && r.height > fs * 3) return true;
+      }
     }
     return false;
   }
+
 
   function listDepth(el) {
     let d = 0, p = el.parentElement;

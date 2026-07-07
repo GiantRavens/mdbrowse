@@ -66,6 +66,11 @@ def _strip_front_matter(doc_md: str) -> str:
     return doc_md[m.end():] if m else doc_md
 
 
+def _should_retry_headed(manifest) -> bool:
+    return (manifest.shape == "wall"
+            and manifest.signals.get("wall_reason") == "access_denied")
+
+
 def selftest(update: bool = False) -> int:
     bundles = sorted(glob.glob(os.path.join(FIXTURE_DIR, "*.bundle.json")))
     if not bundles:
@@ -213,6 +218,10 @@ def main() -> None:
                     help="capture through a visible browser window — "
                          "verification walls (wall shape) usually trust "
                          "a real headed session")
+    ap.add_argument("--fallback-headed", action="store_true",
+                    help="if headless capture returns an explicit "
+                         "access-denied wall, retry once through a visible "
+                         "browser window")
     ap.add_argument("--raw", action="store_true",
                     help="print the full markdown document (front-matter + body)")
     ap.add_argument("--dump", choices=["bundle", "manifest", "body"],
@@ -293,6 +302,21 @@ def main() -> None:
         sys.exit(1)
 
     manifest = classify(b)
+    if (_should_retry_headed(manifest) and not args.headed
+            and (args.fallback_headed
+                 or os.environ.get("MDBROWSE_FALLBACK_HEADED", "").lower()
+                 in ("1", "true", "yes", "on"))):
+        print("mdb: access-denied wall in headless capture; retrying "
+              "with --headed", file=sys.stderr)
+        try:
+            b = capture(url, private=args.private, wait_selector=args.wait,
+                        headed=True)
+            b.setdefault("meta", {})["headed_fallback"] = True
+            b["meta"]["fallback_reason"] = "access_denied"
+            manifest = classify(b)
+        except Exception as e:
+            _err(f"headed fallback failed for {url}: {e}")
+            sys.exit(1)
 
     if args.dump == "bundle":
         json.dump(b, sys.stdout, ensure_ascii=False, indent=1)

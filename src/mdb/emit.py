@@ -145,9 +145,15 @@ def emit_body(bundle: dict, manifest) -> str:
     if shape == "wall":
         challenge = manifest.signals.get("challenge_iframes") or []
         cf = manifest.signals.get("challenge")
+        wall_reason = manifest.signals.get("wall_reason")
+        wall_vendor = manifest.signals.get("wall_vendor")
         if cf == "cloudflare":
             why = ("a Cloudflare bot-verification challenge ('Just a "
                    "moment…') that did not clear for this headless browser")
+        elif wall_reason == "access_denied":
+            vendor = f" ({wall_vendor})" if wall_vendor else ""
+            why = (f"the site served an explicit access-denied page{vendor} "
+                   "to this browser")
         elif challenge:
             why = ("a verification challenge is running in an iframe "
                    f"({challenge[0].split('/')[2]}) that mdb does not enter")
@@ -157,9 +163,11 @@ def emit_body(bundle: dict, manifest) -> str:
         return (f"# {doc.get('title') or bundle['meta']['url']}\n\n"
                 f"_Nothing rendered: {why}. Retry with `--headed` (a real "
                 f"browser window — verification walls usually clear for a "
-                f"headed session), or open the page in your browser; once "
-                f"the site trusts your session again, mdb browses with "
-                f"its cookies._")
+                f"headed session) or `--fallback-headed` (cheap headless "
+                f"first, headed only if access is denied). In the reader, "
+                f"`O` opens the page in your browser and `C` retries headed, "
+                f"then keeps headed capture for that host in this reader "
+                f"session._")
 
     body_blocks = [b for b in blocks if b.get("landmark") not in _CHROME_LANDMARKS]
     chrome = {lm: [b for b in blocks if b.get("landmark") == lm]
@@ -279,6 +287,9 @@ def emit(bundle: dict, manifest) -> str:
     # the per-host policy dropped (promoted posts, ad slots).
     if meta.get("policy_killed"):
         front["policy_killed"] = meta["policy_killed"]
+    if meta.get("headed_fallback"):
+        front["headed_fallback"] = True
+        front["fallback_reason"] = meta.get("fallback_reason", "")
     fm = "---\n" + "".join(f"{k}: {json.dumps(v, ensure_ascii=False)}\n"
                            for k, v in front.items()) + "---\n\n"
     return fm + body + "\n"

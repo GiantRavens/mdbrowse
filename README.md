@@ -56,6 +56,7 @@ mdb <url> --plain                    # non-interactive render (centered; --no-ce
 mdb <url> --raw                      # markdown document with front-matter
 mdb <url> --save                     # archive to ~/mdbrowse-archive
 mdb <url> --headed                   # visible real-Chrome window; verification walls (wall shape) trust it
+mdb <url> --fallback-headed          # retry headed only after an explicit access-denied wall
 mdb <url> --speak                    # the page talks (macOS say; --voice, MDBROWSE_VOICE)
 mdb <url> --speak-out article.aiff   # page as an audio file
 mdb search rust atomics              # web search (Mojeek; MDBROWSE_SEARCH_URL overrides)
@@ -99,7 +100,7 @@ predictable from what is visibly highlighted.
 | `F` | open the page's advertised RSS feed |
 | `S` / `a` | summarize / ask this page (Claude); answers are pages, `H` returns |
 | `v` | speak from the focused element (`v` again stops; `--announce` speaks on focus) |
-| `s` · `B` · `O` | archive · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) |
+| `s` · `B` · `O` · `C` | archive · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) · retry headed and keep headed for this host |
 | `:` | URL, `ddg terms`, `s terms`, `safari:start`, `feed:URL` |
 | `?` · `q` | help overlay · quit |
 

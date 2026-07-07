@@ -87,6 +87,10 @@ SITES = [
              "wait for it to clear, then render the real page (not the "
              "interstitial); if it ever stops clearing this flips to wall",
          contains=["Firearms"], min_chars=1500),
+    dict(name="netapp", url="https://netapp.com",
+         why="Akamai/EdgeSuite explicit Access Denied page — must classify "
+             "as a wall with the vendor/reason, not as a thin generic page",
+         shape="wall", contains=["explicit access-denied page", "edgesuite"]),
     dict(name="reddit", url="https://www.reddit.com/r/programming",
          why="reddit .json fast path (cookies) or old.reddit fallback — a "
              "subreddit must read as a feed of linked posts, browser-free "
@@ -114,6 +118,7 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
     """Structural expectations -> list of failure strings (empty = pass)."""
     fails = []
     lines = body.splitlines()
+    fails.extend(_markdown_lint_failures(lines))
     if "shape" in site and manifest.shape != site["shape"]:
         fails.append(f"shape: wanted {site['shape']}, got {manifest.shape} "
                      f"(conf {manifest.confidence})")
@@ -147,6 +152,33 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
         if not any(b.get("images") or b.get("kind") == "img"
                    for b in bundle["doc"]["blocks"]):
             fails.append("no images captured")
+    return fails
+
+
+def _markdown_lint_failures(lines: list) -> list:
+    """Catch collapsed visual sections without imposing hard-wrap style.
+
+    Long prose paragraphs are legitimate markdown. A single very long line
+    packed with many links/images is usually a walker miss: several cards,
+    sections, or footer columns serialized as one paragraph.
+    """
+    fails = []
+    in_code = False
+    for i, line in enumerate(lines, 1):
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        links = line.count("](")
+        images = line.count("![")
+        if len(line) > 1600:
+            fails.append(f"markdown lint: line {i} is {len(line)} chars")
+        elif len(line) > 900 and (links >= 12 or images >= 4):
+            fails.append(
+                f"markdown lint: line {i} packs {links} links/{images} images")
+        if fails:
+            break
     return fails
 
 

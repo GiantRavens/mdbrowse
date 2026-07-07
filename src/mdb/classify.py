@@ -10,9 +10,10 @@ Shapes:
   feed     run of link-led items (HN, blog index) -> one bullet per item
   page     mixed/unknown document           -> generic: everything, in order
   app      thin text, dense interactivity   -> classified refusal
-  wall     nothing rendered at all          -> classified refusal (bot
-           challenge / verification interstitial; the giveaway is a
-           captcha-delivery iframe over an empty body — wsj.com's DataDome)
+  wall     hostile/non-document response    -> classified refusal (bot
+           challenge / verification interstitial; the giveaway may be a
+           captcha-delivery iframe over an empty body — wsj.com's DataDome —
+           or a tiny CDN "Access Denied" document — Akamai/EdgeSuite)
 """
 
 import re
@@ -43,6 +44,25 @@ def is_link_led(b: dict) -> bool:
     vis = visible_len(b.get("md", ""))
     link_len = sum(len(l["text"]) for l in links)
     return vis > 0 and link_len / vis >= 0.6
+
+
+def _wall_text(doc: dict, blocks: list) -> tuple:
+    title = (doc.get("title") or "").strip()
+    lines = [title]
+    lines.extend((b.get("md") or b.get("text") or "") for b in blocks)
+    text = "\n".join(lines)
+    folded = text.lower()
+    compact = re.sub(r"\s+", " ", folded)
+    if (re.search(r"\baccess denied\b|\brequest blocked\b|\bforbidden\b",
+                  folded)
+            and re.search(r"errors\.edgesuite\.net|akamai|reference #",
+                          folded)):
+        vendor = "edgesuite" if "errors.edgesuite.net" in folded else "akamai"
+        return ("access_denied", vendor)
+    if ("you don't have permission to access" in compact
+            and re.search(r"reference #|akamai|edgesuite", folded)):
+        return ("access_denied", "akamai")
+    return ("", "")
 
 
 def classify(bundle: dict) -> Manifest:
@@ -83,14 +103,21 @@ def classify(bundle: dict) -> Manifest:
         "anchors": doc.get("anchors", 0),
     }
 
-    # Wall: a verification interstitial, or nothing rendered at all. A
+    # Wall: a verification interstitial, explicit WAF/CDN refusal, or
+    # nothing rendered at all. A
     # silent one-line ghost is a lie; say what happened. A Cloudflare
     # "Just a moment…" that never cleared (walker.challenge) is a wall
     # even though it carries a few hundred chars of interstitial copy;
-    # so is an empty body with a captcha iframe.
+    # so is an empty body with a captcha iframe. Akamai/EdgeSuite denial
+    # pages render a few text blocks, but they are not documents.
     cf = doc.get("challenge")
     if cf and total_text < 600:
         signals["challenge"] = cf
+        return Manifest("wall", 0.9, signals)
+    wall_reason, wall_vendor = _wall_text(doc, blocks)
+    if wall_reason and total_text < 1200 and doc.get("anchors", 0) <= 3:
+        signals["wall_reason"] = wall_reason
+        signals["wall_vendor"] = wall_vendor
         return Manifest("wall", 0.9, signals)
     if total_text < 40 and doc.get("anchors", 0) <= 2 and interactive <= 2:
         challenge = [f for f in doc.get("iframes", [])
