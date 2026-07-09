@@ -1,6 +1,8 @@
 <!-- shape: feed -->
 # Breaking News, Latest News and Videos | CNN
 
+⌗ Search CNN...  ____________________________  [ Search ]
+
 - Live Updates ![The French Air Force acrobatic squad Patrouille de France perform a flyover during the International Aerial Review, Saturday, July 4, 2026, in New York.](https://www.cnn.com/media/sites/cnn/cnn-fallback-image.jpg) America celebrates its 250th birthday
 
 - [Analysis for Subscribers The World Cup reshapes how Americans — and the world — see the US](https://www.cnn.com/2026/07/04/politics/world-cup-america-250-july-4-analysis)

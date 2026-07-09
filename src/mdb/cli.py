@@ -165,10 +165,11 @@ def main() -> None:
         sys.exit(doctor_cli(sys.argv[2:]))
     if len(sys.argv) > 2 and sys.argv[1] == "feed":
         sys.argv = [sys.argv[0], "feed:" + sys.argv[2]] + sys.argv[3:]
-    if len(sys.argv) > 1 and sys.argv[1] in ("ddg", "search"):
+    search_commands = ("ddg", "ddg-html", "mojeek", "search")
+    if len(sys.argv) > 1 and sys.argv[1] in search_commands:
         # `mdb ddg rust atomics` -> rewrite argv to the results URL and fall
         # through to the normal pipeline, so every flag still applies.
-        from .search import ddg_url, search_url
+        from .search import provider_url, search_url
         rest = sys.argv[2:]
         cut = next((i for i, a in enumerate(rest) if a.startswith("-")),
                    len(rest))
@@ -176,8 +177,10 @@ def main() -> None:
         if not terms:
             print("mdb: search needs query terms", file=sys.stderr)
             sys.exit(2)
-        build = ddg_url if sys.argv[1] == "ddg" else search_url
-        sys.argv = [sys.argv[0], build(" ".join(terms))] + flags
+        query = " ".join(terms)
+        url = (search_url(query) if sys.argv[1] == "search"
+               else provider_url(sys.argv[1], query))
+        sys.argv = [sys.argv[0], url] + flags
 
     ap = argparse.ArgumentParser(
         prog="mdb",

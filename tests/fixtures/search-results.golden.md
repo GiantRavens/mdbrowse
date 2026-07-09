@@ -1,6 +1,8 @@
 <!-- shape: page -->
 # freebsd ate my ram - Mojeek Search
 
+⌗ Search The Web using Mojeek...  ____________________________  [ Search ]
+
 [![Mojeek](https://www.mojeek.com/logos/logo_cc.svg)](https://www.mojeek.com/) ✕
 
 [Web](https://www.mojeek.com/search?q=freebsd+ate+my+ram) [Summary](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=summary) [Images](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=images) [News](https://www.mojeek.com/search?q=freebsd+ate+my+ram&fmt=news)

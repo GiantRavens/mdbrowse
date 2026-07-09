@@ -12,8 +12,9 @@ import os
 import re
 from urllib.parse import urlparse
 
-ARCHIVE_DIR = os.path.expanduser(
-    os.environ.get("MDBROWSE_ARCHIVE", "~/mdbrowse-archive"))
+from .paths import data_path
+
+ARCHIVE_DIR = data_path("archive", "MDBROWSE_ARCHIVE")
 
 _FM = re.compile(r"(?s)^---\n(.*?)\n---\n")
 

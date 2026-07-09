@@ -1,41 +1,60 @@
 """Search shortcuts — lynx mode, phase 1.
 
-Most "I need the form" moments are search, and DuckDuckGo ships
-endpoints designed for exactly this client: html.duckduckgo.com is
-server-rendered, no JS wall, results as plain anchors. So search needs
-zero new architecture — it's URL construction.
+Most "I need the form" moments are search. The reader's `:s terms`
+path stays URL-shaped so it can reuse the normal capture pipeline, but
+the provider is deliberately user-selectable:
 
-Reality check (2026-07): DDG currently anomaly-blocks headless engines
-(202 challenge on /html/ and /lite/), so the generic 's' verb defaults
-to Mojeek — independent, server-rendered, renders as clean one-line
-results through our pipeline. 'ddg' stays wired: it may recover, and it
-works from friendlier networks. MDBROWSE_SEARCH_URL (template with {q},
-e.g. "https://kagi.com/search?q={q}") overrides the 's' engine.
+    MDBROWSE_SEARCH_ENGINE=duckduckgo|mojeek|ddg-html
+    MDBROWSE_SEARCH_URL="https://kagi.com/search?q={q}"
+
+The named engine keeps the common case readable; the URL template is the
+escape hatch for anything with a `q`-style query parameter.
 """
 
 import os
 import re
 from urllib.parse import quote_plus
 
-DDG_HTML = "https://html.duckduckgo.com/html/?q={q}"
-SEARCH_DEFAULT = "https://www.mojeek.com/search?q={q}"
+SEARCH_ENGINES = {
+    "duckduckgo": "https://duckduckgo.com/?q={q}",
+    "ddg": "https://duckduckgo.com/?q={q}",
+    "ddg-html": "https://html.duckduckgo.com/html/?q={q}",
+    "mojeek": "https://www.mojeek.com/search?q={q}",
+}
+SEARCH_DEFAULT_ENGINE = "duckduckgo"
+
+
+def _template_for(engine: str) -> str:
+    return SEARCH_ENGINES.get(engine.strip().lower(),
+                              SEARCH_ENGINES[SEARCH_DEFAULT_ENGINE])
 
 
 def ddg_url(query: str) -> str:
-    return DDG_HTML.format(q=quote_plus(query.strip()))
+    return provider_url("duckduckgo", query)
+
+
+def provider_url(engine: str, query: str) -> str:
+    return _template_for(engine).format(q=quote_plus(query.strip()))
 
 
 def search_url(query: str) -> str:
-    template = os.environ.get("MDBROWSE_SEARCH_URL", SEARCH_DEFAULT)
+    template = os.environ.get("MDBROWSE_SEARCH_URL")
+    if not template:
+        engine = os.environ.get("MDBROWSE_SEARCH_ENGINE",
+                                SEARCH_DEFAULT_ENGINE)
+        template = _template_for(engine)
     return template.format(q=quote_plus(query.strip()))
 
 
 def resolve_prompt(text: str):
-    """Prompt sugar: 'ddg terms' / 's terms' -> a results URL.
+    """Prompt sugar: 'ddg terms' / 'mojeek terms' / 's terms' -> a results URL.
     Returns None when the input isn't an explicit search."""
     t = text.strip()
-    if t.lower().startswith("ddg ") and t[4:].strip():
-        return ddg_url(t[4:])
+    lower = t.lower()
+    for engine in sorted(SEARCH_ENGINES, key=len, reverse=True):
+        prefix = engine + " "
+        if lower.startswith(prefix) and t[len(prefix):].strip():
+            return provider_url(engine, t[len(prefix):])
     if t.lower().startswith("s ") and t[2:].strip():
         return search_url(t[2:])
     return None

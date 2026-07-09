@@ -1,6 +1,8 @@
 <!-- shape: feed -->
 # Hacker News
 
+⌗ q  ____________________________  [ Search ]
+
 - [![](https://news.ycombinator.com/y18.svg)](https://news.ycombinator.com/) **[Hacker News](https://news.ycombinator.com/news)** [new](https://news.ycombinator.com/newest) | [threads](https://news.ycombinator.com/threads?id=idrock) | [past](https://news.ycombinator.com/front) | [comments](https://news.ycombinator.com/newcomments) | [ask](https://news.ycombinator.com/ask) | [show](https://news.ycombinator.com/show) | [jobs](https://news.ycombinator.com/jobs) | [submit](https://news.ycombinator.com/submit) [idrock](https://news.ycombinator.com/user?id=idrock) (3) | [logout](https://news.ycombinator.com/logout?auth=418a5276a0662a13d37220a5479411b5b01def8e&goto=news)
 
 - 1. [Leaking YouTube creators' private videos](https://javoriuski.com/post/youtube) ([javoriuski.com](https://news.ycombinator.com/from?site=javoriuski.com)) — 250 points by [javxfps](https://news.ycombinator.com/user?id=javxfps) [2 hours ago](https://news.ycombinator.com/item?id=48786781) | [hide](https://news.ycombinator.com/hide?id=48786781&auth=c0320537836b09df5f9a8f2944cfc59a0b49651b&goto=news) | [117 comments](https://news.ycombinator.com/item?id=48786781)

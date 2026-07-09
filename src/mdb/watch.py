@@ -4,9 +4,10 @@ Sensor-framework shape: each watched URL is a sensor; `mdb watch scan` is
 the scan; each result is a reading (ok / changed / error) with the diff as
 its sample and the snapshot path as its remediation pointer.
 
-Store: a git repository (~/mdbrowse-watch, $MDBROWSE_WATCH_DIR). One
-markdown document per watch, rewritten ONLY when content changes, then
-committed — `git log -p <name>.md` is the page's full change history.
+Store: a git repository in the platform user-data directory
+($MDBROWSE_WATCH_DIR overrides). One markdown document per watch,
+rewritten ONLY when content changes, then committed — `git log -p
+<name>.md` is the page's full change history.
 
 The change trigger is a **text hash**: the body with link/image URLs
 stripped. Pages like HN rotate per-session auth tokens inside hrefs on
@@ -27,9 +28,9 @@ import time
 from .capture import Engine
 from .classify import classify
 from .emit import emit, emit_body
+from .paths import data_path
 
-WATCH_DIR = os.path.expanduser(
-    os.environ.get("MDBROWSE_WATCH_DIR", "~/mdbrowse-watch"))
+WATCH_DIR = data_path("watch", "MDBROWSE_WATCH_DIR")
 _CONFIG = "watches.json"
 
 

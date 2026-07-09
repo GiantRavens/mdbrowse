@@ -36,9 +36,168 @@ _PRIVACY_HEADERS = {"DNT": "1", "Sec-GPC": "1"}
 # Keep the projected identity internally consistent: hide the automation flag,
 # report Safari's vendor, iPhone-like touch points. Each guard defensive.
 _STEALTH_INIT_JS = """
-try { Object.defineProperty(navigator, 'webdriver', {get: () => undefined}); } catch (e) {}
+try { Object.defineProperty(navigator, 'webdriver', {get: () => false}); } catch (e) {}
 try { Object.defineProperty(navigator, 'vendor', {get: () => 'Apple Computer, Inc.'}); } catch (e) {}
 try { Object.defineProperty(navigator, 'maxTouchPoints', {get: () => 5}); } catch (e) {}
+// Realistic hardware — headless leaves deviceMemory undefined and ships one language;
+// real browsers report both. Cheap, high-signal consistency with the Mac-Safari costume.
+try { Object.defineProperty(navigator, 'deviceMemory', {get: () => 8}); } catch (e) {}
+try { Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']}); } catch (e) {}
+// WebGL vendor/renderer: headless reports 'SwiftShader' (software rendering) — the single
+// loudest bot tell. Report a Mac GPU consistent with the Safari UA instead.
+(function () {
+  const spoof = { 37445: 'Apple Inc.', 37446: 'Apple GPU' };   // UNMASKED_VENDOR / UNMASKED_RENDERER
+  for (const P of [window.WebGLRenderingContext && WebGLRenderingContext.prototype,
+                   window.WebGL2RenderingContext && WebGL2RenderingContext.prototype]) {
+    if (!P) continue;
+    const orig = P.getParameter;
+    P.getParameter = function (p) { return (p in spoof) ? spoof[p] : orig.call(this, p); };
+  }
+})();
+// Permissions API self-consistency: headless answers 'denied' for notifications while
+// Notification.permission is 'default' — detectors flag exactly that mismatch.
+(function () {
+  try {
+    const q = navigator.permissions && navigator.permissions.query;
+    if (q) navigator.permissions.query = (p) => (p && p.name === 'notifications')
+      ? Promise.resolve({ state: Notification.permission, onchange: null })
+      : q.call(navigator.permissions, p);
+  } catch (e) {}
+})();
+"""
+
+# Coherent CHROME identity for the headless path. The engine IS Chromium, so claiming Chrome
+# (not Safari) removes the whole class of Safari-UA-on-Blink contradictions detectors look for.
+# Platform-matched so UA / navigator.platform / GPU all agree. Chrome freezes the minor version
+# to 0.0.0. Paired with --headless=new (real plugins/window.chrome/pdfViewer — the full Chrome
+# surface old headless lacks) and a real-GPU WebGL spoof (headless renders with SwiftShader here).
+_CHROME_VER = "149.0.0.0"
+if sys.platform == "darwin":
+    _CHROME_PLATFORM_TOK = "Macintosh; Intel Mac OS X 10_15_7"
+    _WEBGL_VENDOR = "Google Inc. (Apple)"
+    _WEBGL_RENDERER = "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)"
+else:
+    _CHROME_PLATFORM_TOK = "X11; Linux x86_64"
+    _WEBGL_VENDOR = "Google Inc. (Intel)"
+    _WEBGL_RENDERER = ("ANGLE (Intel, Mesa Intel(R) UHD Graphics (CML GT2), "
+                       "OpenGL 4.6 (Core Profile) Mesa 23.2.1)")
+_CHROME_UA = (f"Mozilla/5.0 ({_CHROME_PLATFORM_TOK}) AppleWebKit/537.36 "
+              f"(KHTML, like Gecko) Chrome/{_CHROME_VER} Safari/537.36")
+
+# Chrome-coherent stealth: no Apple vendor / touch points (those were the Safari costume);
+# new-headless already supplies real plugins + window.chrome. We only mask the residual
+# headless tells: webdriver, absent deviceMemory, single language, SwiftShader GPU, and the
+# notifications permission mismatch.
+_STEALTH_DESKTOP = ("""
+try { Object.defineProperty(navigator, 'webdriver', {get: () => false}); } catch (e) {}
+try { Object.defineProperty(navigator, 'deviceMemory', {get: () => 8}); } catch (e) {}
+try { Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']}); } catch (e) {}
+(function () {
+  const spoof = { 37445: '__VENDOR__', 37446: '__RENDERER__' };
+  for (const P of [window.WebGLRenderingContext && WebGLRenderingContext.prototype,
+                   window.WebGL2RenderingContext && WebGL2RenderingContext.prototype]) {
+    if (!P) continue;
+    const o = P.getParameter;
+    P.getParameter = function (p) { return (p in spoof) ? spoof[p] : o.call(this, p); };
+  }
+})();
+(function () {
+  try {
+    const q = navigator.permissions && navigator.permissions.query;
+    if (q) navigator.permissions.query = (p) => (p && p.name === 'notifications')
+      ? Promise.resolve({ state: Notification.permission, onchange: null })
+      : q.call(navigator.permissions, p);
+  } catch (e) {}
+})();
+""".replace("__VENDOR__", _WEBGL_VENDOR).replace("__RENDERER__", _WEBGL_RENDERER))
+
+
+# Page-level quiet mode. Chromium's autoplay policy and request blocking stop the
+# expensive path, but this catches script-driven media elements and embedded data/blob
+# media before they can surprise a headed browser window with sound.
+_NO_AUTOPLAY_JS = r"""
+(() => {
+  const quiet = (el) => {
+    if (!el || !("pause" in el)) return;
+    try { el.muted = true; } catch (e) {}
+    try { el.autoplay = false; } catch (e) {}
+    try { el.removeAttribute("autoplay"); } catch (e) {}
+    try { el.preload = "none"; } catch (e) {}
+    try { el.pause(); } catch (e) {}
+  };
+  const scan = (root) => {
+    try {
+      if (!root) return;
+      if (root.matches && root.matches("video,audio")) quiet(root);
+      if (root.querySelectorAll) root.querySelectorAll("video,audio").forEach(quiet);
+    } catch (e) {}
+  };
+  document.addEventListener("play", (ev) => quiet(ev.target), true);
+  const startObserver = () => {
+    try {
+      new MutationObserver((muts) => {
+        for (const m of muts) {
+          if (m.type === "attributes") quiet(m.target);
+          for (const n of m.addedNodes || []) scan(n);
+        }
+      }).observe(document.documentElement || document, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["autoplay"],
+      });
+    } catch (e) {}
+  };
+  startObserver();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => scan(document), {once: true});
+  }
+  scan(document);
+})();
+"""
+
+
+# Extract the fillable forms on a page (list_forms / page_forms). Reports each <form>'s
+# method/action/fields, plus loose search boxes not wrapped in a <form> (JS search).
+_FORMS_JS = r"""
+() => {
+  const labelFor = (el) => {
+    if (el.id) { try { const l = document.querySelector('label[for="' + CSS.escape(el.id) + '"]'); if (l) return l.innerText.trim(); } catch (e) {} }
+    const lc = el.closest('label'); if (lc) return lc.innerText.trim();
+    return el.getAttribute('aria-label') || '';
+  };
+  const fieldsOf = (root) => Array.from(root.querySelectorAll('input,select,textarea'))
+    .filter(el => !['submit','button','image','reset','hidden'].includes((el.type||'').toLowerCase()))
+    .map(el => ({
+      name: el.name || el.id || '',
+      type: (el.type || el.tagName).toLowerCase(),
+      placeholder: el.placeholder || '',
+      label: (labelFor(el) || '').slice(0, 80),
+      required: !!el.required,
+      options: el.tagName === 'SELECT' ? Array.from(el.options).map(o => o.value).filter(Boolean).slice(0, 30) : undefined,
+    }))
+    .filter(x => x.name || x.placeholder || x.label);
+  const forms = Array.from(document.querySelectorAll('form')).map((f, i) => {
+    const sb = f.querySelector('[type=submit], button:not([type=button]):not([type=reset])');
+    return {
+      index: i,
+      action: f.action || location.href,
+      method: (f.getAttribute('method') || 'get').toUpperCase(),
+      name: f.getAttribute('name') || f.id || '',
+      submit_label: sb ? (sb.innerText || sb.value || 'Submit').trim().slice(0, 40) : '',
+      fields: fieldsOf(f),
+    };
+  }).filter(f => f.fields.length);
+  const loose = Array.from(document.querySelectorAll(
+      'input[type=search],input[name=q],input[name=query],input[name=s],input[role=searchbox]'))
+    .filter(el => !el.closest('form'))
+    .map(el => ({
+      index: -1, action: location.href, method: 'JS', name: '(loose search box)', submit_label: 'Enter',
+      fields: [{ name: el.name || el.id || '', type: 'search', placeholder: el.placeholder || '',
+                 label: (el.getAttribute('aria-label') || '').slice(0, 80), required: false }],
+    }));
+  return forms.concat(loose);
+}
 """
 
 TRACKER_HOSTS = (
@@ -448,7 +607,16 @@ class Engine:
         from playwright.sync_api import sync_playwright
         if self._pw is None:
             self._pw = sync_playwright().start()
-        args = []
+        # Anti-fingerprint baseline (every mode): AutomationControlled is what makes
+        # navigator.webdriver report `true` — the single loudest tell Akamai/DataDome/
+        # Cloudflare check. Disabling it makes webdriver natively `false` (a real value,
+        # unlike the JS shim's `undefined`, itself a tell). Pairs with
+        # ignore_default_args=['--enable-automation'] on each launch below.
+        args = [
+            "--disable-blink-features=AutomationControlled",
+            "--autoplay-policy=user-gesture-required",
+            "--mute-audio",
+        ]
         if self._resolver_rules:
             rules = ", ".join(f"MAP {h} {ip}" for h, ip
                               in sorted(self._resolver_rules.items()))
@@ -465,43 +633,41 @@ class Engine:
         if self._headed:
             try:
                 self._browser = self._pw.chromium.launch(
-                    headless=False, channel="chrome", args=args)
+                    headless=False, channel="chrome", args=args,
+                    ignore_default_args=["--enable-automation"])
             except Exception:
                 self._browser = self._pw.chromium.launch(
-                    headless=False, args=args)
+                    headless=False, args=args,
+                    ignore_default_args=["--enable-automation"])
             ctx_opts = {
                 "java_script_enabled": True,
                 "locale": "en-US",
                 "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
             }
             self._context = self._browser.new_context(**ctx_opts)
-        elif self._desktop:
-            # Desktop mode: a Mac-Safari UA + desktop viewport for sites
-            # that serve a thin mobile page to a phone (policy.py's
-            # DESKTOP_HOSTS — Wikipedia's Minerva collapse et al.). Same
-            # Safari cookies, same stealth self-consistency, just not a
-            # phone. The UA stays Safari so the cookie jar matches.
-            self._browser = self._pw.chromium.launch(headless=True, args=args)
-            ctx_opts = {
-                "user_agent": DESKTOP_UA,
-                "viewport": {"width": 1280, "height": 1600},
-                "java_script_enabled": True,
-                "locale": "en-US",
-                "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
-            }
-            self._context = self._browser.new_context(**ctx_opts)
-            self._context.add_init_script(_STEALTH_INIT_JS)
         else:
-            self._browser = self._pw.chromium.launch(headless=True, args=args)
+            # Coherent CHROME + NEW headless. Replaces the old iPhone/desktop-Safari costumes:
+            # matching the engine (Chromium -> Chrome) removes the whole Safari-UA-on-Blink
+            # contradiction class, and --headless=new supplies the full Chrome feature surface
+            # (real plugins, window.chrome, pdfViewer) that old headless lacks. One coherent
+            # desktop identity for every non-headed fetch; Safari cookies still ride (name/value
+            # pairs don't check UA). _CHROME_UA / _STEALTH_DESKTOP carry the platform match.
+            self._browser = self._pw.chromium.launch(
+                headless=False, args=args + ["--headless=new"],
+                ignore_default_args=["--enable-automation"])
+            hdrs = {"Accept-Language": "en-US,en;q=0.9"}
+            if self._private:
+                hdrs.update(_PRIVACY_HEADERS)
             ctx_opts = {
-                **self._pw.devices.get("iPhone 13", {}),
-                "user_agent": IPHONE_UA,
+                "user_agent": _CHROME_UA,
+                "viewport": {"width": 1280, "height": 900},
                 "java_script_enabled": True,
                 "locale": "en-US",
-                "extra_http_headers": _PRIVACY_HEADERS if self._private else {},
+                "extra_http_headers": hdrs,
             }
             self._context = self._browser.new_context(**ctx_opts)
-            self._context.add_init_script(_STEALTH_INIT_JS)
+            self._context.add_init_script(_STEALTH_DESKTOP)
+        self._context.add_init_script(_NO_AUTOPLAY_JS)
         if not self._private:
             try:
                 self._context.add_cookies(safari_cookies.for_playwright())
@@ -545,17 +711,6 @@ class Engine:
             if rb is not None:
                 return rb
 
-        # X status fast path: the public syndication JSON, browser-free.
-        # Same seam as reddit — a status page becomes a labeled article;
-        # non-status X surfaces and gone tweets return None → walker.
-        if not self._headed and not wait_selector and not screenshot_path:
-            from .x import is_x_status, x_bundle
-            xid = is_x_status(url)
-            if xid:
-                xb = x_bundle(url, xid, private=self._private)
-                if xb is not None:
-                    return xb
-
         self._ensure()
         url = self._resolve_target(url)
         page = self._context.new_page()
@@ -576,6 +731,9 @@ class Engine:
         wd.start()
         t0 = time.monotonic()
         try:
+            def _is_timeout(exc):
+                return "Timeout" in type(exc).__name__ or "Timeout" in str(exc)
+            salvaged = False
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
             except Exception as e:
@@ -590,15 +748,39 @@ class Engine:
                     page.close()
                     self._relaunch()
                     page = self._context.new_page()
-                    page.goto(url, wait_until="domcontentloaded",
-                              timeout=budget_ms)
+                    try:
+                        page.goto(url, wait_until="domcontentloaded",
+                                  timeout=budget_ms)
+                    except Exception as e2:
+                        if not _is_timeout(e2):
+                            raise
+                        salvaged = True
+                elif _is_timeout(e):
+                    # SALVAGE: a heavy SPA (adobe.com et al.) can render usable
+                    # content before domcontentloaded fires; a wall renders
+                    # nothing. Don't fail the goto — fall through and extract
+                    # whatever loaded; classify judges empty-vs-content downstream.
+                    salvaged = True
                 else:
                     alt = _www_variant(url)   # backstop; preflight usually caught it
                     if not alt:
                         raise
-                    page.goto(alt, wait_until="domcontentloaded",
-                              timeout=budget_ms)
-            _settle(page, budget_ms, wait_selector)
+                    try:
+                        page.goto(alt, wait_until="domcontentloaded",
+                                  timeout=budget_ms)
+                    except Exception as e2:
+                        if not _is_timeout(e2):
+                            raise
+                        salvaged = True
+            # On SALVAGE the DOM is already as loaded as it will get — a beacon-heavy
+            # page (adobe) never reaches text-stability, so a full settle would run
+            # into the watchdog and lose the capture. Grab it with a short settle.
+            # Normal path: settle up to the watchdog slack.
+            if salvaged:
+                settle_ms = 2500
+            else:
+                settle_ms = max(2000, int((wd_budget - (time.monotonic() - t0)) * 1000) - 3000)
+            _settle(page, min(budget_ms, settle_ms), wait_selector)
             from .policy import kill_selectors
             doc = page.evaluate(_walker_source(),
                                 kill_selectors(urlparse(page.url).hostname))
@@ -639,6 +821,157 @@ class Engine:
             raise
         finally:
             wd.cancel()
+            try:
+                page.close()
+            except Exception:
+                pass
+
+    # ------------------------------------------------------------------ forms
+    def list_forms(self, url: str) -> list:
+        """The fillable forms on a page: [{index, action, method, name, submit_label,
+        fields:[{name,type,placeholder,label,required,options}]}] — plus loose search
+        boxes not wrapped in a <form>. The OBSERVE step before submit_form."""
+        self._ensure()
+        url = self._resolve_target(url)
+        page = self._context.new_page()
+        budget_ms = int(self._timeout * 1000)
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
+            _settle(page, min(budget_ms, 4000), None)
+            return page.evaluate(_FORMS_JS)
+        finally:
+            try:
+                page.close()
+            except Exception:
+                pass
+
+    def _find_field(self, page, key: str):
+        """Best-effort locator for a field named/labelled/placeheld `key`."""
+        ek = key.replace("\\", "").replace('"', "")
+        for sel in (f'input[name="{ek}" i]', f'textarea[name="{ek}" i]',
+                    f'select[name="{ek}" i]', f'[id="{ek}" i]',
+                    f'[placeholder*="{ek}" i]', f'[aria-label*="{ek}" i]'):
+            try:
+                loc = page.locator(sel).first
+                if loc.count() > 0:
+                    return loc
+            except Exception:
+                pass
+        try:
+            loc = page.get_by_label(key, exact=False).first
+            if loc.count() > 0:
+                return loc
+        except Exception:
+            pass
+        if key.lower() in ("q", "query", "search", "s", "keyword", "keywords", "term"):
+            for sel in ("input[type=search]", "input[name=q]", "input[name=query]",
+                        "input[name=s]", "input[role=searchbox]", "input[aria-label*=search i]"):
+                try:
+                    loc = page.locator(sel).first
+                    if loc.count() > 0:
+                        return loc
+                except Exception:
+                    pass
+        return None
+
+    def _fill_fields(self, page, fields: dict) -> list:
+        filled = []
+        for key, val in fields.items():
+            loc = self._find_field(page, key)
+            if loc is None:
+                continue
+            try:
+                tag = loc.evaluate("el => el.tagName.toLowerCase()")
+                typ = (loc.evaluate("el => (el.type||'').toLowerCase()") or "")
+                if tag == "select":
+                    try:
+                        loc.select_option(label=str(val))
+                    except Exception:
+                        loc.select_option(str(val))
+                elif typ in ("checkbox", "radio"):
+                    (loc.check if str(val).lower() in ("1", "true", "on", "yes", "checked")
+                     else loc.uncheck)()
+                else:
+                    loc.fill(str(val), timeout=8000)
+                filled.append(loc)
+            except Exception:
+                pass
+        return filled
+
+    def _submit_and_wait(self, page, submit, filled, budget_ms):
+        clicked = False
+        try:
+            if submit:
+                btn = page.get_by_role("button", name=submit).first
+                if btn.count() == 0:
+                    btn = page.locator(
+                        f'button:has-text("{submit}"), input[type=submit][value*="{submit}" i]').first
+                if btn.count() > 0:
+                    btn.click(timeout=min(budget_ms, 8000))
+                    clicked = True
+            if not clicked:
+                sb = page.locator('button[type=submit], input[type=submit], [type=submit]').first
+                if sb.count() > 0:
+                    sb.click(timeout=min(budget_ms, 8000))
+                    clicked = True
+        except Exception:
+            clicked = False
+        if not clicked and filled:                     # search-box convention
+            try:
+                filled[-1].press("Enter")
+                clicked = True
+            except Exception:
+                pass
+        if not clicked:                                # last resort: submit the enclosing form
+            try:
+                page.evaluate("() => { const f = document.querySelector('form'); "
+                              "if (f && f.requestSubmit) f.requestSubmit(); else if (f) f.submit(); }")
+            except Exception:
+                pass
+        try:                                           # navigation OR SPA content swap
+            page.wait_for_load_state("domcontentloaded", timeout=min(budget_ms, 10000))
+        except Exception:
+            pass
+
+    def submit_form(self, url: str, fields: dict, submit: str = None,
+                    wait_selector: str = None) -> dict:
+        """Fill a form and capture the RESULT page as a normal bundle. `fields` maps a
+        field's name/label/placeholder to a value; `submit` is a button's text (else the
+        last field gets Enter). Rides the session, so logged-in/site-search forms work."""
+        self._ensure()
+        url = self._resolve_target(url)
+        page = self._context.new_page()
+        budget_ms = int(self._timeout * 1000)
+        t0 = time.monotonic()
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=budget_ms)
+            _settle(page, min(budget_ms, 4000), None)
+            filled = self._fill_fields(page, fields or {})
+            if not filled:
+                raise RuntimeError(
+                    "no form field matched " + ", ".join(repr(k) for k in (fields or {}))
+                    + " — call list_forms(url) to see the field names")
+            self._submit_and_wait(page, submit, filled, budget_ms)
+            _settle(page, min(budget_ms, 8000), wait_selector)
+            from .policy import kill_selectors
+            doc = page.evaluate(_walker_source(),
+                                kill_selectors(urlparse(page.url).hostname))
+            return {
+                "meta": {
+                    "requested_url": url,
+                    "url": doc.get("url") or page.url,
+                    "fetched_at": datetime.datetime.now()
+                        .astimezone().isoformat(timespec="seconds"),
+                    "mode": "private" if self._private else "authenticated",
+                    "extractor": EXTRACTOR_VERSION,
+                    "elapsed_ms": int((time.monotonic() - t0) * 1000),
+                    "policy_killed": doc.get("policyKilled", 0),
+                    "submitted": {"fields": list((fields or {}).keys()),
+                                  "final_url": page.url},
+                },
+                "doc": doc,
+            }
+        finally:
             try:
                 page.close()
             except Exception:
@@ -704,19 +1037,35 @@ class EngineWorker:
 
     def _loop(self, q):
         engines = {}
+
+        def _eng(private, desktop=False):
+            key = (private, desktop)     # one warm engine per identity
+            e = engines.get(key)
+            if e is None:
+                e = engines[key] = Engine(private=private, desktop=desktop)
+            return e
+
         while True:
             job = q.get()
             if job is None:
                 for eng in engines.values():
                     eng.close()
                 break
-            url, private, wait, desktop, fut = job
+            kind, fut = job[0], job[-1]
             try:
-                key = (private, desktop)     # one warm engine per identity
-                eng = engines.get(key)
-                if eng is None:
-                    eng = engines[key] = Engine(private=private, desktop=desktop)
-                fut.set_result(eng.capture(url, wait_selector=wait))
+                if kind == "capture":
+                    _, url, private, wait, desktop, _ = job
+                    fut.set_result(_eng(private, desktop).capture(url, wait_selector=wait))
+                elif kind == "forms":
+                    # forms need a DESKTOP viewport: mobile pages collapse search and
+                    # hide inputs behind a tap, so they exist in the DOM but aren't fillable.
+                    _, url, private, _ = job
+                    fut.set_result(_eng(private, desktop=True).list_forms(url))
+                elif kind == "submit":
+                    _, url, fields, submit, wait, private, _ = job
+                    fut.set_result(_eng(private, desktop=True).submit_form(url, fields, submit, wait))
+                else:
+                    fut.set_exception(RuntimeError(f"unknown job kind {kind!r}"))
             except Exception as e:
                 fut.set_exception(e)
 
@@ -726,7 +1075,7 @@ class EngineWorker:
         from concurrent.futures import Future
         from concurrent.futures import TimeoutError as _FutTimeout
         fut = Future()
-        self._q.put((url, private, wait, desktop, fut))
+        self._q.put(("capture", url, private, wait, desktop, fut))
         try:
             return fut.result(timeout=timeout)
         except _FutTimeout:
@@ -742,6 +1091,29 @@ class EngineWorker:
                 f"capture wedged past {int(timeout)}s and the engine "
                 f"worker was replaced — retry the fetch (cause is "
                 f"usually concurrent chromium fleets)")
+
+    def list_forms(self, url: str, private: bool = False, timeout: float = 60.0) -> list:
+        from concurrent.futures import Future
+        from concurrent.futures import TimeoutError as _FutTimeout
+        fut = Future()
+        self._q.put(("forms", url, private, fut))
+        try:
+            return fut.result(timeout=timeout)
+        except _FutTimeout:
+            self._spawn()
+            raise RuntimeError("list_forms wedged; the engine worker was replaced — retry")
+
+    def submit_form(self, url: str, fields: dict, submit: str = None,
+                    wait: str = None, private: bool = False, timeout: float = 90.0) -> dict:
+        from concurrent.futures import Future
+        from concurrent.futures import TimeoutError as _FutTimeout
+        fut = Future()
+        self._q.put(("submit", url, fields, submit, wait, private, fut))
+        try:
+            return fut.result(timeout=timeout)
+        except _FutTimeout:
+            self._spawn()
+            raise RuntimeError("submit_form wedged; the engine worker was replaced — retry")
 
     def close(self):
         self._q.put(None)

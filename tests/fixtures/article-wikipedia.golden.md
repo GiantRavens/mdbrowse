@@ -1,6 +1,8 @@
 <!-- shape: article -->
 # Markdown - Wikipedia
 
+⌗ Search Wikipedia  ____________________________  [ Search ]
+
 [Article](https://en.wikipedia.org/wiki/Markdown) [Talk](https://en.wikipedia.org/wiki/Talk:Markdown)
 
 For the marketing term, see [Price markdown](https://en.wikipedia.org/wiki/Price_markdown).

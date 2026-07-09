@@ -1,12 +1,40 @@
 #!/bin/sh
-# mdb — v2 launcher, living next to its .venv (house pattern: forge CLIs
-# sit beside their venv and are invoked by path or from the repo).
-# The venv is host-local and never synced; each machine builds its own.
+# mdb — v2 launcher, living next to its .venv.
+# The venv is host-local and never synced; first run builds it if possible.
 here="$(cd "$(dirname "$0")" && pwd)"
 py="$here/.venv/bin/python"
 if [ ! -x "$py" ]; then
-    echo "mdb: no venv at $here/.venv" >&2
-    echo "  build it:  cd $here && uv venv && uv pip install -e . && .venv/bin/playwright install chromium" >&2
-    exit 1
+    if [ "${MDBROWSE_NO_BOOTSTRAP:-}" = "1" ]; then
+        echo "mdb: no venv at $here/.venv" >&2
+        echo "  build it: cd $here && uv venv && uv pip install -e . && .venv/bin/playwright install chromium" >&2
+        exit 1
+    fi
+    if ! command -v uv >/dev/null 2>&1; then
+        echo "mdb: no venv at $here/.venv, and uv is not installed" >&2
+        echo "  install uv, then run: $here/mdb" >&2
+        echo "  manual setup: cd $here && uv venv && uv pip install -e . && .venv/bin/playwright install chromium" >&2
+        exit 1
+    fi
+
+    echo "mdb: first-run setup" >&2
+    echo "  project: $here" >&2
+    echo "  venv:    $here/.venv" >&2
+    echo "  phases:  create venv -> install mdb -> install Chromium" >&2
+    (
+        cd "$here" &&
+        uv venv &&
+        uv pip install -e . &&
+        .venv/bin/playwright install chromium
+    )
+    rc=$?
+    if [ "$rc" -ne 0 ]; then
+        echo "mdb: setup failed during first-run bootstrap" >&2
+        echo "  retry manually: cd $here && uv venv && uv pip install -e . && .venv/bin/playwright install chromium" >&2
+        exit "$rc"
+    fi
+    if [ ! -x "$py" ]; then
+        echo "mdb: setup finished, but $py was not created" >&2
+        exit 1
+    fi
 fi
 exec "$py" -m mdb.cli "$@"

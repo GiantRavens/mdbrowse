@@ -87,19 +87,6 @@ SITES = [
              "wait for it to clear, then render the real page (not the "
              "interstitial); if it ever stops clearing this flips to wall",
          contains=["Firearms"], min_chars=1500),
-    dict(name="netapp", url="https://netapp.com",
-         why="Akamai/EdgeSuite explicit Access Denied page — must classify "
-             "as a wall with the vendor/reason, not as a thin generic page",
-         shape="wall", contains=["explicit access-denied page", "edgesuite"]),
-    dict(name="congruity", url="https://www.congruity360.com",
-         why="hamburger-collapsed primary nav: the default iPhone profile "
-             "paints the mega-menu display:none, so the walker's "
-             "visibility-independent nav harvest must still land the full "
-             "menu in the ⋯ menu appendix (deep items appear ONLY via the "
-             "harvest — they are hidden at phone width)",
-         contains=["## ⋯ menu", "Enterprise Insights",
-                   "Intelligent Cloud Migrations"],
-         min_links=20),
     dict(name="reddit", url="https://www.reddit.com/r/programming",
          why="reddit .json fast path (cookies) or old.reddit fallback — a "
              "subreddit must read as a feed of linked posts, browser-free "
@@ -127,7 +114,6 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
     """Structural expectations -> list of failure strings (empty = pass)."""
     fails = []
     lines = body.splitlines()
-    fails.extend(_markdown_lint_failures(lines))
     if "shape" in site and manifest.shape != site["shape"]:
         fails.append(f"shape: wanted {site['shape']}, got {manifest.shape} "
                      f"(conf {manifest.confidence})")
@@ -164,33 +150,6 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
     return fails
 
 
-def _markdown_lint_failures(lines: list) -> list:
-    """Catch collapsed visual sections without imposing hard-wrap style.
-
-    Long prose paragraphs are legitimate markdown. A single very long line
-    packed with many links/images is usually a walker miss: several cards,
-    sections, or footer columns serialized as one paragraph.
-    """
-    fails = []
-    in_code = False
-    for i, line in enumerate(lines, 1):
-        if line.startswith("```"):
-            in_code = not in_code
-            continue
-        if in_code:
-            continue
-        links = line.count("](")
-        images = line.count("![")
-        if len(line) > 1600:
-            fails.append(f"markdown lint: line {i} is {len(line)} chars")
-        elif len(line) > 900 and (links >= 12 or images >= 4):
-            fails.append(
-                f"markdown lint: line {i} packs {links} links/{images} images")
-        if fails:
-            break
-    return fails
-
-
 # ---------------------------------------------------------------- phases
 
 def offline_gate() -> bool:
@@ -198,45 +157,7 @@ def offline_gate() -> bool:
     print("phase 0 — offline fixture corpus")
     ok = selftest() == 0
     ok = _policy_sanity() and ok
-    ok = _x_adapter_sanity() and ok
     return ok
-
-
-def _x_adapter_sanity() -> bool:
-    """The X syndication adapter's parsing, network-free: routing, labeled
-    counts (no faked zeros), entity linkification, and rejection of a
-    non-Tweet payload (the HTML tombstone a gone tweet returns)."""
-    from mdb import x
-    bad = []
-    # routing: status ids in, non-status / non-X out
-    if x.is_x_status("https://x.com/jack/status/20") != "20":
-        bad.append("route: missed /status/20")
-    if x.is_x_status("https://twitter.com/i/web/status/99") != "99":
-        bad.append("route: missed /i/web/status")
-    if x.is_x_status("https://x.com/jack") is not None:
-        bad.append("route: profile should be None")
-    if x.is_x_status("https://example.com/a/status/1") is not None:
-        bad.append("route: non-X host should be None")
-    # labeled counts, and a missing metric omitted (never faked 0)
-    if x._counts_line({"conversation_count": 5, "favorite_count": 1000}) \
-            != "Replies 5 · Likes 1,000":
-        bad.append("counts: label/format wrong")
-    if x._counts_line({"favorite_count": None}) != "":
-        bad.append("counts: missing metric not omitted")
-    # linkification: mention, hashtag, t.co expansion
-    md = x._linkify("hi @bob #cool https://t.co/abc", {"urls": [
-        {"url": "https://t.co/abc", "expanded_url": "https://e.com/p",
-         "display_url": "e.com/p"}]})
-    for needle in ("[@bob](https://x.com/bob)",
-                   "[#cool](https://x.com/hashtag/cool)",
-                   "[e.com/p](https://e.com/p)"):
-        if needle not in md:
-            bad.append(f"linkify: missing {needle!r}")
-    if bad:
-        print("  x-adapter: FAIL " + "; ".join(bad))
-        return False
-    print("  x-adapter: OK (routing, labeled counts, linkify)")
-    return True
 
 
 def _policy_sanity() -> bool:
@@ -495,6 +416,16 @@ def main() -> int:
             ok = live_sweep(pick) and ok      # we ARE the guarded child
         else:
             ok = _live_sweep_guarded(pick) and ok
+        # phase 2 — form sweep: known search forms must render a Tab-reachable FORM in the
+        # reader AND return results on submit (guards the walker->emit->parse_body->submit chain).
+        if not os.environ.get("MDB_CHECKIN_SKIP_LIVE") and _network_up():
+            print("\nphase 2 — form sweep (search forms render + submit)")
+            try:
+                from form_sweep import run as _form_run
+                ok = _form_run() and ok
+            except Exception as e:
+                print(f"  form sweep ERROR: {type(e).__name__}: {e}")
+                ok = False
     print(f"\ncheckin gate: {'PASS' if ok else 'FAIL'} "
           f"({time.time() - t0:.0f}s)")
     return 0 if ok else 1

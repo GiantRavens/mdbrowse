@@ -1,10 +1,10 @@
 """mdb reader — vim-style TUI frontend over the compiler's output.
 
-Input model (task 4 spec): a single **focus ring** over links AND images in
+Input model (task 4 spec): a single **focus ring** over links, images, and forms in
 document order, like browser Tab. Two verbs, total:
 
     Enter = go   (follow the focused link / card)
-    Space = peek (Quick Look the focused image; page-down otherwise)
+    Space = peek (preview/toggle the focused image; page-down otherwise)
 
 The governing rule: every keystroke's effect is predictable from what is
 visibly highlighted — no behavior may depend on invisible state such as
@@ -19,6 +19,7 @@ across wrapped lines.
 
 import curses
 import os
+import sys
 import re
 import subprocess
 import tempfile
@@ -32,15 +33,100 @@ from .capture import Engine
 from .classify import classify
 from .emit import emit, emit_body
 
-LINK, IMAGE, CARD = "link", "image", "card"
+LINK, IMAGE, CARD, FORM = "link", "image", "card", "form"
+_FIELD_W = 28                      # underscore-run width of a form field (fixed → stable layout)
+_PREVIEW_PROC = None
+_PREVIEW_URL = None
+
+_JXA_IMAGE_SIZE = r'''
+ObjC.import("AppKit");
+function run(argv) {
+  var img = $.NSImage.alloc.initWithContentsOfFile(argv[0]);
+  if (!img) return "0 0";
+  return Math.round(img.size.width) + " " + Math.round(img.size.height);
+}
+'''
+
+_JXA_IMAGE_WINDOW = r'''
+ObjC.import("AppKit");
+
+ObjC.registerSubclass({
+  name: "MdbPreviewWindowDelegate",
+  protocols: ["NSWindowDelegate"],
+  methods: {
+    "windowWillClose:": {
+      types: ["void", ["id"]],
+      implementation: function(notification) {
+        $.NSApp.terminate(null);
+      }
+    }
+  }
+});
+
+function run(argv) {
+  var path = argv[0];
+  var img = $.NSImage.alloc.initWithContentsOfFile(path);
+  if (!img) return 2;
+
+  var size = img.size;
+  var naturalW = Math.max(1, size.width);
+  var naturalH = Math.max(1, size.height);
+  var frame = $.NSScreen.mainScreen.visibleFrame;
+  var maxW = frame.size.width * 0.90;
+  var maxH = frame.size.height * 0.85;
+  var scale = Math.min(1.0, maxW / naturalW, maxH / naturalH);
+  var w = Math.max(32, Math.round(naturalW * scale));
+  var h = Math.max(32, Math.round(naturalH * scale));
+  var x = frame.origin.x + Math.round((frame.size.width - w) / 2);
+  var y = frame.origin.y + Math.round((frame.size.height - h) / 2);
+
+  var app = $.NSApplication.sharedApplication;
+  app.setActivationPolicy($.NSApplicationActivationPolicyRegular);
+
+  var style = $.NSWindowStyleMaskTitled
+            | $.NSWindowStyleMaskClosable
+            | $.NSWindowStyleMaskMiniaturizable
+            | $.NSWindowStyleMaskResizable;
+  var win = $.NSWindow.alloc.initWithContentRectStyleMaskBackingDefer(
+    $.NSMakeRect(x, y, w, h), style, $.NSBackingStoreBuffered, false);
+  var view = $.NSImageView.alloc.initWithFrame($.NSMakeRect(0, 0, w, h));
+  view.setImage(img);
+  view.setImageAlignment($.NSImageAlignCenter);
+  view.setImageScaling($.NSImageScaleProportionallyUpOrDown);
+  win.setTitle("mdb image preview");
+  win.setContentView(view);
+
+  var delegate = $.MdbPreviewWindowDelegate.alloc.init;
+  win.setDelegate(delegate);
+  win.makeKeyAndOrderFront(null);
+  app.activateIgnoringOtherApps(true);
+  app.run();
+  return 0;
+}
+'''
+
+
+def _form_line(f) -> str:
+    """The dynamic display for a FORM focusable: label + value/underscores + [ submit ].
+    Fixed width (tail of a long value) so the laid-out row never changes size."""
+    val = f.value or ""
+    shown = (val[-_FIELD_W:] if len(val) > _FIELD_W else val).ljust(_FIELD_W, "_")
+    return f"⌗ {f.label}  {shown}  [ {f.submit} ]"
+
+
+def _form_url(f) -> str:
+    from urllib.parse import urlencode
+    sep = "&" if "?" in (f.href or "") else "?"
+    return (f.href or "") + sep + urlencode({f.param: f.value})
 
 HELP_LINES = (
     "mdb reader — keys",
     "",
-    "  Tab / S-Tab      next / previous focusable (links and images)",
+    "  Tab / S-Tab      next / previous focusable (links, images, forms)",
     "  Enter / o        go — follow the focused link or card",
-    "  Space            peek — Quick Look focused image, else page down",
-    "  y / Y            yank focused URL / page URL to clipboard",
+    "  Space            peek — preview/toggle focused image, else page down",
+    "  y                yank focused URL to clipboard",
+    "  u / Y            copy current URL to clipboard",
     "  d                download the focused target",
     "  ( / )            previous / next heading",
     "  { / }            previous / next block",
@@ -57,10 +143,10 @@ HELP_LINES = (
     "  F                open the page's RSS feed (when advertised)",
     "  f                fill the page's search form and go (GET forms)",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
-    "  C                retry current page through a headed browser for mdb",
     "  B                add page to Safari Reading List",
     "  :                omnibox — URLs navigate, anything else searches",
-    "                   (MDBROWSE_SEARCH_URL; also 'ddg t', safari:start, feed:)",
+    "                   (MDBROWSE_SEARCH_ENGINE or MDBROWSE_SEARCH_URL)",
+    "                   (also 'ddg t', 'mojeek t', safari:start, feed:)",
     "  q                quit",
     "",
     "  mouse: wheel scrolls, click follows a link, click 🖼 previews",
@@ -88,10 +174,13 @@ def _dispw(s: str) -> int:
 @dataclass
 class Focusable:
     fid: int
-    kind: str           # link | image | card
+    kind: str           # link | image | card | form
     label: str
-    href: str = ""      # navigation target (link, card)
+    href: str = ""      # navigation target (link, card) / form action (form)
     src: str = ""       # preview target (image, card)
+    param: str = ""     # form: the query field name
+    submit: str = ""    # form: submit-button label
+    value: str = ""     # form: the live edit buffer (typed by the user)
 
 
 # URL matcher tolerating one level of parentheses (Wikipedia URLs).
@@ -218,8 +307,24 @@ class LLine:
     indent: int = 0            # continuation indent for wrapped rows
 
 
-def parse_body(body: str):
+def _forms_of(bundle) -> list:
+    """The deduped form blocks from a bundle, in the SAME order emit renders them
+    (by first-seen (param, action)) — so form LINES match form BLOCKS positionally."""
+    out, seen = [], set()
+    for b in ((bundle or {}).get("doc", {}) or {}).get("blocks", []) or []:
+        if b.get("kind") != "form":
+            continue
+        key = (b.get("param"), b.get("action"))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(b)
+    return out
+
+
+def parse_body(body: str, bundle=None):
     llines, focusables, in_code = [], [], False
+    form_queue = _forms_of(bundle)
     for raw in body.split("\n"):
         if raw.lstrip().startswith("```"):
             in_code = not in_code
@@ -230,6 +335,14 @@ def parse_body(body: str):
         s = raw.rstrip()
         if not s.strip():
             llines.append(LLine([]))
+            continue
+        if s.startswith("⌗ ") and form_queue:          # a rendered form: one FORM focusable
+            b = form_queue.pop(0)
+            f = Focusable(len(focusables), FORM, (b.get("label") or "Search").strip(),
+                          href=b.get("action") or "", param=b.get("param") or "q",
+                          submit=(b.get("submit_label") or "Search").strip())
+            focusables.append(f)
+            llines.append(LLine([(_form_line(f), f.fid)], ""))
             continue
         if s.strip() in ("---", "***"):
             llines.append(LLine([("─" * 36, None)], "hr"))
@@ -249,6 +362,18 @@ def parse_body(body: str):
         for group in _explode_images(segs, focusables):
             llines.append(LLine(group, style, indent))
     return llines, focusables
+
+
+def _initial_focus(focusables: list) -> int:
+    """Do not arm a form field just because it is first on the page.
+
+    Navigation keys like O/H/y should work immediately after load; users
+    intentionally enter a field by tabbing to it.
+    """
+    for f in focusables:
+        if f.kind != FORM:
+            return f.fid
+    return -1
 
 
 def _wrap_chars(chars, width, indent):
@@ -417,17 +542,98 @@ def _fetch_image(url: str, private: bool = False, referer: str = None,
         return None, f"{type(e).__name__}: {str(e)[:80]}"
 
 
+def _close_previous_preview() -> None:
+    global _PREVIEW_PROC, _PREVIEW_URL
+    proc = _PREVIEW_PROC
+    _PREVIEW_PROC = None
+    _PREVIEW_URL = None
+    if proc is None or proc.poll() is not None:
+        return
+    try:
+        proc.terminate()
+        proc.wait(timeout=0.4)
+    except Exception:
+        try:
+            proc.kill()
+        except Exception:
+            pass
+
+
+def _macos_image_size(path: str) -> tuple[int, int] | None:
+    try:
+        r = subprocess.run(
+            ["osascript", "-l", "JavaScript", "-e", _JXA_IMAGE_SIZE, path],
+            capture_output=True, text=True, timeout=2)
+        if r.returncode != 0:
+            return None
+        parts = (r.stdout or "").strip().split()
+        if len(parts) < 2:
+            return None
+        w, h = int(float(parts[-2])), int(float(parts[-1]))
+        return (w, h) if w > 0 and h > 0 else None
+    except Exception:
+        return None
+
+
+def _image_viewer(path: str) -> tuple[bool, str]:
+    """Open a saved image in the platform's viewer, WITHOUT ever raising if none exists.
+    macOS uses a tiny Cocoa image window sized to the image; large images are capped to
+    the visible screen. A Linux desktop (DISPLAY/WAYLAND) uses the first available
+    viewer; a headless box or SSH-without-forwarding reports the saved path."""
+    import shutil
+    global _PREVIEW_PROC
+    _close_previous_preview()
+    if sys.platform == "darwin":
+        size = _macos_image_size(path)
+        if size and shutil.which("osascript"):
+            _PREVIEW_PROC = subprocess.Popen(
+                ["osascript", "-l", "JavaScript", "-e", _JXA_IMAGE_WINDOW, path],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return True, f"preview {size[0]}x{size[1]} → {path}"
+        if shutil.which("qlmanage"):
+            _PREVIEW_PROC = subprocess.Popen(
+                ["qlmanage", "-p", path],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            _raise_quicklook()
+            return True, f"Quick Look → {path}"
+        _PREVIEW_PROC = subprocess.Popen(
+            ["open", path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return True, f"opened → {path}"
+    have_display = bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
+    if have_display:
+        for viewer in ("xdg-open", "feh", "eog", "eom", "gpicview", "xdg-open"):
+            if shutil.which(viewer):
+                try:
+                    _PREVIEW_PROC = subprocess.Popen(
+                        [viewer, path],
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    return True, f"{viewer} → {path}"
+                except Exception:
+                    continue
+    # No display (headless / SSH without X): saved, not shown — report the path.
+    return True, f"saved → {path} (no display to preview here; open it locally)"
+
+
 def preview_image(url: str, private: bool = False, referer: str = None,
                   engine=None):
-    """Fetch + validate + pop macOS Quick Look. Returns (ok, note)."""
+    """Fetch + validate an image, then open it in the platform viewer (or, on a headless
+    box / SSH session, report where it was saved). Never raises on a missing viewer."""
+    global _PREVIEW_URL
+    if _PREVIEW_URL == url and _PREVIEW_PROC is not None and _PREVIEW_PROC.poll() is None:
+        _close_previous_preview()
+        return True, "preview closed"
     path, note = _fetch_image(url, private=private, referer=referer,
                               engine=engine)
     if not path:
         return False, note
-    subprocess.Popen(["qlmanage", "-p", path],
-                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    _raise_quicklook()
-    return True, note
+    try:
+        ok, vnote = _image_viewer(path)
+    except Exception as e:
+        return True, f"saved → {path} (viewer error: {type(e).__name__})"
+    if ok and _PREVIEW_PROC is not None and _PREVIEW_PROC.poll() is None:
+        _PREVIEW_URL = url
+    return ok, vnote
 
 
 def _raise_quicklook() -> None:
@@ -509,42 +715,13 @@ class Reader:
         self.msg = ""
         self._say = None            # active `say` process, if any
         self._assist = None         # last LLM answer, shown as a page
-        self._headed_hosts = set()  # hosts trusted only through headed capture
 
     def _speech_stop(self):
         from . import speech
         speech.stop(self._say)
         self._say = None
 
-    def _host(self, url: str) -> str:
-        return (urlparse(url).hostname or "").lower()
-
-    def _wants_headed(self, url: str) -> bool:
-        return self._host(url) in self._headed_hosts
-
-    def _remember_headed(self, url: str) -> None:
-        host = self._host(url)
-        if host:
-            self._headed_hosts.add(host)
-
     # -- pipeline --
-    def _add_refusal_exits(self, body: str, manifest) -> str:
-        if manifest.shape not in ("app", "wall"):
-            return body
-        lines = [
-            "\n\n---\n\n",
-            "**From here you can:**\n\n",
-            "- press `O` — open this page in your browser",
-        ]
-        if manifest.shape == "wall":
-            lines.append(
-                "- press `C` — retry mdb capture headed, then keep headed for this host")
-        lines.extend([
-            "- press `:` and type search terms — search the web",
-            "- press `H` — go back",
-        ])
-        return body + "\n".join(lines)
-
     def load(self, url: str) -> Page:
         if url == "assist:last" and self._assist is not None:
             return self._assist
@@ -552,7 +729,7 @@ class Reader:
             from . import rss
             title, body = rss.page_markdown(url[len("feed:"):], self.private)
             page = Page(url=url, bundle=None, manifest=None, body=body)
-            page.llines, page.focusables = parse_body(body)
+            page.llines, page.focusables = parse_body(body, page.bundle)
             return page
         if url.startswith("safari:"):
             from . import safari
@@ -562,55 +739,29 @@ class Reader:
             b = self.engine.capture(url)
             m = classify(b)
             body = emit_body(b, m)
-            # The classified refusal must not be a dead end: the reader
-            # itself has the exits. (Frontend hint only — the emitted
-            # document, archives, and hashes stay untouched.)
-            body = self._add_refusal_exits(body, m)
+            if m.shape in ("app", "wall"):
+                # The classified refusal must not be a dead end: the reader
+                # itself has the exits. (Frontend hint only — the emitted
+                # document, archives, and hashes stay untouched.)
+                body += (
+                    "\n\n---\n\n"
+                    "**From here you can:**\n\n"
+                    "- press `O` — open this page in your browser\n"
+                    "- press `:` and type search terms — search the web\n"
+                    "- press `H` — go back"
+                )
             page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
-        page.llines, page.focusables = parse_body(body)
+        page.llines, page.focusables = parse_body(body, page.bundle)
         return page
 
-    def load_headed_once(self, url: str) -> Page:
-        # The reader's normal engine already owns a sync Playwright
-        # runtime on self._exec's thread. Starting a second sync runtime
-        # on that same thread trips Playwright's "inside asyncio loop"
-        # guard, so the headed retry gets its own short-lived thread.
-        import threading
-        box = {}
-
-        def work():
-            try:
-                with Engine(private=self.private, headed=True) as eng:
-                    box["bundle"] = eng.capture(url)
-            except BaseException as e:
-                box["error"] = e
-
-        th = threading.Thread(target=work, daemon=True,
-                              name="mdb-headed-retry")
-        th.start()
-        th.join(70)
-        if th.is_alive():
-            raise RuntimeError("headed retry timed out")
-        if "error" in box:
-            raise box["error"]
-        b = box["bundle"]
-        b.setdefault("meta", {})["headed_fallback"] = True
-        b["meta"]["fallback_reason"] = "reader_key_C"
-        m = classify(b)
-        body = self._add_refusal_exits(emit_body(b, m), m)
-        page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
-        page.llines, page.focusables = parse_body(body)
-        return page
-
-    def _load_animated(self, scr, url: str, headed: bool = False) -> Page:
+    def _load_animated(self, scr, url: str) -> Page:
         """Load in a worker thread while the status bar shows a live
         spinner and elapsed seconds — the capture can take seconds
         (render, settle, section-expand) and a frozen 'loading …' line
         reads as a hang. Returns the Page, or an error_page on failure."""
         import time as _t
         from concurrent.futures import TimeoutError as _FutTimeout
-        loader = self.load_headed_once if headed else self.load
-        fut = self._exec.submit(loader, url)   # runs on the engine thread
+        fut = self._exec.submit(self.load, url)   # runs on the engine thread
         spin = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
         t0, i = _t.monotonic(), 0
         h, w = scr.getmaxyx()
@@ -625,9 +776,7 @@ class Reader:
             el = _t.monotonic() - t0
             note = "" if el < 3 else ("  (slow site — still trying)"
                                       if el < 12 else "  (heavy page — hang on)")
-            mode = "headed " if headed else ""
-            line = (f" {spin[i % len(spin)]} loading {mode}{short}  "
-                    f"{el:0.0f}s{note}")
+            line = f" {spin[i % len(spin)]} loading {short}  {el:0.0f}s{note}"
             try:
                 scr.addstr(h - 1, 0, line[:w - 1].ljust(w - 1), curses.A_REVERSE)
                 scr.refresh()
@@ -642,7 +791,7 @@ class Reader:
                 "- press `O` — open it in your browser\n"
                 "- press `H` — go back")
         page = Page(url=url, bundle=None, manifest=None, body=body)
-        page.llines, page.focusables = parse_body(body)
+        page.llines, page.focusables = parse_body(body, page.bundle)
         return page
 
     # -- curses main --
@@ -651,6 +800,7 @@ class Reader:
             curses.wrapper(self._run)
         finally:
             os.write(1, b"\x1b[?1000;1006l")   # mouse reporting off
+            _close_previous_preview()
             self._speech_stop()
             try:
                 self._exec.submit(self.engine.close).result(timeout=10)
@@ -676,18 +826,11 @@ class Reader:
         os.write(1, b"\x1b[?1000;1006h")
 
         current = self.start_url
-        next_headed = False
         while True:
             try:
-                headed = next_headed or self._wants_headed(current)
-                next_headed = False
-                self.page = self._load_animated(scr, current,
-                                                headed=headed)
+                self.page = self._load_animated(scr, current)
                 current = self.page.url
                 hints = []
-                if headed and self.page.bundle:
-                    self._remember_headed(current)
-                    hints.append(f"headed: {self._host(current)}")
                 if self.page.bundle:
                     if self.page.bundle["doc"].get("feeds"):
                         hints.append("RSS: F")
@@ -702,6 +845,7 @@ class Reader:
             self._speech_stop()      # page is changing; the old page hushes
             if nav is None:
                 return
+            _close_previous_preview()
             action, target = nav
             if action == "go":
                 self.history.append(current)
@@ -713,13 +857,11 @@ class Reader:
             elif action == "forward":
                 self.history.append(current)
                 current = self.forward.pop()
-            elif action == "headed":
-                next_headed = True
             # "reload": fall through with same URL
 
     def _view(self, scr):
         """Show self.page; return None to quit, ('go', url), ('back', None),
-        ('headed', url), or ('reload', None)."""
+        or ('reload', None)."""
         page = self.page
         h, w = scr.getmaxyx()
 
@@ -737,7 +879,7 @@ class Reader:
         geometry()
 
         focusables = page.focusables
-        focus = 0 if focusables else -1
+        focus = _initial_focus(focusables)
         top = 0
         search, matches, match_i = "", [], -1
         pending = None            # chord prefix: 'g' or 'z'
@@ -762,7 +904,10 @@ class Reader:
             nonlocal focus
             if not focusables:
                 return
-            focus = (focus + step) % len(focusables)
+            if focus < 0:
+                focus = 0 if step > 0 else len(focusables) - 1
+            else:
+                focus = (focus + step) % len(focusables)
             center_focus()
             if self.announce:
                 from . import speech
@@ -788,6 +933,8 @@ class Reader:
             self.msg = f"🖼  {note}" if ok else f"preview failed: {note}"
 
         def go(f):
+            if f.kind == FORM:
+                return ("go", _form_url(f)) if f.value.strip() else None
             if f.kind in (LINK, CARD) and f.href:
                 return ("go", f.href)
             if f.kind == IMAGE and f.src:
@@ -799,6 +946,13 @@ class Reader:
                 show_preview(f)
                 return True
             return False
+
+        def copy_url(target):
+            try:
+                subprocess.run(["pbcopy"], input=target.encode(), check=True)
+                self.msg = f"copied: {target[:90]}"
+            except Exception as e:
+                self.msg = f"copy failed: {e}"
 
         def do_search(term, start):
             nonlocal search, matches, match_i, top
@@ -830,7 +984,7 @@ class Reader:
 
         while True:
             scr.erase()
-            visible_focus = []   # (srow, c0, c1, fid) for mouse
+            visible_focus = []   # (srow, c0, c1, fid, text) for mouse
             for vr in range(view_h):
                 r = top + vr
                 if r >= len(rows):
@@ -847,9 +1001,10 @@ class Reader:
                         put(srow, pad + c0, text, attr)
                     else:
                         f = focusables[fid]
-                        put(srow, pad + c0, text, attr_for(f, fid == focus))
+                        disp = _form_line(f) if f.kind == FORM else text
+                        put(srow, pad + c0, disp, attr_for(f, fid == focus))
                         visible_focus.append((srow, pad + c0,
-                                              pad + c0 + _dispw(text), fid))
+                                              pad + c0 + _dispw(disp), fid, disp))
             # status bar
             if self.msg:
                 status = (" " + self.msg)[:w - 1].ljust(w - 1)
@@ -860,6 +1015,8 @@ class Reader:
                     f = focusables[focus]
                     tgt = f.href or f.src
                     right = f"[{focus + 1}/{len(focusables)}] {f.kind} → {tgt}"
+                elif focusables:
+                    right = f"Tab to focus [{len(focusables)}]"
                 else:
                     right = "no focusables"
                 room = w - 1 - len(right) - 3
@@ -875,6 +1032,24 @@ class Reader:
                 scr.clear()
                 continue
 
+            # --- form-field editing: a focused FORM captures typing (Lynx-style) ---
+            # Enter submits, Backspace deletes, printable chars type into the field;
+            # Tab/arrows/ESC fall through so you can still navigate off the field.
+            if 0 <= focus < len(focusables) and focusables[focus].kind == FORM:
+                foc = focusables[focus]
+                if c in (10, 13, curses.KEY_ENTER):
+                    nav = go(foc)
+                    if nav:
+                        return nav
+                    self.msg = "type a query first"
+                    continue
+                if c in (curses.KEY_BACKSPACE, 127, 8):
+                    foc.value = foc.value[:-1]
+                    continue
+                if 32 <= c < 127:
+                    foc.value += chr(c)
+                    continue
+
             if c == 27:                      # ESC: SGR mouse (or stray escape)
                 ev = self._read_sgr_mouse(scr)
                 if ev is None:
@@ -887,14 +1062,16 @@ class Reader:
                     continue
                 if (btn & 3) != 0:           # not the left button
                     continue
-                hit = next((fid for (sr, c0, c1, fid) in visible_focus
-                            if my == sr and c0 <= mx < c1), None)
+                hit = next((span for span in visible_focus
+                            if my == span[0] and span[1] <= mx < span[2]), None)
                 if hit is not None:
-                    focus = hit
-                    f = focusables[hit]
-                    # Clicking a picture previews it — cards included; the
-                    # 🖼 is what you clicked. Enter still follows the link.
-                    if f.kind in (IMAGE, CARD) and f.src:
+                    _, c0, _, fid, disp = hit
+                    focus = fid
+                    f = focusables[fid]
+                    icon_hit = disp.startswith("🖼") and mx < c0 + _dispw("🖼  ")
+                    # Clicking the picture icon previews it; clicking card text
+                    # follows the linked article. Enter still follows too.
+                    if f.kind == IMAGE or (f.kind == CARD and icon_hit):
                         peek(f)
                     else:
                         nav = go(f)
@@ -932,10 +1109,10 @@ class Reader:
                     top = clamp(top + view_h - 1)            # else page down
                 continue
 
-            # --- yank / download on the focused element ---
-            if c in (ord("y"), ord("Y"), ord("d")):
+            # --- copy / download on the focused element or page ---
+            if c in (ord("y"), ord("u"), ord("Y"), ord("d")):
                 f = focusables[focus] if 0 <= focus < len(focusables) else None
-                if c == ord("Y"):
+                if c in (ord("u"), ord("Y")):
                     target = page.url
                 elif f is None:
                     self.msg = "nothing focused"
@@ -952,17 +1129,12 @@ class Reader:
                         # (Playwright-bound); run on the engine thread.
                         path, size = self._exec.submit(
                             download, target, self.private, page.url,
-                            self.engine).result()
+                            engine=self.engine).result()
                         self.msg = f"saved → {path} ({max(1, size // 1024)} KB)"
                     except Exception as e:
                         self.msg = f"download failed: {str(e)[:80]}"
                 else:
-                    try:
-                        subprocess.run(["pbcopy"], input=target.encode(),
-                                       check=True)
-                        self.msg = f"yanked: {target[:90]}"
-                    except Exception as e:
-                        self.msg = f"yank failed: {e}"
+                    copy_url(target)
                 continue
 
             # --- page navigation ---
@@ -991,11 +1163,6 @@ class Reader:
                 app = open_in_browser(page.url)
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
-                continue
-            if c == ord("C"):
-                if page.url.startswith(("http://", "https://")):
-                    return ("headed", page.url)
-                self.msg = "not a web page"
                 continue
             if c == ord("f"):                # fill the page's GET form
                 forms = [b for b in (page.bundle["doc"].get("blocks", [])
@@ -1055,7 +1222,7 @@ class Reader:
                 body = f"# {title}\n\n_{src}_\n\n{answer}"
                 ap = Page(url="assist:last", bundle=None, manifest=None,
                           body=body)
-                ap.llines, ap.focusables = parse_body(body)
+                ap.llines, ap.focusables = parse_body(body, ap.bundle)
                 self._assist = ap
                 return ("go", "assist:last")
 

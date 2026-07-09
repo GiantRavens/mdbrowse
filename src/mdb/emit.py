@@ -50,6 +50,13 @@ def _block_md(b: dict, level_map: dict, shape: str) -> str:
         return f"![{b.get('alt', '')}]({b['src']})"
     if kind == "hr":
         return "---"
+    if kind == "form":
+        # Lynx-style affordance: a labelled underscore-run field + a submit button.
+        # The reader turns this line into a FIELD + BUTTON focusable (edit + submit);
+        # in plain markdown it just reads as a visible search box.
+        label = (b.get("label") or "Search").strip()
+        submit = (b.get("submit_label") or "Search").strip()
+        return f"⌗ {label}  {'_' * 28}  [ {submit} ]"
     if kind == "li":
         marker = "1." if b.get("ordered") else "-"
         return "  " * b.get("depth", 0) + f"{marker} {b['md']}"
@@ -117,28 +124,6 @@ def _region_links(blocks: list) -> str:
     return "\n".join(lines)
 
 
-def _menu_links(doc: dict, nav_blocks: list) -> str:
-    """The menu appendix, merged from two sources deduped by href:
-    the walker's visibility-independent nav harvest (doc['navLinks'] —
-    the complete map, including hamburger-collapsed drawers the mobile
-    profile paints as display:none), then any visible nav-region links
-    the harvest missed (header links on sites with no semantic <nav>)."""
-    seen, lines = set(), []
-    for l in doc.get("navLinks") or []:
-        href, text = l.get("href"), l.get("text")
-        if not href or not text or href in seen:
-            continue
-        seen.add(href)
-        lines.append(f"- [{text}]({href})")
-    for b in nav_blocks:
-        for l in b.get("links") or []:
-            if l["href"] in seen:
-                continue
-            seen.add(l["href"])
-            lines.append(f"- [{l['text']}]({l['href']})")
-    return "\n".join(lines)
-
-
 def _assemble(parts: list) -> str:
     out, prev_kind = [], None
     for kind, text in parts:
@@ -167,15 +152,9 @@ def emit_body(bundle: dict, manifest) -> str:
     if shape == "wall":
         challenge = manifest.signals.get("challenge_iframes") or []
         cf = manifest.signals.get("challenge")
-        wall_reason = manifest.signals.get("wall_reason")
-        wall_vendor = manifest.signals.get("wall_vendor")
         if cf == "cloudflare":
             why = ("a Cloudflare bot-verification challenge ('Just a "
                    "moment…') that did not clear for this headless browser")
-        elif wall_reason == "access_denied":
-            vendor = f" ({wall_vendor})" if wall_vendor else ""
-            why = (f"the site served an explicit access-denied page{vendor} "
-                   "to this browser")
         elif challenge:
             why = ("a verification challenge is running in an iframe "
                    f"({challenge[0].split('/')[2]}) that mdb does not enter")
@@ -185,13 +164,14 @@ def emit_body(bundle: dict, manifest) -> str:
         return (f"# {doc.get('title') or bundle['meta']['url']}\n\n"
                 f"_Nothing rendered: {why}. Retry with `--headed` (a real "
                 f"browser window — verification walls usually clear for a "
-                f"headed session) or `--fallback-headed` (cheap headless "
-                f"first, headed only if access is denied). In the reader, "
-                f"`O` opens the page in your browser and `C` retries headed, "
-                f"then keeps headed capture for that host in this reader "
-                f"session._")
+                f"headed session), or open the page in your browser; once "
+                f"the site trusts your session again, mdb browses with "
+                f"its cookies._")
 
-    body_blocks = [b for b in blocks if b.get("landmark") not in _CHROME_LANDMARKS]
+    # Forms render ONLY via the deduped top-of-body affordance below — drop them from the
+    # normal block flow so a form in the body doesn't render twice (top + inline).
+    body_blocks = [b for b in blocks
+                   if b.get("landmark") not in _CHROME_LANDMARKS and b.get("kind") != "form"]
     chrome = {lm: [b for b in blocks if b.get("landmark") == lm]
               for lm in _CHROME_LANDMARKS}
 
@@ -228,6 +208,19 @@ def emit_body(bundle: dict, manifest) -> str:
         if shape == "feed" and md.startswith("- "):
             kind = "item"
         parts.append((kind, md))
+
+    # Forms (search boxes etc.) live in nav/header chrome that the body filter
+    # strips — surface them as a top-of-page affordance regardless of landmark,
+    # deduped by (param, action). The reader turns each into a FIELD + BUTTON.
+    _seen_forms = set()
+    for _b in blocks:
+        if _b.get("kind") != "form":
+            continue
+        _key = (_b.get("param"), _b.get("action"))
+        if _key in _seen_forms:
+            continue
+        _seen_forms.add(_key)
+        parts.append(("form", _block_md(_b, level_map, shape)))
 
     if shape == "feed":
         # Repeated-unit detection: fragment runs collapse to one line per
@@ -281,11 +274,7 @@ def emit_body(bundle: dict, manifest) -> str:
     if body:
         out.append(body)
     for lm in _CHROME_LANDMARKS:
-        # The menu draws on the visibility-independent nav harvest so a
-        # hamburger-collapsed primary menu still lands in the appendix;
-        # sidebar/footer stay render-faithful (visible blocks only).
-        links = (_menu_links(doc, chrome[lm]) if lm == "nav"
-                 else _region_links(chrome[lm]))
+        links = _region_links(chrome[lm])
         if links:
             out.append(f"---\n\n## {_REGION_TITLES[lm]}\n\n{links}")
 
@@ -313,9 +302,6 @@ def emit(bundle: dict, manifest) -> str:
     # the per-host policy dropped (promoted posts, ad slots).
     if meta.get("policy_killed"):
         front["policy_killed"] = meta["policy_killed"]
-    if meta.get("headed_fallback"):
-        front["headed_fallback"] = True
-        front["fallback_reason"] = meta.get("fallback_reason", "")
     fm = "---\n" + "".join(f"{k}: {json.dumps(v, ensure_ascii=False)}\n"
                            for k, v in front.items()) + "---\n\n"
     return fm + body + "\n"
