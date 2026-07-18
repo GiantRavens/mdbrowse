@@ -2,6 +2,18 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-18 — 2.0.1: one playwright per worker thread
+
+Found in the wild minutes after 2.0.0 shipped: a cookied fetch after a
+--private fetch through the daemon failed with Playwright's misleading
+"Sync API inside the asyncio loop" error. The daemon's EngineWorker
+caches one engine per privacy identity in a single thread, and each
+engine started its own sync Playwright — but sync Playwright allows
+exactly one start() per thread. The worker now starts playwright once
+and LENDS it to every engine it builds; an engine only stops what it
+started. The checkin gate's daemon row now captures in both postures
+through one worker to keep it fixed.
+
 ## 2026-07-18 — 2.0.0: public release
 
 v2 graduates from alpha. First public release: MIT license, GitHub

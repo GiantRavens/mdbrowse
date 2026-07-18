@@ -374,7 +374,20 @@ def live_sweep(pick: list) -> bool:
                 print(f"  daemon    FAIL stale after handshake: "
                       f"{served} != {EXTRACTOR_VERSION}")
             else:
-                print(f"  daemon    ok   extractor={served} ({dt:.1f}s)")
+                # Mixed postures through ONE daemon worker: the per-
+                # identity engine cache once started sync Playwright a
+                # second time in the same thread (found in the wild
+                # minutes after 2.0.0 shipped — cookied fetch after a
+                # --private fetch). The shared-pw lend fixes it; this
+                # row keeps it fixed.
+                b2 = dmn.capture_via_daemon(DETERMINISM_URL, private=True)
+                if b2 is None:
+                    failures += 1
+                    print(f"  daemon    FAIL mixed-posture: private "
+                          f"capture after cookied returned None")
+                else:
+                    print(f"  daemon    ok   extractor={served} + "
+                          f"mixed postures ({time.time() - t0:.1f}s)")
         except Exception as e:
             failures += 1
             print(f"  daemon    FAIL {str(e)[:80]} "

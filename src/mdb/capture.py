@@ -478,12 +478,19 @@ class Engine:
 
     def __init__(self, private: bool = False, timeout: float = 30.0,
                  block_images: bool = True, headed: bool = False,
-                 desktop: bool = False):
+                 desktop: bool = False, pw=None):
         self._private = private
         self._timeout = timeout
         self._block_images = block_images
         self._headed = headed
         self._desktop = desktop
+        # pw: a sync_playwright handle LENT by the caller. Sync Playwright
+        # allows exactly one start() per thread, so anything that builds
+        # several Engines in one thread (EngineWorker's per-identity cache)
+        # must start playwright once and lend it to each engine. An engine
+        # only stops what it started.
+        self._shared_pw = pw
+        self._owns_pw = False
         self._pw = self._browser = self._context = None
         self._dns_verdicts = {}     # host -> ok|hang|fail, per session
         self._tcp_verdicts = {}     # (host, port) -> bool, per session
@@ -606,7 +613,12 @@ class Engine:
             return
         from playwright.sync_api import sync_playwright
         if self._pw is None:
-            self._pw = sync_playwright().start()
+            if self._shared_pw is not None:
+                self._pw = self._shared_pw
+                self._owns_pw = False
+            else:
+                self._pw = sync_playwright().start()
+                self._owns_pw = True
         # Anti-fingerprint baseline (every mode): AutomationControlled is what makes
         # navigator.webdriver report `true` — the single loudest tell Akamai/DataDome/
         # Cloudflare check. Disabling it makes webdriver natively `false` (a real value,
@@ -997,8 +1009,10 @@ class Engine:
             page.close()
 
     def close(self) -> None:
-        for obj, meth in ((self._context, "close"), (self._browser, "close"),
-                          (self._pw, "stop")):
+        targets = [(self._context, "close"), (self._browser, "close")]
+        if self._owns_pw:
+            targets.append((self._pw, "stop"))   # never stop a LENT playwright
+        for obj, meth in targets:
             if obj is not None:
                 try:
                     getattr(obj, meth)()
@@ -1036,13 +1050,21 @@ class EngineWorker:
         self._thread.start()
 
     def _loop(self, q):
+        # ONE sync_playwright per worker thread, lent to every engine —
+        # sync Playwright refuses a second start() in the same thread, so
+        # the per-identity cache below would otherwise blow up the moment
+        # a client mixes postures (default cookied + --private), which is
+        # exactly how the daemon is used in the wild.
+        from playwright.sync_api import sync_playwright
+        pw = sync_playwright().start()
         engines = {}
 
         def _eng(private, desktop=False):
             key = (private, desktop)     # one warm engine per identity
             e = engines.get(key)
             if e is None:
-                e = engines[key] = Engine(private=private, desktop=desktop)
+                e = engines[key] = Engine(private=private, desktop=desktop,
+                                          pw=pw)
             return e
 
         while True:
