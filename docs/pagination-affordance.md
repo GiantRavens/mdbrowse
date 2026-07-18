@@ -1,6 +1,6 @@
 # Pagination affordance — design spec
 
-Status: **proposed**
+Status: **implemented in 2.0.0a8**
 Author seed: reader observation that HN's `More` (`?p=2`) link is captured
 in the feed body but is only a plain link you follow by hand.
 
@@ -21,18 +21,18 @@ This spec adds a third, following those precedents exactly.
 
 ## 2. Principle
 
-- **Affordance, not content.** Detected pagination is document-level
-  metadata (`doc["pagination"]`), mirroring `doc["feeds"]`. It is
-  *additive* — the body is NOT edited. Pixels stay the judge for the
-  body; the "More" link keeps rendering where the extractor put it. This
-  keeps the determinism contract and the feed extractor untouched.
+- **Affordance, not feed content.** Detected pagination is document-level
+  metadata (`doc["pagination"]`), mirroring `doc["feeds"]`. A block made
+  only of detected pager links is removed from repeated-unit grouping and
+  re-emitted after a rule as explicit page navigation. The link survives;
+  its role becomes honest, and it cannot glue itself to the last feed item.
 - **Two signals, honest confidence.** Prefer the semantic standard
   (`rel=next`); fall back to a lexical+structural heuristic; never guess
   from lexical text alone. Record *how* each candidate was found (`via`)
   and a confidence — Level-2 telemetry, same discipline as the menu and
   skip-link fixes (structural AND lexical, both required).
 - **Stateless chaining.** Each page self-describes its own next/prev, so
-  the reader needs no cursor: `n` on page 2 re-detects page 2's `?p=3`.
+  the reader needs no cursor: `.` on page 2 re-detects page 2's `?p=3`.
   Pagination is just a pre-resolved `("go", url)` — it reuses the reader's
   existing fetch + history machinery verbatim (so `H` backs out of page 2).
 
@@ -84,7 +84,8 @@ when nothing qualifies (correct for infinite-scroll SPAs — see §7).
 
 ## 4. Emit
 
-- Body: **unchanged** (additive principle).
+- Body: detected pager-only blocks move out of content flow and become a
+  dedicated `Next page:` / `Previous page:` navigation block.
 - Front-matter: add `pagination_next` / `pagination_prev` (bare URLs) when
   present, so a saved `.md`, the MCP `fetch_page` result, and an agent can
   all see the chain without re-parsing. Gated behind presence so existing
@@ -112,7 +113,7 @@ No reader-side cursor state.
 
 ## 6. Phasing (graduation path)
 
-- **Phase 1 (this spec)** — detect → `doc["pagination"]` → reader `n`/`p`
+- **Phase 1 (implemented)** — detect → `doc["pagination"]` → reader `.`/`,`
   jump + hint + front-matter. Smallest useful slice.
 - **Phase 2 — continuous read.** `N` (or a `--paginate=K` capture flag)
   fetches up to K next-pages and concatenates their bodies into one scroll
@@ -134,9 +135,10 @@ can't use" case visible rather than silent.
 
 ## 8. Test harness
 
-- **hn** — extend the existing gate row: assert
-  `bundle["doc"]["pagination"]["next"]["href"]` endswith `?p=2`, `via ==
-  "param"`.
+- **hn live** — current HN advertises `rel=next`; assert `via == "rel"`.
+- **hn frozen fixture** — its older DOM lacked `rel`; assert the guarded
+  query fallback uses `via == "param"`, confidence 0.8, and `More` is not
+  joined to item 30.
 - **pydocs** — `docs.python.org` ships `<link rel="next">`; assert
   `via == "rel"`, confidence 0.95. (Already a gate site — free coverage.)
 - New fixture `paginated-*` frozen bundle so the walker→pagination path is

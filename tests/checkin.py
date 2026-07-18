@@ -36,8 +36,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 # Each site earns its slot by stressing something the others don't.
 SITES = [
     dict(name="hn", url="https://news.ycombinator.com",
-         why="layout tables + repeated-unit detector",
-         shape="feed", min_feed_items=20),
+         why="layout tables + repeated-unit detector + param pager",
+         shape="feed", min_feed_items=20, pagination_via="rel"),
     dict(name="cnn", url="https://www.cnn.com",
          why="stretched-link cards + app-shell overlay kill",
          shape="feed", min_feed_items=15),
@@ -56,8 +56,8 @@ SITES = [
              "high char floor guards the settle's expand from regressing",
          shape="article", min_headings=3, min_chars=6000),
     dict(name="pydocs", url="https://docs.python.org/3/library/functools.html",
-         why="code-fence fidelity (the line-doubling oracle finding)",
-         shape="article", min_fences=4),
+         why="code-fence fidelity + semantic rel=next pager",
+         shape="article", min_fences=4, pagination_via="rel"),
     dict(name="iana", url="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml",
          why="pure data tables -> pipe tables",
          contains=["| --- |"], min_chars=2000),
@@ -75,9 +75,12 @@ SITES = [
              "(the live site is wsj.com) — must fail fast and classified",
          expect_error="accepts no connections"),
     dict(name="wsj", url="https://www.wsj.com",
-         why="DataDome verification wall: must classify as wall with the "
-             "why, never emit a silent one-line ghost",
-         shape="wall", contains=["Nothing rendered"]),
+         why="DataDome vantage check: EITHER a classified wall (with the "
+             "why, never a silent one-line ghost) OR, when DataDome waves "
+             "this vantage through, the real front as a feed. Captured "
+             "private so the operator's own WSJ session can't decide it",
+         shape=["wall", "feed"], wall_contains=["Nothing rendered"],
+         private=True),
     dict(name="slow-host", url="https://www.starringthecomputer.com/computers.html",
          why="slow shared host the TCP preflight false-flagged dead — "
              "the both-ports probe must let it through, not refuse it",
@@ -114,9 +117,19 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
     """Structural expectations -> list of failure strings (empty = pass)."""
     fails = []
     lines = body.splitlines()
-    if "shape" in site and manifest.shape != site["shape"]:
-        fails.append(f"shape: wanted {site['shape']}, got {manifest.shape} "
-                     f"(conf {manifest.confidence})")
+    if "shape" in site:
+        # a str asserts one shape; a list accepts any of them (sites whose
+        # behavior is vantage-dependent, e.g. a bot-wall that sometimes
+        # waves the IP through to the real page)
+        wanted = site["shape"]
+        wanted = [wanted] if isinstance(wanted, str) else wanted
+        if manifest.shape not in wanted:
+            fails.append(f"shape: wanted {'|'.join(wanted)}, got "
+                         f"{manifest.shape} (conf {manifest.confidence})")
+        if manifest.shape == "wall":
+            for needle in site.get("wall_contains", []):
+                if needle not in body:
+                    fails.append(f"wall missing: {needle!r}")
     if "min_chars" in site and len(body) < site["min_chars"]:
         fails.append(f"thin: {len(body)} chars < {site['min_chars']}")
     if "min_links" in site:
@@ -147,6 +160,11 @@ def _check_site(site: dict, bundle: dict, manifest, body: str) -> list:
         if not any(b.get("images") or b.get("kind") == "img"
                    for b in bundle["doc"]["blocks"]):
             fails.append("no images captured")
+    if site.get("pagination_via"):
+        nxt = (bundle["doc"].get("pagination") or {}).get("next") or {}
+        if nxt.get("via") != site["pagination_via"]:
+            fails.append("pagination: wanted next via "
+                         f"{site['pagination_via']}, got {nxt or 'none'}")
     return fails
 
 
@@ -157,7 +175,45 @@ def offline_gate() -> bool:
     print("phase 0 — offline fixture corpus")
     ok = selftest() == 0
     ok = _policy_sanity() and ok
+    ok = _pagination_sanity() and ok
+    ok = _preview_focus_sanity() and ok
     return ok
+
+
+def _pagination_sanity() -> bool:
+    """Frozen HN guard: pager metadata must prevent More joining item 30."""
+    from mdb.bundle import load
+    from mdb.classify import classify
+    from mdb.emit import emit, emit_body
+    from mdb.reader import _pagination_href
+    bundle = load("tests/fixtures/hn-front.bundle.json")
+    pager = bundle["doc"].get("pagination") or {}
+    body = emit_body(bundle, classify(bundle))
+    full = emit(bundle, classify(bundle))
+    good = (pager.get("next", {}).get("via") == "param"
+            and pager.get("next", {}).get("confidence") == 0.8
+            and "\n\nNext page: [More](" in body
+            and "— [More]" not in body and "- [More]" not in body
+            and "pagination_next:" in full
+            and _pagination_href(bundle["doc"]["url"], bundle, "next")
+                == "https://news.ycombinator.com/?p=2"
+            and _pagination_href("https://news.ycombinator.com/?p=2",
+                                 bundle, "prev")
+                == "https://news.ycombinator.com/?p=1")
+    print("  pagination: " + ("OK (classified + separated + exported)"
+                              if good else "FAIL pager regression"))
+    return good
+
+
+def _preview_focus_sanity() -> bool:
+    """A peek window must leave input with mdb so second Space can close it."""
+    from mdb.reader import _JXA_IMAGE_WINDOW
+    good = ("orderFrontRegardless" in _JXA_IMAGE_WINDOW
+            and "makeKeyAndOrderFront" not in _JXA_IMAGE_WINDOW
+            and "activateIgnoringOtherApps" not in _JXA_IMAGE_WINDOW)
+    print("  preview: " + ("OK (non-activating; Space remains with reader)"
+                           if good else "FAIL preview steals keyboard focus"))
+    return good
 
 
 def _policy_sanity() -> bool:
@@ -199,7 +255,37 @@ def live_sweep(pick: list) -> bool:
         for site in sites:
             t0 = time.time()
             try:
-                bundle = eng.capture(site["url"])
+                if site.get("private"):
+                    # privacy is an Engine-construction property; a site
+                    # that must see the anonymous web (wall assertions)
+                    # gets its own short-lived cookie-free engine — in a
+                    # fresh thread, because sync Playwright refuses to
+                    # start twice in one thread (it raises the misleading
+                    # "inside the asyncio loop" error)
+                    import threading
+                    from mdb.capture import Engine as _PrivEngine
+                    _res = {}
+
+                    def _priv_capture():
+                        try:
+                            _peng = _PrivEngine(private=True)
+                            try:
+                                _res["bundle"] = _peng.capture(site["url"])
+                            finally:
+                                _peng.close()
+                        except Exception as exc:  # surfaced in main thread
+                            _res["err"] = exc
+
+                    _t = threading.Thread(target=_priv_capture, daemon=True)
+                    _t.start()
+                    _t.join(120)
+                    if "err" in _res:
+                        raise _res["err"]
+                    if "bundle" not in _res:
+                        raise TimeoutError("private capture thread timed out")
+                    bundle = _res["bundle"]
+                else:
+                    bundle = eng.capture(site["url"])
                 manifest = classify(bundle)
                 body = emit_body(bundle, manifest)
                 if site.get("expect_error"):

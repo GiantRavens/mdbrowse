@@ -39,19 +39,56 @@ screenshot-based fidelity oracle.
   (`policy_killed`), user rules merge from `~/.mdb/policy.json`, and
   `MDBROWSE_NO_POLICY=1` turns the layer off.
 
+## Built for agents; sharp for analysts
+
+LLMs pay per token, and the raw web bills them cruelly: raw HTML costs
+about 9× mdb's tokens per fact, and most "clean" extractors pay for
+their cleanliness by dropping the links or flattening the structure.
+In the benchmark suite (seven contenders against ground-truth fact
+signals no contender defines), mdb is the only extractor with 100%
+fact recall AND navigable links AND surviving structure — the suite
+table below has the details. The MCP server (`mdb-mcp`) hands that
+surface to any agent: fetch with provenance, web search, link
+filtering, pagination slices served from the capture cache.
+
+The same properties make it an open-source intel tool:
+
+- **Deterministic, citable captures.** Same page state → identical
+  bytes, with front-matter provenance (source URL, retrieval time,
+  auth mode, shape + confidence, extractor version) and a body
+  content-hash. Captures are diffable, versionable, quotable evidence.
+- **Watch sensors.** `mdb watch` keeps versioned snapshots and fires
+  only on real change — classified readings (ok / changed+diff /
+  error+why), never a bare "page fetched".
+- **A searchable web memory.** Everything captured lands in a
+  full-text-searchable archive (`mdb search`, `archive_search`) that
+  works offline.
+- **Honest failure.** Bot-walls and paywalls come back classified as
+  walls with the why — never soup pretending to be the page.
+- **Two postures.** Browses as you (Safari cookies) for your own
+  logged-in view of the web, or `--private` for the anonymous web
+  with DNT/Sec-GPC.
+
 ## Install
 
 ```bash
-cd ~/Desktop/notebook/code/mdbrowse
-./mdb --version         # first run builds .venv and installs Chromium
+brew install giantravens/tap/mdbrowse     # installs mdb and mdb-mcp
 ```
 
-The project `.venv` is host-local (never synced). `./mdb` creates it on
-first run when `uv` is installed, then installs mdb and Playwright's
-Chromium into it. A project `.venv` is recommended for beginners and
-repeatable installs, but it is not mandatory: any Python 3.11+
-environment works if you install mdb into it and install Chromium for
-that same environment.
+mdb drives your installed Google Chrome when present. Without Chrome,
+give Playwright its own engine once: `playwright install chromium`.
+
+From source instead:
+
+```bash
+git clone https://github.com/GiantRavens/mdbrowse
+cd mdbrowse
+./mdb --version         # first run builds .venv (via uv) and installs Chromium
+```
+
+The project `.venv` is host-local. Not mandatory either: any Python
+3.11+ environment works if you install mdb into it and give that same
+environment a Chromium.
 
 ## Getting Started
 
@@ -154,7 +191,7 @@ Useful first keys:
 - `Enter` opens the focused link.
 - `H` goes back.
 - `Space` previews the focused image, or scrolls when no image is
-  focused.
+  focused. Press `Space` again to close that preview.
 - `?` opens help.
 - `q` quits.
 
@@ -379,6 +416,7 @@ field when you want typed characters to go there.
 | `H` / `L` · `r` | history back / forward · reload |
 | `f` | fill the page's search form (GET), submit as navigation |
 | `F` | open the page's advertised RSS feed |
+| `.` / `,` | next / previous detected page |
 | `S` / `a` | summarize / ask this page (Claude); answers are pages, `H` returns |
 | `v` | speak from the focused element (`v` again stops; `--announce` speaks on focus) |
 | `s` · `B` · `O` | archive · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) |
@@ -418,7 +456,8 @@ Mouse: wheel scrolls, click follows, click 🖼 previews. (tmux: `set -g mouse o
    suppression, content-stability settle, 3s DNS preflight (black-holed
    names fail fast *with the why*). `walker.js` runs inside the page and
    emits leaf blocks with landmark, kind, inline-markdown, links, and
-   geometry. `page.content()` is never taken.
+   geometry, plus document-level feed and pagination affordances.
+   `page.content()` is never taken.
 2. **Classify** — a cheap shape manifest (`article | feed | page | app`
    with confidence) from bundle signals, before any emission.
 3. **Emit** — per-shape assembly: repeated-unit detection collapses

@@ -124,6 +124,31 @@ def _region_links(blocks: list) -> str:
     return "\n".join(lines)
 
 
+def _is_pager_block(block: dict, pagination: dict) -> bool:
+    """True when a content block consists only of detected pager links.
+
+    Detection belongs to the walker; this is deliberately only identity
+    matching. It prevents pagination rows from entering feed-unit grouping
+    without re-deriving or second-guessing the walker's confidence verdict.
+    """
+    targets = {p.get("href") for p in (
+        pagination.get("prev"), pagination.get("next")) if p}
+    links = block.get("links") or []
+    hrefs = {link.get("href") for link in links}
+    return bool(hrefs) and hrefs <= targets
+
+
+def _pagination_md(pagination: dict) -> str:
+    lines = []
+    prev = pagination.get("prev")
+    nxt = pagination.get("next")
+    if prev:
+        lines.append(f"Previous page: [{prev.get('label') or 'Previous'}]({prev['href']})")
+    if nxt:
+        lines.append(f"Next page: [{nxt.get('label') or 'Next'}]({nxt['href']})")
+    return "\n\n".join(lines)
+
+
 def _assemble(parts: list) -> str:
     out, prev_kind = [], None
     for kind, text in parts:
@@ -139,6 +164,7 @@ def _assemble(parts: list) -> str:
 def emit_body(bundle: dict, manifest) -> str:
     doc = bundle["doc"]
     blocks = doc.get("blocks", [])
+    pagination = doc.get("pagination") or {}
     shape = manifest.shape
 
     if shape == "app":
@@ -171,8 +197,11 @@ def emit_body(bundle: dict, manifest) -> str:
     # Forms render ONLY via the deduped top-of-body affordance below — drop them from the
     # normal block flow so a form in the body doesn't render twice (top + inline).
     body_blocks = [b for b in blocks
-                   if b.get("landmark") not in _CHROME_LANDMARKS and b.get("kind") != "form"]
-    chrome = {lm: [b for b in blocks if b.get("landmark") == lm]
+                   if b.get("landmark") not in _CHROME_LANDMARKS
+                   and b.get("kind") != "form"
+                   and not _is_pager_block(b, pagination)]
+    chrome = {lm: [b for b in blocks if b.get("landmark") == lm
+                   and not _is_pager_block(b, pagination)]
               for lm in _CHROME_LANDMARKS}
 
     # For articles, trust the page's own main landmark when it carries the
@@ -273,6 +302,9 @@ def emit_body(bundle: dict, manifest) -> str:
     body = _assemble(parts)
     if body:
         out.append(body)
+    pager_md = _pagination_md(pagination)
+    if pager_md:
+        out.append(f"---\n\n{pager_md}")
     for lm in _CHROME_LANDMARKS:
         links = _region_links(chrome[lm])
         if links:
@@ -302,6 +334,11 @@ def emit(bundle: dict, manifest) -> str:
     # the per-host policy dropped (promoted posts, ad slots).
     if meta.get("policy_killed"):
         front["policy_killed"] = meta["policy_killed"]
+    pagination = doc.get("pagination") or {}
+    if pagination.get("next"):
+        front["pagination_next"] = pagination["next"]["href"]
+    if pagination.get("prev"):
+        front["pagination_prev"] = pagination["prev"]["href"]
     fm = "---\n" + "".join(f"{k}: {json.dumps(v, ensure_ascii=False)}\n"
                            for k, v in front.items()) + "---\n\n"
     return fm + body + "\n"

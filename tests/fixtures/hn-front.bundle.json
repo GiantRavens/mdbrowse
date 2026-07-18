@@ -1843,6 +1843,18 @@
   ],
   "interactive": 1,
   "lang": "en",
+  "pagination": {
+   "candidates": 1,
+   "next": {
+    "confidence": 0.8,
+    "href": "https://news.ycombinator.com/?p=2",
+    "label": "More",
+    "via": "param"
+   },
+   "pagination_js_only": 0,
+   "param": "p",
+   "prev": null
+  },
   "title": "Hacker News",
   "url": "https://news.ycombinator.com/",
   "viewport": [

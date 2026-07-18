@@ -98,8 +98,10 @@ function run(argv) {
 
   var delegate = $.MdbPreviewWindowDelegate.alloc.init;
   win.setDelegate(delegate);
-  win.makeKeyAndOrderFront(null);
-  app.activateIgnoringOtherApps(true);
+  // A preview is a peek, not a focus transfer. Keep the terminal key so a
+  // second Space reaches mdb and closes this process via preview_image().
+  // orderFrontRegardless makes the window visible without making it key.
+  win.orderFrontRegardless;
   app.run();
   return 0;
 }
@@ -118,6 +120,34 @@ def _form_url(f) -> str:
     from urllib.parse import urlencode
     sep = "&" if "?" in (f.href or "") else "?"
     return (f.href or "") + sep + urlencode({f.param: f.value})
+
+
+def _pagination_href(url: str, bundle: dict | None, direction: str) -> str:
+    """Resolve a captured pager target; synthesize only confirmed numeric prev."""
+    pagination = ((bundle or {}).get("doc", {}).get("pagination") or {})
+    target = pagination.get(direction)
+    if target and target.get("href"):
+        return target["href"]
+    if direction != "prev" or not pagination.get("param"):
+        return ""
+
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+    u = urlsplit(url)
+    pairs = parse_qsl(u.query, keep_blank_values=True)
+    param = pagination["param"]
+    for i, (key, value) in enumerate(pairs):
+        if key != param:
+            continue
+        try:
+            n = int(value)
+        except ValueError:
+            return ""
+        if n <= 1:
+            return ""
+        pairs[i] = (key, str(n - 1))
+        return urlunsplit((u.scheme, u.netloc, u.path,
+                           urlencode(pairs), u.fragment))
+    return ""
 
 HELP_LINES = (
     "mdb reader — keys",
@@ -142,6 +172,7 @@ HELP_LINES = (
     "  S / a            summarize / ask this page (Claude); H returns",
     "  F                open the page's RSS feed (when advertised)",
     "  f                fill the page's search form and go (GET forms)",
+    "  . / ,            next / previous detected page",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
     "  B                add page to Safari Reading List",
     "  :                omnibox — URLs navigate, anything else searches",
@@ -832,11 +863,17 @@ class Reader:
                 current = self.page.url
                 hints = []
                 if self.page.bundle:
-                    if self.page.bundle["doc"].get("feeds"):
+                    doc = self.page.bundle["doc"]
+                    if doc.get("feeds"):
                         hints.append("RSS: F")
                     if any(b.get("kind") == "form"
-                           for b in self.page.bundle["doc"].get("blocks", [])):
+                           for b in doc.get("blocks", [])):
                         hints.append("search form: f")
+                    pagination = doc.get("pagination") or {}
+                    if pagination.get("next"):
+                        hints.append("next: .")
+                    if pagination.get("prev") or pagination.get("param"):
+                        hints.append("prev: ,")
                 if hints:
                     self.msg = " · ".join(hints)
             except Exception as e:
@@ -1190,6 +1227,14 @@ class Reader:
                 if feeds:
                     return ("go", "feed:" + feeds[0]["href"])
                 self.msg = "no feed advertised on this page"
+                continue
+
+            if c in (ord("."), ord(",")):    # detected page chain
+                direction = "next" if c == ord(".") else "prev"
+                href = _pagination_href(page.url, page.bundle, direction)
+                if href:
+                    return ("go", href)
+                self.msg = f"no {direction} page detected"
                 continue
 
             if c in (ord("S"), ord("a")):    # LLM: summarize / ask this page

@@ -451,11 +451,98 @@
                    href: href, type: l.getAttribute("type") || "" });
   }
 
+  // Pagination is navigation metadata, not another feed item. Harvest it
+  // after the body walk so the emitter can keep pager rows out of repeated-
+  // unit grouping while preserving them as an explicit navigation block.
+  // Semantic rel links win; lexical labels only qualify when the URL has a
+  // same-origin pagination-shaped delta. This prevents an ordinary "More"
+  // article link from becoming a fabricated next page.
+  const NEXT_RE = /^(next(?: page)?|more|load more|show more|older(?: posts| entries)?|»|→|›|⟩)$/i;
+  const PREV_RE = /^(previous|prev|newer(?: posts)?|back|«|←|‹|⟨)$/i;
+  const PAGE_PARAMS = new Set(["p", "page", "start", "offset", "after"]);
+
+  function pageLabel(el) {
+    return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
+  function urlDelta(href) {
+    let cur, dst;
+    try { cur = new URL(location.href); dst = new URL(href); } catch { return null; }
+    if (dst.origin !== cur.origin || dst.href === cur.href) return null;
+    cur.hash = ""; dst.hash = "";
+
+    if (cur.pathname === dst.pathname) {
+      const keys = new Set([...cur.searchParams.keys(), ...dst.searchParams.keys()]);
+      const changed = [...keys].filter(
+        k => cur.searchParams.getAll(k).join("\u0000") !==
+             dst.searchParams.getAll(k).join("\u0000"));
+      if (changed.length === 1 && PAGE_PARAMS.has(changed[0]))
+        return { via: "param", confidence: 0.8, param: changed[0] };
+    }
+
+    if (cur.search === dst.search) {
+      const base = p => p.replace(/(?:page\/)?\d+\/?$/i, "");
+      const dstPaged = /(?:^|\/)(?:page\/)?\d+\/?$/i.test(dst.pathname);
+      if (dstPaged && base(cur.pathname) === base(dst.pathname))
+        return { via: "path", confidence: 0.7 };
+    }
+    return null;
+  }
+
+  const pager = { next: null, prev: null, param: null,
+                  candidates: 0, pagination_js_only: 0 };
+  function offer(direction, href, label, via, confidence, param) {
+    if (!href || !href.startsWith("http") || href === location.href) return;
+    pager.candidates++;
+    const candidate = { href: href, label: label || direction,
+                        via: via, confidence: confidence };
+    if (!pager[direction] || confidence > pager[direction].confidence)
+      pager[direction] = candidate;
+    if (param) pager.param = param;
+  }
+
+  for (const el of document.querySelectorAll('link[rel], a[href][rel]')) {
+    const rels = (el.getAttribute("rel") || "").toLowerCase().split(/\s+/);
+    const direction = rels.includes("next") ? "next" :
+                      (rels.includes("prev") || rels.includes("previous")) ? "prev" : "";
+    if (direction)
+      offer(direction, cardHref(el.getAttribute("href")), pageLabel(el),
+            "rel", 0.95, null);
+  }
+
+  for (const a of document.querySelectorAll("a[href]")) {
+    const rels = (a.getAttribute("rel") || "").toLowerCase().split(/\s+/);
+    if (rels.includes("next") || rels.includes("prev") || rels.includes("previous")) {
+      // Already counted at the stronger semantic tier, but retain a
+      // confirmed numeric parameter for safe synthetic-previous navigation.
+      const delta = urlDelta(cardHref(a.getAttribute("href")));
+      if (delta && delta.param) pager.param = delta.param;
+      continue;
+    }
+    const label = pageLabel(a);
+    if (!label || label.length > 24) continue;
+    const direction = NEXT_RE.test(label) ? "next" : PREV_RE.test(label) ? "prev" : "";
+    if (!direction) continue;
+    const href = cardHref(a.getAttribute("href"));
+    const delta = href && urlDelta(href);
+    if (delta)
+      offer(direction, href, label, delta.via, delta.confidence, delta.param);
+  }
+
+  for (const el of document.querySelectorAll('button, [role="button"]')) {
+    const label = pageLabel(el);
+    if (label && label.length <= 24 && (NEXT_RE.test(label) || PREV_RE.test(label))
+        && !el.closest("a[href]")) pager.pagination_js_only++;
+  }
+  const pagination = (pager.next || pager.prev) ? pager : null;
+
   return {
     url: location.href,
     title: (document.title || "").trim(),
     lang: document.documentElement.lang || "",
     feeds: feeds,
+    pagination: pagination,
+    pagination_js_only: pager.pagination_js_only,
     description: (document.querySelector('meta[name="description"]') || {}).content || "",
     viewport: [VPW, VPH],
     docHeight: Math.round(document.documentElement.scrollHeight),

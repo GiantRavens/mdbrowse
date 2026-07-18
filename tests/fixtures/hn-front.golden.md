@@ -65,6 +65,8 @@
 
 - 30. [Game Boy Advance Dev: Logging to the Console](https://www.mattgreer.dev/blog/gba-dev-logging/) ([mattgreer.dev](https://news.ycombinator.com/from?site=mattgreer.dev)) — 3 points by [jandeboevrie](https://news.ycombinator.com/user?id=jandeboevrie) [2 hours ago](https://news.ycombinator.com/item?id=48787001) | [hide](https://news.ycombinator.com/hide?id=48787001&auth=201aee25089f7b8c73cf7a351920767f7d666008&goto=news) | [discuss](https://news.ycombinator.com/item?id=48787001)
 
-- [More](https://news.ycombinator.com/?p=2)
-
 - [Guidelines](https://news.ycombinator.com/newsguidelines.html) | [FAQ](https://news.ycombinator.com/newsfaq.html) | [Lists](https://news.ycombinator.com/lists) | [API](https://github.com/HackerNews/API) | [Security](https://news.ycombinator.com/security.html) | [Legal](https://www.ycombinator.com/legal/) | [Apply to YC](https://www.ycombinator.com/apply/) | Contact
+
+---
+
+Next page: [More](https://news.ycombinator.com/?p=2)

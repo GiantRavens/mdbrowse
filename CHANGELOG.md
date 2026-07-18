@@ -2,6 +2,36 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## 2026-07-18 — 2.0.0: public release
+
+v2 graduates from alpha. First public release: MIT license, GitHub
+(GiantRavens/mdbrowse), Homebrew tap install (`brew install
+giantravens/tap/mdbrowse`). README repositioned around what the tool
+is for: a token-efficient markdown surface for LLM agents and a
+deterministic, provenance-carrying capture tool for open-source
+intelligence work.
+
+Checkin gate hardening while cutting the release: the wsj slot now
+accepts EITHER a classified DataDome wall OR the real front page as a
+feed (the wall is vantage-dependent; the invariant is "never a silent
+ghost"), captured private via a dedicated cookie-free engine in its own
+thread (sync Playwright refuses a second start per thread). Personal
+task state (tasks/, .punchlist/) untracked from the public repo.
+
+## 2026-07-17 — Pagers become navigation; previews keep focus (2.0.0a8)
+
+Terminal feed rows such as Hacker News's `More` could be mistaken for a
+repeated-unit attachment and glued onto item 30. The walker now classifies
+pagination before emission: semantic `rel=next/prev` wins at confidence
+0.95; same-origin lexical links qualify only with a pagination query/path
+delta (0.8/0.7). Pager-only blocks move out of feed flow into an explicit
+`Next page:` / `Previous page:` block, URLs are exported in front-matter,
+and the reader follows the chain with `.` / `,`. Candidate counts, detection
+method, confidence, and JS-only load-more controls remain visible telemetry.
+
+macOS image previews now appear without taking keyboard focus from mdb, so
+the existing second-Space toggle can close the preview as intended.
+
 ## 2026-07-07 — X status pages via the syndication side door (2.0.0a7 wave)
 
 X status pages read as "numbers without context" — `17K 131K 307K 21K`

@@ -5,5 +5,5 @@ Pipeline: capture (in-browser IR) -> classify (shape manifest) -> emit
 archive store, MCP server.
 """
 
-__version__ = "2.0.0a7"
+__version__ = "2.0.0"
 EXTRACTOR_VERSION = __version__
