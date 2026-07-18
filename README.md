@@ -39,6 +39,25 @@ screenshot-based fidelity oracle.
   (`policy_killed`), user rules merge from `~/.mdb/policy.json`, and
   `MDBROWSE_NO_POLICY=1` turns the layer off.
 
+## A quieter web — the terminal browser, without the compromises
+
+Terminal browsers have always been the calm way to read the web, and
+they have been quietly broken for twenty years: lynx and w3m parse
+HTML, and the web moved to JavaScript. mdbrowse is a spiritual
+successor with the compromise removed. Pages execute in a real browser
+engine — JavaScript runs, cookies are yours, logged-in and
+paywalled-to-you pages render as *your* view of the site — and what
+reaches the terminal is the semantic page: headings in hierarchy,
+prose, links, tables. No banners, no layout machinery, no autoplay,
+nothing chasing your attention. The web at reading pace.
+
+The ancestors' virtues survive: keyboard-first vim motions, focusable
+links, working forms (search Wikipedia or DuckDuckGo from inside the
+reader), an omnibox where anything that isn't a URL is a search. What's
+new is that it never hands you soup — a news front is one linked line
+per story, a docs page is clean fenced code, and a bot-wall tells you
+it's a bot-wall instead of pretending to be content.
+
 ## Built for agents; sharp for analysts
 
 LLMs pay per token, and the raw web bills them cruelly: raw HTML costs
