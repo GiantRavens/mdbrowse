@@ -1,29 +1,27 @@
 # mdbrowse
 
-**Compiles the web to markdown — faithful, deterministic, shaped for reading.**
+**Compile and browse the web in markdown.**
 
-`mdb` is a web → markdown **compiler** with a terminal browser on top.
-It launches an actual Chromium/Chrome browser, lets the page execute
-like a browser page, then extracts structured truth from inside the
-engine (geometry, landmarks, computed styles — never re-parsed HTML
+`mdb` is a web → markdown **compiler** with a terminal browser on top. 
+
+**How it Works**
+
+mdb launches an actual Chromium/Chrome browser behind your terminal window. The page
+loads with all the niceties of a full browser, from JavaScript loading, cookies and more - something W3M could never give you. 
+From that browser window mdb extracts the structure and essence of that page (geometry, landmarks, computed styles — never re-parsed HTML
 strings). The full DOM and page interaction stay inside the browser;
-humans and agents get a compact, navigable markdown surface instead of
-spending terminal space or LLM tokens on raw HTML, scripts, layout
-machinery, and invisible app state. The compiler classifies each page's
-*shape* and emits clean, hierarchically correct markdown — the same page
-state producing the same bytes, every time. Everything else is a
-frontend over that compiler: a vim-style reader, an archive store,
-change-watching sensors, an MCP server for agents, speech output, and a
-screenshot-based fidelity oracle.
+but humans get a zen-like no-fluff browsing experience, and agents get a highly token-efficient view of the web.
+The compiler classifies each page's
+*shape* and emits clean, hierarchically correct markdown that can be snapshotted to archive webpages as clean markdown.
 
-- **Browses as you.** Reads your Safari cookies by default — logged-in
-  and paywalled-to-you pages render as you'd see them. `--private`
-  sends none.
-- **Shape-aware.** Articles come out as clean prose; feeds (HN, news
-  fronts) as one linked line per story; index cards merge their
-  fragments; data tables as markdown pipe tables (layout tables stay
-  prose); app-shaped pages get a classified refusal instead of soup.
-- **Site-smart.** Thin-mobile sites (Wikipedia, Stack Overflow, Reddit)
+mdb includes an archive store,
+change-watching sensors, an MCP server for agents, speech output ideal for sight-challenged users.
+
+- **Full browser feature-set** mdb reads your Safari cookies by default so your logged-in
+  and paywalled-to-you pages render as you'd see them. Or use the `--private` flag to go without.
+- **No fluff** Light DOM re-ordering ensures articles come out as clean prose that drops most ads and pushes all that menubar and sidebard junk down - and works well with feeds (HN, news
+  sites) presenting one linked line per story
+- **Site-smart.** Write site-handling rules as you like - by default thin-mobile sites (Wikipedia, Stack Overflow, Reddit)
   are captured with a desktop UA; Reddit uses its `.json` endpoint for
   a browser-free structured read (old.reddit HTML when unauthenticated);
   Cloudflare "Just a moment…" challenges are waited out before capture.
@@ -39,54 +37,42 @@ screenshot-based fidelity oracle.
   (`policy_killed`), user rules merge from `~/.mdb/policy.json`, and
   `MDBROWSE_NO_POLICY=1` turns the layer off.
 
-## A quieter web — the terminal browser, without the compromises
+## Simple, Zen browsing from a terminal console
 
-Terminal browsers have always been the calm way to read the web, and
-they have been quietly broken for twenty years: lynx and w3m parse
-HTML, and the web moved to JavaScript. mdbrowse is a spiritual
-successor with the compromise removed. Pages execute in a real browser
-engine — JavaScript runs, cookies are yours, logged-in and
-paywalled-to-you pages render as *your* view of the site — and what
-reaches the terminal is the semantic page: headings in hierarchy,
-prose, links, tables. No banners, no layout machinery, no autoplay,
-nothing chasing your attention. The web at reading pace.
+Terminal browsers have always been the calm way to read the web, but have been quietly broken for twenty years: lynx and w3m parse
+HTML, meanwhile most sites are unreadable without a full JavaScript engine. 
 
-The ancestors' virtues survive: keyboard-first vim motions, focusable
-links, working forms (search Wikipedia or DuckDuckGo from inside the
-reader), an omnibox where anything that isn't a URL is a search. What's
-new is that it never hands you soup — a news front is one linked line
-per story, a docs page is clean fenced code, and a bot-wall tells you
-it's a bot-wall instead of pretending to be content.
+mdbrowse is a spiritual
+successor to those tools in a full browser processor, then delivers the text as md format in the terminal.
+mdbrowse by default uses keyboard-first vim motions, tabs to hop to focusable
+links, even forms work such as Wikipedia or DuckDuckGo. 
 
 ## Built for agents; sharp for analysts
 
-LLMs pay per token, and the raw web bills them cruelly: raw HTML costs
+Since LLMs charge per token, reading full HTML is highly inefficient - raw HTML costs
 about 9× mdb's tokens per fact, and most "clean" extractors pay for
 their cleanliness by dropping the links or flattening the structure.
-In the benchmark suite (seven contenders against ground-truth fact
-signals no contender defines), mdb is the only extractor with 100%
+
+In the benchmark suite of tools mdb is the only extractor with 100%
 fact recall AND navigable links AND surviving structure — the suite
 table below has the details. The MCP server (`mdb-mcp`) hands that
 surface to any agent: fetch with provenance, web search, link
 filtering, pagination slices served from the capture cache.
 
-The same properties make it an open-source intel tool:
+The same properties make it an exellent open-source intel tool:
 
-- **Deterministic, citable captures.** Same page state → identical
+- **Capture the web as citable 'point in time' snapshots:** Same page state → identical
   bytes, with front-matter provenance (source URL, retrieval time,
   auth mode, shape + confidence, extractor version) and a body
   content-hash. Captures are diffable, versionable, quotable evidence.
-- **Watch sensors.** `mdb watch` keeps versioned snapshots and fires
+- **Watch pages for change over time:** `mdb watch` keeps versioned snapshots and fires
   only on real change — classified readings (ok / changed+diff /
   error+why), never a bare "page fetched".
-- **A searchable web memory.** Everything captured lands in a
+- **Build your searchable web content memory** Everything captured lands in a
   full-text-searchable archive (`mdb search`, `archive_search`) that
   works offline.
-- **Honest failure.** Bot-walls and paywalls come back classified as
-  walls with the why — never soup pretending to be the page.
-- **Two postures.** Browses as you (Safari cookies) for your own
-  logged-in view of the web, or `--private` for the anonymous web
-  with DNT/Sec-GPC.
+- **Read failure feedback:** Sites that throw up bot-walls and paywalls come back classified as
+  walls with the reason - you can simply key 'O' no a page to open the URL in your rich browser - likely the cookies you save will let mdb through the next time.
 
 ## Install
 
@@ -135,7 +121,7 @@ Open Terminal and go to the project folder. If you keep this repository
 somewhere else, use that folder instead:
 
 ```bash
-cd ~/Desktop/notebook/code/mdbrowse
+cd ~/Documents/mdbrowse
 ```
 
 Run mdb once. The first run creates the local Python environment,
@@ -254,7 +240,7 @@ Print a page without opening the reader:
 Search the web:
 
 ```bash
-./mdb search "best explanation of zfs snapshots"
+./mdb search "most useful open source intel tools"
 ```
 
 Save a page to your personal archive:
@@ -497,17 +483,12 @@ five suite tiers:
 | fidelity oracle | pixel truths — screenshots as judge, never extractor | `mdb oracle URL` |
 | benchmark | mdb vs other agent web tools: tokens, recall, links, structure, speed, determinism | `tests/benchmark.py` |
 
-The benchmark is an instrument, not a gate: seven contenders (mdb, raw
+The benchmark compares seven approaches (mdb, raw
 HTML, tag-strip, Chromium innerText, trafilatura, pandoc, Jina reader)
 against ground-truth fact signals that no contender defines. Headline
 numbers (2026-07-05): mdb is the only contender with 100% recall AND
 navigable links AND surviving structure; raw HTML costs ~9× mdb's
 tokens per fact; the pandoc pipeline emits 2 tokens for all of HN.
-
-The checkin gate's site manifest (HN, CNN, BBC, apple.com, quantum.com,
-Wikipedia, Python docs, IANA, GitHub, xkcd, Mojeek) asserts *structure*
-(shape, item counts, code fences, pipe tables), never content; if the
-network is down it gates on fixtures alone rather than blocking commits.
 
 ## History
 
