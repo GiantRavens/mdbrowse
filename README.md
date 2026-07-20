@@ -2,11 +2,13 @@
 
 **Compile and browse the web in markdown.**
 
-`mdb` is a web → markdown **compiler** with a terminal browser on top. 
+`mdb` is a web → markdown **compiler** with a terminal browser on top to make it possible to browse the full web from a terminal window.
+
+Humans get a non-noisy way to browse the web in simple markdown, llms get a token-effient way to browse the web.
 
 **How it Works**
 
-mdb launches an actual Chromium/Chrome browser behind your terminal window. The page
+When you launch mdb in a terminal, mdb launches an actual Chromium/Chrome browser behind your terminal window. The page
 loads with all the niceties of a full browser, from JavaScript loading, cookies and more - something W3M could never give you. 
 From that browser window mdb extracts the structure and essence of that page (geometry, landmarks, computed styles — never re-parsed HTML
 strings). The full DOM and page interaction stay inside the browser;
