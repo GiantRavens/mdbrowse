@@ -49,7 +49,7 @@ successor to those tools in a full browser processor, then delivers the text as 
 mdbrowse by default uses keyboard-first vim motions, tabs to hop to focusable
 links, even forms work such as Wikipedia or DuckDuckGo. 
 
-## Built for agents; sharp for analysts
+## Built for agents; with a toolbox for analysts
 
 Since LLMs charge per token, reading full HTML is highly inefficient - raw HTML costs
 about 9× mdb's tokens per fact, and most "clean" extractors pay for
