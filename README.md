@@ -4,7 +4,7 @@
 
 `mdb` is a web → markdown **compiler** with a terminal browser on top to make it possible to browse the full web from a terminal window.
 
-Humans get a non-noisy way to browse the web in simple markdown, llms get a token-effient way to browse the web.
+Humans get a non-noisy way to browse the web in simple markdown, llms get a token-efficient way to browse the web.
 
 **How it Works**
 
