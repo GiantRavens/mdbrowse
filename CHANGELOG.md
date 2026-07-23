@@ -4,6 +4,16 @@ All notable changes to mdbrowse. Newest first.
 
 ## Unreleased
 
+### Homebrew Core-ready dependency packaging
+
+The tap formula now declares the complete recursive Python runtime graph as
+checksummed source resources and installs it with Homebrew's Python
+virtualenv helper. Native Python extensions build through a declared Rust
+toolchain; Playwright uses an immutable source tag and Homebrew's managed
+Node. A readiness manifest records the resource strategy, audit evidence,
+source-build result, and the separate public-interest gate for a future
+`homebrew/core` submission.
+
 ### Research saves use the browser download workflow
 
 Reader `s` now prompts for a Markdown filename, and `d` prompts for a
