@@ -4,6 +4,13 @@ All notable changes to mdbrowse. Newest first.
 
 ## Unreleased
 
+### Shell completions
+
+`mdb completion bash` and `mdb completion zsh` generate native completion
+scripts for commands, root options, backend and dump choices, and common
+subcommand verbs. Homebrew installations generate and install both scripts
+from the executable.
+
 ### Compact X engagement rows
 
 Native X timeline captures now present reply, repost, like, bookmark, and

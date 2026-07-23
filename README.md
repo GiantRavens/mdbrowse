@@ -310,6 +310,14 @@ By default, mdb reads Safari cookies on macOS so pages look like they do
 when you are signed in. That is useful for sites you already have access
 to, but it also means mdb is browsing as you.
 
+Homebrew installs bash and zsh completions automatically. For a manual
+installation, generate the completion script from the executable:
+
+```bash
+mdb completion bash
+mdb completion zsh
+```
+
 Use private mode when you do not want Safari cookies sent:
 
 ```bash

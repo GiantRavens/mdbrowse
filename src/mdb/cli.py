@@ -148,6 +148,9 @@ def _reader_tokenize_time(body: str):
 
 def main() -> None:
     # Subcommand dispatch before flag parsing: `mdb watch ...`, `mdb get ...`
+    if len(sys.argv) > 1 and sys.argv[1] == "completion":
+        from .completions import completion_cli
+        sys.exit(completion_cli(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] == "watch":
         from .watch import watch_cli
         sys.exit(watch_cli(sys.argv[2:]))
