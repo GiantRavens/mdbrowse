@@ -174,6 +174,7 @@ HELP_LINES = (
     "  f                fill the page's search form and go (GET forms)",
     "  . / ,            next / previous detected page",
     "  O                open in browser (MDBROWSE_BROWSER, default Safari)",
+    "  E                retry a gated page with an authenticated backend",
     "  B                add page to Safari Reading List",
     "  :                omnibox — URLs navigate, anything else searches",
     "                   (MDBROWSE_SEARCH_ENGINE or MDBROWSE_SEARCH_URL)",
@@ -723,12 +724,16 @@ class Page:
 
 class Reader:
     def __init__(self, start_url: str, private: bool = False, width: int = 0,
-                 voice: str = None, announce: bool = False):
+                 voice: str = None, announce: bool = False,
+                 backend: str = "native", allow_external: bool = False):
         self.start_url = start_url
         self.private = private
         self.width = width          # goyo column override (0 = default 88)
         self.voice = voice
         self.announce = announce    # speak each element as focus lands on it
+        self.backend = backend
+        self.allow_external = allow_external
+        self._next_backend = None   # one-shot choice from the E confirmation
         self.engine = Engine(private=private)
         # Playwright's sync API is thread-bound: the engine may only be
         # touched from ONE thread for its whole life. A single-worker
@@ -767,20 +772,49 @@ class Reader:
             body = safari.page_markdown(url.split(":", 1)[1] or "start")
             page = Page(url=url, bundle=None, manifest=None, body=body)
         else:
-            b = self.engine.capture(url)
+            from .backends import (capture as capture_external, candidates,
+                                   offer_markdown)
+            chosen = self._next_backend
+            self._next_backend = None
+            if chosen is None and self.backend not in ("native", "auto"):
+                chosen = self.backend
+            if chosen:
+                b = capture_external(url, chosen)
+            else:
+                b = self.engine.capture(url)
             m = classify(b)
+            auto = self.backend == "auto" or self.allow_external
+            ready = ([] if self.private
+                     else candidates(url, installed_only=True))
+            if (not chosen and auto and m.shape in ("app", "wall") and ready):
+                native_shape = m.shape
+                try:
+                    b = capture_external(url, ready[0].name,
+                                         native_shape=native_shape)
+                    m = classify(b)
+                except Exception as e:
+                    b.setdefault("meta", {})["external_fallback_error"] = str(e)[:200]
             body = emit_body(b, m)
             if m.shape in ("app", "wall"):
                 # The classified refusal must not be a dead end: the reader
                 # itself has the exits. (Frontend hint only — the emitted
                 # document, archives, and hashes stay untouched.)
+                backend_offer = "" if self.private else offer_markdown(url)
+                external_action = (
+                    "\n- press `E` — confirm a read-only authenticated backend retry"
+                    if ready else
+                    "\n- run `mdb setup backends` — see optional authenticated backends"
+                    if backend_offer else "")
                 body += (
                     "\n\n---\n\n"
                     "**From here you can:**\n\n"
                     "- press `O` — open this page in your browser\n"
                     "- press `:` and type search terms — search the web\n"
                     "- press `H` — go back"
+                    f"{external_action}"
                 )
+                if backend_offer:
+                    body += f"\n\n{backend_offer}"
             page = Page(url=b["meta"]["url"], bundle=b, manifest=m, body=body)
         page.llines, page.focusables = parse_body(body, page.bundle)
         return page
@@ -894,6 +928,8 @@ class Reader:
             elif action == "forward":
                 self.history.append(current)
                 current = self.forward.pop()
+            elif action == "external":
+                self._next_backend = target
             # "reload": fall through with same URL
 
     def _view(self, scr):
@@ -1201,6 +1237,23 @@ class Reader:
                 self.msg = (f"opened in {app}" if app
                             else "couldn't open a browser")
                 continue
+            if c == ord("E"):
+                from .backends import candidates
+                if self.private:
+                    self.msg = "authenticated backends are disabled in private mode"
+                    continue
+                ready = candidates(page.url, installed_only=True)
+                if not ready:
+                    self.msg = "no installed backend covers this page; run mdb setup backends"
+                    continue
+                chosen = ready[0]
+                answer = self._prompt(
+                    scr, h, w,
+                    f"Use {chosen.name} ({chosen.description})? [y/N] ")
+                if answer.strip().lower() in ("y", "yes"):
+                    return ("external", chosen.name)
+                self.msg = "external retry cancelled"
+                continue
             if c == ord("f"):                # fill the page's GET form
                 forms = [b for b in (page.bundle["doc"].get("blocks", [])
                                      if page.bundle else [])
@@ -1470,6 +1523,8 @@ class Reader:
 
 
 def browse(url: str, private: bool = False, width: int = 0,
-           voice: str = None, announce: bool = False) -> None:
+           voice: str = None, announce: bool = False,
+           backend: str = "native", allow_external: bool = False) -> None:
     Reader(url, private=private, width=width,
-           voice=voice, announce=announce).run()
+           voice=voice, announce=announce, backend=backend,
+           allow_external=allow_external).run()

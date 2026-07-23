@@ -83,6 +83,14 @@ def classify(bundle: dict) -> Manifest:
         "anchors": doc.get("anchors", 0),
     }
 
+    # A successful external adapter is already a classified substrate: its
+    # process exit, structured parse, and non-empty output were validated
+    # before this bundle existed. Browser wall heuristics (few characters,
+    # few controls) do not apply to a concise API result.
+    if bundle.get("meta", {}).get("backend") and blocks:
+        signals["backend"] = bundle["meta"]["backend"]
+        return Manifest("page", 0.8, signals)
+
     # Wall: a verification interstitial, or nothing rendered at all. A
     # silent one-line ghost is a lie; say what happened. A Cloudflare
     # "Just a moment…" that never cleared (walker.challenge) is a wall

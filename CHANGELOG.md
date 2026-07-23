@@ -2,6 +2,29 @@
 
 All notable changes to mdbrowse. Newest first.
 
+## Unreleased
+
+### Optional authenticated backends
+
+mdb remains native-first, but a page classified as a wall or application
+shell can now be retried through separately installed OpenCLI or twitter-cli
+adapters. The reader exposes an `E` confirmation action; CLI and MCP callers
+can select a named backend or explicitly permit fallback. External results
+return through the normal bundle/compiler path with backend and fallback
+provenance. `--private` cannot cross this authenticated boundary.
+
+`mdb setup backends` reports binary availability and gives installation,
+health-check, and security guidance. Supported routes and trust boundaries
+are documented in `docs/gated-sites.md`.
+
+### Image capture correctness
+
+Blocked image payloads now receive a tiny successful GIF response instead of
+an aborted request. This prevents site `onerror` handlers from replacing the
+authored image URL with a generic fallback, while retaining byte-saving
+behavior and emitting stub/fallback counters as telemetry. Daemon restart
+readiness also verifies the new code generation before accepting captures.
+
 ## 2026-07-18 — 2.0.1: one playwright per worker thread
 
 Found in the wild minutes after 2.0.0 shipped: a cookied fetch after a

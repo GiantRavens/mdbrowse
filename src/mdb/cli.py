@@ -163,6 +163,9 @@ def main() -> None:
     if len(sys.argv) > 1 and sys.argv[1] == "doctor":
         from .doctor import doctor_cli
         sys.exit(doctor_cli(sys.argv[2:]))
+    if len(sys.argv) > 1 and sys.argv[1] == "setup":
+        from .backends import setup_cli
+        sys.exit(setup_cli(sys.argv[2:]))
     if len(sys.argv) > 2 and sys.argv[1] == "feed":
         sys.argv = [sys.argv[0], "feed:" + sys.argv[2]] + sys.argv[3:]
     search_commands = ("ddg", "ddg-html", "mojeek", "search")
@@ -225,6 +228,16 @@ def main() -> None:
                     help="if headless capture returns an explicit "
                          "access-denied wall, retry once through a visible "
                          "browser window")
+    ap.add_argument("--backend",
+                    choices=["native", "auto", "opencli", "twitter-cli"],
+                    default="native",
+                    help="capture backend: native (default); auto retries a "
+                         "classified wall through an installed authenticated "
+                         "backend; named backends are explicit")
+    ap.add_argument("--allow-external-fallback", action="store_true",
+                    help="after a classified wall/app result, allow one "
+                         "read-only retry through the preferred installed "
+                         "external backend")
     ap.add_argument("--raw", action="store_true",
                     help="print the full markdown document (front-matter + body)")
     ap.add_argument("--dump", choices=["bundle", "manifest", "body"],
@@ -243,6 +256,10 @@ def main() -> None:
                     version=f"mdb {EXTRACTOR_VERSION}")
     args = ap.parse_args()
     args.url = " ".join(args.url).strip() if args.url else None
+    if args.private and (args.backend != "native"
+                         or args.allow_external_fallback):
+        ap.error("--private cannot be combined with an authenticated external "
+                 "backend or fallback")
 
     if args.selftest:
         sys.exit(selftest(update=args.update_goldens))
@@ -294,15 +311,25 @@ def main() -> None:
     if want_browse:
         from .reader import browse
         browse(url, private=args.private, width=args.width,
-               voice=args.voice, announce=args.announce)
+               voice=args.voice, announce=args.announce,
+               backend=args.backend,
+               allow_external=args.allow_external_fallback)
         return
 
-    try:
-        b = capture(url, private=args.private, wait_selector=args.wait,
-                    headed=args.headed)
-    except Exception as e:
-        _err(f"could not capture {url}: {e}")
-        sys.exit(1)
+    if args.backend not in ("native", "auto"):
+        from .backends import capture as capture_external
+        try:
+            b = capture_external(url, args.backend)
+        except Exception as e:
+            _err(f"external capture failed for {url}: {e}")
+            sys.exit(1)
+    else:
+        try:
+            b = capture(url, private=args.private, wait_selector=args.wait,
+                        headed=args.headed)
+        except Exception as e:
+            _err(f"could not capture {url}: {e}")
+            sys.exit(1)
 
     manifest = classify(b)
     if (_should_retry_headed(manifest) and not args.headed
@@ -320,6 +347,31 @@ def main() -> None:
         except Exception as e:
             _err(f"headed fallback failed for {url}: {e}")
             sys.exit(1)
+
+    if (manifest.shape in ("wall", "app")
+            and args.backend in ("native", "auto")):
+        from .backends import (capture as capture_external, candidates,
+                               offer_markdown)
+        ready = candidates(url, installed_only=True)
+        fallback_allowed = (args.backend == "auto"
+                            or args.allow_external_fallback)
+        if ready and fallback_allowed:
+            chosen = ready[0].name
+            print(f"mdb: native capture classified {manifest.shape}; "
+                  f"retrying read-only through {chosen}", file=sys.stderr)
+            try:
+                b = capture_external(url, chosen,
+                                     native_shape=manifest.shape)
+                manifest = classify(b)
+            except Exception as e:
+                _err(f"{chosen} fallback failed: {e}")
+                sys.exit(1)
+        elif offer_markdown(url):
+            names = ", ".join(spec.name for spec in candidates(url))
+            print(f"mdb: native capture classified {manifest.shape}; "
+                  f"optional backend available: {names}. "
+                  "Use --backend NAME or --allow-external-fallback.",
+                  file=sys.stderr)
 
     if args.dump == "bundle":
         json.dump(b, sys.stdout, ensure_ascii=False, indent=1)

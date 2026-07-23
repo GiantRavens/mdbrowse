@@ -97,6 +97,25 @@ The project `.venv` is host-local. Not mandatory either: any Python
 3.11+ environment works if you install mdb into it and give that same
 environment a Chromium.
 
+### Optional authenticated backends
+
+mdb always tries its native browser/compiler first. On a covered X or Reddit
+URL that classifies as a login wall or application shell, the terminal reader
+offers an `E` action to confirm a read-only retry through an installed
+authenticated backend. Nothing is installed or invoked silently.
+
+```bash
+mdb setup backends                         # detect tools + show installation/security notes
+mdb <x-status-url> --backend opencli       # explicitly use logged-in Chrome
+mdb <x-status-url> --backend twitter-cli   # explicitly use X's structured API adapter
+mdb <url> --allow-external-fallback        # native first; retry only after wall/app classification
+```
+
+OpenCLI and twitter-cli are separate, optional upstream projects. OpenCLI
+requires its Chrome Browser Bridge extension and local daemon; twitter-cli
+extracts X cookies and calls unofficial private APIs. See
+[Authenticated and gated sites](docs/gated-sites.md) before enabling either.
+
 ## Getting Started
 
 This section assumes you are comfortable copying commands into Terminal,
@@ -358,6 +377,10 @@ mdb <url> --raw                      # markdown document with front-matter
 mdb <url> --save                     # archive to the mdbrowse app-data dir
 mdb <url> --headed                   # visible real-Chrome window; verification walls (wall shape) trust it
 mdb <url> --fallback-headed          # retry headed only after an explicit access-denied wall
+mdb <url> --backend opencli          # explicit authenticated Chrome backend (optional install)
+mdb <url> --backend twitter-cli      # explicit structured X backend (optional install)
+mdb <url> --allow-external-fallback  # native first; authenticated retry only after wall/app
+mdb setup backends                   # backend status, installation, and security notes
 mdb <url> --speak                    # the page talks (macOS say; --voice, MDBROWSE_VOICE)
 mdb <url> --speak-out article.aiff   # page as an audio file
 mdb search rust atomics              # web search (DuckDuckGo; MDBROWSE_SEARCH_ENGINE/URL overrides)

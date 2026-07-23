@@ -338,6 +338,10 @@ def emit(bundle: dict, manifest) -> str:
         front["image_requests_stubbed"] = meta["image_requests_stubbed"]
     if meta.get("fallback_image_urls"):
         front["fallback_image_urls"] = meta["fallback_image_urls"]
+    if meta.get("backend"):
+        front["backend"] = meta["backend"]
+    if meta.get("fallback_reason"):
+        front["fallback_reason"] = meta["fallback_reason"]
     pagination = doc.get("pagination") or {}
     if pagination.get("next"):
         front["pagination_next"] = pagination["next"]["href"]

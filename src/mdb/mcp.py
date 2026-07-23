@@ -30,7 +30,7 @@ mcp = FastMCP("mdbrowse")
 _CACHE_TTL = 60.0          # seconds; just long enough to share one capture
 
 _worker = EngineWorker()   # shared thread-owns-Playwright pattern (capture.py)
-_cache = {}          # (url, private) -> (timestamp, bundle)
+_cache = {}          # (url, private, backend) -> (timestamp, bundle)
 _cache_lock = threading.Lock()
 
 
@@ -41,15 +41,20 @@ def _normalize(url: str) -> str:
     return url
 
 
-def _get_bundle(url: str, private: bool, wait: str | None = None) -> dict:
+def _get_bundle(url: str, private: bool, wait: str | None = None,
+                backend: str = "native") -> dict:
     url = _normalize(url)
-    key = (url, private)
+    key = (url, private, backend)
     now = time.monotonic()
     with _cache_lock:
         hit = _cache.get(key)
         if hit and now - hit[0] < _CACHE_TTL:
             return hit[1]
-    bundle = _worker.capture(url, private, wait)
+    if backend == "native":
+        bundle = _worker.capture(url, private, wait)
+    else:
+        from .backends import capture as capture_external
+        bundle = capture_external(url, backend)
     with _cache_lock:
         _cache[key] = (time.monotonic(), bundle)
         if len(_cache) > 16:
@@ -80,13 +85,41 @@ def _wayback_snapshot(url: str) -> str | None:
 
 
 def _emit_doc(url: str, private: bool, wait: str | None,
-              max_chars: int, start_char: int) -> str:
-    bundle = _get_bundle(url, private, wait)
+              max_chars: int, start_char: int, backend: str = "native",
+              allow_external_fallback: bool = False) -> str:
+    if backend not in ("native", "auto", "opencli", "twitter-cli"):
+        raise ValueError("backend must be native, auto, opencli, or twitter-cli")
+    if private and (backend != "native" or allow_external_fallback):
+        raise ValueError("private capture cannot use an authenticated external backend")
+    requested = "native" if backend == "auto" else backend
+    bundle = _get_bundle(url, private, wait, requested)
     manifest = classify(bundle)
     note = ""
+    from .backends import (capture as capture_external, candidates,
+                           offer_markdown, should_offer)
+    ready = candidates(url, installed_only=True)
+    if (requested == "native" and manifest.shape in ("wall", "app")
+            and ready and (backend == "auto" or allow_external_fallback)):
+        chosen = ready[0].name
+        bundle = capture_external(url, chosen, native_shape=manifest.shape)
+        manifest = classify(bundle)
+        note = (f"> _Native capture was classified `{bundle['meta'].get('fallback_reason')}`; "
+                f"retried read-only through `{chosen}`._\n\n")
+    elif not private and requested == "native" and should_offer(url, manifest):
+        supported = candidates(url)
+        choices = " or ".join(
+            f'`backend="{spec.name}"`' for spec in supported)
+        note = (
+            "> _This covered page was gated in native capture. External authenticated "
+            "access requires confirmation: call `fetch_page` again with "
+            f"{choices}, or set "
+            "`allow_external_fallback=true`._\n\n"
+            + offer_markdown(url) + "\n\n"
+        )
     # WALL -> WAYBACK: a live page that bot-walls (or is IP-blocked) is often archived and
     # served freely by the Wayback Machine. Auto-fall back to the snapshot rather than fail.
-    if manifest.shape == "wall" and "web.archive.org" not in url:
+    if (manifest.shape == "wall" and not note
+            and "web.archive.org" not in url):
         snap = _wayback_snapshot(url)
         if snap:
             b2 = _get_bundle(snap, private, wait)
@@ -110,7 +143,9 @@ def _emit_doc(url: str, private: bool, wait: str | None,
 
 @mcp.tool()
 def fetch_page(url: str, private: bool = False, wait_selector: str = "",
-               max_chars: int = 80000, start_char: int = 0) -> str:
+               max_chars: int = 80000, start_char: int = 0,
+               backend: str = "native",
+               allow_external_fallback: bool = False) -> str:
     """Fetch a web page as clean, deterministic markdown with provenance.
 
     Renders the page in a headless browser (JS/SPA content included),
@@ -129,8 +164,14 @@ def fetch_page(url: str, private: bool = False, wait_selector: str = "",
 
     Long pages paginate: on truncation the tail says which start_char
     fetches the next slice (served from the capture cache, no re-render).
+
+    Optional authenticated backends are never used silently. If native
+    capture is gated on a covered URL, the result explains the available
+    choices. Repeat with backend="opencli" or backend="twitter-cli", or set
+    allow_external_fallback=true to permit the preferred installed backend.
     """
-    return _emit_doc(url, private, wait_selector or None, max_chars, start_char)
+    return _emit_doc(url, private, wait_selector or None, max_chars,
+                     start_char, backend, allow_external_fallback)
 
 
 @mcp.tool()
