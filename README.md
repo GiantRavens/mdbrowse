@@ -264,10 +264,17 @@ Search the web:
 ./mdb search "most useful open source intel tools"
 ```
 
-Save a page to your personal archive:
+Save a page as Markdown in Safari's download folder:
 
 ```bash
 ./mdb https://example.com --save
+./mdb https://example.com --save-to research/example.md
+```
+
+Add a page to mdb's searchable machine archive:
+
+```bash
+./mdb https://example.com --archive
 ```
 
 Watch a page for future changes:
@@ -288,7 +295,12 @@ Download a linked file:
 The project folder contains code. Generated user data goes somewhere
 more appropriate for your operating system.
 
-Saved pages and watch history default to:
+Explicitly saved pages and downloaded links go to Safari's configured
+download folder on macOS (normally `~/Downloads`). In the reader, `s`
+prompts for the page filename and `d` prompts for the download directory;
+press Return to accept the displayed default.
+
+The searchable agent archive and watch history remain application data:
 
 - macOS: `~/Library/Application Support/mdbrowse/archive`
   and `~/Library/Application Support/mdbrowse/watch`
@@ -297,7 +309,9 @@ Saved pages and watch history default to:
 - Windows: `%LOCALAPPDATA%\mdbrowse\archive`
   and `%LOCALAPPDATA%\mdbrowse\watch`
 
-Downloads go to `~/Downloads` unless you choose another location.
+`MDBROWSE_DOWNLOADS` overrides the default folder for both saved pages and
+downloaded links. `--save-to FILE` and `mdb get --out DIR` provide
+per-command destinations.
 
 Old folders named `~/mdbrowse-archive` or `~/mdbrowse-watch` are from
 older defaults. They are safe to move into the new app-data folders, or
@@ -324,8 +338,8 @@ Use private mode when you do not want Safari cookies sent:
 ./mdb https://example.com --private
 ```
 
-Saved archives are plain markdown files on your computer. Do not archive
-private pages unless you are comfortable storing their text locally.
+Saved pages and archives are plain Markdown files on your computer. Do not
+save private pages unless you are comfortable storing their text locally.
 
 ### If something goes wrong
 
@@ -382,7 +396,9 @@ mdb                                  # Safari start page (bookmarks, reading lis
 mdb news.ycombinator.com             # interactive reader (default in a terminal)
 mdb <url> --plain                    # non-interactive render (centered; --no-center)
 mdb <url> --raw                      # markdown document with front-matter
-mdb <url> --save                     # archive to the mdbrowse app-data dir
+mdb <url> --save                     # Markdown in Safari's download folder
+mdb <url> --save-to research/a.md    # Markdown at an explicit path
+mdb <url> --archive                  # searchable mdb application-data archive
 mdb <url> --headed                   # visible real-Chrome window; verification walls (wall shape) trust it
 mdb <url> --fallback-headed          # retry headed only after an explicit access-denied wall
 mdb <url> --backend opencli          # explicit authenticated Chrome backend (optional install)
@@ -406,8 +422,9 @@ Choose another built-in engine with `MDBROWSE_SEARCH_ENGINE=mojeek` or
 
 ### Data locations
 
-Archives and watch stores default to per-user application data, not the
-visible home directory:
+Human-directed page saves and downloads use Safari's configured Downloads
+folder (or `MDBROWSE_DOWNLOADS`). The searchable MCP archive and watch stores
+default to per-user application data:
 
 - macOS: `~/Library/Application Support/mdbrowse/{archive,watch}`
 - Linux/BSD: `${XDG_DATA_HOME:-~/.local/share}/mdbrowse/{archive,watch}`
@@ -457,7 +474,7 @@ field when you want typed characters to go there.
 | `.` / `,` | next / previous detected page |
 | `S` / `a` | summarize / ask this page (Claude); answers are pages, `H` returns |
 | `v` | speak from the focused element (`v` again stops; `--announce` speaks on focus) |
-| `s` · `B` · `O` | archive · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) |
+| `s` · `B` · `O` | Save As Markdown · add to Safari Reading List · open in browser (`MDBROWSE_BROWSER`) |
 | `:` | URL, `s terms`, `ddg terms`, `mojeek terms`, `safari:start`, `feed:URL` |
 | `?` · `q` | help overlay · quit |
 

@@ -24,6 +24,7 @@ from .capture import capture
 from .classify import classify
 from .emit import emit, emit_body
 from .render import render
+from .save import SAVE_DIR, save_page
 
 FIXTURE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__)))), "tests", "fixtures")
@@ -246,7 +247,11 @@ def main() -> None:
     ap.add_argument("--dump", choices=["bundle", "manifest", "body"],
                     help="print a pipeline intermediate and exit")
     ap.add_argument("--save", action="store_true",
-                    help=f"archive the document (to {ARCHIVE_DIR})")
+                    help=f"save Markdown to the download folder ({SAVE_DIR})")
+    ap.add_argument("--save-to", metavar="FILE",
+                    help="save Markdown to an explicit file")
+    ap.add_argument("--archive", action="store_true",
+                    help=f"add to the searchable archive ({ARCHIVE_DIR})")
     ap.add_argument("--fixture", metavar="NAME",
                     help="save capture bundle + golden body to tests/fixtures/")
     ap.add_argument("--selftest", action="store_true",
@@ -263,6 +268,8 @@ def main() -> None:
                          or args.allow_external_fallback):
         ap.error("--private cannot be combined with an authenticated external "
                  "backend or fallback")
+    if args.archive and (args.save or args.save_to):
+        ap.error("--archive cannot be combined with --save or --save-to")
 
     if args.selftest:
         sys.exit(selftest(update=args.update_goldens))
@@ -309,7 +316,8 @@ def main() -> None:
     # Piped output, --plain, and the non-view verbs use the render pipeline.
     want_browse = args.announce or args.browse or (
         interactive and not (args.plain or args.raw or args.dump
-                             or args.save or args.fixture
+                             or args.save or args.save_to or args.archive
+                             or args.fixture
                              or args.speak or args.speak_out))
     if want_browse:
         from .reader import browse
@@ -409,9 +417,16 @@ def main() -> None:
               f"confidence={manifest.confidence})")
         return
 
-    if args.save:
+    if args.save or args.save_to:
+        path = save_page(doc_md, b["doc"].get("title") or url, url,
+                         args.save_to)
+        print(f"mdb: saved page -> {path}")
+        if not args.raw:
+            return
+
+    if args.archive:
         path = save_archive(doc_md, b["doc"].get("title") or url, url)
-        print(f"mdb: saved archive -> {path}")
+        print(f"mdb: archived page -> {path}")
         if not args.raw:
             return
 

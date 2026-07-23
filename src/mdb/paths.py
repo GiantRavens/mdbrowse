@@ -5,7 +5,9 @@ while preserving explicit env var overrides for scripted workflows.
 """
 
 import os
+import subprocess
 import sys
+from urllib.parse import unquote, urlparse
 
 APP_NAME = "mdbrowse"
 
@@ -46,3 +48,38 @@ def data_path(name: str, env_var: str = None, env=None,
     if env_var and env.get(env_var):
         return os.path.expanduser(env[env_var])
     return os.path.join(app_data_dir(env=env, platform=platform), name)
+
+
+def downloads_dir(env=None, platform: str = None,
+                  safari_path: str = None) -> str:
+    """The user's visible download folder.
+
+    Precedence is explicit mdb override, Safari's configured download path
+    on macOS, then the platform-neutral ``~/Downloads`` convention.
+    ``safari_path`` is injectable so resolution stays cheap and testable.
+    """
+    env = os.environ if env is None else env
+    platform = sys.platform if platform is None else platform
+    home = _home(env)
+    if env.get("MDBROWSE_DOWNLOADS"):
+        path = env["MDBROWSE_DOWNLOADS"]
+    else:
+        path = safari_path or ""
+        if platform == "darwin" and safari_path is None:
+            try:
+                result = subprocess.run(
+                    ["defaults", "read", "com.apple.Safari", "DownloadsPath"],
+                    text=True, capture_output=True, timeout=1, check=False)
+                if result.returncode == 0:
+                    path = result.stdout.strip()
+            except (OSError, subprocess.SubprocessError):
+                pass
+        if path.startswith("file://"):
+            path = unquote(urlparse(path).path)
+        if not path:
+            path = os.path.join(home, "Downloads")
+    if path == "~":
+        return home
+    if path.startswith("~/"):
+        return os.path.join(home, path[2:])
+    return os.path.expanduser(path)

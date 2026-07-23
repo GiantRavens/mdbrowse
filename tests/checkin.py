@@ -180,7 +180,27 @@ def offline_gate() -> bool:
     ok = _image_stub_sanity() and ok
     ok = _daemon_generation_sanity() and ok
     ok = _x_engagement_sanity() and ok
+    ok = _save_destination_sanity() and ok
     return ok
+
+
+def _save_destination_sanity() -> bool:
+    """Human saves follow Safari; machine archives remain app data."""
+    from mdb.paths import downloads_dir
+    from mdb.save import suggested_page_path
+
+    folder = downloads_dir(
+        env={"HOME": "/Users/researcher"}, platform="darwin",
+        safari_path="~/Desktop/Research")
+    path = suggested_page_path(
+        "Evidence", "https://example.com/item", dest_dir=folder)
+    good = (folder == "/Users/researcher/Desktop/Research"
+            and path.startswith(folder + "/")
+            and path.endswith("-example-com-evidence.md"))
+    print("  research save: " + (
+        "OK (Safari folder → prompted Markdown export)"
+        if good else "FAIL save destination policy drifted"))
+    return good
 
 
 def _x_engagement_sanity() -> bool:

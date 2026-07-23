@@ -4,6 +4,15 @@ All notable changes to mdbrowse. Newest first.
 
 ## Unreleased
 
+### Research saves use the browser download workflow
+
+Reader `s` now prompts for a Markdown filename, and `d` prompts for a
+download directory; both default to Safari's configured download folder.
+CLI `--save` uses the same visible destination, while `--save-to FILE` and
+`mdb get --out DIR` provide explicit scripted paths. The searchable
+application-data preservation store remains available through MCP
+`archive_page` and the explicit CLI `--archive` option.
+
 ### Shell completions
 
 `mdb completion bash` and `mdb completion zsh` generate native completion

@@ -13,9 +13,9 @@ from urllib.parse import unquote, urlparse
 
 from . import cookies as safari_cookies
 from .capture import IPHONE_UA
+from .paths import downloads_dir
 
-DOWNLOAD_DIR = os.path.expanduser(
-    os.environ.get("MDBROWSE_DOWNLOADS", "~/Downloads"))
+DOWNLOAD_DIR = downloads_dir()
 
 # mimetypes.guess_extension has unhelpful favorites (.jpe, .htm)
 _EXT_OVERRIDES = {"image/jpeg": ".jpg", "text/html": ".html",

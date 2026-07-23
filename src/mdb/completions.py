@@ -21,7 +21,8 @@ ROOT_OPTIONS = (
     "--plain", "--no-center", "--speak", "--speak-out", "--voice",
     "--announce", "--private", "--anonymous", "--wait", "--headed",
     "--fallback-headed", "--backend", "--allow-external-fallback", "--raw",
-    "--dump", "--save", "--fixture", "--selftest", "--update-goldens",
+    "--dump", "--save", "--save-to", "--archive", "--fixture", "--selftest",
+    "--update-goldens",
     "--width", "--no-pager", "--version",
 )
 

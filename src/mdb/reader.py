@@ -28,10 +28,10 @@ from dataclasses import dataclass, field
 from urllib.parse import urlparse
 
 from . import cookies as safari_cookies
-from .archive import save_archive
 from .capture import Engine
 from .classify import classify
 from .emit import emit, emit_body
+from .save import save_page, suggested_page_path
 
 LINK, IMAGE, CARD, FORM = "link", "image", "card", "form"
 _FIELD_W = 28                      # underscore-run width of a form field (fixed → stable layout)
@@ -157,7 +157,7 @@ HELP_LINES = (
     "  Space            peek — preview/toggle focused image, else page down",
     "  y                yank focused URL to clipboard",
     "  u / Y            copy current URL to clipboard",
-    "  d                download the focused target",
+    "  d                download focused target (prompts for folder)",
     "  ( / )            previous / next heading",
     "  { / }            previous / next block",
     "  j k  C-d C-u     scroll line / half page",
@@ -167,7 +167,7 @@ HELP_LINES = (
     "  /  n  N          search, next match, previous match",
     "  H / L            history back / forward",
     "  r                reload page",
-    "  s                save markdown archive",
+    "  s                Save As markdown (defaults to Safari Downloads)",
     "  v                speak page from focused element (v again stops)",
     "  S / a            summarize / ask this page (Claude); H returns",
     "  F                open the page's RSS feed (when advertised)",
@@ -1196,12 +1196,20 @@ class Reader:
                     target = f.href or f.src
                 if c == ord("d"):
                     try:
-                        from .download import download
+                        from .download import DOWNLOAD_DIR, download
+                        home = os.path.expanduser("~")
+                        shown = (DOWNLOAD_DIR.replace(home, "~", 1)
+                                 if DOWNLOAD_DIR.startswith(home)
+                                 else DOWNLOAD_DIR)
+                        answer = self._prompt(
+                            scr, h, w,
+                            f"save in [{shown}] (blank accepts): ").strip()
                         self.msg = "downloading…"
                         # download may fall back to engine.fetch_resource
                         # (Playwright-bound); run on the engine thread.
                         path, size = self._exec.submit(
                             download, target, self.private, page.url,
+                            dest_dir=answer or DOWNLOAD_DIR,
                             engine=self.engine).result()
                         self.msg = f"saved → {path} ({max(1, size // 1024)} KB)"
                     except Exception as e:
@@ -1228,7 +1236,14 @@ class Reader:
                     try:
                         doc = emit(page.bundle, page.manifest)
                         title = page.bundle["doc"].get("title") or page.url
-                        self.msg = f"saved → {save_archive(doc, title, page.url)}"
+                        default = suggested_page_path(title, page.url)
+                        shown = default.replace(os.path.expanduser("~"), "~", 1)
+                        answer = self._prompt(
+                            scr, h, w,
+                            f"save as [{shown}] (blank accepts): ").strip()
+                        path = save_page(
+                            doc, title, page.url, answer or default)
+                        self.msg = f"saved → {path}"
                     except Exception as e:
                         self.msg = f"save failed: {e}"
                 continue
@@ -1510,10 +1525,16 @@ class Reader:
         curses.echo()
         curses.curs_set(1)
         try:
+            # Save paths can be long. Preserve their meaningful tail while
+            # reserving at least half the status row for editable input.
+            max_prefix = max(8, w // 2)
+            if len(prefix) > max_prefix:
+                prefix = "..." + prefix[-(max_prefix - 3):]
             scr.addstr(h - 1, 0, " " * (w - 1))
             scr.addstr(h - 1, 0, prefix)
             scr.refresh()
-            s = scr.getstr(h - 1, len(prefix), w - 2)
+            s = scr.getstr(
+                h - 1, len(prefix), max(1, w - len(prefix) - 2))
         except curses.error:
             s = b""
         finally:

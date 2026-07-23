@@ -4,7 +4,7 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from mdb.paths import app_data_dir, data_path
+from mdb.paths import app_data_dir, data_path, downloads_dir
 
 
 class PathsTest(unittest.TestCase):
@@ -36,6 +36,25 @@ class PathsTest(unittest.TestCase):
                         env={"MDBROWSE_ARCHIVE": "/tmp/archive"},
                         platform="linux")
         self.assertEqual(got, "/tmp/archive")
+
+    def test_macos_uses_safari_download_path(self):
+        got = downloads_dir(
+            env={"HOME": "/Users/alice"}, platform="darwin",
+            safari_path="~/Desktop/Research")
+        self.assertEqual(got, "/Users/alice/Desktop/Research")
+
+    def test_download_override_wins(self):
+        got = downloads_dir(
+            env={"HOME": "/Users/alice",
+                 "MDBROWSE_DOWNLOADS": "~/Files"},
+            platform="darwin", safari_path="/ignored")
+        self.assertEqual(got, "/Users/alice/Files")
+
+    def test_download_fallback_is_visible_downloads_folder(self):
+        got = downloads_dir(
+            env={"HOME": "/home/alice"}, platform="linux",
+            safari_path="")
+        self.assertEqual(got, "/home/alice/Downloads")
 
 
 if __name__ == "__main__":
