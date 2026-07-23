@@ -84,7 +84,7 @@ def ping(timeout: float = 0.5):
         return None
 
 
-def _spawn() -> bool:
+def _spawn(expected_stamp: int = None) -> bool:
     try:
         subprocess.Popen([sys.executable, "-m", "mdb.daemon"],
                          stdout=subprocess.DEVNULL,
@@ -94,7 +94,10 @@ def _spawn() -> bool:
         return False
     deadline = time.monotonic() + 6.0
     while time.monotonic() < deadline:
-        if ping(0.3):
+        generation = ping(0.3)
+        if generation and (
+                expected_stamp is None
+                or generation.get("stamp") == expected_stamp):
             return True
         time.sleep(0.15)
     return False
@@ -115,6 +118,51 @@ def _force_kill() -> None:
             os.unlink(path)
         except OSError:
             pass
+
+
+def _stop_and_wait(timeout: float = 6.0) -> bool:
+    """Stop the current generation and wait until its PID is truly gone.
+
+    A stop acknowledgement only means the server loop set `stopping=True`;
+    EngineWorker still has to close Chromium. Spawning during that window can
+    ping the old socket, mistake it for the new generation, and then return a
+    second stale bundle. Worse, the old process can unlink the new socket in
+    its finally block. PID exit is the generation boundary.
+    """
+    generation = ping(0.5)
+    if not generation:
+        return True
+    pid = generation.get("pid")
+    if not isinstance(pid, int):
+        return False
+    try:
+        _request({"op": "stop"}, 5.0)
+    except Exception:
+        try:
+            os.kill(pid, 9)
+        except OSError:
+            pass
+
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return True
+        time.sleep(0.05)
+
+    try:
+        os.kill(pid, 9)
+    except OSError:
+        return True
+    deadline = time.monotonic() + 2.0
+    while time.monotonic() < deadline:
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return True
+        time.sleep(0.05)
+    return False
 
 
 def capture_via_daemon(url: str, private: bool = False,
@@ -155,15 +203,16 @@ def capture_via_daemon(url: str, private: bool = False,
         served = bundle.get("meta", {}).get("extractor")
         stale = (served != EXTRACTOR_VERSION
                  or r.get("stamp") != _code_stamp())
-        if stale and not attempt:
-            print(f"mdb: daemon is stale (code moved under it); "
-                  f"restarting", file=sys.stderr)
-            try:
-                _request({"op": "stop"}, 5.0)
-            except Exception:
-                _force_kill()
-            if _spawn():
-                continue
+        if stale:
+            if not attempt:
+                print(f"mdb: daemon is stale (code moved under it); "
+                      f"restarting", file=sys.stderr)
+                expected = _code_stamp()
+                if _stop_and_wait() and _spawn(expected):
+                    continue
+            # Never serve a bundle known to come from the wrong generation.
+            # None makes capture() fall back to a fresh local Engine.
+            return None
         return bundle
     return None
 

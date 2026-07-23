@@ -334,6 +334,10 @@ def emit(bundle: dict, manifest) -> str:
     # the per-host policy dropped (promoted posts, ad slots).
     if meta.get("policy_killed"):
         front["policy_killed"] = meta["policy_killed"]
+    if meta.get("image_requests_stubbed"):
+        front["image_requests_stubbed"] = meta["image_requests_stubbed"]
+    if meta.get("fallback_image_urls"):
+        front["fallback_image_urls"] = meta["fallback_image_urls"]
     pagination = doc.get("pagination") or {}
     if pagination.get("next"):
         front["pagination_next"] = pagination["next"]["href"]

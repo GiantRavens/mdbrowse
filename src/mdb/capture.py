@@ -33,6 +33,39 @@ DESKTOP_UA = (
 )
 _PRIVACY_HEADERS = {"DNT": "1", "Sec-GPC": "1"}
 
+# A valid 1x1 transparent GIF keeps image loads successful without fetching
+# their payloads. Aborting them is observably different from a browser:
+# site onerror handlers (CNN's imageLoadError, for example) rewrite authored
+# URLs to generic fallbacks before the walker sees the DOM.
+_IMAGE_STUB_GIF = (
+    b"GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\xff\xff\xff"
+    b"!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00"
+    b"\x00\x02\x02D\x01\x00;"
+)
+_FALLBACK_IMAGE_TOKENS = (
+    "fallback-image", "image-fallback", "/fallback.", "/placeholder.",
+    "/placeholder-", "/default-image.",
+)
+
+
+def _fallback_image_urls(doc: dict) -> int:
+    """Count distinct captured URLs that advertise placeholder semantics.
+
+    This is telemetry, not a rejection rule: a non-zero result tells the
+    operator where to inspect without claiming the fallback was accidental.
+    """
+    urls = set()
+    for block in doc.get("blocks") or []:
+        candidates = list(block.get("images") or [])
+        if block.get("kind") == "img" and block.get("src"):
+            candidates.append(block["src"])
+        for url in candidates:
+            low = str(url).lower()
+            if any(token in low for token in _FALLBACK_IMAGE_TOKENS):
+                urls.add(str(url))
+    return len(urls)
+
+
 # Keep the projected identity internally consistent: hide the automation flag,
 # report Safari's vendor, iPhone-like touch points. Each guard defensive.
 _STEALTH_INIT_JS = """
@@ -496,6 +529,18 @@ class Engine:
         self._tcp_verdicts = {}     # (host, port) -> bool, per session
         self._resolver_rules = {}   # host -> ip, for --host-resolver-rules
         self._no_http2 = False      # sticky after an ERR_HTTP2_PROTOCOL_ERROR
+        self._image_requests_stubbed = 0
+
+    def _route_request(self, route, request):
+        """Apply resource policy while retaining a classified image count."""
+        rt = request.resource_type
+        if self._block_images and rt == "image":
+            self._image_requests_stubbed += 1
+            return route.fulfill(
+                status=200, content_type="image/gif", body=_IMAGE_STUB_GIF)
+        if _should_block(request.url, rt):
+            return route.abort()
+        return route.continue_()
 
     def _resolve_target(self, url: str) -> str:
         """Observe before navigating: a 3s resolver preflight instead of a
@@ -686,15 +731,7 @@ class Engine:
             except Exception as e:
                 print(f"mdb: could not seed Safari cookies: {e}", file=sys.stderr)
 
-        def _route(route, request):
-            rt = request.resource_type
-            if self._block_images and rt == "image":
-                return route.abort()
-            if _should_block(request.url, rt):
-                return route.abort()
-            return route.continue_()
-
-        self._context.route("**/*", _route)
+        self._context.route("**/*", self._route_request)
 
     def capture(self, url: str, wait_selector: str = None,
                 screenshot_path: str = None) -> dict:
@@ -725,6 +762,7 @@ class Engine:
 
         self._ensure()
         url = self._resolve_target(url)
+        self._image_requests_stubbed = 0
         page = self._context.new_page()
         budget_ms = int(self._timeout * 1000)
         wd_budget = self._timeout + 15          # page budget + settle slack
@@ -811,6 +849,8 @@ class Engine:
                     "extractor": EXTRACTOR_VERSION,
                     "elapsed_ms": int((time.monotonic() - t0) * 1000),
                     "policy_killed": doc.get("policyKilled", 0),
+                    "image_requests_stubbed": self._image_requests_stubbed,
+                    "fallback_image_urls": _fallback_image_urls(doc),
                 },
                 "doc": doc,
             }
@@ -845,6 +885,7 @@ class Engine:
         boxes not wrapped in a <form>. The OBSERVE step before submit_form."""
         self._ensure()
         url = self._resolve_target(url)
+        self._image_requests_stubbed = 0
         page = self._context.new_page()
         budget_ms = int(self._timeout * 1000)
         try:
@@ -952,6 +993,7 @@ class Engine:
         last field gets Enter). Rides the session, so logged-in/site-search forms work."""
         self._ensure()
         url = self._resolve_target(url)
+        self._image_requests_stubbed = 0
         page = self._context.new_page()
         budget_ms = int(self._timeout * 1000)
         t0 = time.monotonic()
@@ -978,6 +1020,8 @@ class Engine:
                     "extractor": EXTRACTOR_VERSION,
                     "elapsed_ms": int((time.monotonic() - t0) * 1000),
                     "policy_killed": doc.get("policyKilled", 0),
+                    "image_requests_stubbed": self._image_requests_stubbed,
+                    "fallback_image_urls": _fallback_image_urls(doc),
                     "submitted": {"fields": list((fields or {}).keys()),
                                   "final_url": page.url},
                 },

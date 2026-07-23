@@ -177,7 +177,99 @@ def offline_gate() -> bool:
     ok = _policy_sanity() and ok
     ok = _pagination_sanity() and ok
     ok = _preview_focus_sanity() and ok
+    ok = _image_stub_sanity() and ok
+    ok = _daemon_generation_sanity() and ok
     return ok
+
+
+def _daemon_generation_sanity() -> bool:
+    """Spawn readiness must identify the new code generation, not any ping."""
+    from unittest.mock import patch
+    from mdb import daemon
+
+    stale = {"pid": 10, "stamp": 100}
+    fresh = {"pid": 11, "stamp": 200}
+    with patch.object(daemon.subprocess, "Popen"), \
+            patch.object(daemon, "ping", side_effect=[stale, fresh]) as probe, \
+            patch.object(daemon.time, "sleep"):
+        good = daemon._spawn(expected_stamp=200)
+    good = good and probe.call_count == 2
+    print("  daemon generation: " + (
+        "OK (stale ping rejected, fresh stamp accepted)"
+        if good else "FAIL spawn accepted the wrong daemon generation"))
+    return good
+
+
+def _image_stub_sanity() -> bool:
+    """Blocked images must succeed cheaply, never enter a site's onerror path."""
+    from mdb.capture import Engine, _IMAGE_STUB_GIF, _fallback_image_urls
+
+    class Request:
+        resource_type = "image"
+        url = "https://fixture.invalid/original.jpg"
+
+    class Route:
+        fulfilled = None
+        aborted = continued = False
+
+        def fulfill(self, **kwargs):
+            self.fulfilled = kwargs
+
+        def abort(self):
+            self.aborted = True
+
+        def continue_(self):
+            self.continued = True
+
+    engine, route = Engine(), Route()
+    engine._route_request(route, Request())
+    fallback_doc = {
+        "blocks": [{"images": [
+            "https://fixture.invalid/cnn-fallback-image.jpg",
+            "https://fixture.invalid/cnn-fallback-image.jpg",
+        ]}]
+    }
+    good = (route.fulfilled is not None
+            and route.fulfilled.get("content_type") == "image/gif"
+            and route.fulfilled.get("body") == _IMAGE_STUB_GIF
+            and not route.aborted and not route.continued
+            and engine._image_requests_stubbed == 1
+            and _fallback_image_urls(fallback_doc) == 1)
+    print("  image stub: " + (
+        "OK (valid response + counters)"
+        if good else "FAIL image blocking can still trigger onerror"))
+    return good
+
+
+def _image_stub_browser_sanity(engine) -> list:
+    """Browser-level proof that a failed-image fallback is not activated."""
+    from urllib.parse import quote
+
+    original = "https://fixture.invalid/original.jpg"
+    fallback = "https://fixture.invalid/fallback-image.jpg"
+    html = (
+        "<title>image stub</title><main>"
+        f"<img src='{original}' alt='original asset' width='320' height='200' "
+        f"onerror=\"this.src='{fallback}'\">"
+        "<p>Image source must survive capture.</p></main>"
+    )
+    bundle = engine.capture("data:text/html," + quote(html))
+    urls = {
+        url
+        for block in bundle["doc"].get("blocks") or []
+        for url in block.get("images") or []
+    }
+    meta = bundle["meta"]
+    failures = []
+    if original not in urls or fallback in urls:
+        failures.append("onerror fallback rewrote authored image URL")
+    if meta.get("image_requests_stubbed") != 1:
+        failures.append(
+            f"stub telemetry={meta.get('image_requests_stubbed')!r}, wanted 1")
+    if meta.get("fallback_image_urls") != 0:
+        failures.append(
+            f"fallback telemetry={meta.get('fallback_image_urls')!r}, wanted 0")
+    return failures
 
 
 def _pagination_sanity() -> bool:
@@ -252,6 +344,12 @@ def live_sweep(pick: list) -> bool:
     failures = 0
     baseline = _load_baseline()
     with Engine() as eng:
+        stub_fails = _image_stub_browser_sanity(eng)
+        if stub_fails:
+            failures += 1
+            print(f"  image-stub FAIL {'; '.join(stub_fails)}")
+        else:
+            print("  image-stub ok   original URL survived blocked payload")
         for site in sites:
             t0 = time.time()
             try:
