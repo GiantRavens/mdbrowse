@@ -4,6 +4,13 @@ All notable changes to mdbrowse. Newest first.
 
 ## Unreleased
 
+### Compact X engagement rows
+
+Native X timeline captures now present reply, repost, like, bookmark, and
+view counts on one labeled metadata row, matching the compact structure of
+the web feed. Sparse action rows remain sparse, analytics links are
+preserved, and capture telemetry reports how many rows were compacted.
+
 ### Optional authenticated backends
 
 mdb remains native-first, but a page classified as a wall or application

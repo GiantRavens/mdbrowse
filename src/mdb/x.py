@@ -28,6 +28,17 @@ from . import EXTRACTOR_VERSION
 _SYND = "https://cdn.syndication.twimg.com/tweet-result?id={id}&token=a"
 _X_HOSTS = ("x.com", "twitter.com", "mobile.twitter.com", "mobile.x.com")
 _STATUS_RE = re.compile(r"/(?:[^/]+/status(?:es)?|i/web/status)/(\d+)")
+_ENGAGEMENT_ACTIONS = {
+    "reply": "Replies",
+    "retweet": "Reposts",
+    "unretweet": "Reposts",
+    "like": "Likes",
+    "unlike": "Likes",
+    "bookmark": "Bookmarks",
+    "removeBookmark": "Bookmarks",
+}
+_COUNT_RE = re.compile(r"^(?:\d[\d,.]*|\d+(?:\.\d+)?[KMB])$", re.I)
+_ANALYTICS_RE = re.compile(r"/status/\d+/analytics(?:[?#]|$)")
 
 
 def is_x_status(url: str) -> str | None:
@@ -40,6 +51,93 @@ def is_x_status(url: str) -> str | None:
         return None
     m = _STATUS_RE.search(p.path)
     return m.group(1) if m else None
+
+
+def _is_x_url(url: str) -> bool:
+    p = urlparse(url)
+    host = (p.hostname or "").lower()
+    return (host in _X_HOSTS or host.endswith(".x.com")
+            or host.endswith(".twitter.com"))
+
+
+def _engagement_metric(block: dict) -> tuple[str, str] | None:
+    """(label, rendered count) for one captured X action control."""
+    md = (block.get("md") or "").strip()
+    action = block.get("uiAction")
+    if action in _ENGAGEMENT_ACTIONS and _COUNT_RE.fullmatch(md):
+        return _ENGAGEMENT_ACTIONS[action], md
+    links = block.get("links") or []
+    if len(links) == 1 and _ANALYTICS_RE.search(links[0].get("href") or ""):
+        text = (links[0].get("text") or "").strip()
+        if _COUNT_RE.fullmatch(text):
+            return "Views", md
+    return None
+
+
+def compact_engagement_rows(doc: dict, url: str) -> int:
+    """Collapse each horizontal X action row into one labeled metadata line.
+
+    X's web presentation is already compact: reply, repost, like, and view
+    counts share one row. The generic walker correctly emits their visible
+    text as separate blocks, while ``uiAction`` preserves the SVG-carried
+    nouns. Recombine only consecutive controls on the same rendered row;
+    unrelated numbers and non-X pages are untouched.
+    """
+    if not _is_x_url(url):
+        return 0
+    blocks = doc.get("blocks") or []
+    out, compacted = [], 0
+    i = 0
+    while i < len(blocks):
+        first = _engagement_metric(blocks[i])
+        if not first:
+            out.append(blocks[i])
+            i += 1
+            continue
+        row = [blocks[i]]
+        y = (blocks[i].get("bbox") or [0, 0])[1]
+        j = i + 1
+        while j < len(blocks):
+            candidate = _engagement_metric(blocks[j])
+            cy = (blocks[j].get("bbox") or [0, 0])[1]
+            if (not candidate or blocks[j].get("landmark") !=
+                    blocks[i].get("landmark") or abs(cy - y) > 3):
+                break
+            row.append(blocks[j])
+            j += 1
+
+        metrics = [_engagement_metric(block) for block in row]
+        # A single explicit Views link is still worth labeling; a lone
+        # action count lacks enough surrounding evidence to rewrite safely.
+        if len(row) < 2 and metrics[0][0] != "Views":
+            out.append(blocks[i])
+            i += 1
+            continue
+        bbox = [block.get("bbox") or [0, 0, 0, 0] for block in row]
+        left = min(box[0] for box in bbox)
+        top = min(box[1] for box in bbox)
+        right = max(box[0] + box[2] for box in bbox)
+        bottom = max(box[1] + box[3] for box in bbox)
+        links = [link for block in row for link in block.get("links") or []]
+        out.append({
+            "landmark": row[0].get("landmark", "main"),
+            "bbox": [left, top, right - left, bottom - top],
+            "fontSize": row[0].get("fontSize", 0),
+            "bold": False,
+            "kind": "p",
+            "md": "_" + " · ".join(
+                f"{label} {count}" for label, count in metrics) + "_",
+            "links": links,
+            "images": [],
+            "xEngagement": {label.lower(): count
+                            for label, count in metrics},
+        })
+        compacted += 1
+        i = j
+    if compacted:
+        doc["blocks"] = out
+        doc["xEngagementRows"] = compacted
+    return compacted
 
 
 def _date(iso: str) -> str:

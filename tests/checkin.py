@@ -179,7 +179,43 @@ def offline_gate() -> bool:
     ok = _preview_focus_sanity() and ok
     ok = _image_stub_sanity() and ok
     ok = _daemon_generation_sanity() and ok
+    ok = _x_engagement_sanity() and ok
     return ok
+
+
+def _x_engagement_sanity() -> bool:
+    """X's icon-led action counts must become one labeled visual row."""
+    from mdb.x import compact_engagement_rows
+
+    blocks = []
+    for x, action, count in (
+            (366, "reply", "47"),
+            (483, "retweet", "34"),
+            (601, "like", "481")):
+        blocks.append({
+            "landmark": "main", "bbox": [x, 734, 24, 20],
+            "fontSize": 15, "bold": False, "kind": "p", "md": count,
+            "links": [], "images": [], "uiAction": action,
+        })
+    blocks.append({
+        "landmark": "main", "bbox": [718, 734, 41, 20],
+        "fontSize": 15, "bold": False, "kind": "p",
+        "md": "[248K](https://x.com/a/status/1/analytics)",
+        "links": [{"text": "248K",
+                   "href": "https://x.com/a/status/1/analytics"}],
+        "images": [],
+    })
+    doc = {"blocks": blocks}
+    count = compact_engagement_rows(doc, "https://x.com/home")
+    wanted = ("_Replies 47 · Reposts 34 · Likes 481 · "
+              "Views [248K](https://x.com/a/status/1/analytics)_")
+    good = (count == 1 and len(doc["blocks"]) == 1
+            and doc["blocks"][0]["md"] == wanted
+            and doc.get("xEngagementRows") == 1)
+    print("  x engagement: " + (
+        "OK (four controls → one labeled row)"
+        if good else "FAIL engagement controls stayed fragmented"))
+    return good
 
 
 def _daemon_generation_sanity() -> bool:

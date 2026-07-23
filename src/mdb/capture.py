@@ -834,6 +834,9 @@ class Engine:
             from .policy import kill_selectors
             doc = page.evaluate(_walker_source(),
                                 kill_selectors(urlparse(page.url).hostname))
+            from .x import compact_engagement_rows
+            x_engagement_rows = compact_engagement_rows(
+                doc, doc.get("url") or page.url)
             if screenshot_path:
                 try:
                     page.screenshot(path=screenshot_path, full_page=True)
@@ -851,6 +854,7 @@ class Engine:
                     "policy_killed": doc.get("policyKilled", 0),
                     "image_requests_stubbed": self._image_requests_stubbed,
                     "fallback_image_urls": _fallback_image_urls(doc),
+                    "x_engagement_rows": x_engagement_rows,
                 },
                 "doc": doc,
             }

@@ -236,6 +236,18 @@
       fontSize: st ? parseFloat(st.fontSize) || 0 : 0,
       bold: st ? (parseInt(st.fontWeight, 10) || 400) >= 600 : false,
     }, extra);
+    // Preserve the semantic noun for icon-led engagement controls. X paints
+    // Reply/Repost/Like as SVGs and leaves only the count as text; dropping
+    // SVG is still correct, but without this tiny control hint downstream
+    // sees four unlabeled numbers. The value is metadata, never emitted
+    // directly, and applies only to known read-only engagement controls.
+    const action = el.closest(
+      '[data-testid="reply"],[data-testid="retweet"],'
+      + '[data-testid="unretweet"],[data-testid="like"],'
+      + '[data-testid="unlike"],[data-testid="bookmark"],'
+      + '[data-testid="removeBookmark"]'
+    );
+    if (action) b.uiAction = action.getAttribute("data-testid");
     // Anchor inheritance for blocks that carry text but no links. Two card
     // patterns produce them: (1) a block-level <a> wrapping divs — the walker
     // recurses *through* it, so look up via closest(); (2) the stretched-link

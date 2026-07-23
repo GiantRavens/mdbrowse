@@ -342,6 +342,8 @@ def emit(bundle: dict, manifest) -> str:
         front["backend"] = meta["backend"]
     if meta.get("fallback_reason"):
         front["fallback_reason"] = meta["fallback_reason"]
+    if meta.get("x_engagement_rows"):
+        front["x_engagement_rows"] = meta["x_engagement_rows"]
     pagination = doc.get("pagination") or {}
     if pagination.get("next"):
         front["pagination_next"] = pagination["next"]["href"]
