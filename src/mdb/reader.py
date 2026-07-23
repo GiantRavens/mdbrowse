@@ -861,6 +861,21 @@ class Reader:
 
     # -- curses main --
     def run(self):
+        # SIGTERM/SIGHUP have no Python handler by default, so a kill (or a
+        # wedged engine being put down) skips endwin and leaves the tty in
+        # program mode (-onlcr) — every later \n staircases, and ssh forwards
+        # the broken modes to any remote host's pty. Raising SystemExit routes
+        # these through the same finally/endwin path as a clean quit.
+        import signal
+
+        def _die(signum, frame):
+            raise SystemExit(128 + signum)
+
+        for sig in (signal.SIGTERM, signal.SIGHUP):
+            try:
+                signal.signal(sig, _die)
+            except (ValueError, OSError):
+                pass   # non-main thread or unsupported — keep default
         try:
             curses.wrapper(self._run)
         finally:
