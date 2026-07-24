@@ -5,4 +5,5 @@ __pycache__/
 mdbrowse_*.html
 tasks/
 .punchlist/
+.serena/
 *.sync-conflict-*
