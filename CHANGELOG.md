@@ -4,6 +4,8 @@ All notable changes to mdbrowse. Newest first.
 
 ## Unreleased
 
+## 2026-07-24 — 2.1.0: authenticated backends, completions, and research saves
+
 ### Homebrew Core-ready dependency packaging
 
 The tap formula now declares the complete recursive Python runtime graph as
@@ -57,6 +59,12 @@ an aborted request. This prevents site `onerror` handlers from replacing the
 authored image URL with a generic fallback, while retaining byte-saving
 behavior and emitting stub/fallback counters as telemetry. Daemon restart
 readiness also verifies the new code generation before accepting captures.
+
+### Live-DOM resilience
+
+The walker now classifies a transiently absent document body as an empty
+capture instead of raising a JavaScript `TypeError` while a page replaces its
+live DOM.
 
 ## 2026-07-18 — 2.0.1: one playwright per worker thread
 

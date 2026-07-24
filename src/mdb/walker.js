@@ -299,6 +299,10 @@
   }
 
   function visit(el) {
+    // The live DOM can replace <body> between settle and evaluation. Treat a
+    // transiently absent root as an empty capture so classification can report
+    // the thin result instead of leaking a JavaScript TypeError.
+    if (!el || el.nodeType !== Node.ELEMENT_NODE) return;
     const tag = el.tagName.toUpperCase();   // SVG tags report lowercase
     if (KILL.has(tag)) return;
     if (policyKill(el)) return;
